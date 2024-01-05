@@ -163,13 +163,13 @@ class Plan2D<T> {
   void setSource(Source v) => source = v;
 
   void setBackground(Background v) {
-    final (path, image) = loadImage(v.path);
+    final (:path, :image) = loadImage(v.path);
     this.background = Background(path, image);
   }
 
   Future<void> addImagery(Imagery v) async {
     final vpath = p.join(v.path, Background.defaultFilename);
-    final (path, image) = loadImage(vpath);
+    final (:path, :image) = loadImage(vpath);
     final scaleByWidth = v.width.value / image.width;
     final height = v.height ?? Unit.kilometre(image.height * scaleByWidth);
 
@@ -185,13 +185,13 @@ class Plan2D<T> {
     this.imageries.add(imagery);
   }
 
-  (String, Image) loadImage(String vpath) {
+  ({String path, Image image}) loadImage(String vpath) {
     final path = p.join(source!.path, vpath);
     final file = File(path);
     final bytes = file.readAsBytesSync();
     // use filename extension to determine the decoder
     final image = decodeNamedImage(path, bytes)!;
 
-    return (path, image);
+    return (path: path, image: image);
   }
 }
