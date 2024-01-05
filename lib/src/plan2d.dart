@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:astronomical_measurements/astronomical_measurements.dart';
 import 'package:dart_helpers/dart_helpers.dart';
 
@@ -21,6 +23,25 @@ class Plan2D<T> {
     data = List.filled(
       axisVolume,
       List.filled(width, innerDataDefaultValue),
+    );
+  }
+
+  /// Unwrap to looped surface by radius.
+  factory Plan2D.planet({
+    required int radius,
+    required UnitType unitType,
+    required T innerDataDefaultValue,
+    required T outerDataDefaultValue,
+  }) {
+    final l = (2 * pi * radius).ceil();
+    return Plan2D.surface(
+      width: l,
+      height: l,
+      anchor: Anchor2D.topLeft,
+      axisType: AxisType.loop,
+      unitType: unitType,
+      innerDataDefaultValue: innerDataDefaultValue,
+      outerDataDefaultValue: outerDataDefaultValue,
     );
   }
 
