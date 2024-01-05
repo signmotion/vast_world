@@ -18,12 +18,14 @@ void main() {
       outerDataDefaultValue: 0,
     );
 
+    const circumference = 3770;
+
     test('Check axises', () {
-      expect(plan.width, 3770);
-      expect(plan.height, 3770);
+      expect(plan.width, circumference);
+      expect(plan.height, circumference);
       expect(plan.anchors, [Anchor1D.left, Anchor1D.top]);
-      expect(plan.axisAbsSizes, [3770, 3770]);
-      expect(plan.axisUppers, [3770 - 1, 3770 - 1]);
+      expect(plan.axisAbsSizes, [circumference, circumference]);
+      expect(plan.axisUppers, [circumference - 1, circumference - 1]);
       expect(plan.axisLowers, [0, 0]);
       expect(plan.axisTypes, [AxisType.loop, AxisType.loop]);
       expect(plan.unitType, UnitType.kilometre);
