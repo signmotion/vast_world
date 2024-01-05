@@ -105,4 +105,41 @@ void main() {
       expect(plan[(600 - 1, 200 - 1)], 78);
     });
   });
+
+  group('Construct Plan2D.surface loop', () {
+    final plan = Plan2D<int>.surface(
+      width: 600,
+      height: 200,
+      axisType: AxisType.loop,
+      unitType: UnitType.kilometre,
+      innerDataDefaultValue: 12,
+      outerDataDefaultValue: 0,
+    );
+
+    test('Get data out of surface', () {
+      expect(plan[(600, 200)], 12);
+      expect(plan[(-1, 0)], 12);
+      expect(plan[(0, -1)], 12);
+      expect(plan[(-1, -1)], 12);
+      expect(plan[(-600, -200)], 12);
+    });
+
+    test('Set and Get data out of surface', () {
+      plan[(-1, 0)] = 456;
+      expect(plan[(-1, 0)], 456);
+      expect(plan[(600 - 1, 0)], 456);
+
+      plan[(0, -1)] = 457;
+      expect(plan[(0, -1)], 457);
+      expect(plan[(0, 200 - 1)], 457);
+
+      plan[(-1, -1)] = 458;
+      expect(plan[(-1, -1)], 458);
+      expect(plan[(600 - 1, 200 - 1)], 458);
+
+      plan[(600, 200)] = 78;
+      expect(plan[(600, 200)], 78);
+      expect(plan[(0, 0)], 78);
+    });
+  });
 }
