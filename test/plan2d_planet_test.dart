@@ -10,21 +10,21 @@ void main() {
 
   group('Construct Plan2D.planet', () {
     final plan = Plan2D<int>.planet(
-      radius: 500,
-      unitType: UnitType.kilometre,
+      radius: 60,
+      unitType: UnitType.hundredKilometre,
       innerDataDefaultValue: 12,
       outerDataDefaultValue: 0,
     );
 
     test('Check axises', () {
-      expect(plan.width, 3142);
-      expect(plan.height, 3142);
+      expect(plan.width, 377);
+      expect(plan.height, 377);
       expect(plan.anchors, [Anchor1D.left, Anchor1D.top]);
-      expect(plan.axisAbsSizes, [3142, 3142]);
-      expect(plan.axisUppers, [3142 - 1, 3142 - 1]);
+      expect(plan.axisAbsSizes, [377, 377]);
+      expect(plan.axisUppers, [377 - 1, 377 - 1]);
       expect(plan.axisLowers, [0, 0]);
       expect(plan.axisTypes, [AxisType.loop, AxisType.loop]);
-      expect(plan.unitType, UnitType.kilometre);
+      expect(plan.unitType, UnitType.hundredKilometre);
     });
 
     test('Check square', () {
