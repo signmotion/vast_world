@@ -11,24 +11,24 @@ class Plan2D<T> {
     required int height,
     required Anchor2D anchor,
     required AxisType axisType,
+    required this.scale,
     required this.unitType,
     required this.innerDataDefaultValue,
     required this.outerDataDefaultValue,
   })  : assert(width > 0),
         assert(height > 0),
+        assert(scale > 0),
         assert(anchor == Anchor2D.topLeft, "Not implemented others."),
         anchors = [Anchor1D.left, Anchor1D.top],
-        axisAbsSizes = [width, height],
+        axisAbsSizes = [(width / scale).ceil(), (height / scale).ceil()],
         axisTypes = [axisType, axisType] {
-    data = List.filled(
-      axisVolume,
-      List.filled(width, innerDataDefaultValue),
-    );
+    data = List.filled(axisVolume, innerDataDefaultValue);
   }
 
   /// Unwrap to looped surface by radius.
   factory Plan2D.planet({
     required int radius,
+    required double scale,
     required UnitType unitType,
     required T innerDataDefaultValue,
     required T outerDataDefaultValue,
@@ -39,6 +39,7 @@ class Plan2D<T> {
       height: l,
       anchor: Anchor2D.topLeft,
       axisType: AxisType.loop,
+      scale: scale,
       unitType: unitType,
       innerDataDefaultValue: innerDataDefaultValue,
       outerDataDefaultValue: outerDataDefaultValue,
@@ -50,6 +51,7 @@ class Plan2D<T> {
     required int height,
     Anchor2D anchor = Anchor2D.topLeft,
     AxisType axisType = AxisType.loop,
+    double scale = 1.0,
     required UnitType unitType,
     required T innerDataDefaultValue,
     required T outerDataDefaultValue,
@@ -59,6 +61,7 @@ class Plan2D<T> {
         height: height,
         anchor: anchor,
         axisType: axisType,
+        scale: scale,
         unitType: unitType,
         innerDataDefaultValue: innerDataDefaultValue,
         outerDataDefaultValue: outerDataDefaultValue,
@@ -72,7 +75,6 @@ class Plan2D<T> {
 
   final List<Anchor1D> anchors;
 
-  /// Maximum `abs(value)`s by axises.
   final List<int> axisAbsSizes;
 
   final List<AxisType> axisTypes;
@@ -80,6 +82,8 @@ class Plan2D<T> {
   List<int> get axisUppers => axisAbsSizes.map((i) => i - 1).toList();
   List<int> get axisLowers => axisAbsSizes.map((i) => 0).toList();
 
+  /// How many [unitType] contains 1 cell. A multiplicator.
+  final double scale;
   final UnitType unitType;
 
   final T innerDataDefaultValue;
@@ -88,7 +92,9 @@ class Plan2D<T> {
   int get square => axisVolume;
   int get axisVolume => axisAbsSizes.reduce((v, e) => v * e);
 
-  late final List<List<T>> data;
+  late final List<T> data;
+
+  int index(int k, int l) => k + l * width;
 
   T operator []((int, int) ti) {
     final (k, l) = _clampAxisTypes(ti);
@@ -98,7 +104,7 @@ class Plan2D<T> {
             k < axisLowers[0] ||
             l < axisLowers[1]
         ? outerDataDefaultValue
-        : data[k][l];
+        : data[index(k, l)];
   }
 
   void operator []=((int, int) ti, T v) {
@@ -108,7 +114,7 @@ class Plan2D<T> {
         l <= axisUppers[1] &&
         k >= axisLowers[0] &&
         l >= axisLowers[1]) {
-      data[k][l] = v;
+      data[index(k, l)] = v;
     }
   }
 
