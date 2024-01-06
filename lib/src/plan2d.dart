@@ -85,7 +85,10 @@ class Plan2D<T> {
 
   final List<AxisType> axisTypes;
 
+  /// Includes an upper value.
   List<int> get axisUppers => axisAbsSizes.map((i) => i - 1).toList();
+
+  /// Includes a lower value.
   List<int> get axisLowers => axisAbsSizes.map((i) => 0).toList();
 
   /// How many [unitType] contains 1 cell. A multiplicator.
@@ -105,24 +108,24 @@ class Plan2D<T> {
   T operator []((int, int) ti) {
     final (k, l) = _clampAxisTypes(ti);
 
-    return k > axisUppers[0] ||
-            l > axisUppers[1] ||
-            k < axisLowers[0] ||
-            l < axisLowers[1]
-        ? outerDataDefaultValue
-        : data[index(k, l)];
+    return outside(k, l) ? outerDataDefaultValue : data[index(k, l)];
   }
 
   void operator []=((int, int) ti, T v) {
     final (k, l) = _clampAxisTypes(ti);
 
-    if (k <= axisUppers[0] &&
-        l <= axisUppers[1] &&
-        k >= axisLowers[0] &&
-        l >= axisLowers[1]) {
+    if (inside(k, l)) {
       data[index(k, l)] = v;
     }
   }
+
+  bool inside(int k, int l) => !outside(k, l);
+
+  bool outside(int k, int l) =>
+      k > axisUppers[0] ||
+      l > axisUppers[1] ||
+      k < axisLowers[0] ||
+      l < axisLowers[1];
 
   (int, int) _clampAxisTypes((int, int) ti) => (
         _clampAxisType(ti.$1, 0),
