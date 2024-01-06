@@ -17,15 +17,16 @@ class Plan2D<T> {
     required Unit height,
     required Anchor2D anchor,
     required AxisType axisType,
-    required this.scale,
+    required num scale,
     required this.innerDataDefaultValue,
     required this.outerDataDefaultValue,
   })  : assert(width > 0),
         assert(height > 0),
-        assert(anchor == Anchor2D.topLeft, "Not implemented others."),
+        assert(anchor == Anchor2D.topLeft, 'Not implemented others.'),
         assert(scale > 0),
         anchors = [Anchor1D.left, Anchor1D.top],
         axisTypes = [axisType, axisType],
+        scale = scale.toDouble(),
         unitType = width.type < height.type ? width.type : height.type {
     axisAbsSizes = [
       (width.convertTo(unitType) / scale).ceilValue(),
@@ -36,15 +37,23 @@ class Plan2D<T> {
 
   /// Unwrap to looped surface by radius.
   factory Plan2D.planet({
-    required Unit radius,
-    required double scale,
+    Unit? radius,
+    Unit? radiusX,
+    Unit? radiusY,
+    required num scale,
     required T innerDataDefaultValue,
     required T outerDataDefaultValue,
   }) {
-    final l = (radius * 2 * pi).ceil();
+    assert(radius != null || (radiusX != null && radiusY != null),
+        'Should be defined [radius] or both [radiusX] and [radiusY].');
+
+    final rx = radiusX ?? radius;
+    final ry = radiusY ?? radius;
+    assert(rx != null, ry != null);
+
     return Plan2D.surface(
-      width: l,
-      height: l,
+      width: (rx! * 2 * pi).ceil(),
+      height: (ry! * 2 * pi).ceil(),
       anchor: Anchor2D.topLeft,
       axisType: AxisType.loop,
       scale: scale,
@@ -58,7 +67,7 @@ class Plan2D<T> {
     required Unit height,
     Anchor2D anchor = Anchor2D.topLeft,
     AxisType axisType = AxisType.loop,
-    double scale = 1.0,
+    num scale = 1.0,
     required T innerDataDefaultValue,
     required T outerDataDefaultValue,
   }) =>

@@ -9,15 +9,24 @@ void main() {
   prepareTestEnv();
 
   group('Construct Plan2D for planet and save it to TiledMap format', () {
+    // select the radius of the planet according to the size of the
+    // existing image of the planet map
+    // 1 cell ~= 50 km
+    const scale = 50;
+    final (rx, ry) = size2DToCircleRadius(870, 680, scale: scale);
+    // with this image size and world scale we have:
+    //  rx = 6923
+    //  ry = 5411
     var plan = Plan2D<int>.planet(
-      radius: Unit.kilometre(6000),
-      // 1 cell ~= 10 km
-      scale: 10,
+      radiusX: Unit.kilometre(rx),
+      radiusY: Unit.kilometre(ry),
+      scale: scale,
       innerDataDefaultValue: 12,
       outerDataDefaultValue: 0,
     );
 
-    const circumference = 3770;
+    const circumferenceX = 870;
+    const circumferenceY = 680;
 
     // fill the plan
     // path to data
@@ -26,7 +35,7 @@ void main() {
     plan += const Background();
     // insert an imagery (projection of other plan) to plan
     // from source and additional path
-    const position = (circumference ~/ 2, circumference ~/ 2);
+    const position = (circumferenceX ~/ 2, circumferenceY ~/ 2);
     final width = Unit.kilometre(1100);
     plan += Imagery(
       "ri",
@@ -36,9 +45,9 @@ void main() {
     );
 
     test('Check', () {
-      expect(plan.width, circumference);
-      expect(plan.height, circumference);
-      expect(plan.square, circumference * circumference);
+      expect(plan.width, circumferenceX);
+      expect(plan.height, circumferenceY);
+      expect(plan.square, circumferenceX * circumferenceY);
 
       expect(plan.source!.npath, 'test/data/planet_a_raw');
       expect(plan.background!.npath, 'test/data/planet_a_raw/bg.png');
