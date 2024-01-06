@@ -1,7 +1,7 @@
 import 'dart:math';
 
 /// Returns the radiuses of the ellipsoide according to the size.
-(int, int) size2DToCircleRadius(
+(double, double) size2DToCircleRadius(
   int width,
   int height, {
   num scale = 1.0,
@@ -12,11 +12,11 @@ import 'dart:math';
     );
 
 /// Returns the radius of the circle according to the length.
-int size1DToCircleRadius(
+double size1DToCircleRadius(
   int circumference, {
   num scale = 1.0,
 }) {
   assert(circumference > 0);
 
-  return (circumference / pi / 2 * scale).floor();
+  return circumference / pi / 2 * scale;
 }

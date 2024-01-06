@@ -9,47 +9,50 @@ import 'imagery.dart';
 
 class Plan2D<T> {
   Plan2D({
-    required Unit width,
-    required Unit height,
+    required Unit realWidth,
+    required Unit realHeight,
     required Anchor2D anchor,
     required AxisType axisType,
     required num scale,
     required this.innerDataDefaultValue,
     required this.outerDataDefaultValue,
-  })  : assert(width > 0),
-        assert(height > 0),
+  })  : assert(realWidth > 0),
+        assert(realHeight > 0),
         assert(anchor == Anchor2D.topLeft, 'Not implemented others.'),
         assert(scale > 0),
         anchors = [Anchor1D.left, Anchor1D.top],
         axisTypes = [axisType, axisType],
-        scale = scale.toDouble(),
-        unitType = width.type < height.type ? width.type : height.type {
+        scale = scale.toDouble() {
+    final unitType =
+        realWidth.type < realHeight.type ? realWidth.type : realHeight.type;
+    this.realWidth = realWidth.convertTo(unitType);
+    this.realHeight = realHeight.convertTo(unitType);
     axisAbsSizes = [
-      (width.convertTo(unitType) / scale).ceilValue(),
-      (height.convertTo(unitType) / scale).ceilValue(),
+      (this.realWidth / scale).ceilValue(),
+      (this.realHeight / scale).ceilValue(),
     ];
     data = List.filled(axisVolume, innerDataDefaultValue);
   }
 
   /// Unwrap to looped surface by radius.
   factory Plan2D.planet({
-    Unit? radius,
-    Unit? radiusX,
-    Unit? radiusY,
+    Unit? realRadius,
+    Unit? realRadiusX,
+    Unit? realRadiusY,
     required num scale,
     required T innerDataDefaultValue,
     required T outerDataDefaultValue,
   }) {
-    assert(radius != null || (radiusX != null && radiusY != null),
-        'Should be defined [radius] or both [radiusX] and [radiusY].');
+    assert(realRadius != null || (realRadiusX != null && realRadiusY != null),
+        'Should be defined [realRadius] or both [realRadiusX] and [realRadiusY].');
 
-    final rx = radiusX ?? radius;
-    final ry = radiusY ?? radius;
+    final rx = realRadiusX ?? realRadius;
+    final ry = realRadiusY ?? realRadius;
     assert(rx != null, ry != null);
 
     return Plan2D.surface(
-      width: (rx! * 2 * pi).ceil(),
-      height: (ry! * 2 * pi).ceil(),
+      realWidth: rx! * 2 * pi,
+      realHeight: ry! * 2 * pi,
       anchor: Anchor2D.topLeft,
       axisType: AxisType.loop,
       scale: scale,
@@ -59,8 +62,8 @@ class Plan2D<T> {
   }
 
   factory Plan2D.surface({
-    required Unit width,
-    required Unit height,
+    required Unit realWidth,
+    required Unit realHeight,
     Anchor2D anchor = Anchor2D.topLeft,
     AxisType axisType = AxisType.loop,
     num scale = 1.0,
@@ -68,8 +71,8 @@ class Plan2D<T> {
     required T outerDataDefaultValue,
   }) =>
       Plan2D<T>(
-        width: width,
-        height: height,
+        realWidth: realWidth,
+        realHeight: realHeight,
         anchor: anchor,
         axisType: axisType,
         scale: scale,
@@ -77,8 +80,11 @@ class Plan2D<T> {
         outerDataDefaultValue: outerDataDefaultValue,
       );
 
-  int get width => x;
-  int get height => y;
+  late final Unit realWidth;
+  late final Unit realHeight;
+
+  int get axisWidth => x;
+  int get axisHeight => y;
 
   int get x => axisAbsSizes[0];
   int get y => axisAbsSizes[1];
@@ -97,7 +103,6 @@ class Plan2D<T> {
 
   /// How many [unitType] contains 1 cell. A multiplicator.
   final double scale;
-  final UnitType unitType;
 
   final T innerDataDefaultValue;
   final T outerDataDefaultValue;
@@ -107,7 +112,7 @@ class Plan2D<T> {
 
   late final List<T> data;
 
-  int index(int k, int l) => k + l * width;
+  int index(int k, int l) => k + l * axisWidth;
 
   T operator []((int, int) ti) {
     final (k, l) = _clampAxisTypes(ti);
@@ -167,4 +172,14 @@ class Plan2D<T> {
   void setBackground(Background v) => background = v;
 
   void addImagery(Imagery v) => imageries.add(v);
+
+  /// Axis size the [imagery] into the plan.
+  (int, int) axisSizeImagery(Imagery imagery) {
+    final img = imagery as PictureImagery;
+    final nepper = realWidth.nepper(img.realWidth);
+    final w = img.image.width / nepper;
+    final h = img.image.height / nepper;
+
+    return (w.ceil(), h.ceil());
+  }
 }

@@ -6,17 +6,17 @@ abstract class Imagery extends Loader {
   Imagery(
     super.pathToFile, {
     required this.position,
-    required this.width,
+    required this.realWidth,
   });
 
-  /// Position on the plan.
+  /// Position into the plan.
   final (int, int) position;
 
-  /// Width on the plan in [Unit] plan scale.
-  final Unit width;
+  /// Absolute width in [Unit].
+  final Unit realWidth;
 
-  /// Height on the plan in [Unit] plan scale.
-  late final Unit height;
+  /// Absolute height in [Unit].
+  late final Unit realHeight;
 }
 
 /// Build imagery by image.
@@ -24,10 +24,10 @@ class PictureImagery extends Imagery with LoadFileAsImage {
   PictureImagery(
     super.pathToPictureFile, {
     required super.position,
-    required super.width,
+    required super.realWidth,
   }) {
-    final scaleByWidth = width.value / image.width;
-    height = Unit.kilometre(image.height * scaleByWidth);
+    final scaleByWidth = realWidth.value / image.width;
+    realHeight = Unit.kilometre(image.height * scaleByWidth);
   }
 }
 
@@ -36,8 +36,8 @@ class TextImagery extends Imagery with LoadFileAsText {
   TextImagery(
     super.pathToTextFile, {
     required super.position,
-    required super.width,
+    required super.realWidth,
   }) {
-    // TODO height = width;
+    // TODO realHeight = ...
   }
 }

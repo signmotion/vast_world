@@ -10,26 +10,25 @@ void main() {
 
   group('Construct Plan2D.surface borderless', () {
     final plan = Plan2D<int>.surface(
-      width: Unit.kilometre(600),
-      height: Unit.kilometre(200),
+      realWidth: Unit.kilometre(600),
+      realHeight: Unit.kilometre(200),
       axisType: AxisType.borderless,
       innerDataDefaultValue: 12,
       outerDataDefaultValue: 0,
     );
 
     test('Check axises', () {
-      expect(plan.width, 600);
-      expect(plan.height, 200);
+      expect(plan.axisWidth, 600);
+      expect(plan.axisHeight, 200);
       expect(plan.anchors, [Anchor1D.left, Anchor1D.top]);
       expect(plan.axisAbsSizes, [600, 200]);
       expect(plan.axisUppers, [600 - 1, 200 - 1]);
       expect(plan.axisLowers, [0, 0]);
       expect(plan.axisTypes, [AxisType.borderless, AxisType.borderless]);
-      expect(plan.unitType, UnitType.kilometre);
     });
 
     test('Check square', () {
-      expect(plan.square, plan.width * plan.height);
+      expect(plan.square, plan.axisWidth * plan.axisHeight);
       expect(plan.square, plan.axisVolume);
     });
 
@@ -70,8 +69,8 @@ void main() {
 
   group('Construct Plan2D.surface borderstrict', () {
     final plan = Plan2D<int>.surface(
-      width: Unit.kilometre(600),
-      height: Unit.kilometre(200),
+      realWidth: Unit.kilometre(600),
+      realHeight: Unit.kilometre(200),
       axisType: AxisType.borderstrict,
       innerDataDefaultValue: 12,
       outerDataDefaultValue: 0,
@@ -106,8 +105,8 @@ void main() {
 
   group('Construct Plan2D.surface loop', () {
     final plan = Plan2D<int>.surface(
-      width: Unit.kilometre(600),
-      height: Unit.kilometre(200),
+      realWidth: Unit.kilometre(600),
+      realHeight: Unit.kilometre(200),
       axisType: AxisType.loop,
       innerDataDefaultValue: 12,
       outerDataDefaultValue: 0,
