@@ -1,15 +1,11 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:astronomical_measurements/astronomical_measurements.dart';
 import 'package:dart_helpers/dart_helpers.dart';
-import 'package:image/image.dart';
-import 'package:path/path.dart' as p;
 
 import 'axis_type.dart';
 import 'background.dart';
 import 'imagery.dart';
-import 'source.dart';
 
 class Plan2D<T> {
   Plan2D({
@@ -153,14 +149,11 @@ class Plan2D<T> {
     throw Exception('Unsupported `$type`.');
   }
 
-  Source? source;
   Background? background;
   List<Imagery> imageries = [];
 
   Plan2D<T> operator +(dynamic o) {
-    if (o is Source) {
-      setSource(o);
-    } else if (o is Background) {
+    if (o is Background) {
       setBackground(o);
     } else if (o is Imagery) {
       addImagery(o);
@@ -171,38 +164,7 @@ class Plan2D<T> {
     return this;
   }
 
-  void setSource(Source v) => source = v;
+  void setBackground(Background v) => background = v;
 
-  void setBackground(Background v) {
-    final (:path, :image) = loadImage(v.path);
-    this.background = Background(path, image);
-  }
-
-  Future<void> addImagery(Imagery v) async {
-    final vpath = p.join(v.path, Background.defaultFilename);
-    final (:path, :image) = loadImage(vpath);
-    final scaleByWidth = v.width.value / image.width;
-    final height = v.height ?? Unit.kilometre(image.height * scaleByWidth);
-
-    final background = v.background ?? Background(path, image);
-
-    final imagery = Imagery(
-      p.join(source!.path, v.path),
-      position: v.position,
-      width: v.width,
-      height: height,
-      background: background,
-    );
-    this.imageries.add(imagery);
-  }
-
-  ({String path, Image image}) loadImage(String vpath) {
-    final path = p.join(source!.path, vpath);
-    final file = File(path);
-    final bytes = file.readAsBytesSync();
-    // use filename extension to determine the decoder
-    final image = decodeNamedImage(path, bytes)!;
-
-    return (path: path, image: image);
-  }
+  void addImagery(Imagery v) => imageries.add(v);
 }

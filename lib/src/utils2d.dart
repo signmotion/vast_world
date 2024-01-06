@@ -13,10 +13,10 @@ import 'dart:math';
 
 /// Returns the radius of the circle according to the length.
 int size1DToCircleRadius(
-  int length, {
+  int circumference, {
   num scale = 1.0,
 }) {
-  assert(length > 0);
+  assert(circumference > 0);
 
-  return (length / pi / 2 * scale).floor();
+  return (circumference / pi / 2 * scale).floor();
 }

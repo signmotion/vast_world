@@ -1,5 +1,4 @@
 import 'package:astronomical_measurements/astronomical_measurements.dart';
-import 'package:path/path.dart' as p;
 import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
 
@@ -30,15 +29,13 @@ void main() {
 
     // fill the plan
     // path to data
-    plan += Source(p.join('test', 'data', 'planet_a_raw'));
-    // add a background to plan from source
-    plan += const Background();
+    // add a background to plan
+    plan += Background('test/data/planet_a_raw/bg.png');
     // insert an imagery (projection of other plan) to plan
-    // from source and additional path
     const position = (circumferenceX ~/ 2, circumferenceY ~/ 2);
     final width = Unit.kilometre(1100);
-    plan += Imagery(
-      "ri",
+    plan += PictureImagery(
+      'test/data/planet_a_raw/ri/bg.png',
       position: position,
       // the height will be calculated in proportion to the image size
       width: width,
@@ -49,19 +46,17 @@ void main() {
       expect(plan.height, circumferenceY);
       expect(plan.square, circumferenceX * circumferenceY);
 
-      expect(plan.source!.npath, 'test/data/planet_a_raw');
       expect(plan.background!.npath, 'test/data/planet_a_raw/bg.png');
       expect(plan.background!.image, isNotNull);
 
       expect(plan.imageries.length, 1);
-      final imagery = plan.imageries.first;
-      expect(imagery.npath, 'test/data/planet_a_raw/ri');
+      final imagery = plan.imageries.single as PictureImagery;
+      expect(imagery.npath, 'test/data/planet_a_raw/ri/bg.png');
+      expect(imagery.image, isNotNull);
       expect(imagery.position, position);
       expect(imagery.width, width);
-      expect(imagery.height!.floor(), Unit.kilometre(780));
-      expect(imagery.background, isNotNull);
-      expect(imagery.background!.npath, 'test/data/planet_a_raw/ri/bg.png');
-      expect(imagery.background!.image, isNotNull);
+      // calculated by [width] and image size
+      expect(imagery.height.floor(), Unit.kilometre(780));
     });
 
     test('Export and check', () {
