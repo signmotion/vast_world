@@ -10,10 +10,9 @@ void main() {
 
   group('Construct Plan2D for planet and save it to TiledMap format', () {
     var plan = Plan2D<int>.planet(
-      radius: 6000,
+      radius: Unit.kilometre(6000),
       // 1 cell ~= 10 km
       scale: 10,
-      unitType: UnitType.kilometre,
       innerDataDefaultValue: 12,
       outerDataDefaultValue: 0,
     );

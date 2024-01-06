@@ -10,10 +10,9 @@ void main() {
 
   group('Construct Plan2D.surface borderless', () {
     final plan = Plan2D<int>.surface(
-      width: 600,
-      height: 200,
+      width: Unit.kilometre(600),
+      height: Unit.kilometre(200),
       axisType: AxisType.borderless,
-      unitType: UnitType.kilometre,
       innerDataDefaultValue: 12,
       outerDataDefaultValue: 0,
     );
@@ -71,10 +70,9 @@ void main() {
 
   group('Construct Plan2D.surface borderstrict', () {
     final plan = Plan2D<int>.surface(
-      width: 600,
-      height: 200,
+      width: Unit.kilometre(600),
+      height: Unit.kilometre(200),
       axisType: AxisType.borderstrict,
-      unitType: UnitType.kilometre,
       innerDataDefaultValue: 12,
       outerDataDefaultValue: 0,
     );
@@ -108,10 +106,9 @@ void main() {
 
   group('Construct Plan2D.surface loop', () {
     final plan = Plan2D<int>.surface(
-      width: 600,
-      height: 200,
+      width: Unit.kilometre(600),
+      height: Unit.kilometre(200),
       axisType: AxisType.loop,
-      unitType: UnitType.kilometre,
       innerDataDefaultValue: 12,
       outerDataDefaultValue: 0,
     );

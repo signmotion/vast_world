@@ -13,52 +13,52 @@ import 'source.dart';
 
 class Plan2D<T> {
   Plan2D({
-    required int width,
-    required int height,
+    required Unit width,
+    required Unit height,
     required Anchor2D anchor,
     required AxisType axisType,
     required this.scale,
-    required this.unitType,
     required this.innerDataDefaultValue,
     required this.outerDataDefaultValue,
   })  : assert(width > 0),
         assert(height > 0),
-        assert(scale > 0),
         assert(anchor == Anchor2D.topLeft, "Not implemented others."),
+        assert(scale > 0),
         anchors = [Anchor1D.left, Anchor1D.top],
-        axisAbsSizes = [(width / scale).ceil(), (height / scale).ceil()],
-        axisTypes = [axisType, axisType] {
+        axisTypes = [axisType, axisType],
+        unitType = width.type < height.type ? width.type : height.type {
+    axisAbsSizes = [
+      (width.convertTo(unitType) / scale).ceilValue(),
+      (height.convertTo(unitType) / scale).ceilValue(),
+    ];
     data = List.filled(axisVolume, innerDataDefaultValue);
   }
 
   /// Unwrap to looped surface by radius.
   factory Plan2D.planet({
-    required int radius,
+    required Unit radius,
     required double scale,
-    required UnitType unitType,
     required T innerDataDefaultValue,
     required T outerDataDefaultValue,
   }) {
-    final l = (2 * pi * radius).ceil();
+    final l = (radius * 2 * pi).ceil();
     return Plan2D.surface(
       width: l,
       height: l,
       anchor: Anchor2D.topLeft,
       axisType: AxisType.loop,
       scale: scale,
-      unitType: unitType,
       innerDataDefaultValue: innerDataDefaultValue,
       outerDataDefaultValue: outerDataDefaultValue,
     );
   }
 
   factory Plan2D.surface({
-    required int width,
-    required int height,
+    required Unit width,
+    required Unit height,
     Anchor2D anchor = Anchor2D.topLeft,
     AxisType axisType = AxisType.loop,
     double scale = 1.0,
-    required UnitType unitType,
     required T innerDataDefaultValue,
     required T outerDataDefaultValue,
   }) =>
@@ -68,7 +68,6 @@ class Plan2D<T> {
         anchor: anchor,
         axisType: axisType,
         scale: scale,
-        unitType: unitType,
         innerDataDefaultValue: innerDataDefaultValue,
         outerDataDefaultValue: outerDataDefaultValue,
       );
@@ -81,7 +80,7 @@ class Plan2D<T> {
 
   final List<Anchor1D> anchors;
 
-  final List<int> axisAbsSizes;
+  late final List<int> axisAbsSizes;
 
   final List<AxisType> axisTypes;
 
