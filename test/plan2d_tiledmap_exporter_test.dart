@@ -10,6 +10,7 @@ void main() {
   group('Construct Plan2D for planet and save it to TiledMap format', () {
     // select the radius of the planet according to the size of the
     // existing image of the planet map
+    // circumference == image size
     const circumferenceX = 870;
     const circumferenceY = 680;
     // 1 cell ~= 50 km
@@ -20,8 +21,8 @@ void main() {
       scale: scale,
     );
     // with this image size and world scale we have:
-    //  rx = 6923 km
-    //  ry = 5411 km
+    //  rx = 6923 km, unwrapped to circumferenceX * scale = 43500
+    //  ry = 5411 km, unwrapped to circumferenceY * scale = 34000
     var plan = Plan2D<int>.planet(
       realRadiusX: Unit.kilometre(rx),
       realRadiusY: Unit.kilometre(ry),
@@ -35,13 +36,14 @@ void main() {
     // add a background to plan
     plan += Background('test/data/planet_a_raw/bg.png');
     // insert an imagery (projection of other plan) to plan
-    const position = (circumferenceX ~/ 2, circumferenceY ~/ 2);
-    final width = Unit.kilometre(1100);
+    // coords takes from tmx-file
+    const position = (505 * scale, 85 * scale);
+    final realWidth = Unit.kilometre(1100);
     plan += PictureImagery(
       'test/data/planet_a_raw/ri/bg.png',
       position: position,
       // the height will be calculated in proportion to the image size
-      realWidth: width,
+      realWidth: realWidth,
     );
 
     test('Check', () {
@@ -63,13 +65,13 @@ void main() {
       expect(imagery.image.width, 3520);
       expect(imagery.image.height, 2496);
       expect(imagery.position, position);
-      expect(imagery.realWidth, width);
+      expect(imagery.realWidth, realWidth);
       // calculated by [width] and image size
       expect(imagery.realHeight.floor(), Unit.kilometre(780));
 
       // check imagery size into plan
       final (isx, isy) = plan.axisSizeImagery(imagery);
-      expect((isx, isy), (90, 64));
+      expect((isx, isy), (22, 16));
     });
 
     test('Export and check', () {

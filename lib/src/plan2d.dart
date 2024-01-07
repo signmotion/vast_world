@@ -176,9 +176,10 @@ class Plan2D<T> {
   /// Axis size the [imagery] into the plan.
   (int, int) axisSizeImagery(Imagery imagery) {
     final img = imagery as PictureImagery;
-    final nepper = realWidth.nepper(img.realWidth);
-    final w = img.image.width / nepper;
-    final h = img.image.height / nepper;
+    final nepper = img.realWidth.nepper(realWidth);
+    final w = axisWidth * nepper;
+    final k = w / img.image.width;
+    final h = img.image.height * k;
 
     return (w.ceil(), h.ceil());
   }
