@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'broker.dart';
 import '../can_work_with_file.dart';
+import 'broker.dart';
 
 abstract class FilesystemBroker<T> extends Broker<T> with CanWorkWithFile {
   FilesystemBroker(String path) {

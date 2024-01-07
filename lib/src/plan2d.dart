@@ -2,15 +2,15 @@ import 'dart:math';
 
 import 'package:astronomical_measurements/astronomical_measurements.dart';
 import 'package:dart_helpers/dart_helpers.dart';
-import 'package:id_gen/id_gen.dart';
 
 import 'axis_type.dart';
 import 'background.dart';
 import 'imagery.dart';
+import 'quant.dart';
 
-class Plan2D<T> {
+class Plan2D<T> extends Quant {
   Plan2D({
-    required this.hid,
+    required super.hid,
     required Unit realWidth,
     required Unit realHeight,
     required Anchor2D anchor,
@@ -22,7 +22,6 @@ class Plan2D<T> {
         assert(realHeight > 0),
         assert(anchor == Anchor2D.topLeft, 'Not implemented others.'),
         assert(scale > 0),
-        uid = const UuidV4Gen().get(),
         anchors = [Anchor1D.left, Anchor1D.top],
         axisTypes = [axisType, axisType],
         scale = scale.toDouble() {
@@ -86,16 +85,6 @@ class Plan2D<T> {
         innerDataDefaultValue: innerDataDefaultValue,
         outerDataDefaultValue: outerDataDefaultValue,
       );
-
-  /// Human ID for nicely detection the plans.
-  final String hid;
-
-  /// UUID of this plan.
-  final String uid;
-
-  /// ID for access to the plan.
-  /// Can be [hid] if [hid] defined or [uid] if not.
-  String get id => hid.isEmpty ? uid : hid;
 
   late final Unit realWidth;
   late final Unit realHeight;
