@@ -1,8 +1,8 @@
 import 'package:astronomical_measurements/astronomical_measurements.dart';
 
-import 'can_load_file.dart';
+import 'can_work_with_file.dart';
 
-abstract class Imagery extends Loader {
+abstract class Imagery extends FileWorker {
   Imagery(
     super.pathToFile, {
     required this.position,
@@ -20,19 +20,19 @@ abstract class Imagery extends Loader {
 }
 
 /// Build imagery by image.
-class PictureImagery extends Imagery with LoadFileAsImage {
+class PictureImagery extends Imagery with ReadFileAsImage {
   PictureImagery(
     super.pathToPictureFile, {
     required super.position,
     required super.realWidth,
   }) {
-    final scaleByWidth = realWidth.value / image.width;
-    realHeight = Unit.kilometre(image.height * scaleByWidth);
+    final scaleByWidth = realWidth.value / image!.width;
+    realHeight = Unit.kilometre(image!.height * scaleByWidth);
   }
 }
 
 /// Build imagery by text description.
-class TextImagery extends Imagery with LoadFileAsText {
+class TextImagery extends Imagery with ReadFileAsText {
   TextImagery(
     super.pathToTextFile, {
     required super.position,

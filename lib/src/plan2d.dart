@@ -195,8 +195,8 @@ class Plan2D<T> {
     final img = imagery as PictureImagery;
     final nepper = img.realWidth.nepper(realWidth);
     final w = axisWidth * nepper;
-    final k = w / img.image.width;
-    final h = img.image.height * k;
+    final k = w / img.image!.width;
+    final h = img.image!.height * k;
 
     return (w.ceil(), h.ceil());
   }

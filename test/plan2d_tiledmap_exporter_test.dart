@@ -67,8 +67,8 @@ void main() {
       final imagery = plan.imageries.single as PictureImagery;
       expect(imagery.npath, 'test/data/planet_raeria_raw/ri/bg.png');
       expect(imagery.image, isNotNull);
-      expect(imagery.image.width, 3520);
-      expect(imagery.image.height, 2496);
+      expect(imagery.image!.width, 3520);
+      expect(imagery.image!.height, 2496);
       expect(imagery.position, position);
       expect(imagery.realWidth, realWidth);
       // calculated by [width] and image size
@@ -84,8 +84,8 @@ void main() {
       // final keeper = TiledmapKeeper<Plan2D>(FilesystemBroker(outputPath));
       // keeper.write(plan);
 
-      // expect(File(p.join(outputPath, hid)).exists(), isTrue);
-      // expect(File(p.join(outputPath, hid, '_.tmx')).exists(), isTrue);
+      // expect(File(p.join(outputPath, hid)).existsSync(), isTrue);
+      // expect(File(p.join(outputPath, hid, '_.tmx')).existsSync(), isTrue);
     });
   });
 }
