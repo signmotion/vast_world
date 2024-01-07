@@ -1,5 +1,6 @@
 import 'package:astronomical_measurements/astronomical_measurements.dart';
 import 'package:dart_helpers/dart_helpers.dart';
+import 'package:id_gen/id_gen.dart';
 import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
 
@@ -16,6 +17,12 @@ void main() {
       innerDataDefaultValue: 12,
       outerDataDefaultValue: 0,
     );
+
+    test('Check IDs', () {
+      expect(plan.uid.isUuid, isTrue);
+      expect(plan.hid, '');
+      expect(plan.id, plan.uid);
+    });
 
     test('Check axises', () {
       expect(plan.axisWidth, 600);

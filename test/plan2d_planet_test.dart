@@ -1,5 +1,6 @@
 import 'package:astronomical_measurements/astronomical_measurements.dart';
 import 'package:dart_helpers/dart_helpers.dart';
+import 'package:id_gen/id_gen.dart';
 import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
 
@@ -10,6 +11,7 @@ void main() {
 
   group('Construct Plan2D.planet', () {
     final plan = Plan2D<int>.planet(
+      hid: 'm12',
       realRadius: Unit.kilometre(6000),
       // 1 cell ~= 10 km
       scale: 10,
@@ -18,6 +20,12 @@ void main() {
     );
 
     const circumference = 3770;
+
+    test('Check IDs', () {
+      expect(plan.uid.isUuid, isTrue);
+      expect(plan.hid, 'm12');
+      expect(plan.id, plan.hid);
+    });
 
     test('Check axises', () {
       expect(plan.axisWidth, circumference);
