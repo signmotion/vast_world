@@ -19,6 +19,9 @@ dependencies:
   dart_helpers:
     path: ../dart_helpers
 
+  dart_tiledmap:
+    path: ../dart_tiledmap
+
   id_gen:
     path: ../id_gen
 

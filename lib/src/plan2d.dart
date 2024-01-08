@@ -4,13 +4,16 @@ import 'package:astronomical_measurements/astronomical_measurements.dart';
 import 'package:dart_helpers/dart_helpers.dart';
 
 import 'axis_type.dart';
-import 'background.dart';
-import 'imagery.dart';
+import 'imageries/imagery.dart';
+import 'imageries/picture_imagery.dart';
 import 'quant.dart';
 
 class Plan2D<T> extends Quant {
-  Plan2D({
-    required super.hid,
+  Plan2D(
+    super.pathToBackground, {
+    // a HID take from [pathToBackground]
+    // //super.hid,
+    super.uid,
     required Unit realWidth,
     required Unit realHeight,
     required Anchor2D anchor,
@@ -18,9 +21,10 @@ class Plan2D<T> extends Quant {
     required num scale,
     required this.innerDataDefaultValue,
     required this.outerDataDefaultValue,
-  })  : assert(realWidth > 0),
+  })  : assert(pathToBackground.isNotEmpty),
+        assert(realWidth > 0),
         assert(realHeight > 0),
-        assert(anchor == Anchor2D.topLeft, 'Not implemented others.'),
+        assert(anchor == defaultAnchor2D, 'Not implemented others.'),
         assert(scale > 0),
         anchors = [Anchor1D.left, Anchor1D.top],
         axisTypes = [axisType, axisType],
@@ -37,8 +41,8 @@ class Plan2D<T> extends Quant {
   }
 
   /// Unwrap to looped surface by radius.
-  factory Plan2D.planet({
-    String hid = '',
+  factory Plan2D.planet(
+    String pathToBackground, {
     Unit? realRadius,
     Unit? realRadiusX,
     Unit? realRadiusY,
@@ -54,10 +58,10 @@ class Plan2D<T> extends Quant {
     assert(rx != null, ry != null);
 
     return Plan2D.surface(
-      hid: hid,
+      pathToBackground,
       realWidth: rx! * 2 * pi,
       realHeight: ry! * 2 * pi,
-      anchor: Anchor2D.topLeft,
+      anchor: defaultAnchor2D,
       axisType: AxisType.loop,
       scale: scale,
       innerDataDefaultValue: innerDataDefaultValue,
@@ -65,18 +69,18 @@ class Plan2D<T> extends Quant {
     );
   }
 
-  factory Plan2D.surface({
-    String hid = '',
+  factory Plan2D.surface(
+    String pathToBackground, {
     required Unit realWidth,
     required Unit realHeight,
-    Anchor2D anchor = Anchor2D.topLeft,
-    AxisType axisType = AxisType.loop,
+    Anchor2D anchor = defaultAnchor2D,
+    AxisType axisType = defaultAxisType,
     num scale = 1.0,
     required T innerDataDefaultValue,
     required T outerDataDefaultValue,
   }) =>
       Plan2D<T>(
-        hid: hid,
+        pathToBackground,
         realWidth: realWidth,
         realHeight: realHeight,
         anchor: anchor,
@@ -85,6 +89,9 @@ class Plan2D<T> extends Quant {
         innerDataDefaultValue: innerDataDefaultValue,
         outerDataDefaultValue: outerDataDefaultValue,
       );
+
+  static const defaultAnchor2D = Anchor2D.topLeft;
+  static const defaultAxisType = AxisType.loop;
 
   late final Unit realWidth;
   late final Unit realHeight;
@@ -155,13 +162,10 @@ class Plan2D<T> extends Quant {
         _ => throw Exception('Unsupported `${axisTypes[axisIndex]}`.'),
       };
 
-  Background? background;
   List<Imagery> imageries = [];
 
   Plan2D<T> operator +(dynamic o) {
-    if (o is Background) {
-      setBackground(o);
-    } else if (o is Imagery) {
+    if (o is Imagery) {
       addImagery(o);
     } else {
       throw Exception('Unsupported class `$o`.');
@@ -169,8 +173,6 @@ class Plan2D<T> extends Quant {
 
     return this;
   }
-
-  void setBackground(Background v) => background = v;
 
   void addImagery(Imagery v) => imageries.add(v);
 
@@ -183,5 +185,34 @@ class Plan2D<T> extends Quant {
     final h = img.image!.height * k;
 
     return (w.ceil(), h.ceil());
+  }
+
+  Plan2D<T> imageryToPlan(
+    Imagery imagery, {
+    Anchor2D? anchor,
+    AxisType? axisType,
+    T? innerDataDefaultValue,
+    T? outerDataDefaultValue,
+  }) {
+    if (imagery is! PictureImagery) {
+      throw Exception('Not implemented imagery `${imagery.runtimeType}`.');
+    }
+
+    final scale = imagery.realWidth.value / imagery.image!.width;
+    print(scale);
+
+    return Plan2D<T>(
+      imagery.background.path,
+      uid: imagery.uid,
+      realWidth: imagery.realWidth,
+      realHeight: imagery.realHeight,
+      anchor: anchor ?? defaultAnchor2D,
+      axisType: axisType ?? defaultAxisType,
+      scale: scale,
+      innerDataDefaultValue:
+          innerDataDefaultValue ?? this.innerDataDefaultValue,
+      outerDataDefaultValue:
+          outerDataDefaultValue ?? this.outerDataDefaultValue,
+    );
   }
 }

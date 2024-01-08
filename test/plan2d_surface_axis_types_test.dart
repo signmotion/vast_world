@@ -11,6 +11,7 @@ void main() {
 
   group('Construct Plan2D.surface borderless', () {
     final plan = Plan2D<int>.surface(
+      'some_borderless_surface/bg.png',
       realWidth: Unit.kilometre(600),
       realHeight: Unit.kilometre(200),
       axisType: AxisType.borderless,
@@ -19,9 +20,9 @@ void main() {
     );
 
     test('Check IDs', () {
+      expect(plan.hid, 'some_borderless_surface');
       expect(plan.uid.isUuid, isTrue);
-      expect(plan.hid, '');
-      expect(plan.id, plan.uid);
+      expect(plan.id, plan.hid);
     });
 
     test('Check axises', () {
@@ -76,6 +77,7 @@ void main() {
 
   group('Construct Plan2D.surface borderstrict', () {
     final plan = Plan2D<int>.surface(
+      'some_borderstrict_surface/bg.png',
       realWidth: Unit.kilometre(600),
       realHeight: Unit.kilometre(200),
       axisType: AxisType.borderstrict,
@@ -112,6 +114,7 @@ void main() {
 
   group('Construct Plan2D.surface loop', () {
     final plan = Plan2D<int>.surface(
+      'some_loop_surface/bg.png',
       realWidth: Unit.kilometre(600),
       realHeight: Unit.kilometre(200),
       axisType: AxisType.loop,

@@ -1,15 +1,20 @@
-import 'package:id_gen/id_gen.dart';
+import 'background.dart';
+import 'can_work_with_file.dart';
+import 'has_id.dart';
 
-class Quant {
-  Quant({this.hid = ''}) : uid = const UuidV4Gen().get();
+class Quant extends FileWorker with HasId, ReadFileAsImage {
+  Quant(
+    super.pathToBackground, {
+    String? hid,
+    String? uid,
+  }) {
+    this.hid = hid ?? extractHid();
+    this.uid = uid ?? generateUid();
+  }
 
-  /// Human ID for nicely detection.
-  final String hid;
+  // test/data/planet_raw/raeria/bg.jpg
+  // test/data/planet_raw/raeria/ri/bg.png
+  String extractHid() => npath.split('/').reversed.elementAt(1);
 
-  /// UUID.
-  final String uid;
-
-  /// ID for access.
-  /// Can be [hid] if [hid] defined or [uid] if not.
-  String get id => hid.isEmpty ? uid : hid;
+  Background get background => Background(path);
 }

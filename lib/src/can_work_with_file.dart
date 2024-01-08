@@ -30,6 +30,7 @@ mixin CanWorkWithFile on Object {
   static String _sanitizePath(String v) =>
       p.joinAll(v.trim().replaceAll('\\', '/').split('/'));
 
+  /// Normalized path.
   /// Path with '/' delimiter.
   String get npath => path.replaceAll('\\', '/');
 

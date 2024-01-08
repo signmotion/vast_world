@@ -103,6 +103,13 @@ packages:
       relative: true
     source: path
     version: "0.1.0+100"
+  dart_tiledmap:
+    dependency: "direct main"
+    description:
+      path: "../dart_tiledmap"
+      relative: true
+    source: path
+    version: "0.12.0"
   equatable:
     dependency: transitive
     description:
