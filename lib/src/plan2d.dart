@@ -147,18 +147,13 @@ class Plan2D<T> extends Quant {
         _clampAxisType(ti.$2, 1),
       );
 
-  int _clampAxisType(int vi, int axisIndex) {
-    final type = axisTypes[axisIndex];
-    if (type == AxisType.borderless) {
-      return vi;
-    } else if (type == AxisType.borderstrict) {
-      return vi.clamp(axisLowers[axisIndex], axisUppers[axisIndex]);
-    } else if (type == AxisType.loop) {
-      return vi %= axisAbsSizes[axisIndex];
-    }
-
-    throw Exception('Unsupported `$type`.');
-  }
+  int _clampAxisType(int vi, int axisIndex) => switch (axisTypes[axisIndex]) {
+        AxisType.borderless => vi,
+        AxisType.borderstrict =>
+          vi.clamp(axisLowers[axisIndex], axisUppers[axisIndex]),
+        AxisType.loop => vi % axisAbsSizes[axisIndex],
+        _ => throw Exception('Unsupported `${axisTypes[axisIndex]}`.'),
+      };
 
   Background? background;
   List<Imagery> imageries = [];
@@ -179,7 +174,7 @@ class Plan2D<T> extends Quant {
 
   void addImagery(Imagery v) => imageries.add(v);
 
-  /// Axis size the [imagery] into the plan.
+  /// An axis size of [imagery] into the plan.
   (int, int) axisSizeImagery(Imagery imagery) {
     final img = imagery as PictureImagery;
     final nepper = img.realWidth.nepper(realWidth);

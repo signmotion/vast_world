@@ -1,4 +1,6 @@
 enum AxisType {
+  undefined,
+
   /// Grant any coordinate.
   borderless,
 
