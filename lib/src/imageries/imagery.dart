@@ -19,4 +19,10 @@ abstract class Imagery extends Quant {
 
   /// Absolute height in [Unit].
   late final Unit realHeight;
+
+  /// The axis size equals to background image size.
+  int get axisWidth => background.image!.width;
+  int get axisHeight => background.image!.height;
+
+  double get scale => realWidth.value / axisWidth;
 }

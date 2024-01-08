@@ -60,9 +60,9 @@ void main() {
       expect(imagery.hid, imageryHid);
       expect(imagery.uid, isUuid);
       expect(imagery.id, imageryHid);
-      expect(imagery.image, isNotNull);
-      expect(imagery.image!.width, 3520);
-      expect(imagery.image!.height, 2496);
+      expect(imagery.background.image, isNotNull);
+      expect(imagery.background.image!.width, 3520);
+      expect(imagery.background.image!.height, 2496);
       expect(imagery.position, imageryPosition);
       expect(imagery.realWidth, imageryRealWidth);
       expect(imagery.realHeight, imageryRealHeight);

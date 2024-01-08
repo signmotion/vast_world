@@ -27,8 +27,7 @@ class Plan2D<T> extends Quant {
         assert(anchor == defaultAnchor2D, 'Not implemented others.'),
         assert(scale > 0),
         anchors = [Anchor1D.left, Anchor1D.top],
-        axisTypes = [axisType, axisType],
-        scale = scale.toDouble() {
+        axisTypes = [axisType, axisType] {
     final unitType =
         realWidth.type < realHeight.type ? realWidth.type : realHeight.type;
     this.realWidth = realWidth.convertTo(unitType);
@@ -115,7 +114,7 @@ class Plan2D<T> extends Quant {
   List<int> get axisLowers => axisAbsSizes.map((i) => 0).toList();
 
   /// How many [unitType] contains 1 cell. A multiplicator.
-  final double scale;
+  double get scale => realWidth.value / axisAbsSizes.first;
 
   final T innerDataDefaultValue;
   final T outerDataDefaultValue;
@@ -181,8 +180,8 @@ class Plan2D<T> extends Quant {
     final img = imagery as PictureImagery;
     final nepper = img.realWidth.nepper(realWidth);
     final w = axisWidth * nepper;
-    final k = w / img.image!.width;
-    final h = img.image!.height * k;
+    final k = w / img.axisWidth;
+    final h = img.axisHeight * k;
 
     return (w.ceil(), h.ceil());
   }
@@ -198,9 +197,6 @@ class Plan2D<T> extends Quant {
       throw Exception('Not implemented imagery `${imagery.runtimeType}`.');
     }
 
-    final scale = imagery.realWidth.value / imagery.image!.width;
-    print(scale);
-
     return Plan2D<T>(
       imagery.background.path,
       uid: imagery.uid,
@@ -208,7 +204,7 @@ class Plan2D<T> extends Quant {
       realHeight: imagery.realHeight,
       anchor: anchor ?? defaultAnchor2D,
       axisType: axisType ?? defaultAxisType,
-      scale: scale,
+      scale: imagery.scale,
       innerDataDefaultValue:
           innerDataDefaultValue ?? this.innerDataDefaultValue,
       outerDataDefaultValue:

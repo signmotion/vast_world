@@ -9,7 +9,6 @@ class PictureImagery extends Imagery {
     required super.position,
     required super.realWidth,
   }) {
-    final scaleByWidth = realWidth.value / image!.width;
-    realHeight = Unit.kilometre(image!.height * scaleByWidth);
+    realHeight = Unit.kilometre(axisHeight * scale);
   }
 }
