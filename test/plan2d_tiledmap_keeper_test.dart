@@ -127,8 +127,11 @@ void main() {
         textBroker: textBroker,
         imageBroker: imageBroker,
       );
+      keeper.clear();
+
       keeper.write(plan);
 
+      // root (plan)
       {
         final pf = p.join(outputPath, plan.id);
         expect(Directory(pf).existsSync(), isTrue, reason: pf);
@@ -139,6 +142,21 @@ void main() {
       }
       {
         final pf = p.join(outputPath, plan.id, 'bg.png');
+        expect(File(pf).existsSync(), isTrue, reason: pf);
+      }
+
+      // child (imagery)
+      final ri = plan.imageries.single.id;
+      {
+        final pf = p.join(outputPath, plan.id, ri);
+        expect(Directory(pf).existsSync(), isTrue, reason: pf);
+      }
+      {
+        final pf = p.join(outputPath, plan.id, ri, '_.tmx');
+        expect(File(pf).existsSync(), isTrue, reason: pf);
+      }
+      {
+        final pf = p.join(outputPath, plan.id, ri, 'bg.png');
         expect(File(pf).existsSync(), isTrue, reason: pf);
       }
     });

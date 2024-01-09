@@ -12,6 +12,11 @@ abstract class Keeper<Q extends Quant, ImgB extends Broker<dynamic>,
   final ImgB imageBroker;
   final TxtB textBroker;
 
+  void clear() {
+    imageBroker.clear();
+    textBroker.clear();
+  }
+
   bool exists(String id);
 
   Q? read(String id);

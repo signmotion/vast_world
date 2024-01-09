@@ -2,6 +2,7 @@ import 'package:dart_tiledmap/dart_tiledmap.dart';
 import 'package:path/path.dart' as p;
 
 import '../brokers/broker.dart';
+import '../imageries/imagery.dart';
 import '../plan2d.dart';
 import '../quant.dart';
 import 'keeper.dart';
@@ -14,7 +15,7 @@ abstract class TiledmapKeeper<Q extends Quant, ImgB extends Broker<dynamic>,
   });
 
   @override
-  bool exists(String id) => textBroker.exists(id);
+  bool exists(String id) => imageBroker.exists(id) || textBroker.exists(id);
 }
 
 abstract class QuantTiledmapKeeper<
@@ -55,7 +56,12 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
   @override
   void write(Plan2D<int> value) {
     final plan = value;
+    _writePlanXml(plan);
+    _writePlanBackground(plan);
+    _writePlanImageries(plan);
+  }
 
+  void _writePlanXml(Plan2D<int> plan) {
     var id = 0;
 
     final tilesets = <Tileset>[];
@@ -131,17 +137,67 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
     );
     final doc = TileMapConverter.convertToTmx(tm);
 
-    // write xml
+    final s = doc.toXmlString(pretty: true);
+    final pf = p.join(plan.id, '_.tmx');
+    textBroker.write(pf, s);
+  }
+
+  void _writePlanBackground(Plan2D<int> plan) {
+    final pf = p.join(plan.id, 'bg.png');
+    imageBroker.write(pf, plan.background.image);
+  }
+
+  void _writePlanImageries(Plan2D<int> plan) {
+    for (final imagery in plan.imageries) {
+      _writePlanImagery(plan, imagery);
+    }
+  }
+
+  void _writePlanImagery(Plan2D<int> plan, Imagery imagery) {
+    _writePlanImageryXml(plan, imagery);
+    _writePlanImageryBackground(plan, imagery);
+  }
+
+  void _writePlanImageryXml(Plan2D<int> plan, Imagery imagery) {
+    var id = 0;
+
+    final layers = <Layer>[];
     {
-      final r = doc.toXmlString(pretty: true);
-      final pf = p.join(plan.id, '_.tmx');
-      textBroker.write(pf, r);
+      ++id;
+      final tiledImage = TiledImage(
+        source: 'bg.png',
+        width: imagery.axisWidth,
+        height: imagery.axisHeight,
+      );
+      layers.add(ImageLayer(
+        id: id,
+        name: 'bg',
+        image: tiledImage,
+        repeatX: false,
+        repeatY: false,
+      ));
     }
 
-    // write background
-    {
-      final pf = p.join(plan.id, 'bg.png');
-      imageBroker.write(pf, plan.background.image);
-    }
+    final tm = TiledMap(
+      width: imagery.axisWidth,
+      height: imagery.axisHeight,
+      tileWidth: 1,
+      tileHeight: 1,
+      version: '0.1',
+      tiledVersion: '1.10.2',
+      layers: layers,
+      compressionLevel: 9,
+      orientation: MapOrientation.orthogonal,
+    );
+    final doc = TileMapConverter.convertToTmx(tm);
+
+    final s = doc.toXmlString(pretty: true);
+    final pf = p.join(plan.id, imagery.id, '_.tmx');
+    textBroker.write(pf, s);
+  }
+
+  void _writePlanImageryBackground(Plan2D<int> plan, Imagery imagery) {
+    final pf = p.join(plan.id, imagery.id, 'bg.png');
+    imageBroker.write(pf, imagery.background.image);
   }
 }
