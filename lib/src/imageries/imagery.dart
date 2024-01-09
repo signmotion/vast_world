@@ -13,6 +13,8 @@ abstract class Imagery extends Quant {
 
   /// Position into the plan.
   final (int, int) position;
+  int get positionX => position.$1;
+  int get positionY => position.$2;
 
   /// Absolute width in [Unit].
   final Unit realWidth;

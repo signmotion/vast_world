@@ -34,29 +34,39 @@ mixin CanWorkWithFile on Object {
   /// Path with '/' delimiter.
   String get npath => path.replaceAll('\\', '/');
 
-  void counstructPath({bool hasFile = false}) {
-    final dir = hasFile ? p.dirname(path) : path;
-    final directory = Directory(dir);
-    directory.createSync(recursive: true);
+  void counstructPath({bool? hasFile}) => counstructPathToFile(path);
+
+  static void counstructPathToFile(String pathToFile, {bool? hasFile}) {
+    hasFile ??= p.extension(pathToFile).isNotEmpty;
+    final dir = hasFile ? p.dirname(pathToFile) : pathToFile;
+    Directory(dir).createSync(recursive: true);
   }
 
-  Uint8List readAsBytes({String? filename}) =>
-      File(p.join(path, filename)).readAsBytesSync();
+  Uint8List readAsBytes({String? pathToFile}) =>
+      File(p.join(path, pathToFile)).readAsBytesSync();
 
-  Image readAsImage({String? filename}) =>
+  Image readAsImage({String? pathToFile}) =>
       // use filename extension to determine the decoder
-      decodeNamedImage(p.join(path, filename), readAsBytes())!;
+      decodeNamedImage(p.join(path, pathToFile), readAsBytes())!;
 
-  String? readAsText({String? filename}) {
-    final file = File(p.join(path, filename));
+  String? readAsText({String? pathToFile}) {
+    final file = File(p.join(path, pathToFile));
     return file.existsSync() ? file.readAsStringSync() : null;
   }
 
-  void writeAsBytes(Uint8List bytes, {String? filename}) =>
-      File(p.join(path, filename)).writeAsBytesSync(bytes);
+  void writeAsBytes(Uint8List bytes, {String? pathToFile}) {
+    final pf = p.join(path, pathToFile);
+    if (pathToFile != null) {
+      counstructPathToFile(pf);
+    }
+    File(pf).writeAsBytesSync(bytes);
+  }
 
-  void writeAsImage(Image image, {String? filename}) {
-    final pf = p.join(path, filename);
+  void writeAsImage(Image image, {String? pathToFile}) {
+    final pf = p.join(path, pathToFile);
+    if (pathToFile != null) {
+      counstructPathToFile(pf);
+    }
     final encoder = findEncoderForNamedImage(pf);
     if (encoder == null) {
       throw Exception('Not found an encoder by extension for file `$pf`.');
@@ -66,8 +76,13 @@ mixin CanWorkWithFile on Object {
     File(pf).writeAsBytesSync(bytes);
   }
 
-  void writeAsText(String text, {String? filename}) =>
-      File(p.join(path, filename)).writeAsStringSync(text);
+  void writeAsText(String text, {String? pathToFile}) {
+    final pf = p.join(path, pathToFile);
+    if (pathToFile != null) {
+      counstructPathToFile(pf);
+    }
+    File(pf).writeAsStringSync(text);
+  }
 }
 
 mixin ReadFileAsBytes on CanWorkWithFile {

@@ -28,8 +28,8 @@ class StringFilesystemBroker extends FilesystemBroker<String> {
   StringFilesystemBroker(super.path);
 
   @override
-  String? read(String key) => readAsText(filename: key);
+  String? read(String key) => readAsText(pathToFile: key);
 
   @override
-  void write(String key, String value) => writeAsText(value, filename: key);
+  void write(String key, String value) => writeAsText(value, pathToFile: key);
 }

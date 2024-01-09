@@ -194,7 +194,7 @@ class Plan2D<T> extends Quant {
     T? outerDataDefaultValue,
   }) {
     if (imagery is! PictureImagery) {
-      throw Exception('Not implemented imagery `${imagery.runtimeType}`.');
+      throw UnimplementedError('Not implemented `${imagery.runtimeType}`.');
     }
 
     return Plan2D<T>(

@@ -119,13 +119,19 @@ void main() {
     });
 
     test('Write to TiledMap format and check file structure', () {
-      // final outputPath = p.join('test', 'output', 'planet_raw');
-      // final broker = StringFilesystemBroker(outputPath);
-      // final keeper = PlanKeeper(broker);
-      // keeper.write(plan);
+      final outputPath = p.join('test', 'output', 'planet_tmx');
+      final broker = StringFilesystemBroker(outputPath);
+      final keeper = PlanKeeper(broker);
+      keeper.write(plan);
 
-      // expect(File(p.join(outputPath, hid)).existsSync(), isTrue);
-      // expect(File(p.join(outputPath, hid, '_.tmx')).existsSync(), isTrue);
+      {
+        final pf = p.join(outputPath, plan.id);
+        expect(Directory(pf).existsSync(), isTrue, reason: pf);
+      }
+      {
+        final pf = p.join(outputPath, plan.id, '_.tmx');
+        expect(File(pf).existsSync(), isTrue, reason: pf);
+      }
     });
   });
 }

@@ -4,5 +4,7 @@
 .packages
 build/
 
+output/
+
 
 /.vscode/settings.json
