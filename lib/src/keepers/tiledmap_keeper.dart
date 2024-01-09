@@ -3,6 +3,12 @@ import 'package:path/path.dart' as p;
 
 import '../brokers/broker.dart';
 import '../imageries/imagery.dart';
+import '../maps/tiled/v_converter.dart';
+import '../maps/tiled/v_image_layer.dart';
+import '../maps/tiled/v_map.dart';
+import '../maps/tiled/v_object.dart';
+import '../maps/tiled/v_object_group.dart';
+import '../maps/tiled/v_tileset.dart';
 import '../plan2d.dart';
 import '../quant.dart';
 import 'keeper.dart';
@@ -64,36 +70,22 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
   void _writePlanXml(Plan2D<int> plan) {
     var id = 0;
 
-    final tilesets = <Tileset>[];
-    final objects = <TiledObject>[];
+    final tilesets = <VImageryTileset>[];
+    final objects = <VTileObject>[];
     for (final imagery in plan.imageries) {
       ++id;
-      final (isx, isy) = plan.axisSizeImagery(imagery);
-      final tiledImage = TiledImage(
-        source: imagery.npath,
-        width: isx,
-        height: isy,
-      );
-      final tileset = Tileset(
+      final tileset = VImageryTileset.fromPlanAndImagery(
+        plan: plan,
+        imagery: imagery,
         firstGid: id,
-        name: imagery.id,
-        tileWidth: imagery.axisWidth,
-        tileHeight: imagery.axisHeight,
-        image: tiledImage,
-        tileCount: 1,
       );
       tilesets.add(tileset);
 
       ++id;
-      final tiledObject = TiledObject(
+      final tiledObject = VTileObject.fromImagery(
         id: id,
         gid: id - 1,
-        name: imagery.id,
-        x: imagery.positionX.toDouble(),
-        y: imagery.positionY.toDouble(),
-        width: imagery.axisWidth.toDouble(),
-        height: imagery.axisHeight.toDouble(),
-        tile: true,
+        imagery: imagery,
       );
       objects.add(tiledObject);
     }
@@ -101,43 +93,27 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
     final layers = <Layer>[];
     {
       ++id;
-      final tiledImage = TiledImage(
-        source: 'bg.png',
+      layers.add(VBackgroundImageLayer(
+        id: id,
         width: plan.axisWidth,
         height: plan.axisHeight,
-      );
-      layers.add(ImageLayer(
-        id: id,
-        name: 'bg',
-        image: tiledImage,
-        repeatX: false,
-        repeatY: false,
       ));
     }
     {
       ++id;
-      layers.add(ObjectGroup(
+      layers.add(VImageryObjectGroup(
         id: id,
-        name: 'imageries',
         objects: objects,
       ));
     }
 
-    final tm = TiledMap(
+    final map = VMap(
       width: plan.axisWidth,
       height: plan.axisHeight,
-      tileWidth: 1,
-      tileHeight: 1,
-      version: '0.1',
-      tiledVersion: '1.10.2',
       tilesets: tilesets,
       layers: layers,
-      compressionLevel: 9,
-      orientation: MapOrientation.orthogonal,
     );
-    final doc = TileMapConverter.convertToTmx(tm);
-
-    final s = doc.toXmlString(pretty: true);
+    final s = const VConverter().convert(map);
     final pf = p.join(plan.id, '_.tmx');
     textBroker.write(pf, s);
   }
@@ -164,34 +140,19 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
     final layers = <Layer>[];
     {
       ++id;
-      final tiledImage = TiledImage(
-        source: 'bg.png',
+      layers.add(VBackgroundImageLayer(
+        id: id,
         width: imagery.axisWidth,
         height: imagery.axisHeight,
-      );
-      layers.add(ImageLayer(
-        id: id,
-        name: 'bg',
-        image: tiledImage,
-        repeatX: false,
-        repeatY: false,
       ));
     }
 
-    final tm = TiledMap(
+    final map = VMap(
       width: imagery.axisWidth,
       height: imagery.axisHeight,
-      tileWidth: 1,
-      tileHeight: 1,
-      version: '0.1',
-      tiledVersion: '1.10.2',
       layers: layers,
-      compressionLevel: 9,
-      orientation: MapOrientation.orthogonal,
     );
-    final doc = TileMapConverter.convertToTmx(tm);
-
-    final s = doc.toXmlString(pretty: true);
+    final s = const VConverter().convert(map);
     final pf = p.join(planId, imagery.id, '_.tmx');
     textBroker.write(pf, s);
   }

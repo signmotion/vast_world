@@ -7,6 +7,8 @@ export 'src/can_work_with_file.dart';
 export 'src/brokers/broker.dart';
 export 'src/brokers/filesystem_broker.dart';
 
+export 'src/maps/tiled/v_map.dart';
+
 export 'src/has_id.dart';
 
 export 'src/imageries/imagery.dart';
