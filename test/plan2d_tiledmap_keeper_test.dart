@@ -8,7 +8,8 @@ import 'package:test/test.dart';
 
 import 'prepare_test_env.dart';
 
-typedef PlanKeeper = Plan2DIntTiledmapKeeper<String, StringFilesystemBroker>;
+typedef PlanKeeper
+    = Plan2DIntTiledmapKeeper<ImageFilesystemBroker, TextFilesystemBroker>;
 
 void main() {
   prepareTestEnv();
@@ -120,8 +121,12 @@ void main() {
 
     test('Write to TiledMap format and check file structure', () {
       final outputPath = p.join('test', 'output', 'planet_tmx');
-      final broker = StringFilesystemBroker(outputPath);
-      final keeper = PlanKeeper(broker);
+      final textBroker = TextFilesystemBroker(outputPath);
+      final imageBroker = ImageFilesystemBroker(outputPath);
+      final keeper = PlanKeeper(
+        textBroker: textBroker,
+        imageBroker: imageBroker,
+      );
       keeper.write(plan);
 
       {
@@ -130,6 +135,10 @@ void main() {
       }
       {
         final pf = p.join(outputPath, plan.id, '_.tmx');
+        expect(File(pf).existsSync(), isTrue, reason: pf);
+      }
+      {
+        final pf = p.join(outputPath, plan.id, 'bg.png');
         expect(File(pf).existsSync(), isTrue, reason: pf);
       }
     });

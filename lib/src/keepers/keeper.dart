@@ -2,15 +2,20 @@ import '../brokers/broker.dart';
 import '../quant.dart';
 
 /// The base class for keepers.
-abstract class Keeper<T extends Quant, B extends Broker<dynamic>> {
-  const Keeper(this.broker);
+abstract class Keeper<Q extends Quant, ImgB extends Broker<dynamic>,
+    TxtB extends Broker<dynamic>> {
+  const Keeper({
+    required this.imageBroker,
+    required this.textBroker,
+  });
 
-  final B broker;
+  final ImgB imageBroker;
+  final TxtB textBroker;
 
   bool exists(String id);
 
-  T? read(String id);
+  Q? read(String id);
 
   /// [T] contains ID.
-  void write(T value);
+  void write(Q value);
 }

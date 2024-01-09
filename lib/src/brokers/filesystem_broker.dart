@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:image/image.dart';
+
 import '../can_work_with_file.dart';
 import 'broker.dart';
 
@@ -24,8 +26,18 @@ abstract class FilesystemBroker<T> extends Broker<T> with CanWorkWithFile {
   }
 }
 
-class StringFilesystemBroker extends FilesystemBroker<String> {
-  StringFilesystemBroker(super.path);
+class ImageFilesystemBroker extends FilesystemBroker<Image> {
+  ImageFilesystemBroker(super.path);
+
+  @override
+  Image? read(String key) => readAsImage(pathToFile: key);
+
+  @override
+  void write(String key, Image value) => writeAsImage(value, pathToFile: key);
+}
+
+class TextFilesystemBroker extends FilesystemBroker<String> {
+  TextFilesystemBroker(super.path);
 
   @override
   String? read(String key) => readAsText(pathToFile: key);

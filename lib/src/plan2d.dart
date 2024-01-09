@@ -167,7 +167,7 @@ class Plan2D<T> extends Quant {
     if (o is Imagery) {
       addImagery(o);
     } else {
-      throw Exception('Unsupported class `$o`.');
+      throw UnimplementedError('Unsupported class `$o`.');
     }
 
     return this;

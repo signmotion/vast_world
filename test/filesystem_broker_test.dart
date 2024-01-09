@@ -12,7 +12,7 @@ void main() {
   group('FilesystemBroker Text', () {
     final outputPath =
         p.join('test', 'output', 'filesystem_broker_test', 'text');
-    final broker = StringFilesystemBroker(outputPath);
+    final broker = TextFilesystemBroker(outputPath);
 
     const key = '1.txt';
     const value = 'Some\nmultiline text\n\t1234567890  ';

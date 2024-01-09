@@ -6,32 +6,44 @@ import '../plan2d.dart';
 import '../quant.dart';
 import 'keeper.dart';
 
-abstract class TiledmapKeeper<Q extends Quant, T, B extends Broker<T>>
-    extends Keeper<Q, B> {
-  TiledmapKeeper(super.broker);
+abstract class TiledmapKeeper<Q extends Quant, ImgB extends Broker<dynamic>,
+    TxtB extends Broker<dynamic>> extends Keeper<Q, ImgB, TxtB> {
+  TiledmapKeeper({
+    required super.imageBroker,
+    required super.textBroker,
+  });
 
   @override
-  bool exists(String id) => broker.exists(id);
+  bool exists(String id) => textBroker.exists(id);
 }
 
-abstract class QuantTiledmapKeeper<Q extends Quant, T, B extends Broker<T>>
-    extends TiledmapKeeper<Q, T, B> {
-  QuantTiledmapKeeper(super.broker);
+abstract class QuantTiledmapKeeper<
+    Q extends Quant,
+    ImgB extends Broker<dynamic>,
+    TxtB extends Broker<dynamic>> extends TiledmapKeeper<Q, ImgB, TxtB> {
+  QuantTiledmapKeeper({
+    required super.imageBroker,
+    required super.textBroker,
+  });
 }
 
-class Plan2DIntTiledmapKeeper<T, B extends Broker<T>>
-    extends QuantTiledmapKeeper<Plan2D<int>, T, B> {
-  Plan2DIntTiledmapKeeper(super.broker);
+class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
+        TxtB extends Broker<dynamic>>
+    extends QuantTiledmapKeeper<Plan2D<int>, ImgB, TxtB> {
+  Plan2DIntTiledmapKeeper({
+    required super.imageBroker,
+    required super.textBroker,
+  });
 
   @override
   Plan2D<int>? read(String id) {
-    final body = broker.read(id);
+    final body = textBroker.read(id);
     if (body == null) {
       return null;
     }
 
     if (body is! String) {
-      throw Exception('Expected a string data'
+      throw ArgumentError('Expected a string data'
           ' instead of `${body.runtimeType}`.');
     }
 
@@ -118,9 +130,18 @@ class Plan2DIntTiledmapKeeper<T, B extends Broker<T>>
       orientation: MapOrientation.orthogonal,
     );
     final doc = TileMapConverter.convertToTmx(tm);
-    final r = doc.toXmlString(pretty: true);
 
-    final pf = p.join(plan.id, '_.tmx');
-    broker.write(pf, r as T);
+    // write xml
+    {
+      final r = doc.toXmlString(pretty: true);
+      final pf = p.join(plan.id, '_.tmx');
+      textBroker.write(pf, r);
+    }
+
+    // write background
+    {
+      final pf = p.join(plan.id, 'bg.png');
+      imageBroker.write(pf, plan.background.image);
+    }
   }
 }
