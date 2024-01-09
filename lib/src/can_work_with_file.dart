@@ -1,15 +1,11 @@
-import 'dart:io';
-import 'dart:typed_data';
-
-import 'package:image/image.dart';
-import 'package:path/path.dart' as p;
+part of '../vast_world.dart';
 
 class FileWorker with CanWorkWithFile {
   FileWorker(String path, {bool createPathIfNotExists = false}) {
     this.path = path;
 
     if (createPathIfNotExists) {
-      final hasFile = p.extension(path).isNotEmpty;
+      final hasFile = ph.extension(path).isNotEmpty;
       counstructPath(hasFile: hasFile);
     }
   }
@@ -28,7 +24,7 @@ mixin CanWorkWithFile on Object {
   }
 
   static String _sanitizePath(String v) =>
-      p.joinAll(v.trim().replaceAll('\\', '/').split('/'));
+      ph.joinAll(v.trim().replaceAll('\\', '/').split('/'));
 
   /// Normalized path.
   /// Path with '/' delimiter.
@@ -37,25 +33,25 @@ mixin CanWorkWithFile on Object {
   void counstructPath({bool? hasFile}) => counstructPathToFile(path);
 
   static void counstructPathToFile(String pathToFile, {bool? hasFile}) {
-    hasFile ??= p.extension(pathToFile).isNotEmpty;
-    final dir = hasFile ? p.dirname(pathToFile) : pathToFile;
+    hasFile ??= ph.extension(pathToFile).isNotEmpty;
+    final dir = hasFile ? ph.dirname(pathToFile) : pathToFile;
     Directory(dir).createSync(recursive: true);
   }
 
   Uint8List readAsBytes({String? pathToFile}) =>
-      File(p.join(path, pathToFile)).readAsBytesSync();
+      File(ph.join(path, pathToFile)).readAsBytesSync();
 
   Image readAsImage({String? pathToFile}) =>
       // use filename extension to determine the decoder
-      decodeNamedImage(p.join(path, pathToFile), readAsBytes())!;
+      decodeNamedImage(ph.join(path, pathToFile), readAsBytes())!;
 
   String? readAsText({String? pathToFile}) {
-    final file = File(p.join(path, pathToFile));
+    final file = File(ph.join(path, pathToFile));
     return file.existsSync() ? file.readAsStringSync() : null;
   }
 
   void writeAsBytes(Uint8List bytes, {String? pathToFile}) {
-    final pf = p.join(path, pathToFile);
+    final pf = ph.join(path, pathToFile);
     if (pathToFile != null) {
       counstructPathToFile(pf);
     }
@@ -63,7 +59,7 @@ mixin CanWorkWithFile on Object {
   }
 
   void writeAsImage(Image image, {String? pathToFile}) {
-    final pf = p.join(path, pathToFile);
+    final pf = ph.join(path, pathToFile);
     if (pathToFile != null) {
       counstructPathToFile(pf);
     }
@@ -77,7 +73,7 @@ mixin CanWorkWithFile on Object {
   }
 
   void writeAsText(String text, {String? pathToFile}) {
-    final pf = p.join(path, pathToFile);
+    final pf = ph.join(path, pathToFile);
     if (pathToFile != null) {
       counstructPathToFile(pf);
     }

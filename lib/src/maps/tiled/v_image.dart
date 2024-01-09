@@ -1,4 +1,4 @@
-import 'package:dart_tiledmap/dart_tiledmap.dart';
+part of '../../../vast_world.dart';
 
 class VImage extends TiledImage {
   const VImage({

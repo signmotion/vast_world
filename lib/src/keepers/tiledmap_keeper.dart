@@ -1,17 +1,4 @@
-import 'package:dart_tiledmap/dart_tiledmap.dart';
-import 'package:path/path.dart' as p;
-
-import '../brokers/broker.dart';
-import '../imageries/imagery.dart';
-import '../maps/tiled/v_converter.dart';
-import '../maps/tiled/v_image_layer.dart';
-import '../maps/tiled/v_map.dart';
-import '../maps/tiled/v_object.dart';
-import '../maps/tiled/v_object_group.dart';
-import '../maps/tiled/v_tileset.dart';
-import '../plan2d.dart';
-import '../quant.dart';
-import 'keeper.dart';
+part of '../../vast_world.dart';
 
 abstract class TiledmapKeeper<Q extends Quant, ImgB extends Broker<dynamic>,
     TxtB extends Broker<dynamic>> extends Keeper<Q, ImgB, TxtB> {
@@ -114,12 +101,12 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
       layers: layers,
     );
     final s = const VConverter().convert(map);
-    final pf = p.join(plan.id, '_.tmx');
+    final pf = ph.join(plan.id, '_.tmx');
     textBroker.write(pf, s);
   }
 
   void _writePlanBackground(Plan2D<int> plan) {
-    final pf = p.join(plan.id, 'bg.png');
+    final pf = ph.join(plan.id, 'bg.png');
     imageBroker.write(pf, plan.background.image);
   }
 
@@ -153,12 +140,12 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
       layers: layers,
     );
     final s = const VConverter().convert(map);
-    final pf = p.join(planId, imagery.id, '_.tmx');
+    final pf = ph.join(planId, imagery.id, '_.tmx');
     textBroker.write(pf, s);
   }
 
   void _writePlanImageryBackground(String planId, Imagery imagery) {
-    final pf = p.join(planId, imagery.id, 'bg.png');
+    final pf = ph.join(planId, imagery.id, 'bg.png');
     imageBroker.write(pf, imagery.background.image);
   }
 }

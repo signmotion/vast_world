@@ -1,4 +1,4 @@
-import 'dart:math';
+part of '../vast_world.dart';
 
 /// Returns the radiuses of the ellipsoide according to the size.
 (double, double) size2DToCircleRadius(

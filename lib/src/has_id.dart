@@ -1,4 +1,4 @@
-import 'package:id_gen/id_gen.dart';
+part of '../vast_world.dart';
 
 mixin HasId on Object {
   /// Human ID for nicely detection.

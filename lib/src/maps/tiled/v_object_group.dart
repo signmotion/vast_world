@@ -1,6 +1,4 @@
-import 'package:dart_tiledmap/dart_tiledmap.dart';
-
-import 'v_object.dart';
+part of '../../../vast_world.dart';
 
 class VObjectGroup extends ObjectGroup {
   VObjectGroup({

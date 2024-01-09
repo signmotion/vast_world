@@ -1,6 +1,4 @@
-import 'package:dart_tiledmap/dart_tiledmap.dart';
-
-import 'v_map.dart';
+part of '../../../vast_world.dart';
 
 class VConverter {
   const VConverter({this.pretty = true});

@@ -1,3 +1,5 @@
+part of '../vast_world.dart';
+
 enum AxisType {
   undefined,
 

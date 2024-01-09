@@ -1,12 +1,4 @@
-import 'dart:math';
-
-import 'package:astronomical_measurements/astronomical_measurements.dart';
-import 'package:dart_helpers/dart_helpers.dart';
-
-import 'axis_type.dart';
-import 'imageries/imagery.dart';
-import 'imageries/picture_imagery.dart';
-import 'quant.dart';
+part of '../vast_world.dart';
 
 class Plan2D<T> extends Quant {
   Plan2D(

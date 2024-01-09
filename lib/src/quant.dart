@@ -1,6 +1,4 @@
-import 'background.dart';
-import 'can_work_with_file.dart';
-import 'has_id.dart';
+part of '../vast_world.dart';
 
 abstract class Quant extends FileWorker with HasId {
   Quant(

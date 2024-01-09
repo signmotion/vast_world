@@ -1,6 +1,4 @@
-import 'package:dart_tiledmap/dart_tiledmap.dart';
-
-import '../../imageries/imagery.dart';
+part of '../../../vast_world.dart';
 
 class VObject extends TiledObject {
   VObject({

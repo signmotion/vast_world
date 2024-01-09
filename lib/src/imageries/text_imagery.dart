@@ -1,5 +1,4 @@
-import '../can_work_with_file.dart';
-import 'imagery.dart';
+part of '../../vast_world.dart';
 
 /// Build imagery by text description.
 class TextImagery extends Imagery with ReadFileAsText {

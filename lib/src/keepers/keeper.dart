@@ -1,5 +1,4 @@
-import '../brokers/broker.dart';
-import '../quant.dart';
+part of '../../vast_world.dart';
 
 /// The base class for keepers.
 abstract class Keeper<Q extends Quant, ImgB extends Broker<dynamic>,

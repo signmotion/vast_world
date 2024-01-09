@@ -1,6 +1,4 @@
-import 'package:astronomical_measurements/astronomical_measurements.dart';
-
-import '../quant.dart';
+part of '../../vast_world.dart';
 
 abstract class Imagery extends Quant {
   Imagery(

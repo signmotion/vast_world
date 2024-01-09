@@ -1,8 +1,4 @@
-import 'package:dart_tiledmap/dart_tiledmap.dart';
-
-import '../../imageries/imagery.dart';
-import '../../plan2d.dart';
-import 'v_image.dart';
+part of '../../../vast_world.dart';
 
 class VTileset extends Tileset {
   VTileset({

@@ -1,3 +1,5 @@
+part of '../../vast_world.dart';
+
 /// The base class for key-value brokers.
 abstract class Broker<T> {
   const Broker();

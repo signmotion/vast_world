@@ -1,6 +1,4 @@
-import 'package:astronomical_measurements/astronomical_measurements.dart';
-
-import 'imagery.dart';
+part of '../../vast_world.dart';
 
 /// Build imagery by image.
 class PictureImagery extends Imagery {
