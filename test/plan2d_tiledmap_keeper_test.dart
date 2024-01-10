@@ -32,7 +32,7 @@ void main() {
     //  rx = 6923 km, unwrapped to circumferenceX * scale = 43500
     //  ry = 5411 km, unwrapped to circumferenceY * scale = 34000
     var plan = Plan2D<int>.planet(
-      'test/data/planet_raw/$hid/bg.png',
+      'test/data/planet_raw/$hid/${VMap.defaultBackgroundFilename}',
       realRadiusX: Unit.kilometre(rx),
       realRadiusY: Unit.kilometre(ry),
       scale: scale,
@@ -48,7 +48,7 @@ void main() {
     final imageryRealWidth = Unit.kilometre(1100);
     const imageryHid = 'ri';
     plan += PictureImagery(
-      'test/data/planet_raw/$hid/$imageryHid/bg.png',
+      'test/data/planet_raw/$hid/$imageryHid/${VMap.defaultBackgroundFilename}',
       position: imageryPosition,
       // the height will be calculated in proportion to the image size
       realWidth: imageryRealWidth,
@@ -57,7 +57,10 @@ void main() {
     final imageryRealHeight = Unit.kilometre(780);
 
     void checkImagery(PictureImagery imagery) {
-      expect(imagery.npath, 'test/data/planet_raw/$hid/$imageryHid/bg.png');
+      expect(
+        imagery.npath,
+        'test/data/planet_raw/$hid/$imageryHid/${VMap.defaultBackgroundFilename}',
+      );
       expect(imagery.hid, imageryHid);
       expect(imagery.uid, isUuid);
       expect(imagery.id, imageryHid);
@@ -78,7 +81,9 @@ void main() {
       expect(pl.square, 3520 * 2496);
 
       expect(
-          pl.background.npath, 'test/data/planet_raw/$hid/$imageryHid/bg.png');
+        pl.background.npath,
+        'test/data/planet_raw/$hid/$imageryHid/${VMap.defaultBackgroundFilename}',
+      );
       expect(pl.background.image, isNotNull);
     }
 
@@ -96,7 +101,10 @@ void main() {
 
       expect(plan.square, circumferenceX * circumferenceY);
 
-      expect(plan.background.npath, 'test/data/planet_raw/$hid/bg.png');
+      expect(
+        plan.background.npath,
+        'test/data/planet_raw/$hid/${VMap.defaultBackgroundFilename}',
+      );
       expect(plan.background.image, isNotNull);
 
       final imagery = plan.imageries.single as PictureImagery;
@@ -112,20 +120,21 @@ void main() {
     });
 
     test('Read from TiledMap format and check created from tmx', () {
-      // final sourcePath = p.join('test', 'data');
-      // final broker = StringFilesystemBroker(sourcePath);
-      // final keeper = PlanKeeper(broker);
+      // final sourcePath = p.join('test', 'data', 'planet_tmx');
+      // final keeper = PlanKeeper(
+      //   textBroker: TextFilesystemBroker(sourcePath),
+      //   imageBroker: ImageFilesystemBroker(sourcePath),
+      // );
       // final loaded = keeper.read('planet_raeria_tmx')!;
+
       // checkPlan(loaded);
     });
 
     test('Write to TiledMap format and check file structure', () {
       final outputPath = p.join('test', 'output', 'planet_tmx');
-      final textBroker = TextFilesystemBroker(outputPath);
-      final imageBroker = ImageFilesystemBroker(outputPath);
       final keeper = PlanKeeper(
-        textBroker: textBroker,
-        imageBroker: imageBroker,
+        textBroker: TextFilesystemBroker(outputPath),
+        imageBroker: ImageFilesystemBroker(outputPath),
       );
       keeper.clear();
 
@@ -137,11 +146,11 @@ void main() {
         expect(Directory(pf).existsSync(), isTrue, reason: pf);
       }
       {
-        final pf = p.join(outputPath, plan.id, '_.tmx');
+        final pf = p.join(outputPath, plan.id, VMap.defaultContentFilename);
         expect(File(pf).existsSync(), isTrue, reason: pf);
       }
       {
-        final pf = p.join(outputPath, plan.id, 'bg.png');
+        final pf = p.join(outputPath, plan.id, VMap.defaultBackgroundFilename);
         expect(File(pf).existsSync(), isTrue, reason: pf);
       }
 
@@ -152,11 +161,12 @@ void main() {
         expect(Directory(pf).existsSync(), isTrue, reason: pf);
       }
       {
-        final pf = p.join(outputPath, plan.id, ri, '_.tmx');
+        final pf = p.join(outputPath, plan.id, ri, VMap.defaultContentFilename);
         expect(File(pf).existsSync(), isTrue, reason: pf);
       }
       {
-        final pf = p.join(outputPath, plan.id, ri, 'bg.png');
+        final pf =
+            p.join(outputPath, plan.id, ri, VMap.defaultBackgroundFilename);
         expect(File(pf).existsSync(), isTrue, reason: pf);
       }
     });

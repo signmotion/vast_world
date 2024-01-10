@@ -10,7 +10,7 @@ abstract class Quant extends FileWorker with HasId {
     this.uid = uid ?? generateUid();
   }
 
-  // test/data/planet_raw/raeria/bg.jpg
+  // test/data/planet_raw/raeria/bg.png
   // test/data/planet_raw/raeria/ri/bg.png
   String extractHid() => npath.split('/').reversed.elementAt(1);
 

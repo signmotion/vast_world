@@ -14,4 +14,8 @@ class VMap extends TiledMap {
           compressionLevel: 9,
           orientation: MapOrientation.orthogonal,
         );
+
+  static const defaultContentFilename = '_.tmx';
+  static const defaultBackgroundFilename =
+      VBackgroundImage.defaultBackgroundFilename;
 }

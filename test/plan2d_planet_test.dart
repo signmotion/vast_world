@@ -11,7 +11,7 @@ void main() {
 
   group('Construct Plan2D.planet', () {
     final plan = Plan2D<int>.planet(
-      'm12/bg.png',
+      'm12/${VMap.defaultBackgroundFilename}',
       realRadius: Unit.kilometre(6000),
       // 1 cell ~= 10 km
       scale: 10,

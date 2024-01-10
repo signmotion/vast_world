@@ -61,20 +61,18 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
     final objects = <VTileObject>[];
     for (final imagery in plan.imageries) {
       ++id;
-      final tileset = VImageryTileset.fromPlanAndImagery(
+      tilesets.add(VImageryTileset.fromPlanAndImagery(
         plan: plan,
         imagery: imagery,
         firstGid: id,
-      );
-      tilesets.add(tileset);
+      ));
 
       ++id;
-      final tiledObject = VTileObject.fromImagery(
+      objects.add(VTileObject.fromImagery(
         id: id,
         gid: id - 1,
         imagery: imagery,
-      );
-      objects.add(tiledObject);
+      ));
     }
 
     final layers = <Layer>[];
@@ -85,8 +83,7 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
         width: plan.axisWidth,
         height: plan.axisHeight,
       ));
-    }
-    {
+
       ++id;
       layers.add(VImageryObjectGroup(
         id: id,
@@ -101,12 +98,12 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
       layers: layers,
     );
     final s = const VConverter().convert(map);
-    final pf = ph.join(plan.id, '_.tmx');
+    final pf = ph.join(plan.id, VMap.defaultContentFilename);
     textBroker.write(pf, s);
   }
 
   void _writePlanBackground(Plan2D<int> plan) {
-    final pf = ph.join(plan.id, 'bg.png');
+    final pf = ph.join(plan.id, VMap.defaultBackgroundFilename);
     imageBroker.write(pf, plan.background.image);
   }
 
@@ -140,12 +137,12 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
       layers: layers,
     );
     final s = const VConverter().convert(map);
-    final pf = ph.join(planId, imagery.id, '_.tmx');
+    final pf = ph.join(planId, imagery.id, VMap.defaultContentFilename);
     textBroker.write(pf, s);
   }
 
   void _writePlanImageryBackground(String planId, Imagery imagery) {
-    final pf = ph.join(planId, imagery.id, 'bg.png');
+    final pf = ph.join(planId, imagery.id, VMap.defaultBackgroundFilename);
     imageBroker.write(pf, imagery.background.image);
   }
 }

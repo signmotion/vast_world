@@ -11,7 +11,7 @@ void main() {
 
   group('Construct Plan2D.surface borderless', () {
     final plan = Plan2D<int>.surface(
-      'some_borderless_surface/bg.png',
+      'some_borderless_surface/${VMap.defaultBackgroundFilename}',
       realWidth: Unit.kilometre(600),
       realHeight: Unit.kilometre(200),
       axisType: AxisType.borderless,
@@ -77,7 +77,7 @@ void main() {
 
   group('Construct Plan2D.surface borderstrict', () {
     final plan = Plan2D<int>.surface(
-      'some_borderstrict_surface/bg.png',
+      'some_borderstrict_surface/${VMap.defaultBackgroundFilename}',
       realWidth: Unit.kilometre(600),
       realHeight: Unit.kilometre(200),
       axisType: AxisType.borderstrict,
@@ -114,7 +114,7 @@ void main() {
 
   group('Construct Plan2D.surface loop', () {
     final plan = Plan2D<int>.surface(
-      'some_loop_surface/bg.png',
+      'some_loop_surface/${VMap.defaultBackgroundFilename}',
       realWidth: Unit.kilometre(600),
       realHeight: Unit.kilometre(200),
       axisType: AxisType.loop,
