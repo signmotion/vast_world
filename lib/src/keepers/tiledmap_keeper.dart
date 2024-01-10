@@ -27,7 +27,8 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
 
   @override
   Plan2D<T>? read(String id) {
-    final body = textBroker.read(id);
+    final path = ph.join(id, VMap.defaultContentFilename);
+    final body = textBroker.read(path);
     if (body == null) {
       return null;
     }
@@ -38,20 +39,34 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
     }
 
     final map = const VParser().parse(body);
-    // final pathToBackground = map.layers.firstWhere((layer) => layer is )
 
-    // final plan = Plan(
-    //   pathToBackground,
-    //   realWidth: realWidth,
-    //   realHeight: realHeight,
-    //   anchor: anchor,
-    //   axisType: axisType,
-    //   scale: scale,
-    //   innerDataDefaultValue: innerDataDefaultValue,
-    //   outerDataDefaultValue: outerDataDefaultValue,
-    // );
+    // will use the constructed [path] above
+    // // final imageLayer =
+    // //     map.layers.firstWhere((layer) => layer is ImageLayer) as ImageLayer;
+    // // final pathToBackground = imageLayer.image.source!;
 
-    throw UnimplementedError();
+    final scale = map.properties.getValue('scale') as double? ?? 1.0;
+    final realWidth = map.width * scale;
+    final realHeight = map.height * scale;
+
+    final sUnitType = map.properties.getValue('unit_type') as String? ?? '';
+    final unitType =
+        UnitType.values.findByName(sUnitType, defaults: UnitType.undefined)!;
+
+    final sAxisType = map.properties.getValue('axis_type') as String? ?? '';
+    final axisType =
+        AxisType.values.findByName(sAxisType, defaults: AxisType.undefined)!;
+
+    return Plan2D<T>(
+      path,
+      realWidth: Unit(realWidth, unitType),
+      realHeight: Unit(realHeight, unitType),
+      anchor: Anchor2D.topLeft,
+      axisType: axisType,
+      scale: scale,
+      innerDataDefaultValue: 1 as T,
+      outerDataDefaultValue: 0 as T,
+    );
   }
 
   @override

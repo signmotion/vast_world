@@ -94,6 +94,8 @@ void main() {
       expect(plan.uid, isUuid);
       expect(plan.id, hid);
 
+      expect(plan.scale, scale);
+
       // should be `circumference * scale` but we can have uncertainties...
       expect(plan.realWidth.value.round(), circumferenceX * scale);
       expect(plan.realHeight.value.round(), circumferenceY * scale);
@@ -122,15 +124,15 @@ void main() {
     });
 
     test('Read from TiledMap format and check created from tmx', () {
-      // final sourcePath = p.join('test', 'data', 'planet_tmx');
-      // final keeper = Keeper(
-      //   textBroker: TextFilesystemBroker(sourcePath),
-      //   imageBroker: ImageFilesystemBroker(sourcePath),
-      // );
-      // final loaded = keeper.read('raeria');
+      final sourcePath = p.join('test', 'data', 'planet_tmx');
+      final keeper = Keeper(
+        textBroker: TextFilesystemBroker(sourcePath),
+        imageBroker: ImageFilesystemBroker(sourcePath),
+      );
+      final loaded = keeper.read('raeria');
 
-      // expect(loaded, isNotNull);
-      // checkPlan(loaded!);
+      expect(loaded, isNotNull);
+      checkPlan(loaded!);
     });
 
     test('Write to TiledMap format and check file structure', () {

@@ -11,8 +11,15 @@ abstract class Quant extends FileWorker with HasIdMix {
   }
 
   // test/data/planet_raw/raeria/bg.png
-  // test/data/planet_raw/raeria/ri/bg.png
-  String extractHid() => npath.split('/').reversed.elementAt(1);
+  // test/data/planet_raw/raeria/r/bg.png
+  String extractHid() {
+    final splitted = npath.split('/');
+    if (splitted.isEmpty) {
+      throw ArgumentError("A path `$npath` doesn't contain HID.");
+    }
+
+    return splitted.reversed.elementAt(1);
+  }
 
   Background get background => Background(path);
 }

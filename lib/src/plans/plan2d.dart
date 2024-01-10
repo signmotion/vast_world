@@ -3,8 +3,8 @@ part of '../../vast_world.dart';
 class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
   Plan2D(
     super.pathToBackground, {
-    // a HID take from [pathToBackground]
-    // //super.hid,
+    // a HID will take from [pathToBackground]
+    // // super.hid,
     super.uid,
     required Unit realWidth,
     required Unit realHeight,
