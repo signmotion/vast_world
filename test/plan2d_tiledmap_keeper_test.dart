@@ -10,8 +10,8 @@ import 'prepare_test_env.dart';
 
 typedef Plan = Plan2D<int>;
 
-typedef PlanKeeper
-    = Plan2DIntTiledmapKeeper<ImageFilesystemBroker, TextFilesystemBroker>;
+typedef Keeper
+    = Plan2DTiledmapKeeper<int, ImageFilesystemBroker, TextFilesystemBroker>;
 
 void main() {
   prepareTestEnv();
@@ -123,7 +123,7 @@ void main() {
 
     test('Read from TiledMap format and check created from tmx', () {
       // final sourcePath = p.join('test', 'data', 'planet_tmx');
-      // final keeper = PlanKeeper(
+      // final keeper = Keeper(
       //   textBroker: TextFilesystemBroker(sourcePath),
       //   imageBroker: ImageFilesystemBroker(sourcePath),
       // );
@@ -135,7 +135,7 @@ void main() {
 
     test('Write to TiledMap format and check file structure', () {
       final outputPath = p.join('test', 'output', 'planet_tmx');
-      final keeper = PlanKeeper(
+      final keeper = Keeper(
         textBroker: TextFilesystemBroker(outputPath),
         imageBroker: ImageFilesystemBroker(outputPath),
       );

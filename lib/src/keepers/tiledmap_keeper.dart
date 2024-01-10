@@ -1,30 +1,26 @@
 part of '../../vast_world.dart';
 
+/// For define typed [Keeper] we can use inheritance or this syntax:
+/// ```
+/// typedef Plan = Plan2D<int>;
+/// typedef Keeper = TiledmapKeeper<Plan, ImageFilesystemBroker, TextFilesystemBroker>;
+/// ```
 abstract class TiledmapKeeper<Q extends Quant, ImgB extends Broker<dynamic>,
     TxtB extends Broker<dynamic>> extends Keeper<Q, ImgB, TxtB> {
   TiledmapKeeper({
     required super.imageBroker,
     required super.textBroker,
   });
-
-  @override
-  bool exists(String id) => imageBroker.exists(id) || textBroker.exists(id);
 }
 
-abstract class QuantTiledmapKeeper<
-    Q extends Quant,
-    ImgB extends Broker<dynamic>,
-    TxtB extends Broker<dynamic>> extends TiledmapKeeper<Q, ImgB, TxtB> {
-  QuantTiledmapKeeper({
-    required super.imageBroker,
-    required super.textBroker,
-  });
-}
-
-class Plan2DTTiledmapKeeper<T, ImgB extends Broker<dynamic>,
+/// For define typed [Keeper] we can use this syntax:
+/// ```
+/// typedef Keeper = Plan2DTiledmapKeeper<int, ImageFilesystemBroker, TextFilesystemBroker>;
+/// ```
+class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
         TxtB extends Broker<dynamic>>
-    extends QuantTiledmapKeeper<Plan2D<T>, ImgB, TxtB> {
-  Plan2DTTiledmapKeeper({
+    extends TiledmapKeeper<Plan2D<T>, ImgB, TxtB> {
+  Plan2DTiledmapKeeper({
     required super.imageBroker,
     required super.textBroker,
   });
@@ -162,7 +158,7 @@ class Plan2DTTiledmapKeeper<T, ImgB extends Broker<dynamic>,
 
 class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
         TxtB extends Broker<dynamic>>
-    extends Plan2DTTiledmapKeeper<int, ImgB, TxtB> {
+    extends Plan2DTiledmapKeeper<int, ImgB, TxtB> {
   Plan2DIntTiledmapKeeper({
     required super.imageBroker,
     required super.textBroker,
