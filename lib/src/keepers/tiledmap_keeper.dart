@@ -73,8 +73,9 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
     final objects = <VTile>[];
     for (final imagery in plan.imageries) {
       ++id;
-      tilesets.add(VImagery.fromPlanAndImagery(
-        plan: plan,
+      tilesets.add(VImagery.fromParentAndImagery(
+        planId: plan.id,
+        parent: plan,
         imagery: imagery,
         firstGid: id,
       ));

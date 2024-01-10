@@ -49,7 +49,7 @@ void main() {
     const imageryHid = 'ri';
     plan += PictureImagery(
       'test/data/planet_raw/$hid/$imageryHid/${VMap.defaultBackgroundFilename}',
-      position: imageryPosition,
+      axisPosition: imageryPosition,
       // the height will be calculated in proportion to the image size
       realWidth: imageryRealWidth,
     );
@@ -67,7 +67,7 @@ void main() {
       expect(imagery.background.image, isNotNull);
       expect(imagery.background.image!.width, 3520);
       expect(imagery.background.image!.height, 2496);
-      expect(imagery.position, imageryPosition);
+      expect(imagery.axisPosition, imageryPosition);
       expect(imagery.realWidth, imageryRealWidth);
       expect(imagery.realHeight, imageryRealHeight);
 
@@ -78,7 +78,7 @@ void main() {
       expect(pl.axisWidth, 3520);
       expect(pl.axisHeight, 2496);
 
-      expect(pl.square, 3520 * 2496);
+      expect(pl.axisSquare, 3520 * 2496);
 
       expect(
         pl.background.npath,
@@ -99,7 +99,7 @@ void main() {
       expect(plan.axisWidth, circumferenceX);
       expect(plan.axisHeight, circumferenceY);
 
-      expect(plan.square, circumferenceX * circumferenceY);
+      expect(plan.axisSquare, circumferenceX * circumferenceY);
 
       expect(
         plan.background.npath,
@@ -111,7 +111,7 @@ void main() {
       checkImagery(imagery);
 
       // check imagery size into plan
-      final (isx, isy) = plan.axisSizeImagery(imagery);
+      final (isx, isy) = plan.axisSizeChildInParent(imagery);
       expect((isx, isy), (22, 16));
     }
 

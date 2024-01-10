@@ -1,6 +1,6 @@
 part of '../vast_world.dart';
 
-abstract class Quant extends FileWorker with HasId {
+abstract class Quant extends FileWorker with HasIdMix {
   Quant(
     super.pathToBackground, {
     String? hid,

@@ -39,15 +39,16 @@ class VImagery extends VTileset {
         firstGid: firstGid,
       );
 
-  factory VImagery.fromPlanAndImagery({
-    required Plan2D<dynamic> plan,
+  factory VImagery.fromParentAndImagery({
+    required String planId,
+    required ParentChildCalcMix parent,
     required Imagery imagery,
     required int firstGid,
   }) {
-    final (isx, isy) = plan.axisSizeImagery(imagery);
+    final (isx, isy) = parent.axisSizeChildInParent(imagery);
 
     return VImagery.fromImagery(
-      planId: plan.id,
+      planId: planId,
       imageryOnPlanWidth: isx,
       imageryOnPlanHeight: isy,
       imagery: imagery,

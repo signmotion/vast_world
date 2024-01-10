@@ -4,7 +4,7 @@ part of '../../vast_world.dart';
 class TextImagery extends Imagery with ReadFileAsText {
   TextImagery(
     super.pathToTextFile, {
-    required super.position,
+    required super.axisPosition,
     required super.realWidth,
   }) {
     // TODO realHeight = ...

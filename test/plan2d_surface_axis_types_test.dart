@@ -35,9 +35,12 @@ void main() {
       expect(plan.axisTypes, [AxisType.borderless, AxisType.borderless]);
     });
 
-    test('Check square', () {
-      expect(plan.square, plan.axisWidth * plan.axisHeight);
-      expect(plan.square, plan.axisVolume);
+    test('Check square & volume', () {
+      expect(plan.axisSquare, plan.axisWidth * plan.axisHeight);
+      expect(plan.axisSquare, plan.axisVolume);
+
+      expect(plan.realSquare, plan.realWidth * plan.realHeight);
+      expect(plan.realSquare, plan.realVolume);
     });
 
     test('Get data in surface', () {

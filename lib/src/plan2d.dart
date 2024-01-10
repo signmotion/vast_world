@@ -1,6 +1,6 @@
 part of '../vast_world.dart';
 
-class Plan2D<T> extends Quant {
+class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
   Plan2D(
     super.pathToBackground, {
     // a HID take from [pathToBackground]
@@ -16,18 +16,20 @@ class Plan2D<T> extends Quant {
   })  : assert(pathToBackground.isNotEmpty),
         assert(realWidth > 0),
         assert(realHeight > 0),
-        assert(anchor == defaultAnchor2D, 'Not implemented others.'),
+        assert(anchor == HasGeometryMix.defaultAnchor2D,
+            'Not implemented others.'),
         assert(scale > 0),
-        anchors = [Anchor1D.left, Anchor1D.top],
-        axisTypes = [axisType, axisType] {
-    final unitType =
-        realWidth.type < realHeight.type ? realWidth.type : realHeight.type;
-    this.realWidth = realWidth.convertTo(unitType);
-    this.realHeight = realHeight.convertTo(unitType);
-    axisAbsSizes = [
-      (this.realWidth / scale).ceilValue(),
-      (this.realHeight / scale).ceilValue(),
-    ];
+        assert(realWidth.type == realHeight.type,
+            'Width and height should be same measurements.') {
+    this.realWidth = realWidth;
+    this.realHeight = realHeight;
+
+    this.anchor = anchor;
+    this.axisType = axisType;
+
+    axisWidth = (this.realWidth / scale).ceilValue();
+    axisHeight = (this.realHeight / scale).ceilValue();
+
     data = List.filled(axisVolume, innerDataDefaultValue);
   }
 
@@ -52,7 +54,7 @@ class Plan2D<T> extends Quant {
       pathToBackground,
       realWidth: rx! * 2 * pi,
       realHeight: ry! * 2 * pi,
-      anchor: defaultAnchor2D,
+      anchor: HasGeometryMix.defaultAnchor2D,
       axisType: AxisType.loop,
       scale: scale,
       innerDataDefaultValue: innerDataDefaultValue,
@@ -64,8 +66,8 @@ class Plan2D<T> extends Quant {
     String pathToBackground, {
     required Unit realWidth,
     required Unit realHeight,
-    Anchor2D anchor = defaultAnchor2D,
-    AxisType axisType = defaultAxisType,
+    Anchor2D anchor = HasGeometryMix.defaultAnchor2D,
+    AxisType axisType = HasGeometryMix.defaultAxisType,
     num scale = 1.0,
     required T innerDataDefaultValue,
     required T outerDataDefaultValue,
@@ -81,38 +83,8 @@ class Plan2D<T> extends Quant {
         outerDataDefaultValue: outerDataDefaultValue,
       );
 
-  static const defaultAnchor2D = Anchor2D.topLeft;
-  static const defaultAxisType = AxisType.loop;
-
-  late final Unit realWidth;
-  late final Unit realHeight;
-
-  int get axisWidth => x;
-  int get axisHeight => y;
-
-  int get x => axisAbsSizes[0];
-  int get y => axisAbsSizes[1];
-
-  final List<Anchor1D> anchors;
-
-  late final List<int> axisAbsSizes;
-
-  final List<AxisType> axisTypes;
-
-  /// Includes an upper value.
-  List<int> get axisUppers => axisAbsSizes.map((i) => i - 1).toList();
-
-  /// Includes a lower value.
-  List<int> get axisLowers => axisAbsSizes.map((i) => 0).toList();
-
-  /// How many [unitType] contains 1 cell. A multiplicator.
-  double get scale => realWidth.value / axisAbsSizes.first;
-
   final T innerDataDefaultValue;
   final T outerDataDefaultValue;
-
-  int get square => axisVolume;
-  int get axisVolume => axisAbsSizes.reduce((v, e) => v * e);
 
   late final List<T> data;
 
@@ -167,17 +139,6 @@ class Plan2D<T> extends Quant {
 
   void addImagery(Imagery v) => imageries.add(v);
 
-  /// An axis size of [imagery] into the plan.
-  (int, int) axisSizeImagery(Imagery imagery) {
-    final img = imagery as PictureImagery;
-    final nepper = img.realWidth.nepper(realWidth);
-    final w = axisWidth * nepper;
-    final k = w / img.axisWidth;
-    final h = img.axisHeight * k;
-
-    return (w.ceil(), h.ceil());
-  }
-
   Plan2D<T> imageryToPlan(
     Imagery imagery, {
     Anchor2D? anchor,
@@ -194,8 +155,8 @@ class Plan2D<T> extends Quant {
       uid: imagery.uid,
       realWidth: imagery.realWidth,
       realHeight: imagery.realHeight,
-      anchor: anchor ?? defaultAnchor2D,
-      axisType: axisType ?? defaultAxisType,
+      anchor: anchor ?? HasGeometryMix.defaultAnchor2D,
+      axisType: axisType ?? HasGeometryMix.defaultAxisType,
       scale: imagery.scale,
       innerDataDefaultValue:
           innerDataDefaultValue ?? this.innerDataDefaultValue,

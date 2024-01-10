@@ -4,9 +4,7 @@ part of '../../vast_world.dart';
 class PictureImagery extends Imagery {
   PictureImagery(
     super.pathToPicture, {
-    required super.position,
+    required super.axisPosition,
     required super.realWidth,
-  }) {
-    realHeight = Unit.kilometre(axisHeight * scale);
-  }
+  });
 }

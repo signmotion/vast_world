@@ -37,9 +37,12 @@ void main() {
       expect(plan.axisTypes, [AxisType.loop, AxisType.loop]);
     });
 
-    test('Check square', () {
-      expect(plan.square, plan.axisWidth * plan.axisHeight);
-      expect(plan.square, plan.axisVolume);
+    test('Check square & volume', () {
+      expect(plan.axisSquare, plan.axisWidth * plan.axisHeight);
+      expect(plan.axisSquare, plan.axisVolume);
+
+      expect(plan.realSquare, plan.realWidth * plan.realHeight);
+      expect(plan.realSquare, plan.realVolume);
     });
   });
 }
