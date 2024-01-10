@@ -6,6 +6,7 @@ class VMap extends TiledMap {
     required super.height,
     super.tilesets = const [],
     super.layers = const [],
+    required JsonMap properties,
   }) : super(
           tileWidth: 1,
           tileHeight: 1,
@@ -13,6 +14,18 @@ class VMap extends TiledMap {
           tiledVersion: '1.10.2',
           compressionLevel: 9,
           orientation: MapOrientation.orthogonal,
+          properties: CustomProperties(
+            properties.map(
+              (k, v) => MapEntry(
+                k,
+                Property(
+                  name: k,
+                  type: PropertyType.string,
+                  value: v.toString(),
+                ),
+              ),
+            ),
+          ),
         );
 
   factory VMap.fromTiledMap(TiledMap tm) => VMap(
@@ -20,6 +33,9 @@ class VMap extends TiledMap {
         height: tm.height,
         tilesets: tm.tilesets,
         layers: tm.layers,
+        properties: tm.properties.byName.map(
+          (k, v) => MapEntry(k, v.value),
+        ),
       );
 
   static const defaultContentFilename = '_.tmx';
