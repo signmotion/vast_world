@@ -1,4 +1,4 @@
-part of '../vast_world.dart';
+part of '../../vast_world.dart';
 
 mixin HasIdMix on Object {
   /// Human ID for nicely detection.

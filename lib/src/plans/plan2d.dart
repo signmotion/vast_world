@@ -1,4 +1,4 @@
-part of '../vast_world.dart';
+part of '../../vast_world.dart';
 
 class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
   Plan2D(

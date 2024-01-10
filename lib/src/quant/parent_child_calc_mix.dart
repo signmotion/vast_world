@@ -1,4 +1,4 @@
-part of '../vast_world.dart';
+part of '../../vast_world.dart';
 
 mixin ParentChildCalcMix on HasGeometryMix {
   /// An axis size of [child] into the parent.

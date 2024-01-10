@@ -1,4 +1,4 @@
-part of '../vast_world.dart';
+part of '../../vast_world.dart';
 
 abstract class Quant extends FileWorker with HasIdMix {
   Quant(
