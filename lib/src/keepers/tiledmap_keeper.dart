@@ -41,7 +41,19 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
           ' instead of `${body.runtimeType}`.');
     }
 
-    final tmx = TileMapParser.parseTmx(body);
+    final map = const VParser().parse(body);
+    // final pathToBackground = map.layers.firstWhere((layer) => layer is )
+
+    // final plan = Plan2D<int>(
+    //   pathToBackground,
+    //   realWidth: realWidth,
+    //   realHeight: realHeight,
+    //   anchor: anchor,
+    //   axisType: axisType,
+    //   scale: scale,
+    //   innerDataDefaultValue: innerDataDefaultValue,
+    //   outerDataDefaultValue: outerDataDefaultValue,
+    // );
 
     throw UnimplementedError();
   }
@@ -57,18 +69,18 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
   void _writePlanXml(Plan2D<int> plan) {
     var id = 0;
 
-    final tilesets = <VImageryTileset>[];
-    final objects = <VTileObject>[];
+    final tilesets = <VImagery>[];
+    final objects = <VTile>[];
     for (final imagery in plan.imageries) {
       ++id;
-      tilesets.add(VImageryTileset.fromPlanAndImagery(
+      tilesets.add(VImagery.fromPlanAndImagery(
         plan: plan,
         imagery: imagery,
         firstGid: id,
       ));
 
       ++id;
-      objects.add(VTileObject.fromImagery(
+      objects.add(VTile.fromImagery(
         id: id,
         gid: id - 1,
         imagery: imagery,
@@ -78,14 +90,14 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
     final layers = <Layer>[];
     {
       ++id;
-      layers.add(VBackgroundImageLayer(
+      layers.add(VBackgroundLayer(
         id: id,
         width: plan.axisWidth,
         height: plan.axisHeight,
       ));
 
       ++id;
-      layers.add(VImageryObjectGroup(
+      layers.add(VImageries(
         id: id,
         objects: objects,
       ));
@@ -124,7 +136,7 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
     final layers = <Layer>[];
     {
       ++id;
-      layers.add(VBackgroundImageLayer(
+      layers.add(VBackgroundLayer(
         id: id,
         width: imagery.axisWidth,
         height: imagery.axisHeight,

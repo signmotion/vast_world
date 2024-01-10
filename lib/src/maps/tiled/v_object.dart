@@ -13,8 +13,8 @@ class VObject extends TiledObject {
   });
 }
 
-class VTileObject extends VObject {
-  VTileObject({
+class VTile extends VObject {
+  VTile({
     required super.id,
     required super.gid,
     required super.name,
@@ -30,12 +30,12 @@ class VTileObject extends VObject {
           tile: true,
         );
 
-  factory VTileObject.fromImagery({
+  factory VTile.fromImagery({
     required int id,
     required int gid,
     required Imagery imagery,
   }) =>
-      VTileObject(
+      VTile(
         id: id,
         gid: gid,
         name: imagery.id,

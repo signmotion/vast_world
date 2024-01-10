@@ -15,7 +15,18 @@ class VMap extends TiledMap {
           orientation: MapOrientation.orthogonal,
         );
 
+  factory VMap.fromTiledMap(TiledMap tm) => VMap(
+        width: tm.width,
+        height: tm.height,
+        tilesets: tm.tilesets,
+        layers: tm.layers,
+      );
+
   static const defaultContentFilename = '_.tmx';
   static const defaultBackgroundFilename =
       VBackgroundImage.defaultBackgroundFilename;
+
+  static const defaultBackgroundImageLayerName =
+      VBackgroundLayer.defaultBackgroundImageLayerName;
+  static const defaultImageriesLayerName = VImageries.defaultImageriesLayerName;
 }

@@ -11,8 +11,8 @@ class VImageLayer extends ImageLayer {
         );
 }
 
-class VBackgroundImageLayer extends VImageLayer {
-  VBackgroundImageLayer({
+class VBackgroundLayer extends VImageLayer {
+  VBackgroundLayer({
     required super.id,
     required int width,
     required int height,

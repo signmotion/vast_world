@@ -125,9 +125,10 @@ void main() {
       //   textBroker: TextFilesystemBroker(sourcePath),
       //   imageBroker: ImageFilesystemBroker(sourcePath),
       // );
-      // final loaded = keeper.read('planet_raeria_tmx')!;
+      // final loaded = keeper.read('raeria');
 
-      // checkPlan(loaded);
+      // expect(loaded, isNotNull);
+      // checkPlan(loaded!);
     });
 
     test('Write to TiledMap format and check file structure', () {
