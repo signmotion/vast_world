@@ -6,11 +6,13 @@ import 'package:test/test.dart';
 
 import 'prepare_test_env.dart';
 
+typedef Plan = Plan2D<int>;
+
 void main() {
   prepareTestEnv();
 
   group('Construct Plan2D.surface borderless', () {
-    final plan = Plan2D<int>.surface(
+    final plan = Plan.surface(
       'some_borderless_surface/${VMap.defaultBackgroundFilename}',
       realWidth: Unit.kilometre(600),
       realHeight: Unit.kilometre(200),
@@ -79,7 +81,7 @@ void main() {
   });
 
   group('Construct Plan2D.surface borderstrict', () {
-    final plan = Plan2D<int>.surface(
+    final plan = Plan.surface(
       'some_borderstrict_surface/${VMap.defaultBackgroundFilename}',
       realWidth: Unit.kilometre(600),
       realHeight: Unit.kilometre(200),
@@ -116,7 +118,7 @@ void main() {
   });
 
   group('Construct Plan2D.surface loop', () {
-    final plan = Plan2D<int>.surface(
+    final plan = Plan.surface(
       'some_loop_surface/${VMap.defaultBackgroundFilename}',
       realWidth: Unit.kilometre(600),
       realHeight: Unit.kilometre(200),

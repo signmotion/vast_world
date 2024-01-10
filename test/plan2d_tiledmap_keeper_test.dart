@@ -8,6 +8,8 @@ import 'package:test/test.dart';
 
 import 'prepare_test_env.dart';
 
+typedef Plan = Plan2D<int>;
+
 typedef PlanKeeper
     = Plan2DIntTiledmapKeeper<ImageFilesystemBroker, TextFilesystemBroker>;
 
@@ -31,7 +33,7 @@ void main() {
     // with this image size and world scale we have:
     //  rx = 6923 km, unwrapped to circumferenceX * scale = 43500
     //  ry = 5411 km, unwrapped to circumferenceY * scale = 34000
-    var plan = Plan2D<int>.planet(
+    var plan = Plan.planet(
       'test/data/planet_raw/$hid/${VMap.defaultBackgroundFilename}',
       realRadiusX: Unit.kilometre(rx),
       realRadiusY: Unit.kilometre(ry),
@@ -87,7 +89,7 @@ void main() {
       expect(pl.background.image, isNotNull);
     }
 
-    void checkPlan(Plan2D<int> plan) {
+    void checkPlan(Plan plan) {
       expect(plan.hid, hid);
       expect(plan.uid, isUuid);
       expect(plan.id, hid);

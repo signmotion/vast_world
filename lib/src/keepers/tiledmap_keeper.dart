@@ -21,16 +21,16 @@ abstract class QuantTiledmapKeeper<
   });
 }
 
-class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
+class Plan2DTTiledmapKeeper<T, ImgB extends Broker<dynamic>,
         TxtB extends Broker<dynamic>>
-    extends QuantTiledmapKeeper<Plan2D<int>, ImgB, TxtB> {
-  Plan2DIntTiledmapKeeper({
+    extends QuantTiledmapKeeper<Plan2D<T>, ImgB, TxtB> {
+  Plan2DTTiledmapKeeper({
     required super.imageBroker,
     required super.textBroker,
   });
 
   @override
-  Plan2D<int>? read(String id) {
+  Plan2D<T>? read(String id) {
     final body = textBroker.read(id);
     if (body == null) {
       return null;
@@ -44,7 +44,7 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
     final map = const VParser().parse(body);
     // final pathToBackground = map.layers.firstWhere((layer) => layer is )
 
-    // final plan = Plan2D<int>(
+    // final plan = Plan(
     //   pathToBackground,
     //   realWidth: realWidth,
     //   realHeight: realHeight,
@@ -59,14 +59,14 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
   }
 
   @override
-  void write(Plan2D<int> value) {
+  void write(Plan2D<T> value) {
     final plan = value;
     _writePlanXml(plan);
     _writePlanBackground(plan);
     _writePlanImageries(plan);
   }
 
-  void _writePlanXml(Plan2D<int> plan) {
+  void _writePlanXml(Plan2D<T> plan) {
     var id = 0;
 
     final tilesets = <VImagery>[];
@@ -115,12 +115,12 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
     textBroker.write(pf, s);
   }
 
-  void _writePlanBackground(Plan2D<int> plan) {
+  void _writePlanBackground(Plan2D<T> plan) {
     final pf = ph.join(plan.id, VMap.defaultBackgroundFilename);
     imageBroker.write(pf, plan.background.image);
   }
 
-  void _writePlanImageries(Plan2D<int> plan) {
+  void _writePlanImageries(Plan2D<T> plan) {
     for (final imagery in plan.imageries) {
       _writePlanImagery(plan.id, imagery);
     }
@@ -158,4 +158,13 @@ class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
     final pf = ph.join(planId, imagery.id, VMap.defaultBackgroundFilename);
     imageBroker.write(pf, imagery.background.image);
   }
+}
+
+class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
+        TxtB extends Broker<dynamic>>
+    extends Plan2DTTiledmapKeeper<int, ImgB, TxtB> {
+  Plan2DIntTiledmapKeeper({
+    required super.imageBroker,
+    required super.textBroker,
+  });
 }

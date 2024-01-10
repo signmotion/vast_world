@@ -6,11 +6,13 @@ import 'package:test/test.dart';
 
 import 'prepare_test_env.dart';
 
+typedef Plan = Plan2D<int>;
+
 void main() {
   prepareTestEnv();
 
   group('Construct Plan2D.planet', () {
-    final plan = Plan2D<int>.planet(
+    final plan = Plan.planet(
       'm12/${VMap.defaultBackgroundFilename}',
       realRadius: Unit.kilometre(6000),
       // 1 cell ~= 10 km
