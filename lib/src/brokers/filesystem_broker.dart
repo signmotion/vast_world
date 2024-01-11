@@ -8,6 +8,9 @@ abstract class FilesystemBroker<T> extends Broker<T> with CanWorkWithFile {
   }
 
   @override
+  String get pathPrefix => npath;
+
+  @override
   bool exists(String key) => File(key).existsSync();
 
   @override

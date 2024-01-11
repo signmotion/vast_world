@@ -45,20 +45,24 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
     // //     map.layers.firstWhere((layer) => layer is ImageLayer) as ImageLayer;
     // // final pathToBackground = imageLayer.image.source!;
 
-    final scale = map.properties.getValue('scale') as double? ?? 1.0;
+    final sScale = map.properties.getValue<String>('scale') ?? '';
+    final scale = double.tryParse(sScale) ?? 1.0;
+
+    // also we have same sizes into [map.properties]
     final realWidth = map.width * scale;
     final realHeight = map.height * scale;
 
-    final sUnitType = map.properties.getValue('unit_type') as String? ?? '';
+    final sUnitType = map.properties.getValue<String>('unit_type') ?? '';
     final unitType =
         UnitType.values.findByName(sUnitType, defaults: UnitType.undefined)!;
 
-    final sAxisType = map.properties.getValue('axis_type') as String? ?? '';
+    final sAxisType = map.properties.getValue<String>('axis_type') ?? '';
     final axisType =
         AxisType.values.findByName(sAxisType, defaults: AxisType.undefined)!;
 
     return Plan2D<T>(
-      path,
+      textBroker.pathPrefix,
+      id,
       realWidth: Unit(realWidth, unitType),
       realHeight: Unit(realHeight, unitType),
       anchor: Anchor2D.topLeft,
@@ -115,11 +119,22 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
       ));
     }
 
+    final properties = <String, dynamic>{
+      'scale': plan.scale,
+      'unit_type': plan.realWidth.type.name,
+      'axis_type': plan.axisType.name,
+      // should be equal [axisWidth * scale]
+      'real_width': plan.realWidth.value,
+      // should be equal [axisHeight * scale]
+      'real_height': plan.realHeight.value,
+    };
+
     final map = VMap(
       width: plan.axisWidth,
       height: plan.axisHeight,
       tilesets: tilesets,
       layers: layers,
+      properties: properties,
     );
     final s = const VConverter().convert(map);
     final pf = ph.join(plan.id, VMap.defaultContentFilename);
@@ -155,10 +170,21 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
       ));
     }
 
+    final properties = <String, dynamic>{
+      'scale': imagery.scale,
+      'unit_type': imagery.realWidth.type.name,
+      'axis_type': imagery.axisType.name,
+      // should be equal [axisWidth * scale]
+      'real_width': imagery.realWidth.value,
+      // should be equal [axisHeight * scale]
+      'real_height': imagery.realHeight.value,
+    };
+
     final map = VMap(
       width: imagery.axisWidth,
       height: imagery.axisHeight,
       layers: layers,
+      properties: properties,
     );
     final s = const VConverter().convert(map);
     final pf = ph.join(planId, imagery.id, VMap.defaultContentFilename);

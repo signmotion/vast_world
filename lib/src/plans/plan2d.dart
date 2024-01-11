@@ -2,9 +2,8 @@ part of '../../vast_world.dart';
 
 class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
   Plan2D(
-    super.pathToBackground, {
-    // a HID will take from [pathToBackground]
-    // // super.hid,
+    super.pathPrefix,
+    super.hid, {
     super.uid,
     required Unit realWidth,
     required Unit realHeight,
@@ -13,8 +12,7 @@ class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
     required num scale,
     required this.innerDataDefaultValue,
     required this.outerDataDefaultValue,
-  })  : assert(pathToBackground.isNotEmpty),
-        assert(realWidth > 0),
+  })  : assert(realWidth > 0),
         assert(realHeight > 0),
         assert(anchor == HasGeometryMix.defaultAnchor2D,
             'Not implemented others.'),
@@ -35,7 +33,8 @@ class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
 
   /// Unwrap to looped surface by radius.
   factory Plan2D.planet(
-    String pathToBackground, {
+    String pathPrefix,
+    String hid, {
     Unit? realRadius,
     Unit? realRadiusX,
     Unit? realRadiusY,
@@ -51,7 +50,8 @@ class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
     assert(rx != null, ry != null);
 
     return Plan2D.surface(
-      pathToBackground,
+      pathPrefix,
+      hid,
       realWidth: rx! * 2 * pi,
       realHeight: ry! * 2 * pi,
       anchor: HasGeometryMix.defaultAnchor2D,
@@ -63,7 +63,8 @@ class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
   }
 
   factory Plan2D.surface(
-    String pathToBackground, {
+    String pathPrefix,
+    String hid, {
     required Unit realWidth,
     required Unit realHeight,
     Anchor2D anchor = HasGeometryMix.defaultAnchor2D,
@@ -73,7 +74,8 @@ class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
     required T outerDataDefaultValue,
   }) =>
       Plan2D<T>(
-        pathToBackground,
+        pathPrefix,
+        hid,
         realWidth: realWidth,
         realHeight: realHeight,
         anchor: anchor,
@@ -150,8 +152,15 @@ class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
       throw UnimplementedError('Not implemented `${imagery.runtimeType}`.');
     }
 
+    final path = ph.joinAll(
+      imagery.npath
+          .replaceFirst(imagery.hid.hidToNPath, '')
+          .split(CanWorkWithFile.pathSeparator),
+    );
+
     return Plan2D<T>(
-      imagery.background.path,
+      path,
+      imagery.hid,
       uid: imagery.uid,
       realWidth: imagery.realWidth,
       realHeight: imagery.realHeight,

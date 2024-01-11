@@ -2,24 +2,33 @@ part of '../../vast_world.dart';
 
 abstract class Quant extends FileWorker with HasIdMix {
   Quant(
-    super.pathToBackground, {
-    String? hid,
+    String pathPrefix,
+    String hid, {
     String? uid,
-  }) {
-    this.hid = hid ?? extractHid();
+  })  : assert(hid.isNotEmpty),
+        super(ph.joinAll([pathPrefix, ...hid.hidToList])) {
+    this.hid = hid;
     this.uid = uid ?? generateUid();
   }
 
-  // test/data/planet_raw/raeria/bg.png
-  // test/data/planet_raw/raeria/r/bg.png
-  String extractHid() {
-    final splitted = npath.split('/');
-    if (splitted.isEmpty) {
-      throw ArgumentError("A path `$npath` doesn't contain HID.");
-    }
+  static const hidSeparator = HidExt.hidSeparator;
+  static const pathSeparator = HidExt.pathSeparator;
 
-    return splitted.reversed.elementAt(1);
-  }
+  Background get background =>
+      Background('$npath/${VMap.defaultBackgroundFilename}');
+}
 
-  Background get background => Background(path);
+extension HidExt on String {
+  static const hidSeparator = '.';
+  static const pathSeparator = PathStringExt.pathSeparator;
+
+  List<String> get hidToList => split(hidSeparator);
+
+  String get hidToNPath => replaceAll(hidSeparator, pathSeparator);
+
+  String get pathToHid => npath.split(pathSeparator).listToHid;
+}
+
+extension ListHidExt on List<String> {
+  String get listToHid => join(HidExt.hidSeparator);
 }

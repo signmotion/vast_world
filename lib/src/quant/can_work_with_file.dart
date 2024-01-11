@@ -9,9 +9,13 @@ class FileWorker with CanWorkWithFile {
       counstructPath(hasFile: hasFile);
     }
   }
+
+  static const pathSeparator = CanWorkWithFile.pathSeparator;
 }
 
 mixin CanWorkWithFile on Object {
+  static const pathSeparator = PathStringExt.pathSeparator;
+
   late final String _path;
 
   /// Path with system delimiter.
@@ -24,11 +28,11 @@ mixin CanWorkWithFile on Object {
   }
 
   static String _sanitizePath(String v) =>
-      ph.joinAll(v.trim().replaceAll('\\', '/').split('/'));
+      ph.joinAll(v.trim().npath.split(PathStringExt.pathSeparator));
 
   /// Normalized path.
-  /// Path with '/' delimiter.
-  String get npath => path.replaceAll('\\', '/');
+  /// See [PathStringExt.npath].
+  String get npath => path.npath;
 
   void counstructPath({bool? hasFile}) => counstructPathToFile(path);
 
@@ -97,4 +101,12 @@ mixin ReadFileAsText on CanWorkWithFile {
   String? _text;
 
   String? get text => _text ??= readAsText();
+}
+
+extension PathStringExt on String {
+  static const pathSeparator = '/';
+
+  /// Normalized path.
+  /// System depends separators replaced to [pathSeparator].
+  String get npath => replaceAll('\\', pathSeparator);
 }
