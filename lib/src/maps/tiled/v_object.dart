@@ -38,7 +38,7 @@ class VTile extends VObject {
       VTile(
         id: id,
         gid: gid,
-        name: imagery.id,
+        name: imagery.hidForPlan,
         x: imagery.x,
         y: imagery.y,
         width: imagery.axisWidth,
