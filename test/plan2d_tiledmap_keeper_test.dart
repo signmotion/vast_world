@@ -47,18 +47,32 @@ void main() {
 
     // fill the plan
 
-    // insert an imagery (projection of other plan) to plan
-    // coords takes from tmx-file
-    const imageryAxisPosition = (505, 85);
-    final imageryRealWidth = Unit.kilometre(1100);
-    const imageryHid = 'ri';
+    // insert the imageries (projections of other plans) to this plan
+    // positions takes from tmx-file
+    const imageryAxisPositionRi = (505, 85);
+    const axisSizeInPlanRi = (22, 16);
+    final imageryRealWidthRi = Unit.kilometre(1100);
+    const imageryHidRi = 'ri';
     plan += PictureImagery(
       sourcePath,
       planHid,
-      imageryHid,
-      axisPosition: imageryAxisPosition,
+      imageryHidRi,
+      axisPosition: imageryAxisPositionRi,
       // the height will be calculated in proportion to the image size
-      realWidth: imageryRealWidth,
+      realWidth: imageryRealWidthRi,
+    );
+
+    const imageryAxisPositionRiEast = (505 + 22, 85);
+    const axisSizeInPlanRiEast = (7, 16);
+    final imageryRealWidthRiEast = Unit.kilometre(312);
+    const imageryHidRiEast = 'ri_east';
+    plan += PictureImagery(
+      sourcePath,
+      planHid,
+      imageryHidRiEast,
+      axisPosition: imageryAxisPositionRiEast,
+      // the height will be calculated in proportion to the image size
+      realWidth: imageryRealWidthRiEast,
     );
 
     // calculated by [width] and image size
@@ -67,15 +81,25 @@ void main() {
     final testImageries = <String, JsonMap>{
       'raeria.ri': {
         // !) this is a HID for imagery, not for a plan
-        // for plan we are using [imagery.hidForPlan]
+        // for construct a plan we are using [imagery.hidForPlan]
         'hid': 'raeria.ri',
         'npath': '$sourcePath/raeria/ri',
         'scale': 0.3125,
         'axisWidth': 3520,
         'axisHeight': 2496,
         'axisSquare': 3520 * 2496,
-        'axisPosition': imageryAxisPosition,
-        'axisSizeInPlan': (22, 16),
+        'axisPosition': imageryAxisPositionRi,
+        'axisSizeInPlan': axisSizeInPlanRi,
+      },
+      'raeria.ri_east': {
+        'hid': 'raeria.ri_east',
+        'npath': '$sourcePath/raeria/ri_east',
+        'scale': 0.78,
+        'axisWidth': 400,
+        'axisHeight': 1000,
+        'axisSquare': 400 * 1000,
+        'axisPosition': imageryAxisPositionRiEast,
+        'axisSizeInPlan': axisSizeInPlanRiEast,
       },
     };
 
@@ -116,21 +140,23 @@ void main() {
         expect(File(pf).existsSync(), isTrue, reason: pf);
       }
 
-      // child (imagery)
-      final riHid = plan.imageries.single.hidForPlan;
-      {
-        final pf = p.join(outputPath, planHid, riHid);
-        expect(Directory(pf).existsSync(), isTrue, reason: pf);
-      }
-      {
-        final pf =
-            p.join(outputPath, plan.id, riHid, VMap.defaultContentFilename);
-        expect(File(pf).existsSync(), isTrue, reason: pf);
-      }
-      {
-        final pf =
-            p.join(outputPath, plan.id, riHid, VMap.defaultBackgroundFilename);
-        expect(File(pf).existsSync(), isTrue, reason: pf);
+      // children (imageries)
+      for (final imagery in plan.imageries) {
+        final hid = imagery.hidForPlan;
+        {
+          final pf = p.join(outputPath, planHid, hid);
+          expect(Directory(pf).existsSync(), isTrue, reason: pf);
+        }
+        {
+          final pf =
+              p.join(outputPath, plan.id, hid, VMap.defaultContentFilename);
+          expect(File(pf).existsSync(), isTrue, reason: pf);
+        }
+        {
+          final pf =
+              p.join(outputPath, plan.id, hid, VMap.defaultBackgroundFilename);
+          expect(File(pf).existsSync(), isTrue, reason: pf);
+        }
       }
     });
 

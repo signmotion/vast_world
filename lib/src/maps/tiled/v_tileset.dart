@@ -22,8 +22,6 @@ class VImagery extends VTileset {
 
   factory VImagery.fromImagery({
     required String planId,
-    required int imageryOnPlanWidth,
-    required int imageryOnPlanHeight,
     required Imagery imagery,
     required int firstGid,
   }) =>
@@ -33,26 +31,9 @@ class VImagery extends VTileset {
         tileHeight: imagery.axisHeight,
         image: VBackgroundImage(
           pathPrefix: imagery.hidForPlan,
-          width: imageryOnPlanWidth,
-          height: imageryOnPlanHeight,
+          width: imagery.axisWidth,
+          height: imagery.axisHeight,
         ),
         firstGid: firstGid,
       );
-
-  factory VImagery.fromParentAndImagery({
-    required String planId,
-    required ParentChildCalcMix parent,
-    required Imagery imagery,
-    required int firstGid,
-  }) {
-    final (isx, isy) = parent.axisSizeChildInParent(imagery);
-
-    return VImagery.fromImagery(
-      planId: planId,
-      imageryOnPlanWidth: isx,
-      imageryOnPlanHeight: isy,
-      imagery: imagery,
-      firstGid: firstGid,
-    );
-  }
 }

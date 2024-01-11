@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map width="3520" height="2496" tileheight="1" tilewidth="1" compressionlevel="9" orientation="orthogonal" renderorder="right-down" tiledversion="1.10.2" type="map" version="1.0">
+<map width="400" height="1000" tileheight="1" tilewidth="1" compressionlevel="9" orientation="orthogonal" renderorder="right-down" tiledversion="1.10.2" type="map" version="1.0">
   <properties>
-    <property name="scale" value="0.3125" type="string"/>
+    <property name="scale" value="0.78" type="string"/>
     <property name="unit_type" value="kilometre" type="string"/>
     <property name="axis_type" value="loop" type="string"/>
-    <property name="real_width" value="1100.0" type="string"/>
+    <property name="real_width" value="312.0" type="string"/>
     <property name="real_height" value="780.0" type="string"/>
   </properties>
   <imagelayer name="bg" x="0" y="0" id="1" offsetx="0.0" offsety="0.0" parallaxx="1.0" parallaxy="1.0" opacity="1.0" visible="true">
-    <image source="bg.png" width="3520" height="2496"/>
+    <image source="bg.png" width="400" height="1000"/>
   </imagelayer>
   <objectgroup name="imageries" x="0" y="0" id="2" offsetx="0.0" offsety="0.0" parallaxx="1.0" parallaxy="1.0" opacity="1.0" visible="true" color="%a0a0a4"/>
 </map>

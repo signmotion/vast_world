@@ -93,18 +93,18 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
     var id = 0;
 
     final tilesets = <VImagery>[];
-    final objects = <VTile>[];
+    final objects = <VObjectTile>[];
     for (final imagery in plan.imageries) {
       ++id;
-      tilesets.add(VImagery.fromParentAndImagery(
+      tilesets.add(VImagery.fromImagery(
         planId: plan.id,
-        parent: plan,
         imagery: imagery,
         firstGid: id,
       ));
 
       ++id;
-      objects.add(VTile.fromImagery(
+      objects.add(VObjectTile.fromParentAndImagery(
+        parent: plan,
         id: id,
         gid: id - 1,
         imagery: imagery,
@@ -120,11 +120,13 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
         height: plan.axisHeight,
       ));
 
-      ++id;
-      layers.add(VImageries(
-        id: id,
-        objects: objects,
-      ));
+      if (objects.isNotEmpty) {
+        ++id;
+        layers.add(VImageries(
+          id: id,
+          objects: objects,
+        ));
+      }
     }
 
     final properties = <String, dynamic>{

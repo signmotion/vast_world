@@ -13,8 +13,8 @@ class VObject extends TiledObject {
   });
 }
 
-class VTile extends VObject {
-  VTile({
+class VObjectTile extends VObject {
+  VObjectTile({
     required super.id,
     required super.gid,
     required super.name,
@@ -30,18 +30,22 @@ class VTile extends VObject {
           tile: true,
         );
 
-  factory VTile.fromImagery({
+  factory VObjectTile.fromParentAndImagery({
+    required ParentChildCalcMix parent,
     required int id,
     required int gid,
     required Imagery imagery,
-  }) =>
-      VTile(
-        id: id,
-        gid: gid,
-        name: imagery.hidForPlan,
-        x: imagery.x,
-        y: imagery.y,
-        width: imagery.axisWidth,
-        height: imagery.axisHeight,
-      );
+  }) {
+    final (isx, isy) = parent.axisSizeChildInParent(imagery);
+
+    return VObjectTile(
+      id: id,
+      gid: gid,
+      name: imagery.hidForPlan,
+      x: imagery.x,
+      y: imagery.y,
+      width: isx,
+      height: isy,
+    );
+  }
 }
