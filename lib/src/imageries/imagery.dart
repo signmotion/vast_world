@@ -20,7 +20,10 @@ abstract class Imagery extends Quant with HasGeometryMix {
     axisHeight = background.image!.height;
 
     this.axisPosition = axisPosition;
+
     this.realWidth = realWidth;
     this.realHeight = realHeight ?? Unit.kilometre(axisHeight * scale);
   }
+
+  String get hidForPlan => hid.split(HidExt.hidSeparator).last;
 }

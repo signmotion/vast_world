@@ -85,6 +85,37 @@ class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
         outerDataDefaultValue: outerDataDefaultValue,
       );
 
+  factory Plan2D.imageryToPlan(
+    Plan2D<T> parentPlan,
+    Imagery imagery, {
+    Anchor2D? anchor,
+    AxisType? axisType,
+    T? innerDataDefaultValue,
+    T? outerDataDefaultValue,
+  }) {
+    if (imagery is! PictureImagery) {
+      throw UnimplementedError('Not implemented `${imagery.runtimeType}`.');
+    }
+
+    final path = ph.joinAll(
+        imagery.npath.split(CanWorkWithFile.pathSeparator)..removeLast());
+
+    return Plan2D<T>(
+      path,
+      imagery.hidForPlan,
+      uid: imagery.uid,
+      realWidth: imagery.realWidth,
+      realHeight: imagery.realHeight,
+      anchor: anchor ?? HasGeometryMix.defaultAnchor2D,
+      axisType: axisType ?? HasGeometryMix.defaultAxisType,
+      scale: imagery.scale,
+      innerDataDefaultValue:
+          innerDataDefaultValue ?? parentPlan.innerDataDefaultValue,
+      outerDataDefaultValue:
+          outerDataDefaultValue ?? parentPlan.outerDataDefaultValue,
+    );
+  }
+
   final T innerDataDefaultValue;
   final T outerDataDefaultValue;
 
@@ -140,37 +171,4 @@ class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
   }
 
   void addImagery(Imagery v) => imageries.add(v);
-
-  Plan2D<T> imageryToPlan(
-    Imagery imagery, {
-    Anchor2D? anchor,
-    AxisType? axisType,
-    T? innerDataDefaultValue,
-    T? outerDataDefaultValue,
-  }) {
-    if (imagery is! PictureImagery) {
-      throw UnimplementedError('Not implemented `${imagery.runtimeType}`.');
-    }
-
-    final path = ph.joinAll(
-      imagery.npath
-          .replaceFirst(imagery.hid.hidToNPath, '')
-          .split(CanWorkWithFile.pathSeparator),
-    );
-
-    return Plan2D<T>(
-      path,
-      imagery.hid,
-      uid: imagery.uid,
-      realWidth: imagery.realWidth,
-      realHeight: imagery.realHeight,
-      anchor: anchor ?? HasGeometryMix.defaultAnchor2D,
-      axisType: axisType ?? HasGeometryMix.defaultAxisType,
-      scale: imagery.scale,
-      innerDataDefaultValue:
-          innerDataDefaultValue ?? this.innerDataDefaultValue,
-      outerDataDefaultValue:
-          outerDataDefaultValue ?? this.outerDataDefaultValue,
-    );
-  }
 }
