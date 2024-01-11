@@ -74,14 +74,22 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
   }
 
   @override
-  void write(Plan2D<T> value) {
-    final plan = value;
-    _writePlanXml(plan);
-    _writePlanBackground(plan);
-    _writePlanImageries(plan);
+  void write(Plan2D<T> value) => _writePlan(value);
+
+  void _writePlan(Plan2D<T> plan, [String? pathPrefix]) {
+    _writePlanXml(plan, pathPrefix);
+    _writePlanBackground(plan, pathPrefix);
+
+    final prefix = ph.join(pathPrefix ?? '', plan.hid);
+
+    // convert the imageries to plans and save them
+    for (final imagery in plan.imageries) {
+      final pl = Plan2D<T>.imageryToPlan(plan, imagery);
+      _writePlan(pl, prefix);
+    }
   }
 
-  void _writePlanXml(Plan2D<T> plan) {
+  void _writePlanXml(Plan2D<T> plan, [String? pathPrefix]) {
     var id = 0;
 
     final tilesets = <VImagery>[];
@@ -137,63 +145,14 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
       properties: properties,
     );
     final s = const VConverter().convert(map);
-    final pf = ph.join(plan.id, VMap.defaultContentFilename);
+    final pf = ph.join(pathPrefix ?? '', plan.id, VMap.defaultContentFilename);
     textBroker.write(pf, s);
   }
 
-  void _writePlanBackground(Plan2D<T> plan) {
-    final pf = ph.join(plan.id, VMap.defaultBackgroundFilename);
+  void _writePlanBackground(Plan2D<T> plan, [String? pathPrefix]) {
+    final pf =
+        ph.join(pathPrefix ?? '', plan.id, VMap.defaultBackgroundFilename);
     imageBroker.write(pf, plan.background.image);
-  }
-
-  void _writePlanImageries(Plan2D<T> plan) {
-    for (final imagery in plan.imageries) {
-      _writePlanImagery(plan.id, imagery);
-    }
-  }
-
-  void _writePlanImagery(String planId, Imagery imagery) {
-    _writePlanImageryXml(planId, imagery);
-    _writePlanImageryBackground(planId, imagery);
-  }
-
-  void _writePlanImageryXml(String planId, Imagery imagery) {
-    var id = 0;
-
-    final layers = <Layer>[];
-    {
-      ++id;
-      layers.add(VBackgroundLayer(
-        id: id,
-        width: imagery.axisWidth,
-        height: imagery.axisHeight,
-      ));
-    }
-
-    final properties = <String, dynamic>{
-      'scale': imagery.scale,
-      'unit_type': imagery.realWidth.type.name,
-      'axis_type': imagery.axisType.name,
-      // should be equal [axisWidth * scale]
-      'real_width': imagery.realWidth.value,
-      // should be equal [axisHeight * scale]
-      'real_height': imagery.realHeight.value,
-    };
-
-    final map = VMap(
-      width: imagery.axisWidth,
-      height: imagery.axisHeight,
-      layers: layers,
-      properties: properties,
-    );
-    final s = const VConverter().convert(map);
-    final pf = ph.join(planId, imagery.id, VMap.defaultContentFilename);
-    textBroker.write(pf, s);
-  }
-
-  void _writePlanImageryBackground(String planId, Imagery imagery) {
-    final pf = ph.join(planId, imagery.id, VMap.defaultBackgroundFilename);
-    imageBroker.write(pf, imagery.background.image);
   }
 }
 

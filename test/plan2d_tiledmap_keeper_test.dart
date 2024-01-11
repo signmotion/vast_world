@@ -66,6 +66,8 @@ void main() {
 
     final testImageries = <String, JsonMap>{
       'raeria.ri': {
+        // !) this is a HID for imagery, not for a plan
+        // for plan we are using [imagery.hidForPlan]
         'hid': 'raeria.ri',
         'npath': '$sourcePath/raeria/ri',
         'scale': 0.3125,
@@ -102,31 +104,32 @@ void main() {
 
       // root (plan)
       {
-        final pf = p.join(outputPath, plan.id);
+        final pf = p.join(outputPath, planHid);
         expect(Directory(pf).existsSync(), isTrue, reason: pf);
       }
       {
-        final pf = p.join(outputPath, plan.id, VMap.defaultContentFilename);
+        final pf = p.join(outputPath, planHid, VMap.defaultContentFilename);
         expect(File(pf).existsSync(), isTrue, reason: pf);
       }
       {
-        final pf = p.join(outputPath, plan.id, VMap.defaultBackgroundFilename);
+        final pf = p.join(outputPath, planHid, VMap.defaultBackgroundFilename);
         expect(File(pf).existsSync(), isTrue, reason: pf);
       }
 
       // child (imagery)
-      final ri = plan.imageries.single.id;
+      final riHid = plan.imageries.single.hidForPlan;
       {
-        final pf = p.join(outputPath, plan.id, ri);
+        final pf = p.join(outputPath, planHid, riHid);
         expect(Directory(pf).existsSync(), isTrue, reason: pf);
       }
       {
-        final pf = p.join(outputPath, plan.id, ri, VMap.defaultContentFilename);
+        final pf =
+            p.join(outputPath, plan.id, riHid, VMap.defaultContentFilename);
         expect(File(pf).existsSync(), isTrue, reason: pf);
       }
       {
         final pf =
-            p.join(outputPath, plan.id, ri, VMap.defaultBackgroundFilename);
+            p.join(outputPath, plan.id, riHid, VMap.defaultBackgroundFilename);
         expect(File(pf).existsSync(), isTrue, reason: pf);
       }
     });

@@ -28,11 +28,11 @@ class VImagery extends VTileset {
     required int firstGid,
   }) =>
       VImagery(
-        name: imagery.id,
+        name: imagery.hidForPlan,
         tileWidth: imagery.axisWidth,
         tileHeight: imagery.axisHeight,
         image: VBackgroundImage(
-          pathPrefix: imagery.id,
+          pathPrefix: imagery.hidForPlan,
           width: imageryOnPlanWidth,
           height: imageryOnPlanHeight,
         ),
