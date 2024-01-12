@@ -26,8 +26,8 @@ class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
     this.anchor = anchor;
     this.axisType = axisType;
 
-    axisWidth = (this.realWidth / scale).ceilValue();
-    axisHeight = (this.realHeight / scale).ceilValue();
+    axisWidth = (this.realWidth / scale).roundIntValue();
+    axisHeight = (this.realHeight / scale).roundIntValue();
 
     data = List.filled(axisVolume, innerDataDefaultValue);
   }

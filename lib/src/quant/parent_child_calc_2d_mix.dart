@@ -15,6 +15,6 @@ mixin ParentChildCalc2DMix on HasGeometry2DMix {
     final k = w / axisSizeChild.$1;
     final h = axisSizeChild.$2 * k;
 
-    return (w.ceil(), h.ceil());
+    return (w.round(), h.round());
   }
 }
