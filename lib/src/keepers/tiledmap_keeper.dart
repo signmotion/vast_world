@@ -72,12 +72,25 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
       outerDataDefaultValue: 0 as T,
     );
 
-    final layer = map.layerByName('imageries');
-    if (layer is! ObjectGroup) {
-      throw Exception('Layer should be named as `imageries` and ObjectGroup.');
+    // we can have a plan without imageries
+    late final Layer? layer;
+    try {
+      layer = map.layerByName('imageries');
+    } on ArgumentError catch (_) {
+      layer = null;
     }
 
-    for (final o in layer.objects) {
+    if (layer != null && layer is! ObjectGroup) {
+      throw Exception(
+          'Layer should be named as `imageries` and be an ObjectGroup.');
+    }
+
+    final objects = (layer as ObjectGroup?)?.objects ?? <TiledObject>[];
+    for (final o in objects) {
+      if (!o.isTile) {
+        continue;
+      }
+
       final imageryHid = o.name.trim();
       if (imageryHid.isEmpty) {
         throw Exception('Imagery `${o.id}` should be named.');

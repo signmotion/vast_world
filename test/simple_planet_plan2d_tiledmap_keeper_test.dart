@@ -88,18 +88,18 @@ void main() {
       'raeria.ri': {
         'npath': '$sourcePath/$planHid/ri',
         'scale': 0.3125,
-        'axisSize': (3520, 2496),
-        'axisSquare': 3520 * 2496,
         'axisPosition': imageryAxisPositionRi,
+        'axisSize': (3520, 2496),
         'axisSizeInPlan': imageryAxisSizeRiInPlan,
+        'axisSquare': 3520 * 2496,
       },
       'raeria.ri_east': {
         'npath': '$sourcePath/$planHid/ri_east',
         'scale': 0.78,
-        'axisSize': (400, 1000),
-        'axisSquare': 400 * 1000,
         'axisPosition': imageryAxisPositionRiEast,
+        'axisSize': (400, 1000),
         'axisSizeInPlan': imageryAxisSizeRiEastInPlan,
+        'axisSquare': 400 * 1000,
       },
     };
 

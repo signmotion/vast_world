@@ -31,10 +31,10 @@ void checkPlan(
   if (scale != null) {
     expect(plan.scale, scale);
     // should be `size * scale` but we can have uncertainties...
-    expect(plan.realWidth.roundValue(), axisWidth * scale);
-    expect(plan.realHeight.roundValue(), axisHeight * scale);
+    expect(plan.realWidth.value, axisWidth * scale);
+    expect(plan.realHeight.value, axisHeight * scale);
     expect(
-      plan.realSquare.roundValue(),
+      plan.realSquare.value,
       (axisWidth * scale) * (axisHeight * scale),
     );
   }
@@ -66,15 +66,12 @@ void checkPlan(
       planHid: planHid,
       imageryHid: hid,
       npath: img['npath'] as String?,
-      scale: img['scale'] as double,
-      axisSize: img['axisSize'] as (int, int),
-      axisSquare: img['axisSquare'] as int?,
+      scale: img['scale'] as double?,
       axisPosition: img['axisPosition'] as (int, int),
+      axisSize: img['axisSize'] as (int, int),
+      axisSizeInPlan: img['axisSizeInPlan'] as (int, int),
+      axisSquare: img['axisSquare'] as int?,
     );
-
-    // check imagery size into plan
-    final (isx, isy) = plan.axisSizeChildInParent(imagery);
-    expect((isx, isy), img['axisSizeInPlan']!, reason: '$imagery');
   }
 }
 
@@ -86,6 +83,7 @@ void checkImagery(
   String? npath,
   double? scale,
   required (int, int) axisSize,
+  required (int, int) axisSizeInPlan,
   int? axisSquare,
   required (int, int) axisPosition,
 }) {
@@ -103,16 +101,21 @@ void checkImagery(
   if (scale != null) {
     expect(imagery.scale, scale);
     // should be `size * scale` but we can have uncertainties...
-    expect(imagery.realWidth.roundValue(), axisWidth * scale);
-    expect(imagery.realHeight.roundValue(), axisHeight * scale);
+    expect(imagery.realWidth.value, axisWidth * scale);
+    expect(imagery.realHeight.value, axisHeight * scale);
     expect(
-      imagery.realSquare.roundValue(),
+      imagery.realSquare.value,
       (axisWidth * scale) * (axisHeight * scale),
     );
   }
 
   expect(imagery.axisWidth, axisWidth);
   expect(imagery.axisHeight, axisHeight);
+
+  // check imagery size into plan
+  final (isx, isy) = plan.axisSizeChildInParent(imagery);
+  expect((isx, isy), axisSizeInPlan, reason: '$imagery');
+
   if (axisSquare != null) {
     expect(imagery.axisSquare, axisWidth * axisHeight);
   }
