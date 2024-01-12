@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:astronomical_measurements/astronomical_measurements.dart';
 import 'package:dart_helpers/dart_helpers.dart';
-import 'package:id_gen/id_gen.dart';
 import 'package:path/path.dart' as p;
-import 'package:vast_world/vast_world.dart';
+import 'package:vast_world/vast_world.dart' hide Keeper;
 import 'package:test/test.dart';
 
+import 'helpers_2d.dart';
 import 'prepare_test_env.dart';
 
 typedef Plan = Plan2D<int>;
@@ -17,8 +17,7 @@ typedef Keeper
 void main() {
   prepareTestEnv();
 
-  group('Construct a simple Plan2D for planet and save it to TiledMap format',
-      () {
+  group('Work with the simple Plan2D for planet, raw and tmx formats', () {
     const sourcePath = 'test/data/worlds/simple_planet_raw';
     const planHid = 'raeria';
     // select the radius of the planet according to the size of the
@@ -84,24 +83,20 @@ void main() {
     // final imageryRealHeightX = ...
 
     final testImageries = <String, JsonMap>{
+      // !) the key is a HID for imagery
+      // for construct a plan we will use [imagery.hidForPlan]
       'raeria.ri': {
-        // !) this is a HID for imagery, not for a plan
-        // for construct a plan we are using [imagery.hidForPlan]
-        'hid': 'raeria.ri',
-        'npath': '$sourcePath/raeria/ri',
+        'npath': '$sourcePath/$planHid/ri',
         'scale': 0.3125,
-        'axisWidth': 3520,
-        'axisHeight': 2496,
+        'axisSize': (3520, 2496),
         'axisSquare': 3520 * 2496,
         'axisPosition': imageryAxisPositionRi,
         'axisSizeInPlan': imageryAxisSizeRiInPlan,
       },
       'raeria.ri_east': {
-        'hid': 'raeria.ri_east',
-        'npath': '$sourcePath/raeria/ri_east',
+        'npath': '$sourcePath/$planHid/ri_east',
         'scale': 0.78,
-        'axisWidth': 400,
-        'axisHeight': 1000,
+        'axisSize': (400, 1000),
         'axisSquare': 400 * 1000,
         'axisPosition': imageryAxisPositionRiEast,
         'axisSizeInPlan': imageryAxisSizeRiEastInPlan,
@@ -114,8 +109,7 @@ void main() {
         planHid: planHid,
         npath: '$sourcePath/$planHid',
         scale: scale,
-        axisWidth: circumferenceX,
-        axisHeight: circumferenceY,
+        axisSize: (circumferenceX, circumferenceY),
         axisSquare: circumferenceX * circumferenceY,
         imageries: testImageries,
       );
@@ -166,150 +160,28 @@ void main() {
       }
     });
 
-    test('Read a simple Plan2D for planet from TiledMap format and check it',
-        () {
+    test('Read from TiledMap format and check it', () {
       const sourcePath = 'test/data/worlds/simple_planet_tmx';
       final keeper = Keeper(
         textBroker: TextFilesystemBroker(sourcePath),
         imageBroker: ImageFilesystemBroker(sourcePath),
       );
       final loaded = keeper.read('raeria');
-
       expect(loaded, isNotNull);
+
+      testImageries['raeria.ri']!['npath'] = '$sourcePath/$planHid/ri';
+      testImageries['raeria.ri_east']!['npath'] =
+          '$sourcePath/$planHid/ri_east';
+
       checkPlan(
         loaded!,
         planHid: planHid,
         npath: '$sourcePath/$planHid',
         scale: scale,
-        axisWidth: circumferenceX,
-        axisHeight: circumferenceY,
+        axisSize: (circumferenceX, circumferenceY),
         axisSquare: circumferenceX * circumferenceY,
         imageries: testImageries,
       );
     });
   });
-}
-
-void checkPlan(
-  Plan plan, {
-  required String planHid,
-  required String npath,
-  required double scale,
-  required int axisWidth,
-  required int axisHeight,
-  required int axisSquare,
-  required Map<String, JsonMap> imageries,
-}) {
-  expect(plan.hid, planHid);
-  expect(plan.uid, isUuid);
-  expect(plan.id, plan.hid);
-
-  expect(plan.npath, npath);
-
-  expect(plan.scale, scale);
-
-  // should be `size * scale` but we can have uncertainties...
-  expect(plan.realWidth.roundValue(), axisWidth * scale);
-  expect(plan.realHeight.roundValue(), axisHeight * scale);
-  expect(
-    plan.realSquare.roundValue(),
-    (axisWidth * scale) * (axisHeight * scale),
-  );
-
-  expect(plan.axisWidth, axisWidth);
-  expect(plan.axisHeight, axisHeight);
-  expect(plan.axisSquare, axisSquare);
-
-  // can be ether full path or `hid/path`, for example:
-  // 'test/data/worlds/simple_planet_raw/$hid/${VMap.defaultBackgroundFilename}'
-  // '$hid/${VMap.defaultBackgroundFilename}'
-  expect(
-    plan.background.npath,
-    endsWith('$planHid/${VMap.defaultBackgroundFilename}'),
-  );
-  expect(plan.background.image, isNotNull);
-  expect(plan.background.image!.width, axisWidth);
-  expect(plan.background.image!.height, axisHeight);
-
-  for (final imagery in plan.imageries) {
-    final imgs = imageries[imagery.id]!;
-    checkImagery(
-      plan,
-      imagery,
-      planHid: planHid,
-      imageryHid: imgs['hid'] as String,
-      npath: imgs['npath'] as String,
-      scale: imgs['scale'] as double,
-      axisWidth: imgs['axisWidth'] as int,
-      axisHeight: imgs['axisHeight'] as int,
-      axisSquare: imgs['axisSquare'] as int,
-      axisPosition: imgs['axisPosition'] as (int, int),
-    );
-
-    // check imagery size into plan
-    final (isx, isy) = plan.axisSizeChildInParent(imagery);
-    expect((isx, isy), imgs['axisSizeInPlan']!, reason: '$imagery');
-  }
-}
-
-void checkImagery(
-  Plan plan,
-  Imagery imagery, {
-  required String planHid,
-  required String imageryHid,
-  required String npath,
-  required double scale,
-  required int axisWidth,
-  required int axisHeight,
-  required int axisSquare,
-  required (int, int) axisPosition,
-}) {
-  expect(
-    imagery.npath,
-    'test/data/worlds/simple_planet_raw/${imageryHid.hidToNPath}',
-  );
-  expect(imagery.hid, imageryHid);
-  expect(imagery.uid, isUuid);
-  expect(imagery.id, imagery.hid);
-
-  expect(imagery.npath, npath);
-
-  expect(imagery.scale, scale);
-
-  // should be `size * scale` but we can have uncertainties...
-  expect(imagery.realWidth.roundValue(), axisWidth * scale);
-  expect(imagery.realHeight.roundValue(), axisHeight * scale);
-  expect(
-    imagery.realSquare.roundValue(),
-    (axisWidth * scale) * (axisHeight * scale),
-  );
-
-  expect(imagery.axisWidth, axisWidth);
-  expect(imagery.axisHeight, axisHeight);
-  expect(imagery.axisSquare, axisWidth * axisHeight);
-
-  expect(imagery.axisPosition, axisPosition);
-
-  // can be ether full path or `hid/path`, for example:
-  // 'test/data/simple_planet_raw/$hid/${VMap.defaultBackgroundFilename}'
-  // '$hid/${VMap.defaultBackgroundFilename}'
-  expect(
-    imagery.background.npath,
-    endsWith('${imageryHid.hidToNPath}/${VMap.defaultBackgroundFilename}'),
-  );
-  expect(imagery.background.image, isNotNull);
-  expect(imagery.background.image!.width, axisWidth);
-  expect(imagery.background.image!.height, axisHeight);
-
-  final pl = Plan.imageryToPlan(plan, imagery);
-  checkPlan(
-    pl,
-    planHid: imagery.hidForPlan,
-    npath: imagery.npath,
-    scale: imagery.scale,
-    axisWidth: imagery.axisWidth,
-    axisHeight: imagery.axisHeight,
-    axisSquare: imagery.axisWidth * imagery.axisHeight,
-    imageries: const <String, JsonMap>{},
-  );
 }

@@ -33,6 +33,17 @@ mixin CanWorkWithFile on Object {
   /// See [PathStringExt.npath].
   String get npath => path.npath;
 
+  String npathWithoutTail(String tail) {
+    final np = npath;
+    if (tail.isEmpty || !np.endsWith(tail)) {
+      return np;
+    }
+
+    final i = np.indexOf(tail);
+
+    return i == -1 ? np : np.substring(0, i);
+  }
+
   void counstructPath({bool? hasFile}) => counstructPathToFile(path);
 
   static void counstructPathToFile(String pathToFile, {bool? hasFile}) {

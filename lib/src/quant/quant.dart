@@ -18,6 +18,12 @@ abstract class Quant extends BaseEquatable with CanWorkWithFile, HasIdMix {
   static const hidSeparator = HidExt.hidSeparator;
   static const pathSeparator = HidExt.pathSeparator;
 
+  String get lastHid => hidAsList.last;
+  String get firstHid => hidAsList.last;
+  List<String> get hidAsList => hid.split(HidExt.hidSeparator);
+
+  String get npathWithoutHid => npathWithoutTail(hid.hidToNPath);
+
   Background get background =>
       Background('$npath/${VMap.defaultBackgroundFilename}');
 

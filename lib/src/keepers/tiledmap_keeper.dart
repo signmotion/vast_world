@@ -27,7 +27,7 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
 
   @override
   Plan2D<T>? read(String id) {
-    final path = ph.join(id, VMap.defaultContentFilename);
+    final path = ph.joinAll([...id.hidToList, VMap.defaultContentFilename]);
     final body = textBroker.read(path);
     if (body == null) {
       return null;
@@ -60,7 +60,7 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
     final axisType =
         AxisType.values.findByName(sAxisType, defaults: AxisType.undefined)!;
 
-    return Plan2D<T>(
+    var plan = Plan2D<T>(
       textBroker.pathPrefix,
       id,
       realWidth: Unit(realWidth, unitType),
@@ -71,6 +71,36 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
       innerDataDefaultValue: 1 as T,
       outerDataDefaultValue: 0 as T,
     );
+
+    final layer = map.layerByName('imageries');
+    if (layer is! ObjectGroup) {
+      throw Exception('Layer should be named as `imageries` and ObjectGroup.');
+    }
+
+    for (final o in layer.objects) {
+      final imageryHid = o.name.trim();
+      if (imageryHid.isEmpty) {
+        throw Exception('Imagery `${o.id}` should be named.');
+      }
+
+      // load a plan with this imagery
+      final imageryPath = [id, imageryHid].join(Quant.hidSeparator);
+      final iplan = read(imageryPath);
+      if (iplan == null) {
+        throw Exception('The plan for imagery `$imageryHid`'
+            ' into the plan `${plan.hid}` is not found'
+            ' by path `$imageryPath`.');
+      }
+
+      // convert the loaded plan to imagery for parent plan
+      final imagery = iplan.toPictureImagery(
+        parentPlanHid: plan.hid,
+        axisPositionInParentPlan: (o.x.round(), o.y.round()),
+      );
+      plan += imagery;
+    }
+
+    return plan;
   }
 
   @override

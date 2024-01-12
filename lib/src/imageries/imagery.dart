@@ -26,5 +26,5 @@ abstract class Imagery extends Quant with HasGeometry2DMix {
     this.realHeight = realHeight ?? Unit.kilometre(axisHeight * scale);
   }
 
-  String get hidForPlan => hid.split(HidExt.hidSeparator).last;
+  String get hidForPlan => lastHid;
 }

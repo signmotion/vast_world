@@ -124,6 +124,19 @@ class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
 
   int index(int k, int l) => k + l * axisWidth;
 
+  PictureImagery toPictureImagery({
+    required String parentPlanHid,
+    required (int, int) axisPositionInParentPlan,
+  }) =>
+      PictureImagery(
+        npathWithoutHid,
+        parentPlanHid,
+        lastHid,
+        axisPosition: axisPositionInParentPlan,
+        // the height will be calculated in proportion to the image size
+        realWidth: realWidth,
+      );
+
   T operator []((int, int) ti) {
     final (k, l) = _clampAxisTypes(ti);
 
