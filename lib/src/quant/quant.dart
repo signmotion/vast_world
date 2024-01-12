@@ -1,12 +1,14 @@
 part of '../../vast_world.dart';
 
-abstract class Quant extends FileWorker with HasIdMix {
+abstract class Quant extends BaseEquatable with CanWorkWithFile, HasIdMix {
   Quant(
     String pathPrefix,
     String hid, {
     String? uid,
-  })  : assert(hid.isNotEmpty),
-        super(ph.joinAll([pathPrefix, ...hid.hidToList])) {
+  }) : assert(hid.isNotEmpty) {
+    path = ph.joinAll([pathPrefix, ...hid.hidToList]);
+    counstructPath();
+
     this.hid = hid;
     this.uid = uid ?? generateUid();
   }
@@ -16,6 +18,9 @@ abstract class Quant extends FileWorker with HasIdMix {
 
   Background get background =>
       Background('$npath/${VMap.defaultBackgroundFilename}');
+
+  @override
+  List<Object?> get props => [hid, npath, uid];
 }
 
 extension HidExt on String {

@@ -5,8 +5,7 @@ class FileWorker with CanWorkWithFile {
     this.path = path;
 
     if (createPathIfNotExists) {
-      final hasFile = ph.extension(path).isNotEmpty;
-      counstructPath(hasFile: hasFile);
+      counstructPath();
     }
   }
 

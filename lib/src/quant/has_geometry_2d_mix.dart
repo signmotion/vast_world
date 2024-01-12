@@ -1,6 +1,6 @@
 part of '../../vast_world.dart';
 
-mixin HasGeometryMix on Object {
+mixin HasGeometry2DMix on Object {
   static const defaultAnchor1D = Anchor1D.start;
   static const defaultAnchor2D = Anchor2D.topLeft;
   static const defaultAxisType = AxisType.loop;

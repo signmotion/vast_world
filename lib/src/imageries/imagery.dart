@@ -1,7 +1,8 @@
 part of '../../vast_world.dart';
 
 /// The axis size equals to background image size.
-abstract class Imagery extends Quant with HasGeometryMix {
+// ignore: must_be_immutable
+abstract class Imagery extends Quant with HasGeometry2DMix {
   Imagery(
     String pathPrefix,
     String planHid,

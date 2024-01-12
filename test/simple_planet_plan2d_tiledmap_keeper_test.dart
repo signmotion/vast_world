@@ -34,8 +34,8 @@ void main() {
       scale: scale,
     );
     // with this image size and world scale we have:
-    //  rx = 6923 km, unwrapped to circumferenceX * scale = 43500
-    //  ry = 5411 km, unwrapped to circumferenceY * scale = 34000
+    //  rx = 6923 km, unwrapped to circumferenceX * scale = 43500 km
+    //  ry = 5411 km, unwrapped to circumferenceY * scale = 34000 km
     var plan = Plan.planet(
       sourcePath,
       planHid,
@@ -50,10 +50,12 @@ void main() {
 
     // insert the imageries (projections of other plans) to this plan
     // positions takes from tmx-file
-    const imageryAxisPositionRi = (505, 85);
-    const axisSizeInPlanRi = (22, 16);
-    final imageryRealWidthRi = Unit.kilometre(1100);
     const imageryHidRi = 'ri';
+    const imageryAxisPositionRi = (505, 85);
+    const imageryAxisSizeRi = (3520, 2496);
+    final imageryRealWidthRi = Unit.kilometre(1100);
+    final imageryAxisSizeRiInPlan =
+        plan.axisSizeInParent(imageryRealWidthRi, imageryAxisSizeRi);
     plan += PictureImagery(
       sourcePath,
       planHid,
@@ -63,10 +65,12 @@ void main() {
       realWidth: imageryRealWidthRi,
     );
 
-    const imageryAxisPositionRiEast = (505 + 22, 85);
-    const axisSizeInPlanRiEast = (7, 16);
-    final imageryRealWidthRiEast = Unit.kilometre(312);
     const imageryHidRiEast = 'ri_east';
+    final imageryAxisPositionRiEast = (505 + imageryAxisSizeRiInPlan.$1, 85);
+    const imageryAxisSizeRiEast = (400, 1000);
+    final imageryRealWidthRiEast = Unit.kilometre(312);
+    final imageryAxisSizeRiEastInPlan =
+        plan.axisSizeInParent(imageryRealWidthRiEast, imageryAxisSizeRiEast);
     plan += PictureImagery(
       sourcePath,
       planHid,
@@ -76,8 +80,8 @@ void main() {
       realWidth: imageryRealWidthRiEast,
     );
 
-    // calculated by [width] and image size
-    //final imageryRealHeight = Unit.kilometre(780);
+    // wiil be calculated by [width] and image size
+    // final imageryRealHeightX = ...
 
     final testImageries = <String, JsonMap>{
       'raeria.ri': {
@@ -90,7 +94,7 @@ void main() {
         'axisHeight': 2496,
         'axisSquare': 3520 * 2496,
         'axisPosition': imageryAxisPositionRi,
-        'axisSizeInPlan': axisSizeInPlanRi,
+        'axisSizeInPlan': imageryAxisSizeRiInPlan,
       },
       'raeria.ri_east': {
         'hid': 'raeria.ri_east',
@@ -100,7 +104,7 @@ void main() {
         'axisHeight': 1000,
         'axisSquare': 400 * 1000,
         'axisPosition': imageryAxisPositionRiEast,
-        'axisSizeInPlan': axisSizeInPlanRiEast,
+        'axisSizeInPlan': imageryAxisSizeRiEastInPlan,
       },
     };
 
@@ -244,7 +248,7 @@ void checkPlan(
 
     // check imagery size into plan
     final (isx, isy) = plan.axisSizeChildInParent(imagery);
-    expect((isx, isy), imgs['axisSizeInPlan']!);
+    expect((isx, isy), imgs['axisSizeInPlan']!, reason: '$imagery');
   }
 }
 

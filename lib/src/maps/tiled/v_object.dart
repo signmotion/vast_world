@@ -31,7 +31,7 @@ class VObjectTile extends VObject {
         );
 
   factory VObjectTile.fromParentAndImagery({
-    required ParentChildCalcMix parent,
+    required ParentChildCalc2DMix parent,
     required int id,
     required int gid,
     required Imagery imagery,

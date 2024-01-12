@@ -1,6 +1,7 @@
 part of '../../vast_world.dart';
 
-class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
+// ignore: must_be_immutable
+class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
   Plan2D(
     super.pathPrefix,
     super.hid, {
@@ -14,7 +15,7 @@ class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
     required this.outerDataDefaultValue,
   })  : assert(realWidth > 0),
         assert(realHeight > 0),
-        assert(anchor == HasGeometryMix.defaultAnchor2D,
+        assert(anchor == HasGeometry2DMix.defaultAnchor2D,
             'Not implemented others.'),
         assert(scale > 0),
         assert(realWidth.type == realHeight.type,
@@ -54,7 +55,7 @@ class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
       hid,
       realWidth: rx! * 2 * pi,
       realHeight: ry! * 2 * pi,
-      anchor: HasGeometryMix.defaultAnchor2D,
+      anchor: HasGeometry2DMix.defaultAnchor2D,
       axisType: AxisType.loop,
       scale: scale,
       innerDataDefaultValue: innerDataDefaultValue,
@@ -67,8 +68,8 @@ class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
     String hid, {
     required Unit realWidth,
     required Unit realHeight,
-    Anchor2D anchor = HasGeometryMix.defaultAnchor2D,
-    AxisType axisType = HasGeometryMix.defaultAxisType,
+    Anchor2D anchor = HasGeometry2DMix.defaultAnchor2D,
+    AxisType axisType = HasGeometry2DMix.defaultAxisType,
     num scale = 1.0,
     required T innerDataDefaultValue,
     required T outerDataDefaultValue,
@@ -106,8 +107,8 @@ class Plan2D<T> extends Quant with HasGeometryMix, ParentChildCalcMix {
       uid: imagery.uid,
       realWidth: imagery.realWidth,
       realHeight: imagery.realHeight,
-      anchor: anchor ?? HasGeometryMix.defaultAnchor2D,
-      axisType: axisType ?? HasGeometryMix.defaultAxisType,
+      anchor: anchor ?? HasGeometry2DMix.defaultAnchor2D,
+      axisType: axisType ?? HasGeometry2DMix.defaultAxisType,
       scale: imagery.scale,
       innerDataDefaultValue:
           innerDataDefaultValue ?? parentPlan.innerDataDefaultValue,
