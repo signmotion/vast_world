@@ -9,32 +9,11 @@ mixin HasGeometry2DMix on Object {
   late final (int, int) axisPosition;
   int get x => axisPosition.$1;
   int get y => axisPosition.$2;
-
-  /// Absolute width in [Unit].
-  late final Unit realWidth;
-
-  /// Absolute height in [Unit].
-  late final Unit realHeight;
-
-  List<Unit> get realAbsSizes => [realWidth, realHeight];
+  List<int> get axisAbsSizes => [axisWidth, axisHeight];
 
   /// The axis size equals to background image size.
   late final int axisWidth;
   late final int axisHeight;
-
-  List<int> get axisAbsSizes => [axisWidth, axisHeight];
-
-  Anchor2D anchor = defaultAnchor2D;
-
-  List<Anchor1D> get anchors => [defaultAnchor1D, defaultAnchor1D];
-
-  AxisType axisType = defaultAxisType;
-
-  List<AxisType> get axisTypes => [axisType, axisType];
-
-  /// How many [UnitType] contains 1 cell.
-  /// Calculating by width.
-  double get scale => realWidth.value / axisWidth;
 
   /// Includes an upper value.
   List<int> get axisUppers => axisAbsSizes.map((i) => i - 1).toList();
@@ -42,8 +21,23 @@ mixin HasGeometry2DMix on Object {
   /// Includes a lower value.
   List<int> get axisLowers => axisAbsSizes.map((i) => 0).toList();
 
+  AxisType axisType = defaultAxisType;
+  List<AxisType> get axisTypes => [axisType, axisType];
+
+  Anchor2D anchor = defaultAnchor2D;
+  List<Anchor1D> get anchors => [defaultAnchor1D, defaultAnchor1D];
+
   int get axisSquare => axisWidth * axisHeight;
   int get axisVolume => axisAbsSizes.reduce((v, e) => v * e);
+
+  (double, double) get realSize => (realWidth.value, realHeight.value);
+  late final Unit realWidth;
+  late final Unit realHeight;
+  List<Unit> get realAbsSizes => [realWidth, realHeight];
+
+  /// How many [UnitType] contains 1 cell.
+  /// Calculating by width.
+  double get scale => realWidth.value / axisWidth;
 
   Unit get realSquare => realWidth * realHeight;
   Unit get realVolume => realAbsSizes.reduce((v, e) => v * e);
