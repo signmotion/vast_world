@@ -19,7 +19,7 @@ void main() {
 
   group('Construct a simple Plan2D for planet and save it to TiledMap format',
       () {
-    const sourcePath = 'test/data/simple_planet_raw';
+    const sourcePath = 'test/data/worlds/simple_planet_raw';
     const planHid = 'raeria';
     // select the radius of the planet according to the size of the
     // existing image of the planet map
@@ -118,7 +118,8 @@ void main() {
     });
 
     test('Write to TiledMap format and check file structure', () {
-      final outputPath = p.join('test', 'output', 'planet_tmx');
+      final outputPath =
+          p.join('test', 'output', 'worlds', 'simple_planet_tmx');
       final keeper = Keeper(
         textBroker: TextFilesystemBroker(outputPath),
         imageBroker: ImageFilesystemBroker(outputPath),
@@ -163,7 +164,7 @@ void main() {
 
     test('Read a simple Plan2D for planet from TiledMap format and check it',
         () {
-      const sourcePath = 'test/data/simple_planet_tmx';
+      const sourcePath = 'test/data/worlds/simple_planet_tmx';
       final keeper = Keeper(
         textBroker: TextFilesystemBroker(sourcePath),
         imageBroker: ImageFilesystemBroker(sourcePath),
@@ -216,7 +217,7 @@ void checkPlan(
   expect(plan.axisSquare, axisSquare);
 
   // can be ether full path or `hid/path`, for example:
-  // 'test/data/simple_planet_raw/$hid/${VMap.defaultBackgroundFilename}'
+  // 'test/data/worlds/simple_planet_raw/$hid/${VMap.defaultBackgroundFilename}'
   // '$hid/${VMap.defaultBackgroundFilename}'
   expect(
     plan.background.npath,
@@ -261,7 +262,7 @@ void checkImagery(
 }) {
   expect(
     imagery.npath,
-    'test/data/simple_planet_raw/${imageryHid.hidToNPath}',
+    'test/data/worlds/simple_planet_raw/${imageryHid.hidToNPath}',
   );
   expect(imagery.hid, imageryHid);
   expect(imagery.uid, isUuid);
