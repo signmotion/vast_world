@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="3520" height="2496" tilewidth="1" tileheight="1" infinite="0" nextlayerid="15" nextobjectid="99">
+ <properties>
+  <property name="axis_type" value="loop"/>
+  <property name="real_height" value="780.0"/>
+  <property name="real_width" value="1100.0"/>
+  <property name="scale" value="0.3125"/>
+  <property name="unit_type" value="kilometre"/>
+ </properties>
+ <tileset firstgid="1" name="elf_sea" tilewidth="712" tileheight="320" tilecount="1" columns="1">
+  <image source="elf_sea/bg.png" width="712" height="320"/>
+ </tileset>
+ <tileset firstgid="2" name="askatria_sea" tilewidth="1008" tileheight="632" tilecount="1" columns="1">
+  <image source="askatria_sea/bg.png" width="1008" height="632"/>
+ </tileset>
+ <tileset firstgid="3" name="askatria_land" tilewidth="1280" tileheight="936" tilecount="1" columns="1">
+  <image source="askatria_land/bg.png" width="1280" height="936"/>
+ </tileset>
+ <imagelayer id="14" name="bg">
+  <image source="bg.png" width="3520" height="2496"/>
+ </imagelayer>
+ <objectgroup id="6" name="imageries">
+  <object id="96" name="elf_sea" gid="1" x="384" y="2496" width="712" height="320" visible="0"/>
+  <object id="97" name="askatria_sea" gid="2" x="0" y="2496" width="1008" height="632" visible="0"/>
+  <object id="98" name="askatria_land" gid="3" x="608" y="2335" width="1280" height="936" visible="0"/>
+  <object id="6" name="_elf_sea" x="421" y="2496">
+   <polygon points="-37,0 123,-64 283,-96 331,-152 435,-184 523,-240 587,-320 627,-280 635,-224 603,-176 635,-160 659,-128 659,-72 643,-40 675,0"/>
+  </object>
+  <object id="92" name="_askatria_sea" x="888" y="2000">
+   <polygon points="0,0 0,16 48,56 120,176 56,256 -32,312 -136,344 -184,400 -344,432 -504,496 -640,496 -888,496 -888,-136 -392,0"/>
+  </object>
+  <object id="93" name="askatria_land" x="888" y="2000">
+   <polygon points="0,0 -8,-24 -24,-48 -64,-80 -104,-128 -160,-120 -192,-120 -216,-136 -240,-136 -272,-144 -280,-160 -280,-176 -184,-176 -120,-200 -56,-208 40,-240 200,-240 232,-272 296,-272 328,-304 360,-304 392,-336 360,-336 392,-368 440,-376 344,-432 392,-448 432,-496 488,-520 544,-488 616,-520 680,-600 704,-528 712,-456 680,-416 688,-368 736,-336 768,-328 776,-248 824,-248 848,-224 880,-216 912,-168 1000,-176 960,-136 936,-72 904,-56 856,-64 816,-32 792,24 728,24 680,72 576,48 536,80 520,136 464,160 432,208 376,216 312,192 272,232 224,232 192,256 200,288 192,312 168,336 136,320 168,272 160,216 120,176 48,56 0,16"/>
+  </object>
+  <object id="95" x="608" y="1400" width="1280" height="936" visible="0"/>
+ </objectgroup>
+</map>

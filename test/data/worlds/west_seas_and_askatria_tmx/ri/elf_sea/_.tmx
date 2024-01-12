@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="712" height="320" tilewidth="1" tileheight="1" infinite="0" nextlayerid="16" nextobjectid="97">
+  <properties>
+    <property name="scale" value="0.3125" type="string"/>
+    <property name="unit_type" value="kilometre" type="string"/>
+    <property name="axis_type" value="loop" type="string"/>
+    <property name="real_width" value="222.5" type="string"/>
+    <property name="real_height" value="100.0" type="string"/>
+  </properties>
+ <imagelayer id="14" name="bg" locked="1">
+  <image source="bg.png" width="712" height="320"/>
+ </imagelayer>
+ <objectgroup id="6" name="area" locked="1">
+  <object id="6" name="elf_sea" x="37" y="320">
+   <polygon points="-37,0 123,-64 283,-96 331,-152 435,-184 523,-240 587,-320 627,-280 635,-224 603,-176 635,-160 659,-128 659,-72 643,-40 675,0"/>
+  </object>
+ </objectgroup>
+</map>

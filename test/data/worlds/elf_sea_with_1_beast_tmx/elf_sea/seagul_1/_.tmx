@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="1" tileheight="1" infinite="0" nextlayerid="3" nextobjectid="1">
+  <properties>
+    <property name="scale" value="0.015625" type="string"/>
+    <property name="unit_type" value="metre" type="string"/>
+    <property name="axis_type" value="loop" type="string"/>
+    <property name="real_width" value="1.0" type="string"/>
+    <property name="real_height" value="1.0" type="string"/>
+  </properties>
+ <imagelayer id="2" name="bg">
+  <image source="bg.png" width="64" height="64"/>
+ </imagelayer>
+</map>
