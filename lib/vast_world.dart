@@ -6,7 +6,6 @@ import 'dart:typed_data';
 
 import 'package:advance_math/advance_math.dart' as amath;
 import 'package:astronomical_measurements/astronomical_measurements.dart';
-import 'package:collection/collection.dart';
 import 'package:dart_helpers/dart_helpers.dart';
 import 'package:dart_tiledmap/dart_tiledmap.dart';
 import 'package:id_gen/id_gen.dart';
