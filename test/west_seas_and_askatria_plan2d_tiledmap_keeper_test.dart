@@ -19,8 +19,7 @@ void main() {
         textBroker: TextFilesystemBroker(sourcePath),
         imageBroker: ImageFilesystemBroker(sourcePath),
       );
-      final loaded = keeper.read(hid);
-      expect(loaded, isNotNull);
+      final plan = keeper.read(hid)!;
 
       final imageries = <String, JsonMap>{
         // !) this is a HID for imagery, not for a plan
@@ -29,27 +28,53 @@ void main() {
           'axisPosition': (608, 2335),
           'axisSize': (1280, 936),
           'axisSizeInPlan': (1280, 936),
+          'shapeType': PolygonShape,
         },
         'ri.askatria_sea': {
           'axisPosition': (0, 2496),
           'axisSize': (1008, 632),
           'axisSizeInPlan': (1008, 632),
+          'shapeType': PolygonShape,
         },
         'ri.elf_sea': {
           'axisPosition': (384, 2496),
           'axisSize': (712, 320),
           'axisSizeInPlan': (712, 320),
+          'shapeType': PolygonShape,
         },
       };
 
       checkPlan(
-        loaded!,
+        plan,
         planHid: hid,
         npath: '$sourcePath/$hid',
         scale: scale,
         axisSize: axisSize,
         imageries: imageries,
+        shapeType: EmptyShape,
       );
+
+      plan.fadeBackground();
+      checkBackgroundColorPixels(plan.background, plan.shape);
+      for (final imagery in plan.imageries) {
+        final iplan = keeper.read(imagery.hid);
+        expect(iplan, isNotNull, reason: imagery.hid);
+        iplan!.fadeBackground();
+        checkBackgroundColorPixels(iplan.background, iplan.shape);
+      }
+
+      const outputPath = 'test/output/worlds/west_seas_and_askatria_tmx';
+      final keeperWriter = Keeper(
+        textBroker: TextFilesystemBroker(outputPath),
+        imageBroker: ImageFilesystemBroker(outputPath),
+        readOnly: false,
+      );
+      keeperWriter.clear();
+      keeperWriter.write(plan);
     });
   });
+}
+
+void checkBackgroundColorPixels(Background bg, Shape2D shape) {
+  // TODO
 }

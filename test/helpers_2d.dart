@@ -16,11 +16,14 @@ void checkPlan(
   required (int, int) axisSize,
   int? axisSquare,
   required Map<String, JsonMap> imageries,
+  Type? shapeType,
 }) {
   final axisWidth = axisSize.$1;
   final axisHeight = axisSize.$2;
 
+  expect(planHid.isCorrectPlanHid, true, reason: planHid);
   expect(plan.hid, planHid);
+
   expect(plan.uid, isUuid);
   expect(plan.id, plan.hid);
 
@@ -56,6 +59,8 @@ void checkPlan(
   expect(plan.background.image!.width, axisWidth);
   expect(plan.background.image!.height, axisHeight);
 
+  expect(plan.shape.runtimeType, shapeType, reason: plan.hid);
+
   for (final ie in imageries.entries) {
     final hid = ie.key;
     final img = ie.value;
@@ -71,6 +76,7 @@ void checkPlan(
       axisSize: img['axisSize'] as (int, int),
       axisSizeInPlan: img['axisSizeInPlan'] as (int, int),
       axisSquare: img['axisSquare'] as int?,
+      shapeType: img['shapeType'] as Type?,
     );
   }
 }
@@ -86,11 +92,14 @@ void checkImagery(
   required (int, int) axisSizeInPlan,
   int? axisSquare,
   required (int, int) axisPosition,
+  Type? shapeType,
 }) {
   final axisWidth = axisSize.$1;
   final axisHeight = axisSize.$2;
 
+  expect(imageryHid.isCorrectImageryHid, true, reason: imageryHid);
   expect(imagery.hid, imageryHid);
+
   expect(imagery.uid, isUuid);
   expect(imagery.id, imagery.hid);
 
@@ -129,9 +138,11 @@ void checkImagery(
     imagery.background.npath,
     endsWith('${imageryHid.hidToNPath}/${VMap.defaultBackgroundFilename}'),
   );
-  expect(imagery.background.image, isNotNull);
+  expect(imagery.background.image, isNotNull, reason: imagery.background.npath);
   expect(imagery.background.image!.width, axisWidth);
   expect(imagery.background.image!.height, axisHeight);
+
+  expect(imagery.shape.runtimeType, shapeType, reason: imagery.hid);
 
   final pl = Plan.imageryToPlan(plan, imagery);
   checkPlan(
@@ -142,5 +153,6 @@ void checkImagery(
     axisSize: (imagery.axisWidth, imagery.axisHeight),
     axisSquare: imagery.axisWidth * imagery.axisHeight,
     imageries: const <String, JsonMap>{},
+    shapeType: imagery.shape.runtimeType,
   );
 }

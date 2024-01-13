@@ -1,35 +1,24 @@
 part of '../../vast_world.dart';
 
 // ignore: must_be_immutable
-class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
+class Plan2D<T> extends GeometryShape2DQuant with ParentChildCalc2DMix {
   Plan2D(
     super.pathPrefix,
     super.hid, {
     super.uid,
-    required Unit realWidth,
-    required Unit realHeight,
-    required Anchor2D anchor,
-    required AxisType axisType,
-    required num scale,
+    required super.realWidth,
+    required super.realHeight,
+    required super.anchor,
+    required super.axisType,
+    required super.scale,
+    required super.shape,
+    super.wantFadeBackground = false,
+    List<Imagery>? imageries,
     required this.innerDataDefaultValue,
     required this.outerDataDefaultValue,
-  })  : assert(realWidth > 0),
-        assert(realHeight > 0),
-        assert(anchor == HasGeometry2DMix.defaultAnchor2D,
-            'Not implemented others.'),
-        assert(scale > 0),
-        assert(realWidth.type == realHeight.type,
-            'Width and height should be same measurements.') {
-    this.realWidth = realWidth;
-    this.realHeight = realHeight;
-
-    this.anchor = anchor;
-    this.axisType = axisType;
-
-    axisWidth = (this.realWidth / scale).roundIntValue();
-    axisHeight = (this.realHeight / scale).roundIntValue();
-
+  }) : super(axisPosition: (0, 0)) {
     data = List.filled(axisVolume, innerDataDefaultValue);
+    this.imageries = imageries ?? <Imagery>[];
   }
 
   /// Unwrap to looped surface by radius.
@@ -40,6 +29,7 @@ class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
     Unit? realRadiusX,
     Unit? realRadiusY,
     required num scale,
+    bool wantFadeBackground = false,
     required T innerDataDefaultValue,
     required T outerDataDefaultValue,
   }) {
@@ -58,6 +48,7 @@ class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
       anchor: HasGeometry2DMix.defaultAnchor2D,
       axisType: AxisType.loop,
       scale: scale,
+      wantFadeBackground: wantFadeBackground,
       innerDataDefaultValue: innerDataDefaultValue,
       outerDataDefaultValue: outerDataDefaultValue,
     );
@@ -71,6 +62,7 @@ class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
     Anchor2D anchor = HasGeometry2DMix.defaultAnchor2D,
     AxisType axisType = HasGeometry2DMix.defaultAxisType,
     num scale = 1.0,
+    bool wantFadeBackground = false,
     required T innerDataDefaultValue,
     required T outerDataDefaultValue,
   }) =>
@@ -82,6 +74,8 @@ class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
         anchor: anchor,
         axisType: axisType,
         scale: scale,
+        shape: const EmptyShape(),
+        wantFadeBackground: wantFadeBackground,
         innerDataDefaultValue: innerDataDefaultValue,
         outerDataDefaultValue: outerDataDefaultValue,
       );
@@ -91,6 +85,7 @@ class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
     Imagery imagery, {
     Anchor2D? anchor,
     AxisType? axisType,
+    bool wantFadeBackground = false,
     T? innerDataDefaultValue,
     T? outerDataDefaultValue,
   }) {
@@ -110,6 +105,8 @@ class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
       anchor: anchor ?? HasGeometry2DMix.defaultAnchor2D,
       axisType: axisType ?? HasGeometry2DMix.defaultAxisType,
       scale: imagery.scale,
+      shape: imagery.shape,
+      wantFadeBackground: wantFadeBackground,
       innerDataDefaultValue:
           innerDataDefaultValue ?? parentPlan.innerDataDefaultValue,
       outerDataDefaultValue:
@@ -122,19 +119,21 @@ class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
 
   late final List<T> data;
 
-  int index(int k, int l) => k + l * axisWidth;
-
   PictureImagery toPictureImagery({
     required String parentPlanHid,
     required (int, int) axisPositionInParentPlan,
   }) =>
-      PictureImagery(
+      PictureImagery.fromImage(
         npathWithoutHid,
         parentPlanHid,
         lastHid,
         axisPosition: axisPositionInParentPlan,
         // the height will be calculated in proportion to the image size
         realWidth: realWidth,
+        anchor: anchor,
+        axisType: axisType,
+        shape: shape,
+        wantFadeBackground: wantFadeBackground,
       );
 
   T operator []((int, int) ti) {
@@ -151,14 +150,6 @@ class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
     }
   }
 
-  bool inside(int k, int l) => !outside(k, l);
-
-  bool outside(int k, int l) =>
-      k > axisUppers[0] ||
-      l > axisUppers[1] ||
-      k < axisLowers[0] ||
-      l < axisLowers[1];
-
   (int, int) _clampAxisTypes((int, int) ti) => (
         _clampAxisType(ti.$1, 0),
         _clampAxisType(ti.$2, 1),
@@ -172,8 +163,6 @@ class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
         _ => throw Exception('Unsupported `${axisTypes[axisIndex]}`.'),
       };
 
-  List<Imagery> imageries = [];
-
   Plan2D<T> operator +(dynamic o) {
     if (o is Imagery) {
       addImagery(o);
@@ -184,5 +173,18 @@ class Plan2D<T> extends Quant with HasGeometry2DMix, ParentChildCalc2DMix {
     return this;
   }
 
+  late final List<Imagery> imageries;
+
   void addImagery(Imagery v) => imageries.add(v);
+}
+
+extension PlanHidExt on String {
+  /// Examples:
+  /// ```
+  /// raeria
+  /// ri
+  /// elf_sea
+  /// askatria_land
+  /// ```
+  bool get isCorrectPlanHid => RegExp(r'^[a-z0-9_]*$').hasMatch(this);
 }

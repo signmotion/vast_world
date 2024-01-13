@@ -10,7 +10,7 @@
  <imagelayer id="14" name="bg" locked="1">
   <image source="bg.png" width="1008" height="632"/>
  </imagelayer>
- <objectgroup id="6" name="area">
+ <objectgroup id="6" name="shape">
   <object id="92" name="askatria_sea" x="888" y="136">
    <polygon points="0,0 0,16 48,56 120,176 56,256 -32,312 -136,344 -184,400 -344,432 -504,496 -640,496 -888,496 -888,-136 -392,0"/>
   </object>

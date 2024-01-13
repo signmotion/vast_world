@@ -16,7 +16,7 @@
  <objectgroup id="15" name="imageries">
   <object id="96" name="seagul_1" gid="1" x="356" y="256" width="0.0032" height="0.0032"/>
  </objectgroup>
- <objectgroup id="16" name="area">
+ <objectgroup id="16" name="shape">
   <object id="98" name="elf_sea" x="37" y="320">
    <polygon points="-37,0 123,-64 283,-96 331,-152 435,-184 523,-240 587,-320 627,-280 635,-224 603,-176 635,-160 659,-128 659,-72 643,-40 675,0"/>
   </object>

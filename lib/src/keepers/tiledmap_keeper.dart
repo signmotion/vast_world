@@ -10,6 +10,7 @@ abstract class TiledmapKeeper<Q extends Quant, ImgB extends Broker<dynamic>,
   TiledmapKeeper({
     required super.imageBroker,
     required super.textBroker,
+    super.readOnly = true,
   });
 }
 
@@ -23,6 +24,7 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
   Plan2DTiledmapKeeper({
     required super.imageBroker,
     required super.textBroker,
+    super.readOnly = true,
   });
 
   @override
@@ -60,6 +62,10 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
     final axisType =
         AxisType.values.findByName(sAxisType, defaults: AxisType.undefined)!;
 
+    final shape = _getShapeFromMap(map) ?? const EmptyShape();
+    print(shape);
+    final imageries = _getImageriesFromMap(id, map);
+
     var plan = Plan2D<T>(
       textBroker.pathPrefix,
       id,
@@ -68,56 +74,114 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
       anchor: Anchor2D.topLeft,
       axisType: axisType,
       scale: scale,
+      shape: shape,
+      imageries: imageries,
       innerDataDefaultValue: 1 as T,
       outerDataDefaultValue: 0 as T,
     );
 
-    // we can have a plan without imageries
+    return plan;
+  }
+
+  List<Imagery> _getImageriesFromMap(String planHid, VMap map) {
+    // we can have a map (and plan) without imageries
     late final Layer? layer;
     try {
       layer = map.layerByName('imageries');
     } on ArgumentError catch (_) {
-      layer = null;
+      return [];
     }
 
-    if (layer != null && layer is! ObjectGroup) {
-      throw Exception(
-          'Layer should be named as `imageries` and be an ObjectGroup.');
+    if (layer is! ObjectGroup) {
+      throw Exception('Layer named as `imageries` should be an ObjectGroup.');
     }
 
-    final objects = (layer as ObjectGroup?)?.objects ?? <TiledObject>[];
-    for (final o in objects) {
+    final imageries = <Imagery>[];
+    for (final o in layer.objects) {
       if (!o.isTile) {
         continue;
       }
 
-      final imageryHid = o.name.trim();
-      if (imageryHid.isEmpty) {
+      final oname = o.name.trim();
+      if (oname.isEmpty) {
         throw Exception('Imagery `${o.id}` should be named.');
       }
 
       // load a plan with this imagery
-      final imageryPath = [id, imageryHid].join(Quant.hidSeparator);
-      final iplan = read(imageryPath);
+      final imageryHid = [planHid, oname].listToHid;
+      final iplan = readImageryToPlan(imageryHid);
       if (iplan == null) {
-        throw Exception('The plan for imagery `$imageryHid`'
-            ' into the plan `${plan.hid}` is not found'
-            ' by path `$imageryPath`.');
+        throw Exception('The plan file for imagery `$imageryHid`'
+            ' into the plan `$planHid` is not found.');
       }
 
       // convert the loaded plan to imagery for parent plan
       final imagery = iplan.toPictureImagery(
-        parentPlanHid: plan.hid,
+        parentPlanHid: planHid,
         axisPositionInParentPlan: (o.x.round(), o.y.round()),
       );
-      plan += imagery;
+      imageries.add(imagery);
     }
 
-    return plan;
+    return imageries;
+  }
+
+  static Shape2D? _getShapeFromMap(VMap map) {
+    // we can have a map (and plan) without shape
+    late final Layer? layer;
+    try {
+      layer = map.layerByName('shape');
+    } on ArgumentError catch (_) {
+      return null;
+    }
+
+    if (layer is! ObjectGroup) {
+      throw Exception('Layer named as `shape` should be an ObjectGroup.');
+    }
+
+    if (layer.objects.length != 1) {
+      throw Exception('The layer should be 1. Found: ${layer.objects.length}.');
+    }
+
+    final o = layer.objects.single;
+    if (!o.isPolygon) {
+      throw Exception('The layer `shape` should contain a polygon.'
+          ' Contain: $o.');
+    }
+
+    final vertices = <(double, double)>[];
+    final centerX = o.x;
+    final centerY = o.y;
+    for (final p in o.polygon) {
+      final v = (p.x + centerX, p.y + centerY);
+      vertices.add(v);
+
+      assert(
+        v.$1 >= 0 && v.$1 < map.width,
+        'Polygon is out of map. x == ${v.$1}, map widht = ${map.width}',
+      );
+      assert(
+        v.$2 >= 0 && v.$2 < map.height,
+        'Polygon is out of map. y == ${v.$2}, map height = ${map.height}',
+      );
+    }
+
+    return PolygonShape.fromList(vertices);
+  }
+
+  Plan2D<T>? readImageryToPlan(String imageryHid) {
+    assert(imageryHid.isCorrectImageryHid,
+        'Imagery HID should contain a plan HID.');
+
+    return read(imageryHid);
   }
 
   @override
-  void write(Plan2D<T> value) => _writePlan(value);
+  void write(Plan2D<T> value) {
+    super.write(value);
+
+    _writePlan(value);
+  }
 
   void _writePlan(Plan2D<T> plan, [String? pathPrefix]) {
     _writePlanXml(plan, pathPrefix);

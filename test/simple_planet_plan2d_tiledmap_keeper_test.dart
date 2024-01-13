@@ -55,13 +55,16 @@ void main() {
     final imageryRealWidthRi = Unit.kilometre(1100);
     final imageryAxisSizeRiInPlan =
         plan.axisSizeInParent(imageryRealWidthRi, imageryAxisSizeRi);
-    plan += PictureImagery(
+    plan += PictureImagery.fromImage(
       sourcePath,
       planHid,
       imageryHidRi,
       axisPosition: imageryAxisPositionRi,
       // the height will be calculated in proportion to the image size
       realWidth: imageryRealWidthRi,
+      anchor: plan.anchor,
+      axisType: plan.axisType,
+      shape: const EmptyShape(),
     );
 
     const imageryHidRiEast = 'ri_east';
@@ -70,13 +73,16 @@ void main() {
     final imageryRealWidthRiEast = Unit.kilometre(312);
     final imageryAxisSizeRiEastInPlan =
         plan.axisSizeInParent(imageryRealWidthRiEast, imageryAxisSizeRiEast);
-    plan += PictureImagery(
+    plan += PictureImagery.fromImage(
       sourcePath,
       planHid,
       imageryHidRiEast,
       axisPosition: imageryAxisPositionRiEast,
       // the height will be calculated in proportion to the image size
       realWidth: imageryRealWidthRiEast,
+      anchor: plan.anchor,
+      axisType: plan.axisType,
+      shape: const EmptyShape(),
     );
 
     // wiil be calculated by [width] and image size
@@ -92,6 +98,7 @@ void main() {
         'axisSize': (3520, 2496),
         'axisSizeInPlan': imageryAxisSizeRiInPlan,
         'axisSquare': 3520 * 2496,
+        'shapeType': EmptyShape,
       },
       'raeria.ri_east': {
         'npath': '$sourcePath/$planHid/ri_east',
@@ -100,6 +107,7 @@ void main() {
         'axisSize': (400, 1000),
         'axisSizeInPlan': imageryAxisSizeRiEastInPlan,
         'axisSquare': 400 * 1000,
+        'shapeType': EmptyShape,
       },
     };
 
@@ -112,6 +120,7 @@ void main() {
         axisSize: (circumferenceX, circumferenceY),
         axisSquare: circumferenceX * circumferenceY,
         imageries: testImageries,
+        shapeType: EmptyShape,
       );
     });
 
@@ -121,6 +130,7 @@ void main() {
       final keeper = Keeper(
         textBroker: TextFilesystemBroker(outputPath),
         imageBroker: ImageFilesystemBroker(outputPath),
+        readOnly: false,
       );
       keeper.clear();
 
