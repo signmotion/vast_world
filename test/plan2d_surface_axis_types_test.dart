@@ -4,9 +4,8 @@ import 'package:id_gen/id_gen.dart';
 import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
 
+import 'helpers_2d.dart';
 import 'prepare_test_env.dart';
-
-typedef Plan = Plan2D<int>;
 
 void main() {
   prepareTestEnv();

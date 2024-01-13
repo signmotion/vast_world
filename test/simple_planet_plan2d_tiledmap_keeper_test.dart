@@ -9,11 +9,6 @@ import 'package:test/test.dart';
 import 'helpers_2d.dart';
 import 'prepare_test_env.dart';
 
-typedef Plan = Plan2D<int>;
-
-typedef Keeper
-    = Plan2DTiledmapKeeper<int, ImageFilesystemBroker, TextFilesystemBroker>;
-
 void main() {
   prepareTestEnv();
 
@@ -191,6 +186,7 @@ void main() {
         axisSize: (circumferenceX, circumferenceY),
         axisSquare: circumferenceX * circumferenceY,
         imageries: testImageries,
+        shapeType: InfinityShape,
       );
     });
   });

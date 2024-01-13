@@ -59,7 +59,9 @@ void checkPlan(
   expect(plan.background.image!.width, axisWidth);
   expect(plan.background.image!.height, axisHeight);
 
-  expect(plan.shape.runtimeType, shapeType, reason: plan.hid);
+  if (shapeType != null) {
+    expect(plan.shape.runtimeType, shapeType, reason: plan.hid);
+  }
 
   for (final ie in imageries.entries) {
     final hid = ie.key;

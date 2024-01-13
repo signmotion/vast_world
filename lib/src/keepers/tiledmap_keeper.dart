@@ -3,7 +3,7 @@ part of '../../vast_world.dart';
 /// For define typed [Keeper] we can use inheritance or this syntax:
 /// ```
 /// typedef Plan = Plan2D<int>;
-/// typedef Keeper = TiledmapKeeper<Plan, ImageFilesystemBroker, TextFilesystemBroker>;
+/// typedef Keeper = Plan2DTiledmapKeeper<int, ImageFilesystemBroker, TextFilesystemBroker>;
 /// ```
 abstract class TiledmapKeeper<Q extends Quant, ImgB extends Broker<dynamic>,
     TxtB extends Broker<dynamic>> extends Keeper<Q, ImgB, TxtB> {
