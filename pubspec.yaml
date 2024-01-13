@@ -16,6 +16,7 @@ dependencies:
   advance_math: ^3.3.7
   astronomical_measurements:
     path: ../astronomical_measurements
+  collection: ^1.18.0
   dart_helpers:
     path: ../dart_helpers
   dart_tiledmap:

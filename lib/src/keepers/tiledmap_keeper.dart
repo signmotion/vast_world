@@ -63,7 +63,6 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
         AxisType.values.findByName(sAxisType, defaults: AxisType.undefined)!;
 
     final shape = _getShapeFromMap(map) ?? const InfinityShape();
-    print(shape);
     final imageries = _getImageriesFromMap(id, map);
 
     var plan = Plan2D<T>(

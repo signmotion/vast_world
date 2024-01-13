@@ -6,6 +6,7 @@ abstract class Quant extends BaseEquatable with CanWorkWithFile, HasIdMix {
     String pathPrefix,
     String hid, {
     String? uid,
+    Background? initBackground,
   }) : assert(hid.isNotEmpty) {
     path = ph.joinAll([pathPrefix, ...hid.hidToList]);
     if (pathPrefix.isNotEmpty) {
@@ -14,6 +15,8 @@ abstract class Quant extends BaseEquatable with CanWorkWithFile, HasIdMix {
 
     this.hid = hid;
     this.uid = uid ?? generateUid();
+
+    _background = initBackground;
   }
 
   static const hidSeparator = HidExt.hidSeparator;

@@ -15,6 +15,7 @@ abstract class GeometryShape2DQuant extends Quant
     required num scale,
     required Shape2D shape,
     this.wantFadeBackground = false,
+    super.initBackground,
   })  : assert(realWidth > 0),
         assert(realHeight > 0),
         assert(anchor == HasGeometry2DMix.defaultAnchor2D,
@@ -44,11 +45,19 @@ abstract class GeometryShape2DQuant extends Quant
 
   int index(int k, int l) => k + l * axisWidth;
 
-  /// Darken the pixels outside the [shape].
+  /// Transparent the pixels outside the [shape].
   void fadeBackground() {
-    print(background.image!);
-    assert(axisWidth == background.image!.width);
-    assert(axisHeight == background.image!.height);
+    print(hid);
+
+    final bgi = background.image!;
+    if (axisWidth != bgi.width) {
+      throw ArgumentError('Image width should be equal axis width.'
+          ' ${bgi.width} != $axisWidth.');
+    }
+    if (axisHeight != bgi.height) {
+      throw ArgumentError('Image height should be equal axis height.'
+          ' ${bgi.height} != $axisHeight.');
+    }
 
     if (shape is InfinityShape) {
       // skip: the rectangle sizes == the images size
@@ -69,7 +78,6 @@ abstract class GeometryShape2DQuant extends Quant
     }
     */
 
-    final bgi = background.image!;
     if (!bgi.hasAlpha) {
       throw ArgumentError('Image should has an alpha channel.'
           ' Channels: ${bgi.numChannels}.');
@@ -78,7 +86,6 @@ abstract class GeometryShape2DQuant extends Quant
     final bytes = bgi.buffer.asByteData();
     final w = bgi.width;
     final h = bgi.height;
-    print('$w $h ${bytes.lengthInBytes} ${bgi.numChannels}');
     var i = 0;
     for (var y = 0; y < h; ++y) {
       stdout.write('  ${(y / h * 100).n1}%\r');
@@ -108,10 +115,6 @@ abstract class GeometryShape2DQuant extends Quant
         frameDuration: bgi.frameDuration,
         frameIndex: bgi.frameIndex);
     background = Background.fromImage(background.path, image);
-
-    // test
-    final broker = ImageFilesystemBroker('test/output');
-    broker.write('$hid.bg.png', image);
   }
 
   bool inside(int k, int l) => !outside(k, l);

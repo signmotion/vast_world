@@ -19,7 +19,7 @@ void main() {
         textBroker: TextFilesystemBroker(sourcePath),
         imageBroker: ImageFilesystemBroker(sourcePath),
       );
-      final plan = keeper.read(hid)!;
+      var plan = keeper.read(hid)!;
 
       final imageries = <String, JsonMap>{
         // !) this is a HID for imagery, not for a plan
@@ -63,19 +63,12 @@ void main() {
       keeperWriter.clear();
 
       plan.fadeBackground();
-      keeperWriter.write(plan);
-
-      checkBackgroundColorPixels(plan.background, plan.shape);
       for (final imagery in plan.imageries) {
-        final iplan = keeper.read(imagery.hid);
-        expect(iplan, isNotNull, reason: imagery.hid);
-        iplan!.fadeBackground();
-        checkBackgroundColorPixels(iplan.background, iplan.shape);
+        imagery.fadeBackground();
       }
+
+      // see folder [outputPath] for visual checking
+      keeperWriter.write(plan);
     });
   });
-}
-
-void checkBackgroundColorPixels(Background bg, Shape2D shape) {
-  // TODO
 }

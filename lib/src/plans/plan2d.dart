@@ -13,6 +13,7 @@ class Plan2D<T> extends GeometryShape2DQuant with ParentChildCalc2DMix {
     required super.scale,
     required super.shape,
     super.wantFadeBackground = false,
+    super.initBackground,
     List<Imagery>? imageries,
     required this.innerDataDefaultValue,
     required this.outerDataDefaultValue,
@@ -107,6 +108,7 @@ class Plan2D<T> extends GeometryShape2DQuant with ParentChildCalc2DMix {
       scale: imagery.scale,
       shape: imagery.shape,
       wantFadeBackground: wantFadeBackground,
+      initBackground: imagery.background,
       innerDataDefaultValue:
           innerDataDefaultValue ?? parentPlan.innerDataDefaultValue,
       outerDataDefaultValue:
@@ -176,6 +178,11 @@ class Plan2D<T> extends GeometryShape2DQuant with ParentChildCalc2DMix {
   late final List<Imagery> imageries;
 
   void addImagery(Imagery v) => imageries.add(v);
+
+  void replaceImagery(Imagery v) {
+    imageries.removeWhere((imagery) => imagery.hid == v.hid);
+    imageries.add(v);
+  }
 }
 
 extension PlanHidExt on String {
