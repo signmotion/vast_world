@@ -64,7 +64,7 @@ void main() {
       realWidth: imageryRealWidthRi,
       anchor: plan.anchor,
       axisType: plan.axisType,
-      shape: const EmptyShape(),
+      shape: const InfinityShape(),
     );
 
     const imageryHidRiEast = 'ri_east';
@@ -82,7 +82,7 @@ void main() {
       realWidth: imageryRealWidthRiEast,
       anchor: plan.anchor,
       axisType: plan.axisType,
-      shape: const EmptyShape(),
+      shape: const InfinityShape(),
     );
 
     // wiil be calculated by [width] and image size
@@ -98,7 +98,7 @@ void main() {
         'axisSize': (3520, 2496),
         'axisSizeInPlan': imageryAxisSizeRiInPlan,
         'axisSquare': 3520 * 2496,
-        'shapeType': EmptyShape,
+        'shapeType': InfinityShape,
       },
       'raeria.ri_east': {
         'npath': '$sourcePath/$planHid/ri_east',
@@ -107,7 +107,7 @@ void main() {
         'axisSize': (400, 1000),
         'axisSizeInPlan': imageryAxisSizeRiEastInPlan,
         'axisSquare': 400 * 1000,
-        'shapeType': EmptyShape,
+        'shapeType': InfinityShape,
       },
     };
 
@@ -120,7 +120,7 @@ void main() {
         axisSize: (circumferenceX, circumferenceY),
         axisSquare: circumferenceX * circumferenceY,
         imageries: testImageries,
-        shapeType: EmptyShape,
+        shapeType: InfinityShape,
       );
     });
 

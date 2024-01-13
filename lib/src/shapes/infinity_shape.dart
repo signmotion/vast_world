@@ -1,7 +1,8 @@
 part of '../../vast_world.dart';
 
-class EmptyShape extends Shape2D {
-  const EmptyShape();
+/// This shape includes all inside.
+class InfinityShape extends Shape2D {
+  const InfinityShape();
 
   @override
   bool inside(num x, num y) => true;

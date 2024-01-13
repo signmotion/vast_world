@@ -55,9 +55,20 @@ mixin CanWorkWithFile on Object {
   Uint8List readAsBytes({String? pathToFile}) =>
       File(ph.join(path, pathToFile)).readAsBytesSync();
 
-  Image readAsImage({String? pathToFile}) =>
-      // use filename extension to determine the decoder
-      decodeNamedImage(ph.join(path, pathToFile), readAsBytes())!;
+  /// Read image and can get a guarantee an alpha channel.
+  /// If the [numChannels] is 4 and the current image does not have an alpha
+  /// channel, then the given [alpha] value will be used to set the new alpha
+  /// channel.
+  /// If [alpha] is not provided, then the [maxChannelValue] will be used to
+  /// set the alpha.
+  Image readAsImage({String? pathToFile, int? numChannels, num? alpha}) {
+    // use filename extension to determine the decoder
+    final image = decodeNamedImage(ph.join(path, pathToFile), readAsBytes())!;
+
+    return numChannels == null && alpha == null
+        ? image
+        : image.convert(numChannels: numChannels, alpha: alpha);
+  }
 
   String? readAsText({String? pathToFile}) {
     final file = File(ph.join(path, pathToFile));
@@ -102,9 +113,13 @@ mixin ReadFileAsBytes on CanWorkWithFile {
 }
 
 mixin ReadFileAsImage on CanWorkWithFile {
+  late final int? numChannels;
+  late final num? alpha;
+
   Image? _image;
 
-  Image? get image => _image ??= readAsImage();
+  Image? get image =>
+      _image ??= readAsImage(numChannels: numChannels, alpha: alpha);
 }
 
 mixin ReadFileAsText on CanWorkWithFile {

@@ -51,17 +51,8 @@ void main() {
         scale: scale,
         axisSize: axisSize,
         imageries: imageries,
-        shapeType: EmptyShape,
+        shapeType: InfinityShape,
       );
-
-      plan.fadeBackground();
-      checkBackgroundColorPixels(plan.background, plan.shape);
-      for (final imagery in plan.imageries) {
-        final iplan = keeper.read(imagery.hid);
-        expect(iplan, isNotNull, reason: imagery.hid);
-        iplan!.fadeBackground();
-        checkBackgroundColorPixels(iplan.background, iplan.shape);
-      }
 
       const outputPath = 'test/output/worlds/west_seas_and_askatria_tmx';
       final keeperWriter = Keeper(
@@ -70,7 +61,17 @@ void main() {
         readOnly: false,
       );
       keeperWriter.clear();
+
+      plan.fadeBackground();
       keeperWriter.write(plan);
+
+      checkBackgroundColorPixels(plan.background, plan.shape);
+      for (final imagery in plan.imageries) {
+        final iplan = keeper.read(imagery.hid);
+        expect(iplan, isNotNull, reason: imagery.hid);
+        iplan!.fadeBackground();
+        checkBackgroundColorPixels(iplan.background, iplan.shape);
+      }
     });
   });
 }

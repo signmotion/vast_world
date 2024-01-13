@@ -74,7 +74,7 @@ class Plan2D<T> extends GeometryShape2DQuant with ParentChildCalc2DMix {
         anchor: anchor,
         axisType: axisType,
         scale: scale,
-        shape: const EmptyShape(),
+        shape: const InfinityShape(),
         wantFadeBackground: wantFadeBackground,
         innerDataDefaultValue: innerDataDefaultValue,
         outerDataDefaultValue: outerDataDefaultValue,

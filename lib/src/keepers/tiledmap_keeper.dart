@@ -62,7 +62,7 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
     final axisType =
         AxisType.values.findByName(sAxisType, defaults: AxisType.undefined)!;
 
-    final shape = _getShapeFromMap(map) ?? const EmptyShape();
+    final shape = _getShapeFromMap(map) ?? const InfinityShape();
     print(shape);
     final imageries = _getImageriesFromMap(id, map);
 
@@ -156,14 +156,23 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
       final v = (p.x + centerX, p.y + centerY);
       vertices.add(v);
 
-      assert(
-        v.$1 >= 0 && v.$1 < map.width,
-        'Polygon is out of map. x == ${v.$1}, map widht = ${map.width}',
-      );
-      assert(
-        v.$2 >= 0 && v.$2 < map.height,
-        'Polygon is out of map. y == ${v.$2}, map height = ${map.height}',
-      );
+      if (v.$1 < 0 || v.$1 > map.width) {
+        throw ArgumentError('Polygon is out of map. x == ${v.$1},'
+            ' map widht = ${map.width}');
+      }
+      if (v.$2 < 0 || v.$2 > map.height) {
+        throw ArgumentError('Polygon is out of map. y == ${v.$2},'
+            ' map height = ${map.height}');
+      }
+
+      // assert(
+      //   v.$1 >= 0 && v.$1 <= map.width,
+      //   'Polygon is out of map. x == ${v.$1}, map widht = ${map.width}',
+      // );
+      // assert(
+      //   v.$2 >= 0 && v.$2 <= map.height,
+      //   'Polygon is out of map. y == ${v.$2}, map height = ${map.height}',
+      // );
     }
 
     return PolygonShape.fromList(vertices);

@@ -1,5 +1,6 @@
 part of '../../vast_world.dart';
 
+// ignore: must_be_immutable
 abstract class Quant extends BaseEquatable with CanWorkWithFile, HasIdMix {
   Quant(
     String pathPrefix,
@@ -24,8 +25,12 @@ abstract class Quant extends BaseEquatable with CanWorkWithFile, HasIdMix {
 
   String get npathWithoutHid => npathWithoutTail(hid.hidToNPath);
 
+  Background? _background;
+
   Background get background =>
-      Background('$npath/${VMap.defaultBackgroundFilename}');
+      _background ??= Background('$npath/${VMap.defaultBackgroundFilename}');
+
+  set background(Background v) => _background = v;
 
   @override
   List<Object?> get props => [hid, npath, uid];
