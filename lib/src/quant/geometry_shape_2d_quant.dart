@@ -47,8 +47,6 @@ abstract class GeometryShape2DQuant extends Quant
 
   /// Transparent the pixels outside the [shape].
   void fadeBackground() {
-    print(hid);
-
     final bgi = background.image!;
     if (axisWidth != bgi.width) {
       throw ArgumentError('Image width should be equal axis width.'
@@ -88,7 +86,7 @@ abstract class GeometryShape2DQuant extends Quant
     final h = bgi.height;
     var i = 0;
     for (var y = 0; y < h; ++y) {
-      stdout.write('  ${(y / h * 100).n1}%\r');
+      //stdout.write('  ${(y / h * 100).n1}%\r');
       for (var x = 0; x < w; ++x) {
         if (out(x, y)) {
           bytes.setColorIntI(i, 0x00);
