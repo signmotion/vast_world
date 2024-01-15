@@ -2,8 +2,8 @@ part of '../../vast_world.dart';
 
 /// Build imagery by image.
 // ignore: must_be_immutable
-class PictureImagery extends Imagery {
-  PictureImagery(
+class DEPRECATED_PictureImagery extends DEPRECATED_Imagery {
+  DEPRECATED_PictureImagery(
     super.pathPrefix,
     super.planHid,
     super.imageryHid, {
@@ -18,7 +18,7 @@ class PictureImagery extends Imagery {
     super.wantFadeBackground = false,
   });
 
-  factory PictureImagery.fromImage(
+  factory DEPRECATED_PictureImagery.fromImage(
     String pathPrefix,
     String planHid,
     String imageryHid, {
@@ -38,7 +38,7 @@ class PictureImagery extends Imagery {
 
     final scale = realWidth.value / axisWidth;
 
-    return PictureImagery(
+    return DEPRECATED_PictureImagery(
       pathPrefix,
       planHid,
       imageryHid,

@@ -34,7 +34,7 @@ class VObjectTile extends VObject {
     required ParentChildCalc2DMix parent,
     required int id,
     required int gid,
-    required Imagery imagery,
+    required DEPRECATED_Imagery imagery,
   }) {
     final (isx, isy) = parent.axisSizeChildInParent(imagery);
 

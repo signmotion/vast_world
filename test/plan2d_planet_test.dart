@@ -4,20 +4,20 @@ import 'package:id_gen/id_gen.dart';
 import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
 
-import 'helpers_2d.dart';
+import 'helpers2d.dart';
 import 'prepare_test_env.dart';
 
 void main() {
   prepareTestEnv();
 
   group('Construct Plan2D.planet', () {
-    final plan = Plan.planet(
+    final plan = DEPRECATED_Plan.planet(
       '',
       'm12',
       realRadius: Unit.kilometre(6000),
       // 1 cell ~= 10 km
       scale: 10,
-      innerDataDefaultValue: 12,
+      content: DEPRECATED_PlanContent(size: ()),
       outerDataDefaultValue: 0,
     );
 

@@ -2,7 +2,7 @@ import 'package:dart_helpers/dart_helpers.dart';
 import 'package:vast_world/vast_world.dart' hide Keeper;
 import 'package:test/test.dart';
 
-import 'helpers_2d.dart';
+import 'helpers2d.dart';
 import 'prepare_test_env.dart';
 
 void main() {
@@ -15,7 +15,7 @@ void main() {
       const scale = 0.3125;
       const axisSize = (3520, 2496);
 
-      final keeper = Keeper(
+      final keeper = DEPRECATED_Keeper(
         textBroker: TextFilesystemBroker(sourcePath),
         imageBroker: ImageFilesystemBroker(sourcePath),
       );
@@ -55,7 +55,7 @@ void main() {
       );
 
       const outputPath = 'test/output/worlds/west_seas_and_askatria_tmx';
-      final keeperWriter = Keeper(
+      final keeperWriter = DEPRECATED_Keeper(
         textBroker: TextFilesystemBroker(outputPath),
         imageBroker: ImageFilesystemBroker(outputPath),
         readOnly: false,

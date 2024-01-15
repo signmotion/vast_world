@@ -1,9 +1,9 @@
 part of '../../vast_world.dart';
 
-mixin ParentChildCalc2DMix on HasGeometry2DMix {
+mixin ParentChildCalc2DMix on DEPRECATED_HasGeometry2DMix {
   /// An axis size of [child] into the parent.
-  /// For example, [Imagery] on [Plan].
-  (int, int) axisSizeChildInParent(HasGeometry2DMix child) =>
+  /// For example, [DEPRECATED_Imagery] on [Plan].
+  (int, int) axisSizeChildInParent(DEPRECATED_HasGeometry2DMix child) =>
       axisSizeInParent(child.realWidth, (child.axisWidth, child.axisHeight));
 
   (int, int) axisSizeInParent(Unit realWidthChild, (int, int) axisSizeChild) {

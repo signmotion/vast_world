@@ -22,7 +22,7 @@ class VImagery extends VTileset {
 
   factory VImagery.fromImagery({
     required String planId,
-    required Imagery imagery,
+    required DEPRECATED_Imagery imagery,
     required int firstGid,
   }) =>
       VImagery(

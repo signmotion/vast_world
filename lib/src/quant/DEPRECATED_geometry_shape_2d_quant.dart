@@ -1,9 +1,10 @@
 part of '../../vast_world.dart';
 
 // ignore: must_be_immutable
-abstract class GeometryShape2DQuant extends Quant
-    with HasGeometry2DMix, HasShape2DMix {
-  GeometryShape2DQuant(
+abstract class DEPRECATED_GeometryShape2DQuant<C extends Content>
+    extends DEPRECATED_Quant
+    with DEPRECATED_HasGeometry2DMix, DEPRECATED_HasShape2DMix {
+  DEPRECATED_GeometryShape2DQuant(
     super.pathPrefix,
     super.hid, {
     super.uid,
@@ -16,9 +17,10 @@ abstract class GeometryShape2DQuant extends Quant
     required Shape2D shape,
     this.wantFadeBackground = false,
     super.initBackground,
+    super.content,
   })  : assert(realWidth > 0),
         assert(realHeight > 0),
-        assert(anchor == HasGeometry2DMix.defaultAnchor2D,
+        assert(anchor == DEPRECATED_HasGeometry2DMix.defaultAnchor2D,
             'Not implemented others.'),
         assert(scale > 0),
         assert(realWidth.type == realHeight.type,
@@ -31,8 +33,8 @@ abstract class GeometryShape2DQuant extends Quant
     this.anchor = anchor;
     this.axisType = axisType;
 
-    axisWidth = (this.realWidth / scale).roundIntValue();
-    axisHeight = (this.realHeight / scale).roundIntValue();
+    axisWidth = axisLenghtFromRealLenght(this.realWidth.value, scale);
+    axisHeight = axisLenghtFromRealLenght(this.realHeight.value, scale);
 
     this.shape = shape;
 
@@ -123,4 +125,21 @@ abstract class GeometryShape2DQuant extends Quant
           k < axisLowers[0] ||
           l < axisLowers[1]
       : shape.outside(k, l);
+
+  // dynamic operator []((int, int) ti);
+
+  // void operator []=((int, int) ti, dynamic v);
+
+  (int, int) clampAxisTypes((int, int) ti) => (
+        clampAxisType(ti.$1, 0),
+        clampAxisType(ti.$2, 1),
+      );
+
+  int clampAxisType(int vi, int axisIndex) => switch (axisTypes[axisIndex]) {
+        AxisType.borderless => vi,
+        AxisType.borderstrict =>
+          vi.clamp(axisLowers[axisIndex], axisUppers[axisIndex]),
+        AxisType.loop => vi % axisAbsSizes[axisIndex],
+        _ => throw Exception('Unsupported `${axisTypes[axisIndex]}`.'),
+      };
 }

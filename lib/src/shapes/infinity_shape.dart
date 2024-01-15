@@ -5,8 +5,13 @@ class InfinityShape extends Shape2D {
   const InfinityShape();
 
   @override
-  bool inside(num x, num y) => true;
+  Rect get boundingBox => const Rect.fromLTRB(
+        -double.infinity,
+        -double.infinity,
+        double.infinity,
+        double.infinity,
+      );
 
   @override
-  List<Object?> get props => [...super.props];
+  bool inside(num x, num y) => true;
 }

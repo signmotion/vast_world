@@ -1,7 +1,7 @@
 part of '../../vast_world.dart';
 
 /// The base class for keepers.
-abstract class Keeper<Q extends Quant, ImgB extends Broker<dynamic>,
+abstract class Keeper<Q extends DEPRECATED_Quant, ImgB extends Broker<dynamic>,
     TxtB extends Broker<dynamic>> {
   const Keeper({
     required this.imageBroker,

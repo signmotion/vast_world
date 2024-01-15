@@ -5,7 +5,9 @@ part of '../../vast_world.dart';
 /// typedef Plan = Plan2D<int>;
 /// typedef Keeper = Plan2DTiledmapKeeper<int, ImageFilesystemBroker, TextFilesystemBroker>;
 /// ```
-abstract class TiledmapKeeper<Q extends Quant, ImgB extends Broker<dynamic>,
+abstract class TiledmapKeeper<
+    Q extends DEPRECATED_Quant,
+    ImgB extends Broker<dynamic>,
     TxtB extends Broker<dynamic>> extends Keeper<Q, ImgB, TxtB> {
   TiledmapKeeper({
     required super.imageBroker,
@@ -18,9 +20,9 @@ abstract class TiledmapKeeper<Q extends Quant, ImgB extends Broker<dynamic>,
 /// ```
 /// typedef Keeper = Plan2DTiledmapKeeper<int, ImageFilesystemBroker, TextFilesystemBroker>;
 /// ```
-class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
+class Plan2DTiledmapKeeper<C extends Content, ImgB extends Broker<dynamic>,
         TxtB extends Broker<dynamic>>
-    extends TiledmapKeeper<Plan2D<T>, ImgB, TxtB> {
+    extends TiledmapKeeper<DEPRECATED_Plan2D<C>, ImgB, TxtB> {
   Plan2DTiledmapKeeper({
     required super.imageBroker,
     required super.textBroker,
@@ -28,7 +30,7 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
   });
 
   @override
-  Plan2D<T>? read(String id) {
+  DEPRECATED_Plan2D<C>? read(String id) {
     final path = ph.joinAll([...id.hidToList, VMap.defaultContentFilename]);
     final body = textBroker.read(path);
     if (body == null) {
@@ -65,7 +67,10 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
     final shape = _getShapeFromMap(map) ?? const InfinityShape();
     final imageries = _getImageriesFromMap(id, map);
 
-    var plan = Plan2D<T>(
+    // TODO
+    final content = Cell2DContent(size: (map.width, map.height), defaults: 0);
+
+    var plan = DEPRECATED_Plan2D<C>(
       textBroker.pathPrefix,
       id,
       realWidth: Unit(realWidth, unitType),
@@ -75,14 +80,13 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
       scale: scale,
       shape: shape,
       imageries: imageries,
-      innerDataDefaultValue: 1 as T,
-      outerDataDefaultValue: 0 as T,
+      content: content,
     );
 
     return plan;
   }
 
-  List<Imagery> _getImageriesFromMap(String planHid, VMap map) {
+  List<DEPRECATED_Imagery> _getImageriesFromMap(String planHid, VMap map) {
     // we can have a map (and plan) without imageries
     late final Layer? layer;
     try {
@@ -95,7 +99,7 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
       throw Exception('Layer named as `imageries` should be an ObjectGroup.');
     }
 
-    final imageries = <Imagery>[];
+    final imageries = <DEPRECATED_Imagery>[];
     for (final o in layer.objects) {
       if (!o.isTile) {
         continue;
@@ -148,36 +152,29 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
           ' Contain: $o.');
     }
 
-    final vertices = <(double, double)>[];
+    final vertices = <Vector2>[];
     final centerX = o.x;
     final centerY = o.y;
     for (final p in o.polygon) {
-      final v = (p.x + centerX, p.y + centerY);
+      final v = Vector2(p.x + centerX, p.y + centerY);
       vertices.add(v);
 
-      if (v.$1 < 0 || v.$1 > map.width) {
-        throw ArgumentError('Polygon is out of map. x == ${v.$1},'
-            ' map widht = ${map.width}');
-      }
-      if (v.$2 < 0 || v.$2 > map.height) {
-        throw ArgumentError('Polygon is out of map. y == ${v.$2},'
-            ' map height = ${map.height}');
-      }
-
-      // assert(
-      //   v.$1 >= 0 && v.$1 <= map.width,
-      //   'Polygon is out of map. x == ${v.$1}, map widht = ${map.width}',
-      // );
-      // assert(
-      //   v.$2 >= 0 && v.$2 <= map.height,
-      //   'Polygon is out of map. y == ${v.$2}, map height = ${map.height}',
-      // );
+      ae(
+        v.x >= 0 && v.x <= map.width,
+        'Polygon is out of map. x == ${v.x},'
+        ' map widht = ${map.width}',
+      );
+      ae(
+        v.y >= 0 && v.y <= map.height,
+        'Polygon is out of map. y == ${v.y},'
+        ' map height = ${map.height}',
+      );
     }
 
     return PolygonShape.fromList(vertices);
   }
 
-  Plan2D<T>? readImageryToPlan(String imageryHid) {
+  DEPRECATED_Plan2D<C>? readImageryToPlan(String imageryHid) {
     assert(imageryHid.isCorrectImageryHid,
         'Imagery HID should contain a plan HID.');
 
@@ -185,13 +182,13 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
   }
 
   @override
-  void write(Plan2D<T> value) {
+  void write(DEPRECATED_Plan2D<C> value) {
     super.write(value);
 
     _writePlan(value);
   }
 
-  void _writePlan(Plan2D<T> plan, [String? pathPrefix]) {
+  void _writePlan(DEPRECATED_Plan2D<C> plan, [String? pathPrefix]) {
     _writePlanXml(plan, pathPrefix);
     _writePlanBackground(plan, pathPrefix);
 
@@ -199,12 +196,12 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
 
     // convert the imageries to plans and save them
     for (final imagery in plan.imageries) {
-      final pl = Plan2D<T>.imageryToPlan(plan, imagery);
+      final pl = DEPRECATED_Plan2D<C>.imageryToPlan(plan, imagery);
       _writePlan(pl, prefix);
     }
   }
 
-  void _writePlanXml(Plan2D<T> plan, [String? pathPrefix]) {
+  void _writePlanXml(DEPRECATED_Plan2D<C> plan, [String? pathPrefix]) {
     var id = 0;
 
     final tilesets = <VImagery>[];
@@ -266,18 +263,9 @@ class Plan2DTiledmapKeeper<T, ImgB extends Broker<dynamic>,
     textBroker.write(pf, s);
   }
 
-  void _writePlanBackground(Plan2D<T> plan, [String? pathPrefix]) {
+  void _writePlanBackground(DEPRECATED_Plan2D<C> plan, [String? pathPrefix]) {
     final pf =
         ph.join(pathPrefix ?? '', plan.id, VMap.defaultBackgroundFilename);
     imageBroker.write(pf, plan.background.image);
   }
-}
-
-class Plan2DIntTiledmapKeeper<ImgB extends Broker<dynamic>,
-        TxtB extends Broker<dynamic>>
-    extends Plan2DTiledmapKeeper<int, ImgB, TxtB> {
-  Plan2DIntTiledmapKeeper({
-    required super.imageBroker,
-    required super.textBroker,
-  });
 }

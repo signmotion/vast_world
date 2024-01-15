@@ -1,12 +1,14 @@
 part of '../../vast_world.dart';
 
 // ignore: must_be_immutable
-abstract class Quant extends BaseEquatable with CanWorkWithFile, HasIdMix {
-  Quant(
+abstract class DEPRECATED_Quant<C extends Content> extends BaseEquatable
+    with CanWorkWithFile, DEPRECATED_HasIdMix {
+  DEPRECATED_Quant(
     String pathPrefix,
     String hid, {
     String? uid,
     Background? initBackground,
+    this.content,
   }) : assert(hid.isNotEmpty) {
     path = ph.joinAll([pathPrefix, ...hid.hidToList]);
     if (pathPrefix.isNotEmpty) {
@@ -35,8 +37,10 @@ abstract class Quant extends BaseEquatable with CanWorkWithFile, HasIdMix {
 
   set background(Background v) => _background = v;
 
+  late final C? content;
+
   @override
-  List<Object?> get props => [hid, npath, uid];
+  List<Object?> get props => [hid, npath, uid, content];
 }
 
 extension HidExt on String {

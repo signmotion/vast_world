@@ -16,6 +16,7 @@ dependencies:
   advance_math: ^3.3.7
   astronomical_measurements:
     path: ../astronomical_measurements
+  collection: ^1.18.0
   dart_helpers:
     path: ../dart_helpers
   dart_tiledmap:
@@ -24,6 +25,7 @@ dependencies:
     path: ../id_gen
   image: ^4.1.3
   meta: ^1.11.0
+  oxygen: ^0.2.0
   path: ^1.9.0
 
 dev_dependencies:

@@ -1,6 +1,6 @@
 part of '../../vast_world.dart';
 
-mixin HasIdMix on Object {
+mixin DEPRECATED_HasIdMix on Object {
   /// Human ID for nicely detection.
   late final String hid;
 

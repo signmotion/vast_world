@@ -2,8 +2,8 @@ part of '../../vast_world.dart';
 
 /// Build imagery by text description.
 // ignore: must_be_immutable
-class TextImagery extends Imagery with ReadFileAsText {
-  TextImagery(
+class DEPRECATED_TextImagery extends DEPRECATED_Imagery with ReadFileAsText {
+  DEPRECATED_TextImagery(
     super.pathPrefix,
     super.planHid,
     super.imageryHid, {

@@ -6,7 +6,7 @@ import 'package:path/path.dart' as p;
 import 'package:vast_world/vast_world.dart' hide Keeper;
 import 'package:test/test.dart';
 
-import 'helpers_2d.dart';
+import 'helpers2d.dart';
 import 'prepare_test_env.dart';
 
 void main() {
@@ -22,19 +22,16 @@ void main() {
     const circumferenceY = 680;
     // 1 cell ~= 50 km
     const scale = 50.0;
-    final (rx, ry) = size2DToCircleRadius(
-      circumferenceX,
-      circumferenceY,
-      scale: scale,
-    );
+    final radius =
+        size2DToCircleRadius(circumferenceX, circumferenceY, scale: scale);
     // with this image size and world scale we have:
     //  rx = 6923 km, unwrapped to circumferenceX * scale = 43500 km
     //  ry = 5411 km, unwrapped to circumferenceY * scale = 34000 km
-    var plan = Plan.planet(
+    var plan = DEPRECATED_Plan.planet(
       sourcePath,
       planHid,
-      realRadiusX: Unit.kilometre(rx),
-      realRadiusY: Unit.kilometre(ry),
+      realRadiusX: Unit.kilometre(radius.x),
+      realRadiusY: Unit.kilometre(radius.y),
       scale: scale,
       innerDataDefaultValue: 12,
       outerDataDefaultValue: 0,
@@ -50,7 +47,7 @@ void main() {
     final imageryRealWidthRi = Unit.kilometre(1100);
     final imageryAxisSizeRiInPlan =
         plan.axisSizeInParent(imageryRealWidthRi, imageryAxisSizeRi);
-    plan += PictureImagery.fromImage(
+    plan += DEPRECATED_PictureImagery.fromImage(
       sourcePath,
       planHid,
       imageryHidRi,
@@ -68,7 +65,7 @@ void main() {
     final imageryRealWidthRiEast = Unit.kilometre(312);
     final imageryAxisSizeRiEastInPlan =
         plan.axisSizeInParent(imageryRealWidthRiEast, imageryAxisSizeRiEast);
-    plan += PictureImagery.fromImage(
+    plan += DEPRECATED_PictureImagery.fromImage(
       sourcePath,
       planHid,
       imageryHidRiEast,
@@ -122,7 +119,7 @@ void main() {
     test('Write to TiledMap format and check file structure', () {
       final outputPath =
           p.join('test', 'output', 'worlds', 'simple_planet_tmx');
-      final keeper = Keeper(
+      final keeper = DEPRECATED_Keeper(
         textBroker: TextFilesystemBroker(outputPath),
         imageBroker: ImageFilesystemBroker(outputPath),
         readOnly: false,
@@ -167,7 +164,7 @@ void main() {
 
     test('Read from TiledMap format and check it', () {
       const sourcePath = 'test/data/worlds/simple_planet_tmx';
-      final keeper = Keeper(
+      final keeper = DEPRECATED_Keeper(
         textBroker: TextFilesystemBroker(sourcePath),
         imageBroker: ImageFilesystemBroker(sourcePath),
       );

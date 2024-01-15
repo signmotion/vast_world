@@ -1,24 +1,35 @@
 import 'package:astronomical_measurements/astronomical_measurements.dart';
 import 'package:dart_helpers/dart_helpers.dart';
 import 'package:id_gen/id_gen.dart';
+import 'package:oxygen/oxygen.dart';
 import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
 
-import 'helpers_2d.dart';
+import 'helpers2d.dart';
 import 'prepare_test_env.dart';
 
 void main() {
   prepareTestEnv();
 
   group('Construct Plan2D.surface borderless', () {
-    final plan = Plan.surface(
+    final plan = Plan();
+    plan.register(() => PositionC());
+
+    final realWidth = Unit.kilometre(600);
+    final realHeight = Unit.kilometre(200);
+    const scale = 1.0;
+    final axisSize =
+        axisSizeFromRealSize(realWidth.value, realHeight.value, scale);
+
+    final plan = DEPRECATED_Plan.surface(
+      world,
       '',
       'some_borderless_surface',
-      realWidth: Unit.kilometre(600),
-      realHeight: Unit.kilometre(200),
+      realWidth: realWidth,
+      realHeight: realHeight,
+      scale: scale,
       axisType: AxisType.borderless,
-      innerDataDefaultValue: 12,
-      outerDataDefaultValue: 0,
+      content: DEPRECATED_PlanContent(size: axisSize, defaults: 0),
     );
 
     test('Check IDs', () {
@@ -46,7 +57,8 @@ void main() {
     });
 
     test('Get data in surface', () {
-      expect(plan[(0, 0)], 12);
+      final pc = plan.content as DEPRECATED_PlanContent;
+      expect(pc[(0, 0)], 12);
       expect(plan[(600 - 1, 200 - 1)], 12);
       expect(plan[(0, 0)], 12);
     });
@@ -81,7 +93,7 @@ void main() {
   });
 
   group('Construct Plan2D.surface borderstrict', () {
-    final plan = Plan.surface(
+    final plan = DEPRECATED_Plan.surface(
       '',
       'some_borderstrict_surface',
       realWidth: Unit.kilometre(600),
@@ -119,7 +131,7 @@ void main() {
   });
 
   group('Construct Plan2D.surface loop', () {
-    final plan = Plan.surface(
+    final plan = DEPRECATED_Plan.surface(
       '',
       'some_loop_surface',
       realWidth: Unit.kilometre(600),

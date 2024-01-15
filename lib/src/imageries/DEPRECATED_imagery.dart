@@ -2,8 +2,9 @@ part of '../../vast_world.dart';
 
 /// The axis size equals to background image size.
 // ignore: must_be_immutable
-class Imagery extends GeometryShape2DQuant with HasGeometry2DMix {
-  Imagery(
+class DEPRECATED_Imagery extends DEPRECATED_GeometryShape2DQuant
+    with DEPRECATED_HasGeometry2DMix {
+  DEPRECATED_Imagery(
     String pathPrefix,
     String planHid,
     String imageryHid, {

@@ -3,13 +3,13 @@ import 'package:id_gen/id_gen.dart';
 import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
 
-typedef Plan = Plan2D<int>;
-
-typedef Keeper
-    = Plan2DTiledmapKeeper<int, ImageFilesystemBroker, TextFilesystemBroker>;
+typedef DEPRECATED_PlanContent = Cell2DContent<int>;
+typedef DEPRECATED_Plan = DEPRECATED_Plan2D<DEPRECATED_PlanContent>;
+typedef DEPRECATED_Keeper = Plan2DTiledmapKeeper<DEPRECATED_PlanContent,
+    ImageFilesystemBroker, TextFilesystemBroker>;
 
 void checkPlan(
-  Plan plan, {
+  DEPRECATED_Plan plan, {
   required String planHid,
   String? npath,
   double? scale,
@@ -84,8 +84,8 @@ void checkPlan(
 }
 
 void checkImagery(
-  Plan plan,
-  Imagery imagery, {
+  DEPRECATED_Plan plan,
+  DEPRECATED_Imagery imagery, {
   required String planHid,
   required String imageryHid,
   String? npath,
@@ -146,7 +146,7 @@ void checkImagery(
 
   expect(imagery.shape.runtimeType, shapeType, reason: imagery.hid);
 
-  final pl = Plan.imageryToPlan(plan, imagery);
+  final pl = DEPRECATED_Plan.imageryToPlan(plan, imagery);
   checkPlan(
     pl,
     planHid: imagery.hidForPlan,
