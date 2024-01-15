@@ -42,18 +42,3 @@ abstract class DEPRECATED_Quant<C extends Content> extends BaseEquatable
   @override
   List<Object?> get props => [hid, npath, uid, content];
 }
-
-extension HidExt on String {
-  static const hidSeparator = '.';
-  static const pathSeparator = PathStringExt.pathSeparator;
-
-  List<String> get hidToList => split(hidSeparator);
-
-  String get hidToNPath => replaceAll(hidSeparator, pathSeparator);
-
-  String get pathToHid => npath.split(pathSeparator).listToHid;
-}
-
-extension ListHidExt on List<String> {
-  String get listToHid => join(HidExt.hidSeparator);
-}

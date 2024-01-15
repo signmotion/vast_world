@@ -55,6 +55,18 @@ mixin CanWorkWithFile on Object {
   Uint8List readAsBytes({String? pathToFile}) =>
       File(ph.join(path, pathToFile)).readAsBytesSync();
 
+  JsonMap? readAsJsonMap({String? pathToFile}) =>
+      readAsText(pathToFile: pathToFile)?.jsonMap;
+
+  Map<String, T>? readAsJsonMapT<T>({String? pathToFile}) =>
+      readAsJsonMap(pathToFile: pathToFile)?.map((k, v) => MapEntry(k, v as T));
+
+  JsonList? readAsJsonList({String? pathToFile}) =>
+      readAsText(pathToFile: pathToFile)?.jsonList;
+
+  List<T>? readAsJsonListT<T>({String? pathToFile}) =>
+      readAsJsonList(pathToFile: pathToFile)?.map((v) => v as T).toList();
+
   /// Read image and can get a guarantee an alpha channel.
   /// If the [numChannels] is 4 and the current image does not have an alpha
   /// channel, then the given [alpha] value will be used to set the new alpha
@@ -110,6 +122,30 @@ mixin ReadFileAsBytes on CanWorkWithFile {
   Uint8List? _bytes;
 
   Uint8List? get bytes => _bytes ??= readAsBytes();
+}
+
+mixin ReadFileAsJsonMap on CanWorkWithFile {
+  JsonMap? _jsonMap;
+
+  JsonMap? get jsonMap => _jsonMap ??= readAsJsonMap();
+}
+
+mixin ReadFileAsJsonMapT<T> on CanWorkWithFile {
+  Map<String, T>? _jsonMapT;
+
+  Map<String, T>? get jsonMapT => _jsonMapT ??= readAsJsonMapT<T>();
+}
+
+mixin ReadFileAsJsonList on CanWorkWithFile {
+  JsonList? _jsonList;
+
+  JsonList? get jsonList => _jsonList ??= readAsJsonList();
+}
+
+mixin ReadFileAsJsonListT<T> on CanWorkWithFile {
+  List<T>? _jsonList;
+
+  List<T>? get jsonList => _jsonList ??= readAsJsonListT<T>();
 }
 
 mixin ReadFileAsImage on CanWorkWithFile {

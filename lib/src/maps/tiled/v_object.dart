@@ -30,22 +30,22 @@ class VObjectTile extends VObject {
           tile: true,
         );
 
-  factory VObjectTile.fromParentAndImagery({
-    required ParentChildCalc2DMix parent,
-    required int id,
-    required int gid,
-    required DEPRECATED_Imagery imagery,
-  }) {
-    final (isx, isy) = parent.axisSizeChildInParent(imagery);
+  // factory VObjectTile.fromParentAndImagery({
+  //   required ParentChildCalc2DMix parent,
+  //   required int id,
+  //   required int gid,
+  //   required DEPRECATED_Imagery imagery,
+  // }) {
+  //   final (isx, isy) = parent.axisSizeChildInParent(imagery);
 
-    return VObjectTile(
-      id: id,
-      gid: gid,
-      name: imagery.hidForPlan,
-      x: imagery.x,
-      y: imagery.y,
-      width: isx,
-      height: isy,
-    );
-  }
+  //   return VObjectTile(
+  //     id: id,
+  //     gid: gid,
+  //     name: imagery.hidForPlan,
+  //     x: imagery.x,
+  //     y: imagery.y,
+  //     width: isx,
+  //     height: isy,
+  //   );
+  // }
 }

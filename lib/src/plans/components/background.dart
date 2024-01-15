@@ -8,6 +8,6 @@ class BackgroundComponent extends VComponent<BackgroundT> {
 
   @override
   void check() {
-    ae(value.path.isNotEmpty || value.image != null, '`background` not found.');
+    ae(value.image != null, '`background` not found.');
   }
 }

@@ -34,6 +34,9 @@ class IdComponent extends VComponent<IdT> {
 }
 
 extension HidExt on String {
+  static const hidSeparator = '.';
+  static const pathSeparator = PathStringExt.pathSeparator;
+
   /// Examples:
   /// ```
   /// raeria
@@ -42,4 +45,23 @@ extension HidExt on String {
   /// askatria_land
   /// ```
   bool get isCorrectHid => RegExp(r'^[a-z0-9_]*$').hasMatch(this);
+
+  List<String> get hidToList => split(hidSeparator);
+
+  String get hidToNPath => replaceAll(hidSeparator, pathSeparator);
+
+  String get pathToHid => npath.split(pathSeparator).listToHid;
+}
+
+extension ListHidExt on List<String> {
+  String get listToHid => join(HidExt.hidSeparator);
+}
+
+extension ImageryHidExt on String {
+  /// Examples:
+  /// ```
+  /// raeria.ri
+  /// ri.elf_sea
+  /// ```
+  bool get isCorrectImageryHid => hidToList.length == 2;
 }

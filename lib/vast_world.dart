@@ -17,19 +17,23 @@ import 'package:path/path.dart' as ph;
 
 part 'src/brokers/broker.dart';
 part 'src/brokers/filesystem_broker.dart';
+
 part 'src/classes/bounding_box_2d.dart';
 part 'src/classes/change_notifier.dart';
 part 'src/classes/notifying_vector2.dart';
 part 'src/classes/platform_dispatcher.dart';
 part 'src/classes/transform_2d.dart';
+
 part 'src/extensions/aabb.dart';
 part 'src/extensions/offset.dart';
 part 'src/extensions/rect.dart';
 part 'src/extensions/vector2.dart';
+
 part 'src/contents/content.dart';
 part 'src/contents/cell_1d_content.dart';
 part 'src/contents/cell_2d_content.dart';
 part 'src/contents/empty_content.dart';
+
 part 'src/maps/tiled/v_converter.dart';
 part 'src/maps/tiled/v_image.dart';
 part 'src/maps/tiled/v_image_layer.dart';
@@ -38,19 +42,38 @@ part 'src/maps/tiled/v_object.dart';
 part 'src/maps/tiled/v_objects_layer.dart';
 part 'src/maps/tiled/v_parser.dart';
 part 'src/maps/tiled/v_tileset.dart';
+
 part 'src/imageries/DEPRECATED_imagery.dart';
 part 'src/imageries/DEPRECATED_picture_imagery.dart';
 part 'src/imageries/DEPRECATED_text_imagery.dart';
+
 part 'src/keepers/keeper.dart';
 part 'src/keepers/tiledmap_keeper.dart';
-part 'src/plans/DEPRECATED_plan2d.dart';
+
 part 'src/plans/components/background.dart';
+part 'src/plans/components/description.dart';
 part 'src/plans/components/geometry_2d.dart';
+part 'src/plans/components/greeting.dart';
 part 'src/plans/components/id.dart';
+part 'src/plans/components/journey.dart';
+part 'src/plans/components/list.dart';
+part 'src/plans/components/name.dart';
+part 'src/plans/components/picture.dart';
+part 'src/plans/components/place.dart';
+part 'src/plans/components/plan.dart';
+part 'src/plans/components/story.dart';
+part 'src/plans/components/string.dart';
 part 'src/plans/components/transform_2d.dart';
 part 'src/plans/components/v.dart';
+part 'src/plans/systems/service.dart';
+part 'src/plans/DEPRECATED_plan2d.dart';
+part 'src/plans/journey.dart';
+part 'src/plans/journeys.dart';
+part 'src/plans/place.dart';
+part 'src/plans/plan.dart';
 part 'src/plans/plan2d.dart';
 part 'src/plans/universe.dart';
+
 part 'src/quant/axis_type.dart';
 part 'src/quant/background.dart';
 part 'src/quant/can_work_with_file.dart';
@@ -60,10 +83,12 @@ part 'src/quant/DEPRECATED_has_shape_2d_mix.dart';
 part 'src/quant/DEPRECATED_has_id_mix.dart';
 part 'src/quant/parent_child_calc_2d_mix.dart';
 part 'src/quant/DEPRECATED_quant.dart';
+
 part 'src/shapes/infinity_shape.dart';
 part 'src/shapes/polygon_shape.dart';
 part 'src/shapes/shape_2d.dart';
 part 'src/shapes/shape.dart';
+
 part 'src/utils/checkers.dart';
 part 'src/utils/random_fallback.dart';
 part 'src/utils/u2d.dart';

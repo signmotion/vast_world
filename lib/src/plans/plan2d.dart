@@ -16,7 +16,6 @@ class Plan2D extends Universe {
     String hid, {
     String uid = '',
     required Background Function() backgroundLoader,
-    Vector2? axisPosition,
     required Unit2 realSize,
     required Unit realHeight,
     required double scale,
@@ -28,9 +27,9 @@ class Plan2D extends Universe {
       ..add<BackgroundComponent, BackgroundT>(backgroundLoader())
       ..add<Geometry2DComponent, Geometry2DT>(
         (
-          axisPosition: axisPosition,
           axisSize: axisSizeFromRealSize(realSize, scale),
           realSize: realSize,
+          unitType: null,
           scale: scale,
           shape: shape,
         ),

@@ -1,9 +1,9 @@
 part of '../../../vast_world.dart';
 
 typedef Geometry2DT = ({
-  Vector2? axisPosition,
   Vector2? axisSize,
   Unit2? realSize,
+  UnitType? unitType,
   num? scale,
   Shape2D? shape,
 });
@@ -12,10 +12,14 @@ class Geometry2DComponent extends VComponent<Geometry2DT> {
   @override
   void initv(Geometry2DT v) {
     shape = v.shape ?? const InfinityShape();
-    axisPosition = v.axisPosition ?? Vector2.all(0);
-    axisSize = v.axisSize ?? shape.size;
-    final sc = v.scale ?? 0;
-    realSize = v.realSize ?? (realSize.$1 * sc, realSize.$2 * sc);
+    final axisSize = v.axisSize ?? shape.size;
+    final scale = v.scale ?? 0;
+    final unitType = v.unitType ?? UnitType.undefined;
+    realSize = v.realSize ??
+        (
+          Unit(axisSize.x * scale, unitType),
+          Unit(axisSize.y * scale, unitType),
+        );
   }
 
   @override
@@ -28,9 +32,9 @@ class Geometry2DComponent extends VComponent<Geometry2DT> {
 
   @override
   Geometry2DT get empty => (
-        axisPosition: Vector2.all(0),
         axisSize: Vector2.all(0),
         realSize: (Unit.undefined, Unit.undefined),
+        unitType: UnitType.undefined,
         scale: 0,
         shape: const InfinityShape(),
       );
@@ -39,21 +43,18 @@ class Geometry2DComponent extends VComponent<Geometry2DT> {
   static const defaultAnchor2D = Anchor2D.topLeft;
   static const defaultAxisType = AxisType.loop;
 
-  /// Axis position... somethere.
-  late final Vector2 axisPosition;
-  double get x => axisPosition.x;
-  double get y => axisPosition.y;
-
-  /// The axis size equals to background image size.
-  late final Vector2 axisSize;
+  Vector2 get axisSize =>
+      Vector2(realWidth.value / scale, realHeight.value / scale);
   int get axisWidth => axisSize.x.round();
   int get axisHeight => axisSize.y.round();
   List<int> get axisAbsSizes => [axisWidth, axisHeight];
 
   /// Exludes an upper value.
+  /// Depends of [anchor] but today equals to [axisAbsSizes] always.
   List<int> get axisUppers => axisAbsSizes;
 
   /// Includes a lower value.
+  /// Depends of [anchor] but today equals to [0, 0] always.
   List<int> get axisLowers => List<int>.filled(axisAbsSizes.length, 0);
 
   AxisType axisType = defaultAxisType;
