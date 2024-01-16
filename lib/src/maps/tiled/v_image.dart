@@ -8,16 +8,22 @@ class VImage extends TiledImage {
   });
 }
 
-class VBackgroundImage extends VImage {
+class VBackgroundImage extends VPictureImage {
   const VBackgroundImage({
-    String pathPrefix = '',
+    super.pathPrefix = '',
     required super.width,
     required super.height,
-  }) : super(
-          source: pathPrefix.length == 0
-              ? defaultBackgroundFilename
-              : '$pathPrefix/$defaultBackgroundFilename',
-        );
+  }) : super(name: defaultBackgroundFilename);
 
-  static const defaultBackgroundFilename = 'bg.png';
+  static const defaultBackgroundFilename =
+      '${VBackgroundLayer.defaultBackgroundImageLayerName}.png';
+}
+
+class VPictureImage extends VImage {
+  const VPictureImage({
+    String pathPrefix = '',
+    required String name,
+    required super.width,
+    required super.height,
+  }) : super(source: '$pathPrefix/$name.png');
 }

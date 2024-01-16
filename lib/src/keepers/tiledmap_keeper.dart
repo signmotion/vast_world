@@ -76,6 +76,17 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
 
     final layers = <Layer>[];
     {
+      final picture = plan.innerEntity.get<PictureComponent>();
+      if (picture != null) {
+        ++id;
+        layers.add(VPictureLayer(
+          id: id,
+          name: picture.hid,
+          width: 234,
+          height: 234,
+        ));
+      }
+
       if (objects.isNotEmpty) {
         ++id;
         layers.add(VImageries(
