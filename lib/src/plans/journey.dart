@@ -2,14 +2,16 @@
 
 part of '../../vast_world.dart';
 
+typedef PlacePlanListComponent = PlanListComponent<PlacePlan>;
+
 /// Example:
 ///   A journey by country.
 class JourneyPlan extends Plan {
   JourneyPlan() {
-    component(NameComponent.new);
-    component(GreetingComponent.new);
-    component(DescriptionComponent.new);
-    component(ListComponent<PlaceComponent>.new);
+    registerComponent(NameComponent.new);
+    registerComponent(GreetingComponent.new);
+    registerComponent(DescriptionComponent.new);
+    registerComponent(PlacePlanListComponent.new);
   }
 
   factory JourneyPlan.construct({
@@ -25,12 +27,8 @@ class JourneyPlan extends Plan {
       ..add<NameComponent, String>(name)
       ..add<GreetingComponent, String>(name)
       ..add<DescriptionComponent, String>(name)
-      ..add<ListComponent<PlaceComponent>, List<PlaceComponent>>();
+      ..add<PlacePlanListComponent, List<PlacePlan>>();
 
     return plan;
-  }
-
-  void addPlace(PlacePlan place) {
-    throw UnimplementedError();
   }
 }

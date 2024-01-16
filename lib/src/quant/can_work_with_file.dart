@@ -58,11 +58,20 @@ mixin CanWorkWithFile on Object {
   JsonMap? readAsJsonMap({String? pathToFile}) =>
       readAsText(pathToFile: pathToFile)?.jsonMap;
 
+  Map<String, String>? readAsJsonMapString({String? pathToFile}) =>
+      readAsJsonMap(pathToFile: pathToFile)
+          ?.map((k, v) => MapEntry(k, _anyTypeToString(v)));
+
   Map<String, T>? readAsJsonMapT<T>({String? pathToFile}) =>
       readAsJsonMap(pathToFile: pathToFile)?.map((k, v) => MapEntry(k, v as T));
 
   JsonList? readAsJsonList({String? pathToFile}) =>
       readAsText(pathToFile: pathToFile)?.jsonList;
+
+  List<String>? readAsJsonListString({String? pathToFile}) =>
+      readAsJsonList(pathToFile: pathToFile)
+          ?.map((v) => _anyTypeToString(v))
+          .toList();
 
   List<T>? readAsJsonListT<T>({String? pathToFile}) =>
       readAsJsonList(pathToFile: pathToFile)?.map((v) => v as T).toList();
@@ -75,7 +84,8 @@ mixin CanWorkWithFile on Object {
   /// set the alpha.
   Image readAsImage({String? pathToFile, int? numChannels, num? alpha}) {
     // use filename extension to determine the decoder
-    final image = decodeNamedImage(ph.join(path, pathToFile), readAsBytes())!;
+    final image = decodeNamedImage(
+        ph.join(path, pathToFile), readAsBytes(pathToFile: pathToFile))!;
 
     return numChannels == null && alpha == null
         ? image
@@ -116,6 +126,8 @@ mixin CanWorkWithFile on Object {
     }
     File(pf).writeAsStringSync(text);
   }
+
+  String _anyTypeToString(dynamic v) => v.toString();
 }
 
 mixin ReadFileAsBytes on CanWorkWithFile {

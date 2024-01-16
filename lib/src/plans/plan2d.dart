@@ -4,9 +4,9 @@ part of '../../vast_world.dart';
 
 class Plan2D extends Universe {
   Plan2D() {
-    component(IdComponent.new);
-    component(BackgroundComponent.new);
-    component(Geometry2DComponent.new);
+    registerComponent(IdComponent.new);
+    registerComponent(BackgroundComponent.new);
+    registerComponent(Geometry2DComponent.new);
 
     // TODO universe.registerComponent(() => Imagery2DComponent);
     // TODO universe.registerComponent(() => Cell2DContentComponent);

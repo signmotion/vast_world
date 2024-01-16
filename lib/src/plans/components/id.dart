@@ -14,21 +14,22 @@ class IdComponent extends VComponent<IdT> {
 
   @override
   void check() {
-    arge(hid.isCorrectHid, hid, 'hid');
-    arge(uid.isUuid, uid, 'uid');
+    argerr(hid.isEmpty || hid.isCorrectHid, hid, 'hid');
+    argerr(uid.isUuid, uid, 'uid');
+    ae(hid.isNotEmpty || uid.isNotEmpty, 'Hid or UID should be defined.');
   }
 
   @override
   IdT get empty => (hid: '', uid: '');
+
+  /// ID for access.
+  String get id => hid.isEmpty ? uid : hid;
 
   /// Human ID for nicely detection.
   String get hid => value.hid;
 
   /// UUID, version 4.
   String get uid => value.uid;
-
-  /// ID for access.
-  String get id => hid.isEmpty ? uid : hid;
 
   String generateUid() => const UuidV4Gen().get();
 }

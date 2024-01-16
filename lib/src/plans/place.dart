@@ -4,8 +4,8 @@ part of '../../vast_world.dart';
 
 class PlacePlan extends Plan {
   PlacePlan() {
-    component(PictureComponent.new);
-    component(StoryComponent.new);
+    registerComponent(PictureComponent.new);
+    registerComponent(StoryComponent.new);
   }
 
   factory PlacePlan.construct({

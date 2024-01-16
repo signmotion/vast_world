@@ -8,7 +8,7 @@ void ae(bool condition, String message) {
 }
 
 /// Assert with ArgumentError: argument name.
-void arge(bool condition, dynamic value, String name) {
+void argerr(bool condition, dynamic value, String name) {
   if (!condition) {
     throw ArgumentError.value(value, name);
   }

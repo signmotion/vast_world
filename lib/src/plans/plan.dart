@@ -4,7 +4,7 @@ part of '../../vast_world.dart';
 
 class Plan extends Universe {
   Plan() {
-    component(IdComponent.new);
+    registerComponent(IdComponent.new);
   }
 
   factory Plan.construct({
@@ -16,4 +16,14 @@ class Plan extends Universe {
 
     return r;
   }
+
+  void check() {
+    ae(u.entities.length == 1, 'The plan `$id` should consist of 1 entity.');
+  }
+
+  IdComponent get idComponent => u.entities.single.get<IdComponent>()!;
+
+  String get id => idComponent.id;
+  String get hid => idComponent.hid;
+  String get uid => idComponent.uid;
 }
