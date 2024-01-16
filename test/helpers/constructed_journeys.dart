@@ -6,13 +6,15 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
   const sourcePath =
       'test/data/journeys/aerwyna_journey_raw/journey_list/0.aerwyna';
 
-  final allJourneys = AllJourneysPlan(u, hid: 'all');
+  // root plan: without parent ID
+  final allJourneys = AllJourneysPlan(u, '', hid: 'all');
 
   // journey by Aerwyna
   final about =
       FileWorker(sourcePath).readAsJsonMapString(pathToFile: '_.json')!;
   final aerwynaJourney = JourneyPlan(
     u,
+    allJourneys.id,
     hid: 'aerwyna',
     name: 'Aerwyna',
     greeting: about['greeting']!,
@@ -23,7 +25,13 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
     final picture =
         FileWorker(sourcePath).readAsImage(pathToFile: 'place_list/$i.png');
     final story = 'Some story into the place $i...';
-    final place = PlacePlan(u, hid: 'place_$i', picture: picture, story: story);
+    final place = PlacePlan(
+      u,
+      aerwynaJourney.id,
+      hid: 'place_$i',
+      picture: picture,
+      story: story,
+    );
     aerwynaJourney.addImagery(place);
   }
 

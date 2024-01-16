@@ -47,7 +47,9 @@ part 'src/imageries/DEPRECATED_imagery.dart';
 part 'src/imageries/DEPRECATED_picture_imagery.dart';
 part 'src/imageries/DEPRECATED_text_imagery.dart';
 
+part 'src/keepers/DEPRECATED_keeper.dart';
 part 'src/keepers/keeper.dart';
+part 'src/keepers/DEPRECATED_tiledmap_keeper.dart';
 part 'src/keepers/tiledmap_keeper.dart';
 
 part 'src/plans/components/background.dart';
@@ -57,6 +59,7 @@ part 'src/plans/components/greeting.dart';
 part 'src/plans/components/id.dart';
 part 'src/plans/components/list.dart';
 part 'src/plans/components/name.dart';
+part 'src/plans/components/parent.dart';
 part 'src/plans/components/picture.dart';
 part 'src/plans/components/plan.dart';
 part 'src/plans/components/story.dart';

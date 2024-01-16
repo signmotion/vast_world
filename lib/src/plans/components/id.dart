@@ -35,6 +35,8 @@ extension HidExt on String {
   static const hidSeparator = '.';
   static const pathSeparator = PathStringExt.pathSeparator;
 
+  bool get isCorrectId => isCorrectHid || this.isUuid;
+
   /// Examples:
   /// ```
   /// raeria

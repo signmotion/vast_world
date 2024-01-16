@@ -6,7 +6,8 @@ part of '../../vast_world.dart';
 ///   A journey by country.
 class JourneyPlan extends Plan<PlacePlan> {
   JourneyPlan(
-    super.u, {
+    super.u,
+    super.parentId, {
     super.hid = '',
     super.uid = '',
     required String name,

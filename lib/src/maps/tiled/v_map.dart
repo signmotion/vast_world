@@ -4,9 +4,10 @@ class VMap extends TiledMap {
   VMap({
     required super.width,
     required super.height,
+    super.infinite = false,
     super.tilesets = const [],
     super.layers = const [],
-    required JsonMap properties,
+    JsonMap properties = const {},
   }) : super(
           tileWidth: 1,
           tileHeight: 1,
@@ -31,6 +32,7 @@ class VMap extends TiledMap {
   factory VMap.fromTiledMap(TiledMap tm) => VMap(
         width: tm.width,
         height: tm.height,
+        infinite: tm.infinite,
         tilesets: tm.tilesets,
         layers: tm.layers,
         properties: tm.properties.byName.map(

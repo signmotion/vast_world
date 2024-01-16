@@ -5,6 +5,9 @@ part of '../../../vast_world.dart';
 abstract class VComponent<T> extends Component<T> {
   late final T value;
 
+  String get hid =>
+      runtimeType.toString().replaceFirst('Component', '').toLowerCase();
+
   /// This method call a chain: [initv] -> [check] for non-null [v] or
   /// set [value] to [defaults].
   /// !) For initialize own [value] just override [initv] and [check].

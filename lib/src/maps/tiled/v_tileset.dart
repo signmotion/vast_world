@@ -20,20 +20,24 @@ class VImagery extends VTileset {
     required super.firstGid,
   }) : super(tileCount: 1);
 
-  // factory VImagery.fromImagery({
-  //   required String planId,
-  //   required DEPRECATED_Imagery imagery,
-  //   required int firstGid,
-  // }) =>
-  //     VImagery(
-  //       name: imagery.hidForPlan,
-  //       tileWidth: imagery.axisWidth,
-  //       tileHeight: imagery.axisHeight,
-  //       image: VBackgroundImage(
-  //         pathPrefix: imagery.hidForPlan,
-  //         width: imagery.axisWidth,
-  //         height: imagery.axisHeight,
-  //       ),
-  //       firstGid: firstGid,
-  //     );
+  factory VImagery.fromImagery({
+    required String planId,
+    required Plan<dynamic> imagery,
+    required int firstGid,
+    int? tileWidth,
+    int? tileHeight,
+  }) =>
+      VImagery(
+        name: imagery.hid,
+        tileWidth: tileWidth,
+        tileHeight: tileHeight,
+        image: tileWidth == null
+            ? null
+            : VBackgroundImage(
+                pathPrefix: planId,
+                width: tileWidth,
+                height: tileHeight,
+              ),
+        firstGid: firstGid,
+      );
 }
