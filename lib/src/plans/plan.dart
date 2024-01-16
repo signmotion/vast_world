@@ -2,7 +2,7 @@
 
 part of '../../vast_world.dart';
 
-class Plan<P> with HasIdMix {
+class Plan<P extends Quant> extends Quant {
   Plan(
     this.u, {
     String hid = '',

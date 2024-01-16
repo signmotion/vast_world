@@ -81,6 +81,7 @@ part 'src/quant/DEPRECATED_has_shape_2d_mix.dart';
 part 'src/quant/has_id_mix.dart';
 part 'src/quant/parent_child_calc_2d_mix.dart';
 part 'src/quant/DEPRECATED_quant.dart';
+part 'src/quant/quant.dart';
 
 part 'src/shapes/infinity_shape.dart';
 part 'src/shapes/polygon_shape.dart';

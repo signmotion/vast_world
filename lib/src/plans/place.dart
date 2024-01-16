@@ -2,7 +2,7 @@
 
 part of '../../vast_world.dart';
 
-class PlacePlan extends Plan<dynamic> {
+class PlacePlan extends Plan<Quant> {
   PlacePlan(
     super.u, {
     super.hid = '',
