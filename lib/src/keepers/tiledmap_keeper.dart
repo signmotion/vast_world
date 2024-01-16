@@ -75,15 +75,15 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     }
 
     final layers = <Layer>[];
+    final picture = plan.innerEntity.get<PictureComponent>();
     {
-      final picture = plan.innerEntity.get<PictureComponent>();
       if (picture != null) {
         ++id;
         layers.add(VPictureLayer(
           id: id,
           name: picture.hid,
-          width: 234,
-          height: 234,
+          width: picture.width,
+          height: picture.height,
         ));
       }
 
@@ -97,8 +97,8 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     }
 
     final map = VMap(
-      width: 0,
-      height: 0,
+      width: picture?.width ?? 0,
+      height: picture?.height ?? 0,
       infinite: true,
       tilesets: tilesets,
       layers: layers,
