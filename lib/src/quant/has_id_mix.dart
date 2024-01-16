@@ -2,10 +2,10 @@ part of '../../vast_world.dart';
 
 mixin HasIdMix on Object {
   /// Human ID for nicely detection.
-  String get hid;
+  late final String hid;
 
   /// UUID.
-  String get uid;
+  late final String uid;
 
   /// ID for access.
   String get id => hid.isEmpty ? uid : hid;

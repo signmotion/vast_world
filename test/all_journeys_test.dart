@@ -1,5 +1,4 @@
-import 'package:dart_helpers/dart_helpers.dart';
-import 'package:vast_world/vast_world.dart' hide Keeper;
+import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
 
 import 'helpers2d.dart';
@@ -14,7 +13,7 @@ void main() {
     const sourcePath =
         'test/data/journeys/aerwyna_journey_raw/journey_list/0.aerwyna';
 
-    final allJourneys = AllJourneysPlan(u);
+    final allJourneys = AllJourneysPlan(u, hid: 'all');
 
     // journey by Aerwyna
     final about =
@@ -31,7 +30,8 @@ void main() {
       final picture =
           FileWorker(sourcePath).readAsImage(pathToFile: 'place_list/$i.png');
       final story = 'Some story into the place $i...';
-      final place = PlacePlan(u, picture: picture, story: story);
+      final place =
+          PlacePlan(u, hid: 'place_$i', picture: picture, story: story);
       aerwynaJourney.addImagery(place);
     }
 
@@ -40,7 +40,7 @@ void main() {
     test('Check `allJourneys` created from raw', () {
       checkPlan(
         allJourneys,
-        hid: '',
+        hid: 'all',
         imageryIds: ['aerwyna'],
       );
     });
@@ -49,12 +49,27 @@ void main() {
       checkPlan(
         aerwynaJourney,
         hid: 'aerwyna',
-        imageryIds: [],
+        imageryIds: ['place_0', 'place_1', 'place_2', 'place_3', 'place_4'],
       );
     });
 
     test('Check places of `aerwynaJourney` created from raw', () {
-      // TODO
+      for (final imagery in aerwynaJourney.imageries) {
+        checkPlan(
+          imagery,
+          hid: imagery.hid,
+          imageryIds: [],
+        );
+      }
+    });
+
+    test('Check Universe created from raw', () {
+      //print(u);
+      final su = u.toJson();
+      expect(su['entity_count'], 7);
+      expect((su['entity_list'] as Iterable<dynamic>).length, 7);
+      expect(su['system_count'], 0);
+      expect((su['system_list'] as Iterable<dynamic>).length, 0);
     });
   });
 }

@@ -14,4 +14,14 @@ class Universe {
       inner.registerComponent(builder);
 
   Entity construct([String? id]) => inner.createEntity(id);
+
+  JsonMap toJson() => <String, dynamic>{
+        'entity_count': inner.entities.length,
+        'entity_list': inner.entities.map((e) => e.name),
+        'system_count': inner.systemManager.systems.length,
+        'system_list': inner.systemManager.systems.map((s) => s.runtimeType),
+      };
+
+  @override
+  String toString() => toJson().sjson;
 }

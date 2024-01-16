@@ -19,6 +19,7 @@ void checkPlan(
   expect(plan.uid, isUuid);
   expect(plan.uid == plan.hid, isFalse, reason: '${plan.id} == ${plan.hid}');
 
+  expect(plan.imageries.length, imageryIds.length);
   for (final imageryId in imageryIds) {
     final found =
         plan.imageries.firstWhereOrNull((p) => (p as HasIdMix).id == imageryId);
