@@ -1,4 +1,4 @@
-import 'package:dart_helpers/dart_helpers.dart';
+import 'package:collection/collection.dart';
 import 'package:id_gen/id_gen.dart';
 import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
@@ -9,69 +9,20 @@ import 'package:test/test.dart';
 //     ImageFilesystemBroker, TextFilesystemBroker>;
 
 void checkPlan(
-  Plan plan, {
+  Plan<dynamic> plan, {
   required String hid,
-  required Map<String, JsonMap> imageries,
+  required List<String> imageryIds,
 }) {
   expect(hid.isCorrectHid, true, reason: hid);
   expect(plan.hid, hid);
 
   expect(plan.uid, isUuid);
-  expect(plan.id, plan.hid);
+  expect(plan.uid == plan.hid, isFalse, reason: '${plan.id} == ${plan.hid}');
 
-  if (npath != null) {
-    expect(plan.npath, npath);
-  }
-
-  if (scale != null) {
-    expect(plan.scale, scale);
-    // should be `size * scale` but we can have uncertainties...
-    expect(plan.realWidth.value, axisWidth * scale);
-    expect(plan.realHeight.value, axisHeight * scale);
-    expect(
-      plan.realSquare.value,
-      (axisWidth * scale) * (axisHeight * scale),
-    );
-  }
-
-  expect(plan.axisWidth, axisWidth);
-  expect(plan.axisHeight, axisHeight);
-  if (axisSquare != null) {
-    expect(plan.axisSquare, axisSquare);
-  }
-
-  // can be ether full path or `hid/path`, for example:
-  // 'test/data/worlds/simple_planet_raw/$hid/${VMap.defaultBackgroundFilename}'
-  // '$hid/${VMap.defaultBackgroundFilename}'
-  expect(
-    plan.background.npath,
-    endsWith('$planHid/${VMap.defaultBackgroundFilename}'),
-  );
-  expect(plan.background.image, isNotNull);
-  expect(plan.background.image!.width, axisWidth);
-  expect(plan.background.image!.height, axisHeight);
-
-  if (shapeType != null) {
-    expect(plan.shape.runtimeType, shapeType, reason: plan.hid);
-  }
-
-  for (final ie in imageries.entries) {
-    final hid = ie.key;
-    final img = ie.value;
-    final imagery = plan.imageries.firstWhere((e) => e.hid == hid);
-    checkImagery(
-      plan,
-      imagery,
-      planHid: planHid,
-      imageryHid: hid,
-      npath: img['npath'] as String?,
-      scale: img['scale'] as double?,
-      axisPosition: img['axisPosition'] as (int, int),
-      axisSize: img['axisSize'] as (int, int),
-      axisSizeInPlan: img['axisSizeInPlan'] as (int, int),
-      axisSquare: img['axisSquare'] as int?,
-      shapeType: img['shapeType'] as Type?,
-    );
+  for (final imageryId in imageryIds) {
+    final found =
+        plan.imageries.firstWhereOrNull((p) => (p as HasIdMix).id == imageryId);
+    expect(found, isNotNull);
   }
 }
 

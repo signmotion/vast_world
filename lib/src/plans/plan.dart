@@ -2,28 +2,31 @@
 
 part of '../../vast_world.dart';
 
-class Plan extends Universe {
-  Plan() {
-    registerComponent(IdComponent.new);
-  }
-
-  factory Plan.construct({
+class Plan<P> with HasIdMix {
+  Plan(
+    this.u, {
     String hid = '',
     String uid = '',
   }) {
-    final r = Plan();
-    r.construct(hid).add<IdComponent, IdT>((hid: hid, uid: uid));
+    u.registerComponent(IdComponent.new);
 
-    return r;
+    // an one entity on every plan
+    innerEntity = u.construct()..add<IdComponent, IdT>((hid: hid, uid: uid));
   }
 
-  void check() {
-    ae(u.entities.length == 1, 'The plan `$id` should consist of 1 entity.');
-  }
+  final Universe u;
 
-  IdComponent get idComponent => u.entities.single.get<IdComponent>()!;
+  late final Entity innerEntity;
 
-  String get id => idComponent.id;
+  IdComponent get idComponent => innerEntity.get<IdComponent>()!;
+
+  @override
   String get hid => idComponent.hid;
+
+  @override
   String get uid => idComponent.uid;
+
+  final List<P> imageries = <P>[];
+
+  void addImagery(P imagery) => imageries.add(imagery);
 }

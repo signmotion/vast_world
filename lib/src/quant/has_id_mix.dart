@@ -1,14 +1,14 @@
 part of '../../vast_world.dart';
 
-mixin DEPRECATED_HasIdMix on Object {
+mixin HasIdMix on Object {
   /// Human ID for nicely detection.
-  late final String hid;
+  String get hid;
 
   /// UUID.
-  late final String uid;
+  String get uid;
 
   /// ID for access.
-  String get id => hid;
+  String get id => hid.isEmpty ? uid : hid;
 
   String generateUid() => const UuidV4Gen().get();
 }

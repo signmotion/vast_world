@@ -5,7 +5,7 @@ typedef IdT = ({
   String uid,
 });
 
-class IdComponent extends VComponent<IdT> {
+class IdComponent extends VComponent<IdT> with HasIdMix {
   @override
   void initv(IdT v) => value = (
         hid: v.hid,
@@ -22,16 +22,13 @@ class IdComponent extends VComponent<IdT> {
   @override
   IdT get empty => (hid: '', uid: '');
 
-  /// ID for access.
-  String get id => hid.isEmpty ? uid : hid;
-
   /// Human ID for nicely detection.
+  @override
   String get hid => value.hid;
 
   /// UUID, version 4.
+  @override
   String get uid => value.uid;
-
-  String generateUid() => const UuidV4Gen().get();
 }
 
 extension HidExt on String {

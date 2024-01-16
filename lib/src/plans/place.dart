@@ -2,24 +2,19 @@
 
 part of '../../vast_world.dart';
 
-class PlacePlan extends Plan {
-  PlacePlan() {
-    registerComponent(PictureComponent.new);
-    registerComponent(StoryComponent.new);
-  }
-
-  factory PlacePlan.construct({
-    String hid = '',
-    String uid = '',
+class PlacePlan extends Plan<dynamic> {
+  PlacePlan(
+    super.u, {
+    super.hid = '',
+    super.uid = '',
     required Image picture,
     required String story,
   }) {
-    final plan = PlacePlan();
-    plan.construct(hid)
-      ..add<IdComponent, IdT>((hid: hid, uid: uid))
+    u.registerComponent(PictureComponent.new);
+    u.registerComponent(StoryComponent.new);
+
+    innerEntity
       ..add<PictureComponent, Image>(picture)
       ..add<StoryComponent, String>(story);
-
-    return plan;
   }
 }

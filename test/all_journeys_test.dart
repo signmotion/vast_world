@@ -2,51 +2,59 @@ import 'package:dart_helpers/dart_helpers.dart';
 import 'package:vast_world/vast_world.dart' hide Keeper;
 import 'package:test/test.dart';
 
+import 'helpers2d.dart';
 import 'prepare_test_env.dart';
 
 void main() {
   prepareTestEnv();
 
   group('JourneysPlan', () {
+    final u = Universe();
+
     const sourcePath =
         'test/data/journeys/aerwyna_journey_raw/journey_list/0.aerwyna';
 
-    final allJourneys = AllJourneysPlan.construct()..check();
+    final allJourneys = AllJourneysPlan(u);
 
     // journey by Aerwyna
     final about =
         FileWorker(sourcePath).readAsJsonMapString(pathToFile: '_.json')!;
-    final aerwynaJourney = JourneyPlan.construct(
+    final aerwynaJourney = JourneyPlan(
+      u,
       hid: 'aerwyna',
       name: 'Aerwyna',
       greeting: about['greeting']!,
       description: about['description']!,
-    )..check();
+    );
     final placeCount = int.parse(about['place_count']!);
     for (var i = 0; i < placeCount; ++i) {
       final picture =
           FileWorker(sourcePath).readAsImage(pathToFile: 'place_list/$i.png');
       final story = 'Some story into the place $i...';
-      final place = PlacePlan.construct(picture: picture, story: story);
-      aerwynaJourney.add(place);
+      final place = PlacePlan(u, picture: picture, story: story);
+      aerwynaJourney.addImagery(place);
     }
 
-    allJourneys.add(aerwynaJourney);
+    allJourneys.addImagery(aerwynaJourney);
 
     test('Check `allJourneys` created from raw', () {
-      final imageries = <String, JsonMap>{
-        'aerwyna': {
-          'name': 'Aerwyna',
-          'greeting': about['greeting'],
-          'description': about['description'],
-        },
-      };
-
       checkPlan(
         allJourneys,
         hid: '',
-        imageries: imageries,
+        imageryIds: ['aerwyna'],
       );
+    });
+
+    test('Check `aerwynaJourney` created from raw', () {
+      checkPlan(
+        aerwynaJourney,
+        hid: 'aerwyna',
+        imageryIds: [],
+      );
+    });
+
+    test('Check places of `aerwynaJourney` created from raw', () {
+      // TODO
     });
   });
 }

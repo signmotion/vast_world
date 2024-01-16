@@ -78,7 +78,7 @@ part 'src/quant/can_work_with_file.dart';
 part 'src/quant/DEPRECATED_geometry_shape_2d_quant.dart';
 part 'src/quant/DEPRECATED_has_geometry_2d_mix.dart';
 part 'src/quant/DEPRECATED_has_shape_2d_mix.dart';
-part 'src/quant/DEPRECATED_has_id_mix.dart';
+part 'src/quant/has_id_mix.dart';
 part 'src/quant/parent_child_calc_2d_mix.dart';
 part 'src/quant/DEPRECATED_quant.dart';
 
