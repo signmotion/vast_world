@@ -85,6 +85,7 @@ part 'src/quant/parent_child_calc_2d_mix.dart';
 part 'src/quant/DEPRECATED_quant.dart';
 part 'src/quant/quant.dart';
 
+part 'src/renders/count_imageries_image.dart';
 part 'src/renders/image.dart';
 part 'src/renders/one_picture_image.dart';
 part 'src/renders/rendered_data.dart';

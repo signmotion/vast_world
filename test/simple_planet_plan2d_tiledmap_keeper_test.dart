@@ -1,3 +1,9 @@
+@Skip('TODO')
+
+import 'package:test/test.dart';
+
+void main() {}
+
 // import 'dart:io';
 
 // import 'package:astronomical_measurements/astronomical_measurements.dart';

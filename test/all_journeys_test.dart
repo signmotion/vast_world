@@ -14,7 +14,7 @@ void main() {
     test('Check `allJourneys` created from raw', () {
       checkPlan(
         allJourneys,
-        hid: 'all',
+        hid: 'all_journeys',
         imageryIds: ['aerwyna'],
       );
     });

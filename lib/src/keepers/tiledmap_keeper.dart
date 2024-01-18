@@ -77,9 +77,8 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     final tilesets = <VImagery>[];
     final tileObjects = <VObjectTile>[];
     var lastY = 0.0;
-    final reversedImageries = plan.imageries.reversed.toList();
-    for (var i = 0; i < reversedImageries.length; ++i) {
-      final imagery = reversedImageries[i] as Plan<dynamic>;
+    for (var i = plan.imageries.length - 1; i >= 0; --i) {
+      final imagery = plan.imageries[i] as Plan<dynamic>;
 
       final rendered = OnePictureImageRender(plan, imagery).rendered;
       _writeRendered(rendered);

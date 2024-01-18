@@ -20,7 +20,7 @@ class OnePictureImageRender extends ImageRender<ImageRenderConfigure> {
       Vector2(w.toDouble(), h.toDouble()),
     );
 
-    final resized = copyResize(
+    var r = copyResize(
       image,
       width: size.x.toInt(),
       height: size.y.toInt(),
@@ -28,6 +28,9 @@ class OnePictureImageRender extends ImageRender<ImageRenderConfigure> {
       interpolation: Interpolation.cubic,
     );
 
-    return ImageRenderedData(spectator.id, watched.id, data: resized);
+    //r = grayscale(image);
+    r = sepia(image);
+
+    return ImageRenderedData(spectator.id, watched.id, data: r);
   }
 }

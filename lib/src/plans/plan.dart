@@ -2,7 +2,7 @@
 
 part of '../../vast_world.dart';
 
-class Plan<P extends Plan<dynamic>> extends Quant {
+class Plan<I extends Plan<dynamic>> extends Quant {
   Plan(
     this.u, {
     super.hid = '',
@@ -10,7 +10,7 @@ class Plan<P extends Plan<dynamic>> extends Quant {
   }) {
     u.registerComponent(IdComponent.new);
 
-    // an one entity on every plan
+    // an one entity on each plan
     innerEntity = u.construct(id)..add<IdComponent, IdT>((hid: hid, uid: uid));
   }
 
@@ -18,7 +18,7 @@ class Plan<P extends Plan<dynamic>> extends Quant {
 
   late final Entity innerEntity;
 
-  final List<P> imageries = <P>[];
+  final List<I> imageries = <I>[];
 
-  void addImagery(P imagery) => imageries.add(imagery);
+  void addImagery(I imagery) => imageries.add(imagery);
 }
