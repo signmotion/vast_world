@@ -1,36 +1,13 @@
 part of '../../vast_world.dart';
 
-/// A default render an image of [watched] for [spectator].
-class ImageRender
-    extends Render<Image, ImageRenderedData, ImageRenderConfigure> {
+/// The base render an image of [watched] for [spectator].
+abstract class ImageRender<C extends ImageRenderConfigure>
+    extends Render<Image, ImageRenderedData, C> {
   ImageRender(
     super.spectator,
     super.watched, {
-    super.configure = const ImageRenderConfigure(),
+    required super.configure,
   });
-
-  /// Just use resized [PictureComponent] or [defaults];
-  @override
-  ImageRenderedData get rendered {
-    final picture = watched.innerEntity.get<PictureComponent>();
-    final image = picture?.image ?? defaults.data;
-    final w = amath.clamp(image.width, cfg.minWidth, cfg.maxWidth).toInt();
-    final h = amath.clamp(image.height, cfg.minHeight, cfg.maxHeight).toInt();
-    final size = fitSize(
-      Vector2(image.width.toDouble(), image.height.toDouble()),
-      Vector2(w.toDouble(), h.toDouble()),
-    );
-
-    final resized = copyResize(
-      image,
-      width: size.x.toInt(),
-      height: size.y.toInt(),
-      maintainAspect: true,
-      interpolation: Interpolation.cubic,
-    );
-
-    return ImageRenderedData(spectator.id, watched.id, data: resized);
-  }
 
   ImageRenderedData get defaults => ImageRenderedData(
         spectator.id,

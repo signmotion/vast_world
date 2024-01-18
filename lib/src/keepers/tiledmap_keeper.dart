@@ -81,7 +81,7 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     for (var i = 0; i < reversedImageries.length; ++i) {
       final imagery = reversedImageries[i] as Plan<dynamic>;
 
-      final rendered = ImageRender(plan, imagery).rendered;
+      final rendered = OnePictureImageRender(plan, imagery).rendered;
       _writeRendered(rendered);
 
       final image = rendered.data;

@@ -86,6 +86,7 @@ part 'src/quant/DEPRECATED_quant.dart';
 part 'src/quant/quant.dart';
 
 part 'src/renders/image.dart';
+part 'src/renders/one_picture_image.dart';
 part 'src/renders/rendered_data.dart';
 part 'src/renders/render.dart';
 
