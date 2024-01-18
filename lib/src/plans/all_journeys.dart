@@ -5,8 +5,7 @@ part of '../../vast_world.dart';
 /// Contains all journeys.
 class AllJourneysPlan extends Plan<JourneyPlan> {
   AllJourneysPlan(
-    super.u,
-    super.parentId, {
+    super.u, {
     super.hid = '',
     super.uid = '',
   });

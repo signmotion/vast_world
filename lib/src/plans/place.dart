@@ -4,8 +4,7 @@ part of '../../vast_world.dart';
 
 class PlacePlan extends Plan<Plan> {
   PlacePlan(
-    super.u,
-    super.parentId, {
+    super.u, {
     super.hid = '',
     super.uid = '',
     required Image picture,

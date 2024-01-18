@@ -10,13 +10,9 @@ import 'package:test/test.dart';
 
 void checkPlan(
   Plan<dynamic> plan, {
-  required String parentId,
   required String hid,
   required List<String> imageryIds,
 }) {
-  expect(parentId.isEmpty || parentId.isCorrectId, true, reason: parentId);
-  expect(plan.parentId, parentId);
-
   expect(hid.isCorrectHid, true, reason: hid);
   expect(plan.hid, hid);
 

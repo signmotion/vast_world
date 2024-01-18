@@ -14,7 +14,6 @@ void main() {
     test('Check `allJourneys` created from raw', () {
       checkPlan(
         allJourneys,
-        parentId: '',
         hid: 'all',
         imageryIds: ['aerwyna'],
       );
@@ -23,7 +22,6 @@ void main() {
     test('Check `aerwynaJourney` created from raw', () {
       checkPlan(
         aerwynaJourney,
-        parentId: allJourneys.id,
         hid: 'aerwyna',
         imageryIds: ['place_0', 'place_1', 'place_2', 'place_3', 'place_4'],
       );
@@ -33,7 +31,6 @@ void main() {
       for (final imagery in aerwynaJourney.imageries) {
         checkPlan(
           imagery,
-          parentId: aerwynaJourney.id,
           hid: imagery.hid,
           imageryIds: [],
         );

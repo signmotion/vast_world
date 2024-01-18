@@ -8,13 +8,12 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
   final fw = FileWorker(sourcePath);
 
   // root plan: without parent ID
-  final allJourneys = AllJourneysPlan(u, '', hid: 'all');
+  final allJourneys = AllJourneysPlan(u, hid: 'all');
 
   // journey by Aerwyna
   final about = fw.readAsJsonMapString(pathToFile: '_.json')!;
   final aerwynaJourney = JourneyPlan(
     u,
-    allJourneys.id,
     hid: 'aerwyna',
     name: 'Aerwyna',
     greeting: about['greeting']!,
@@ -28,7 +27,6 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
         : 'Some story into the place $i...';
     final place = PlacePlan(
       u,
-      aerwynaJourney.id,
       hid: 'place_$i',
       picture: picture,
       story: (text: textStory),

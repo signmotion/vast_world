@@ -4,24 +4,17 @@ part of '../../vast_world.dart';
 
 class Plan<P extends Plan<dynamic>> extends Quant {
   Plan(
-    this.u,
-    String parentId, {
+    this.u, {
     super.hid = '',
     super.uid = '',
   }) {
     u.registerComponent(IdComponent.new);
-    u.registerComponent(ParentComponent.new);
 
     // an one entity on every plan
     innerEntity = u.construct(id)..add<IdComponent, IdT>((hid: hid, uid: uid));
-    if (parentId.isNotEmpty) {
-      innerEntity.add<ParentComponent, ParentT>((id: parentId));
-    }
   }
 
   final Universe u;
-
-  String get parentId => innerEntity.get<ParentComponent>()?.id ?? '';
 
   late final Entity innerEntity;
 
