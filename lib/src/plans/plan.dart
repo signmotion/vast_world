@@ -21,7 +21,7 @@ class Plan<P extends Quant> extends Quant {
 
   final Universe u;
 
-  String get parentId => innerEntity.get<ParentComponent>()!.id;
+  String get parentId => innerEntity.get<ParentComponent>()?.id ?? '';
 
   late final Entity innerEntity;
 

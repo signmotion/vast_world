@@ -22,7 +22,7 @@
 //       var plan = keeper.read(hid)!;
 
 //       final imageries = <String, JsonMap>{
-//         // !) this is a HID for imagery, not for a plan
+//         // ! this is a HID for imagery, not for a plan
 //         // for construct a plan we are using [imagery.hidForPlan]
 //         'ri.askatria_land': {
 //           'axisPosition': (608, 2335),

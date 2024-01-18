@@ -9,13 +9,13 @@ class PlacePlan extends Plan<Quant> {
     super.hid = '',
     super.uid = '',
     required Image picture,
-    required String story,
+    required StoryT story,
   }) {
     u.registerComponent(PictureComponent.new);
     u.registerComponent(StoryComponent.new);
 
     innerEntity
       ..add<PictureComponent, Image>(picture)
-      ..add<StoryComponent, String>(story);
+      ..add<StoryComponent, StoryT>(story);
   }
 }

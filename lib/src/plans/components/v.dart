@@ -10,7 +10,7 @@ abstract class VComponent<T> extends Component<T> {
 
   /// This method call a chain: [initv] -> [check] for non-null [v] or
   /// set [value] to [defaults].
-  /// !) For initialize own [value] just override [initv] and [check].
+  /// ! For initialize own [value] just override [initv] and [check].
   @override
   void init([T? v]) {
     if (v == null) {

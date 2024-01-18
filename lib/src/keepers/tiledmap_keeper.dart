@@ -50,8 +50,26 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
   void _writePlanXml(Plan<dynamic> plan, [String? pathPrefix]) {
     var id = 0;
 
+    // story
+    final storyObjects = <VObjectText>[];
+    final story = plan.innerEntity.get<StoryComponent>();
+    if (story != null) {
+      ++id;
+      storyObjects.add(VObjectText(
+        id: id,
+        name: 'text',
+        x: -600,
+        y: 0,
+        width: 500,
+        height: 1000,
+        text: story.text,
+        wrap: true,
+      ));
+    }
+
+    // tilesets
     final tilesets = <VImagery>[];
-    final objects = <VObjectTile>[];
+    final tileObjects = <VObjectTile>[];
     for (final imagery in plan.imageries) {
       ++id;
       tilesets.add(VImagery.fromImagery(
@@ -63,7 +81,7 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
       ));
 
       ++id;
-      objects.add(VObjectTile.fromImagery(
+      tileObjects.add(VObjectTile.fromImagery(
         id: id,
         gid: id - 1,
         imagery: imagery,
@@ -74,6 +92,7 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
       ));
     }
 
+    // compact the objects to layers
     final layers = <Layer>[];
     final picture = plan.innerEntity.get<PictureComponent>();
     {
@@ -87,11 +106,20 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
         ));
       }
 
-      if (objects.isNotEmpty) {
+      if (story != null && storyObjects.isNotEmpty) {
+        ++id;
+        layers.add(VConcreteComponent(
+          id: id,
+          name: story.hid,
+          objects: storyObjects,
+        ));
+      }
+
+      if (tileObjects.isNotEmpty) {
         ++id;
         layers.add(VImageries(
           id: id,
-          objects: objects,
+          objects: tileObjects,
         ));
       }
     }
@@ -103,7 +131,7 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
       tilesets: tilesets,
       layers: layers,
     );
-    final s = const VConverter().convert(map);
+    final s = const VConverter(pretty: false).convert(map);
     final pf = ph.join(pathPrefix ?? '', plan.id, VMap.defaultContentFilename);
     textBroker.write(pf, s);
   }

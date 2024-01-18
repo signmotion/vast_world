@@ -16,3 +16,12 @@ class VImageries extends VObjectsLayer {
 
   static const defaultImageriesLayerName = 'imageries';
 }
+
+/// Any components keeps into [ObjectGroup].
+class VConcreteComponent extends VObjectsLayer {
+  VConcreteComponent({
+    required super.id,
+    required super.name,
+    super.objects,
+  });
+}

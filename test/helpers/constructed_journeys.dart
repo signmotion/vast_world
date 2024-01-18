@@ -5,13 +5,13 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
 
   const sourcePath =
       'test/data/journeys/aerwyna_journey_raw/journey_list/0.aerwyna';
+  final fw = FileWorker(sourcePath);
 
   // root plan: without parent ID
   final allJourneys = AllJourneysPlan(u, '', hid: 'all');
 
   // journey by Aerwyna
-  final about =
-      FileWorker(sourcePath).readAsJsonMapString(pathToFile: '_.json')!;
+  final about = fw.readAsJsonMapString(pathToFile: '_.json')!;
   final aerwynaJourney = JourneyPlan(
     u,
     allJourneys.id,
@@ -22,15 +22,16 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
   );
   final placeCount = int.parse(about['place_count']!);
   for (var i = 0; i < placeCount; ++i) {
-    final picture =
-        FileWorker(sourcePath).readAsImage(pathToFile: 'place_list/$i.png');
-    final story = 'Some story into the place $i...';
+    final picture = fw.readAsImage(pathToFile: 'place_list/$i.png');
+    final textStory = i == 4
+        ? fw.readAsText(pathToFile: 'place_list/$i/story/story.md')!
+        : 'Some story into the place $i...';
     final place = PlacePlan(
       u,
       aerwynaJourney.id,
       hid: 'place_$i',
       picture: picture,
-      story: story,
+      story: (text: textStory),
     );
     aerwynaJourney.addImagery(place);
   }

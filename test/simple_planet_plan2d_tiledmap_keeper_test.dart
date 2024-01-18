@@ -81,7 +81,7 @@
 //     // final imageryRealHeightX = ...
 
 //     final testImageries = <String, JsonMap>{
-//       // !) the key is a HID for imagery
+//       // ! the key is a HID for imagery
 //       // for construct a plan we will use [imagery.hidForPlan]
 //       'raeria.ri': {
 //         'npath': '$sourcePath/$planHid/ri',
