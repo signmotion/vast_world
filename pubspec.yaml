@@ -2,6 +2,13 @@ name: vast_world
 description: The package for work with huge worlds.
 publish_to: none
 
+topics:
+  - world
+  - map
+  - simulation
+  - rpg
+  - games
+
 # Format:
 #   version: major.minor.patch
 # You can calculate the number version code by this formula:
