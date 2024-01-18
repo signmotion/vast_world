@@ -72,5 +72,9 @@
     ]
   },
   "hidefiles.selectedProfile": "Python",
-  "hide-files.files": []
+  "hide-files.files": [],
+
+  "[xml]": {
+    "editor.defaultFormatter": "fabianlauer.vs-code-xml-format"
+  }
 }
