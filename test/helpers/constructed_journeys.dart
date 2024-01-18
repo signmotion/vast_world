@@ -11,7 +11,7 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
   final allJourneys = AllJourneysPlan(u, hid: 'all');
 
   // journey by Aerwyna
-  final about = fw.readAsJsonMapString(pathToFile: '_.json')!;
+  final about = fw.readAsJsonMapString('_.json')!;
   final aerwynaJourney = JourneyPlan(
     u,
     hid: 'aerwyna',
@@ -23,7 +23,7 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
   for (var i = 0; i < placeCount; ++i) {
     final picture = fw.readAsImage(pathToFile: 'place_list/$i.png');
     final textStory = i == 4
-        ? fw.readAsText(pathToFile: 'place_list/$i/story/story.md')!
+        ? fw.readAsText('place_list/$i/story/story.md')!
         : 'Some story into the place $i...';
     final place = PlacePlan(
       u,

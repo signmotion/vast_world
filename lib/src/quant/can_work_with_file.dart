@@ -52,29 +52,45 @@ mixin CanWorkWithFile on Object {
     Directory(dir).createSync(recursive: true);
   }
 
-  Uint8List readAsBytes({String? pathToFile}) =>
+  /// Exists a file or directory.
+  bool existsSync([
+    String? path1,
+    String? path2,
+    String? path3,
+    String? path4,
+    String? path5,
+  ]) {
+    final p = ph.join(path1 ?? '', path2, path3, path4, path5);
+    return existsFileSync(p) || existsDirSync(p);
+  }
+
+  bool existsDirSync([String? pathToDir]) =>
+      Directory(ph.join(path, pathToDir)).existsSync();
+
+  bool existsFileSync([String? pathToFile]) =>
+      File(ph.join(path, pathToFile)).existsSync();
+
+  Uint8List readAsBytes([String? pathToFile]) =>
       File(ph.join(path, pathToFile)).readAsBytesSync();
 
-  JsonMap? readAsJsonMap({String? pathToFile}) =>
-      readAsText(pathToFile: pathToFile)?.jsonMap;
+  JsonMap? readAsJsonMap([String? pathToFile]) =>
+      readAsText(pathToFile)?.jsonMap;
 
-  Map<String, String>? readAsJsonMapString({String? pathToFile}) =>
-      readAsJsonMap(pathToFile: pathToFile)
+  Map<String, String>? readAsJsonMapString([String? pathToFile]) =>
+      readAsJsonMap(pathToFile)
           ?.map((k, v) => MapEntry(k, _anyTypeToString(v)));
 
-  Map<String, T>? readAsJsonMapT<T>({String? pathToFile}) =>
-      readAsJsonMap(pathToFile: pathToFile)?.map((k, v) => MapEntry(k, v as T));
+  Map<String, T>? readAsJsonMapT<T>([String? pathToFile]) =>
+      readAsJsonMap(pathToFile)?.map((k, v) => MapEntry(k, v as T));
 
-  JsonList? readAsJsonList({String? pathToFile}) =>
-      readAsText(pathToFile: pathToFile)?.jsonList;
+  JsonList? readAsJsonList([String? pathToFile]) =>
+      readAsText(pathToFile)?.jsonList;
 
-  List<String>? readAsJsonListString({String? pathToFile}) =>
-      readAsJsonList(pathToFile: pathToFile)
-          ?.map((v) => _anyTypeToString(v))
-          .toList();
+  List<String>? readAsJsonListString([String? pathToFile]) =>
+      readAsJsonList(pathToFile)?.map((v) => _anyTypeToString(v)).toList();
 
-  List<T>? readAsJsonListT<T>({String? pathToFile}) =>
-      readAsJsonList(pathToFile: pathToFile)?.map((v) => v as T).toList();
+  List<T>? readAsJsonListT<T>([String? pathToFile]) =>
+      readAsJsonList(pathToFile)?.map((v) => v as T).toList();
 
   /// Read image and can get a guarantee an alpha channel.
   /// If the [numChannels] is 4 and the current image does not have an alpha
@@ -84,20 +100,20 @@ mixin CanWorkWithFile on Object {
   /// set the alpha.
   Image readAsImage({String? pathToFile, int? numChannels, num? alpha}) {
     // use filename extension to determine the decoder
-    final image = decodeNamedImage(
-        ph.join(path, pathToFile), readAsBytes(pathToFile: pathToFile))!;
+    final image =
+        decodeNamedImage(ph.join(path, pathToFile), readAsBytes(pathToFile))!;
 
     return numChannels == null && alpha == null
         ? image
         : image.convert(numChannels: numChannels, alpha: alpha);
   }
 
-  String? readAsText({String? pathToFile}) {
+  String? readAsText([String? pathToFile]) {
     final file = File(ph.join(path, pathToFile));
     return file.existsSync() ? file.readAsStringSync() : null;
   }
 
-  void writeAsBytes(Uint8List bytes, {String? pathToFile}) {
+  void writeAsBytes(Uint8List bytes, [String? pathToFile]) {
     final pf = ph.join(path, pathToFile);
     if (pathToFile != null) {
       counstructPathToFile(pf);
@@ -105,7 +121,7 @@ mixin CanWorkWithFile on Object {
     File(pf).writeAsBytesSync(bytes);
   }
 
-  void writeAsImage(Image image, {String? pathToFile}) {
+  void writeAsImage(Image image, [String? pathToFile]) {
     final pf = ph.join(path, pathToFile);
     if (pathToFile != null) {
       counstructPathToFile(pf);
@@ -119,7 +135,7 @@ mixin CanWorkWithFile on Object {
     File(pf).writeAsBytesSync(bytes);
   }
 
-  void writeAsText(String text, {String? pathToFile}) {
+  void writeAsText(String text, [String? pathToFile]) {
     final pf = ph.join(path, pathToFile);
     if (pathToFile != null) {
       counstructPathToFile(pf);

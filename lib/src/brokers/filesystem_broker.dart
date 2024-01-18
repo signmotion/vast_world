@@ -40,15 +40,15 @@ class ImageFilesystemBroker extends FilesystemBroker<Image> {
       readAsImage(pathToFile: key, numChannels: numChannels, alpha: alpha);
 
   @override
-  void write(String key, Image value) => writeAsImage(value, pathToFile: key);
+  void write(String key, Image value) => writeAsImage(value, key);
 }
 
 class TextFilesystemBroker extends FilesystemBroker<String> {
   TextFilesystemBroker(super.path);
 
   @override
-  String? read(String key) => readAsText(pathToFile: key);
+  String? read(String key) => readAsText(key);
 
   @override
-  void write(String key, String value) => writeAsText(value, pathToFile: key);
+  void write(String key, String value) => writeAsText(value, key);
 }
