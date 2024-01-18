@@ -1,11 +1,15 @@
 part of '../../../vast_world.dart';
 
+/// ! Setting [pretty] to `true` can get a lost of newlines for inner texts.
 class VConverter {
-  const VConverter({this.pretty = true});
+  const VConverter({this.pretty = false, this.newLine = '\r\n'});
 
   /// Pretty formatted result.
   final bool pretty;
 
-  String convert(VMap map) =>
-      TileMapConverter.convertToTmx(map).toXmlString(pretty: pretty);
+  /// New line.
+  final String newLine;
+
+  String convert(VMap map) => TileMapConverter.convertToTmx(map)
+      .toXmlString(pretty: pretty, newLine: newLine);
 }
