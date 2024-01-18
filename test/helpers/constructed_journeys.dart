@@ -8,7 +8,7 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
   final fw = FileWorker(sourcePath);
 
   // root plan: without parent ID
-  final allJourneys = AllJourneysPlan(u, hid: 'all');
+  final allJourneys = AllJourneysPlan(u, hid: 'all_journeys');
 
   // journey by Aerwyna
   final about = fw.readAsJsonMapString('_.json')!;

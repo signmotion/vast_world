@@ -3,6 +3,7 @@ import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
 
 import 'helpers/constructed_journeys.dart';
+import 'helpers/helpers2d.dart';
 import 'prepare_test_env.dart';
 
 typedef Keeper = PlanTiledmapKeeper<AllJourneysPlan, ImageFilesystemBroker,
@@ -15,14 +16,14 @@ void main() {
     final plan = constructedAerwynaJourneyFromRaw;
 
     test(
-        'Write place_4_aerwyna_journey_plan to TiledMap format'
+        'Write place_4_aerwyna_journey plan to TiledMap format'
         ' and check file structure', () {
       final outputPath = p.join(
         'test',
         'output',
         'journeys',
         'aerwyna_journey_tmx',
-        'place_4_aerwyna_journey',
+        'place_4_aerwyna_journeys',
       );
       final keeper = Keeper(
         textBroker: TextFilesystemBroker(outputPath),
@@ -35,37 +36,23 @@ void main() {
       final planForKeep = plan.imageries.single.imageries[4];
       keeper.write(planForKeep, 1);
 
-      final fw = FileWorker(outputPath);
-
-      // checking root
-      expect(fw.existsDirSync(planForKeep.hid), isTrue, reason: fw.npath);
-
-      expect(
-        fw.existsSync(planForKeep.hid, VMap.defaultContentFilename),
-        isTrue,
-        reason: fw.npath,
+      checkFileStructurePlan(
+        planForKeep,
+        outputPath: outputPath,
+        existsPicture: true,
+        countImageries: 0,
       );
-
-      // with picture
-      expect(
-        fw.existsSync(planForKeep.hid, '${PictureComponent().hid}.png'),
-        isTrue,
-        reason: fw.npath,
-      );
-
-      // checking imageries of the root
-      expect(planForKeep.imageries, isEmpty);
     });
 
     test(
-        'Write place_0_aerwyna_journey_plan to TiledMap format'
+        'Write place_0_aerwyna_journey plan to TiledMap format'
         ' and check file structure', () {
       final outputPath = p.join(
         'test',
         'output',
         'journeys',
         'aerwyna_journey_tmx',
-        'place_0_aerwyna_journey',
+        'place_0_aerwyna_journeys',
       );
       final keeper = Keeper(
         textBroker: TextFilesystemBroker(outputPath),
@@ -78,37 +65,23 @@ void main() {
       final planForKeep = plan.imageries.single.imageries[0];
       keeper.write(planForKeep);
 
-      final fw = FileWorker(outputPath);
-
-      // checking root
-      expect(fw.existsDirSync(planForKeep.hid), isTrue, reason: fw.npath);
-
-      expect(
-        fw.existsSync(planForKeep.hid, VMap.defaultContentFilename),
-        isTrue,
-        reason: fw.npath,
+      checkFileStructurePlan(
+        planForKeep,
+        outputPath: outputPath,
+        existsPicture: true,
+        countImageries: 0,
       );
-
-      // with picture
-      expect(
-        fw.existsSync(planForKeep.hid, '${PictureComponent().hid}.png'),
-        isTrue,
-        reason: fw.npath,
-      );
-
-      // checking imageries of the root
-      expect(planForKeep.imageries, isEmpty);
     });
 
     test(
-        'Write aerwyna_journey_plan to TiledMap format'
+        'Write aerwyna_journey plan to TiledMap format'
         ' and check file structure', () {
       final outputPath = p.join(
         'test',
         'output',
         'journeys',
         'aerwyna_journey_tmx',
-        'aerwyna_journey',
+        'aerwyna_journeys',
       );
       final keeper = Keeper(
         textBroker: TextFilesystemBroker(outputPath),
@@ -121,26 +94,41 @@ void main() {
       final planForKeep = plan.imageries.single;
       keeper.write(planForKeep);
 
-      final fw = FileWorker(outputPath);
-
-      // checking root
-      expect(fw.existsDirSync(planForKeep.hid), isTrue, reason: fw.npath);
-
-      expect(
-        fw.existsSync(planForKeep.hid, VMap.defaultContentFilename),
-        isTrue,
-        reason: fw.npath,
+      checkFileStructurePlan(
+        planForKeep,
+        outputPath: outputPath,
+        existsPicture: false,
+        countImageries: 5,
       );
+    });
 
-      // with picture
-      expect(
-        fw.existsSync(planForKeep.hid, '${PictureComponent().hid}.png'),
-        isFalse,
-        reason: fw.npath,
+    test(
+        'Write all_journeys plan to TiledMap format'
+        ' and check file structure', () {
+      final outputPath = p.join(
+        'test',
+        'output',
+        'journeys',
+        'aerwyna_journey_tmx',
+        'journeys',
       );
+      final keeper = Keeper(
+        textBroker: TextFilesystemBroker(outputPath),
+        imageBroker: ImageFilesystemBroker(outputPath),
+        readOnly: false,
+      );
+      keeper.clear();
 
-      // checking imageries of the root
-      expect(planForKeep.imageries.length, 5);
+      // saving the root and imageries plans
+      final planForKeep = plan;
+      keeper.write(planForKeep);
+
+      checkFileStructurePlan(
+        planForKeep,
+        outputPath: outputPath,
+        existsPicture: false,
+        countImageries: 1,
+      );
     });
   });
 }

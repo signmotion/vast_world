@@ -8,6 +8,35 @@ import 'package:test/test.dart';
 // typedef DEPRECATED_Keeper = Plan2DTiledmapKeeper<DEPRECATED_PlanContent,
 //     ImageFilesystemBroker, TextFilesystemBroker>;
 
+void checkFileStructurePlan(
+  Plan<dynamic> plan, {
+  required String outputPath,
+  required bool existsPicture,
+  required int countImageries,
+}) {
+  final fw = FileWorker(outputPath);
+
+  // checking root
+  expect(fw.existsDirSync(plan.hid), isTrue, reason: fw.npath);
+
+  // checking content
+  expect(
+    fw.existsSync(plan.hid, VMap.defaultContentFilename),
+    isTrue,
+    reason: fw.npath,
+  );
+
+  // with picture
+  expect(
+    fw.existsSync(plan.hid, '${PictureComponent().hid}.png'),
+    existsPicture,
+    reason: fw.npath,
+  );
+
+  // checking imageries of the root
+  expect(plan.imageries.length, countImageries);
+}
+
 void checkPlan(
   Plan<dynamic> plan, {
   required String hid,
