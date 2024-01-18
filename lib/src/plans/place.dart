@@ -2,7 +2,7 @@
 
 part of '../../vast_world.dart';
 
-class PlacePlan extends Plan<Plan> {
+class PlacePlan extends NothingPlan {
   PlacePlan(
     super.u, {
     super.hid = '',

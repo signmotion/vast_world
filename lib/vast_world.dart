@@ -67,6 +67,7 @@ part 'src/plans/components/transform_2d.dart';
 part 'src/plans/components/v.dart';
 
 part 'src/plans/DEPRECATED_plan2d.dart';
+part 'src/plans/nothing.dart';
 part 'src/plans/journey.dart';
 part 'src/plans/all_journeys.dart';
 part 'src/plans/place.dart';

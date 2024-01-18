@@ -143,6 +143,6 @@ void main() {
         checkPathPresence: ['rendered/image/aerwyna/data.png'],
         checkPathAbsence: [],
       );
-    });
+    }, tags: ['current']);
   });
 }
