@@ -9,8 +9,7 @@ class VImage extends TiledImage {
 }
 
 class VBackgroundImage extends VPictureImage {
-  VBackgroundImage({
-    super.pathPrefix = '',
+  const VBackgroundImage({
     required super.width,
     required super.height,
   }) : super(name: defaultBackgroundFilename);
@@ -20,10 +19,9 @@ class VBackgroundImage extends VPictureImage {
 }
 
 class VPictureImage extends VImage {
-  VPictureImage({
-    String pathPrefix = '',
+  const VPictureImage({
     required String name,
     required super.width,
     required super.height,
-  }) : super(source: ph.join(pathPrefix, '$name.png'));
+  }) : super(source: '$name.png');
 }

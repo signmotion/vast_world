@@ -22,28 +22,34 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
   });
 
   @override
-  P? read(String id, int depth) {
+  P? read(String id, [int depth = Keeper.maxReadPlanDepth]) {
+    super.read(id, depth);
+
     throw UnimplementedError();
   }
 
   @override
-  void write(Quant value, int depth) {
+  void write(Quant value, [int depth = Keeper.maxWritePlanDepth]) {
     super.write(value, depth);
 
     _writePlan(value as Plan<dynamic>, depth);
   }
 
-  void _writePlan(Plan<dynamic> plan, int depth, [String? pathPrefix]) {
+  void _writePlan(
+    Plan<dynamic> plan, [
+    int depth = Keeper.maxWritePlanDepth,
+    String? pathPrefix,
+  ]) {
     _writePlanXml(plan, pathPrefix);
     _writePlanPictureComponent(plan, pathPrefix);
 
-    final prefix = ph.join(pathPrefix ?? '', plan.hid);
+    // ! keep all plans to the root; reason: 1 plan can links to some imageries,
+    // ! change them & take changes them
+    final prefix = pathPrefix;
 
     // convert the imageries to plans and save them
     for (final imagery in plan.imageries) {
-      if (depth > 0) {
-        _writePlan(imagery as Plan<dynamic>, depth - 1, prefix);
-      }
+      _writePlan(imagery as Plan<dynamic>, depth - 1, prefix);
     }
   }
 
@@ -70,25 +76,41 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     // tilesets
     final tilesets = <VImagery>[];
     final tileObjects = <VObjectTile>[];
-    for (final imagery in plan.imageries) {
+    var lastY = 0.0;
+    final reversedImageries = plan.imageries.reversed.toList();
+    for (var i = 0; i < reversedImageries.length; ++i) {
+      final imagery = reversedImageries[i] as Plan<dynamic>;
+      final picture = imagery.innerEntity.get<PictureComponent>();
+      if (picture == null) {
+        continue;
+      }
+
       ++id;
       tilesets.add(VImagery.fromImagery(
-        planId: plan.id,
-        imagery: imagery as Plan<dynamic>,
-        tileWidth: 123,
-        tileHeight: 123,
+        imageryHid: imagery.hid,
+        pictureName: picture.hid,
+        tileWidth: picture.width,
+        tileHeight: picture.height,
         firstGid: id,
       ));
 
       ++id;
+      // align by vertical center
+      const wantWidth = 120;
+      const wantIndentY = 40;
+      final scale = wantWidth / picture.width;
+      final w = picture.width * scale;
+      final h = picture.height * scale;
+      final x = w / 2;
+      lastY += h + wantIndentY;
       tileObjects.add(VObjectTile.fromImagery(
         id: id,
         gid: id - 1,
         imagery: imagery,
-        x: 0,
-        y: 0,
-        width: 60,
-        height: 60,
+        x: x.round(),
+        y: lastY.round(),
+        width: w,
+        height: h,
       ));
     }
 

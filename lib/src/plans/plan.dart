@@ -2,7 +2,7 @@
 
 part of '../../vast_world.dart';
 
-class Plan<P extends Quant> extends Quant {
+class Plan<P extends Plan<dynamic>> extends Quant {
   Plan(
     this.u,
     String parentId, {

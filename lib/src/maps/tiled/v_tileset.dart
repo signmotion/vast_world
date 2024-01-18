@@ -21,20 +21,21 @@ class VImagery extends VTileset {
   }) : super(tileCount: 1);
 
   factory VImagery.fromImagery({
-    required String planId,
-    required Plan<dynamic> imagery,
+    required String imageryHid,
+    required String pictureName,
     required int firstGid,
-    int? tileWidth,
-    int? tileHeight,
+    required int tileWidth,
+    required int tileHeight,
   }) =>
       VImagery(
-        name: imagery.hid,
+        name: imageryHid,
         tileWidth: tileWidth,
         tileHeight: tileHeight,
-        image: tileWidth == null
+        image: pictureName.isEmpty
             ? null
-            : VBackgroundImage(
-                pathPrefix: planId,
+            : VPictureImage(
+                // all plans keeps into the root level
+                name: '../$imageryHid/$pictureName',
                 width: tileWidth,
                 height: tileHeight,
               ),

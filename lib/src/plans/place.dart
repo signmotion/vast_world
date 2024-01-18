@@ -2,7 +2,7 @@
 
 part of '../../vast_world.dart';
 
-class PlacePlan extends Plan<Quant> {
+class PlacePlan extends Plan<Plan> {
   PlacePlan(
     super.u,
     super.parentId, {

@@ -9,6 +9,9 @@ abstract class Keeper<Q extends Quant, ImgB extends Broker<dynamic>,
     this.readOnly = true,
   });
 
+  static const maxReadPlanDepth = 12;
+  static const maxWritePlanDepth = 12;
+
   final ImgB imageBroker;
   final TxtB textBroker;
 
@@ -27,11 +30,18 @@ abstract class Keeper<Q extends Quant, ImgB extends Broker<dynamic>,
 
   bool exists(String id) => imageBroker.exists(id) || textBroker.exists(id);
 
-  Q? read(String id, int depth);
+  @mustCallSuper
+  Q? read(String id, [int depth = maxReadPlanDepth]) {
+    argerr(depth >= 0, depth, 'depth');
+
+    return null;
+  }
 
   /// [T] contains ID.
   @mustCallSuper
-  void write(Quant value, int depth) {
+  void write(Quant value, [int depth = maxWritePlanDepth]) {
+    argerr(depth >= 0, depth, 'depth');
+
     if (readOnly) {
       throw Exception('Not permitted when readOnly == true.');
     }
