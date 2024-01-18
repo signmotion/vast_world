@@ -13,6 +13,8 @@ void checkFileStructurePlan(
   required String outputPath,
   required bool existsPicture,
   required int countImageries,
+  required List<String> checkPathPresence,
+  required List<String> checkPathAbsence,
 }) {
   final fw = FileWorker(outputPath);
 
@@ -35,6 +37,16 @@ void checkFileStructurePlan(
 
   // checking imageries of the root
   expect(plan.imageries.length, countImageries);
+
+  // checking other paths for their presence
+  for (final path in checkPathPresence) {
+    expect(fw.existsSync(plan.hid, path), isTrue, reason: fw.npath);
+  }
+
+  // checking other paths for their absence
+  for (final path in checkPathAbsence) {
+    expect(fw.existsSync(plan.hid, path), isFalse, reason: fw.npath);
+  }
 }
 
 void checkPlan(

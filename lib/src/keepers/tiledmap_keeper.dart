@@ -47,7 +47,7 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     // ! change them & take changes them
     final prefix = pathPrefix;
 
-    // convert the imageries to plans and save them
+    // save the imageries as plans
     for (final imagery in plan.imageries) {
       _writePlan(imagery as Plan<dynamic>, depth - 1, prefix);
     }
@@ -80,37 +80,33 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     final reversedImageries = plan.imageries.reversed.toList();
     for (var i = 0; i < reversedImageries.length; ++i) {
       final imagery = reversedImageries[i] as Plan<dynamic>;
-      final picture = imagery.innerEntity.get<PictureComponent>();
-      if (picture == null) {
-        continue;
-      }
+
+      final rendered = ImageRender(plan, imagery).rendered;
+      _writeRendered(rendered);
+
+      final image = rendered.data;
 
       ++id;
       tilesets.add(VImagery.fromImagery(
         imageryHid: imagery.hid,
-        pictureName: picture.hid,
-        tileWidth: picture.width,
-        tileHeight: picture.height,
+        tileWidth: image.width,
+        tileHeight: image.height,
         firstGid: id,
       ));
 
       ++id;
       // align by vertical center
-      const wantWidth = 120;
       const wantIndentY = 40;
-      final scale = wantWidth / picture.width;
-      final w = picture.width * scale;
-      final h = picture.height * scale;
-      final x = w / 2;
-      lastY += h + wantIndentY;
+      final x = image.width / 2;
+      lastY += image.height + wantIndentY;
       tileObjects.add(VObjectTile.fromImagery(
         id: id,
         gid: id - 1,
         imagery: imagery,
         x: x.round(),
         y: lastY.round(),
-        width: w,
-        height: h,
+        width: image.width,
+        height: image.height,
       ));
     }
 
@@ -118,6 +114,7 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     final layers = <Layer>[];
     final picture = plan.innerEntity.get<PictureComponent>();
     {
+      // picture as background
       if (picture != null) {
         ++id;
         layers.add(VPictureLayer(
@@ -128,6 +125,7 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
         ));
       }
 
+      // story as text block
       if (story != null && storyObjects.isNotEmpty) {
         ++id;
         layers.add(VConcreteComponent(
@@ -137,6 +135,7 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
         ));
       }
 
+      // rendered imageries as tiles
       if (tileObjects.isNotEmpty) {
         ++id;
         layers.add(VImageries(
@@ -164,5 +163,16 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
       final pf = ph.join(pathPrefix ?? '', plan.id, '${picture.hid}.png');
       imageBroker.write(pf, picture.image);
     }
+  }
+
+  void _writeRendered(ImageRenderedData rendered) {
+    final pf = ph.join(
+      rendered.spectatorId,
+      'rendered',
+      'image',
+      rendered.watchedId,
+      'data.png',
+    );
+    imageBroker.write(pf, rendered.data);
   }
 }

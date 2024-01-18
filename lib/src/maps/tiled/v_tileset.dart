@@ -22,7 +22,6 @@ class VImagery extends VTileset {
 
   factory VImagery.fromImagery({
     required String imageryHid,
-    required String pictureName,
     required int firstGid,
     required int tileWidth,
     required int tileHeight,
@@ -31,14 +30,12 @@ class VImagery extends VTileset {
         name: imageryHid,
         tileWidth: tileWidth,
         tileHeight: tileHeight,
-        image: pictureName.isEmpty
-            ? null
-            : VPictureImage(
-                // all plans keeps into the root level
-                name: '../$imageryHid/$pictureName',
-                width: tileWidth,
-                height: tileHeight,
-              ),
+        image: VPictureImage(
+          // all imageries of plan keeps into the rendered folder
+          name: 'rendered/image/$imageryHid/data',
+          width: tileWidth,
+          height: tileHeight,
+        ),
         firstGid: firstGid,
       );
 }

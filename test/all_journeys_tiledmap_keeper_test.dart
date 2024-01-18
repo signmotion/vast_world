@@ -41,6 +41,8 @@ void main() {
         outputPath: outputPath,
         existsPicture: true,
         countImageries: 0,
+        checkPathPresence: [],
+        checkPathAbsence: ['rendered'],
       );
     });
 
@@ -70,6 +72,8 @@ void main() {
         outputPath: outputPath,
         existsPicture: true,
         countImageries: 0,
+        checkPathPresence: [],
+        checkPathAbsence: ['rendered'],
       );
     });
 
@@ -99,6 +103,14 @@ void main() {
         outputPath: outputPath,
         existsPicture: false,
         countImageries: 5,
+        checkPathPresence: [
+          'rendered/image/place_0/data.png',
+          'rendered/image/place_1/data.png',
+          'rendered/image/place_2/data.png',
+          'rendered/image/place_3/data.png',
+          'rendered/image/place_4/data.png',
+        ],
+        checkPathAbsence: [],
       );
     });
 
@@ -128,6 +140,8 @@ void main() {
         outputPath: outputPath,
         existsPicture: false,
         countImageries: 1,
+        checkPathPresence: ['rendered/image/aerwyna/data.png'],
+        checkPathAbsence: [],
       );
     });
   });
