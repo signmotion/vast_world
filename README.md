@@ -30,3 +30,7 @@ Dart
 ### izo
 
 ### Universe Engine
+
+## License
+
+[MIT](LICENSE)
