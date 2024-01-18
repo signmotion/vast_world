@@ -43,13 +43,13 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     _writePlanXml(plan, pathPrefix);
     _writePlanPictureComponent(plan, pathPrefix);
 
-    // ! keep all plans to the root; reason: 1 plan can links to some imageries,
+    // ! keep all plans to the root; reason: 1 plan can links to some exposed,
     // ! change them & take changes them
     final prefix = pathPrefix;
 
-    // save the imageries as plans
-    for (final imagery in plan.imageries) {
-      _writePlan(imagery as Plan<dynamic>, depth - 1, prefix);
+    // save the exposed as plans
+    for (final exposed in plan.impactsOnPlans) {
+      _writePlan(exposed as Plan<dynamic>, depth - 1, prefix);
     }
   }
 
@@ -74,22 +74,30 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     }
 
     // tilesets
-    final tilesets = <VImagery>[];
+    final tilesets = <VTileset>[];
     final tileObjects = <VObjectTile>[];
     var lastY = 0.0;
-    for (var i = plan.imageries.length - 1; i >= 0; --i) {
-      final imagery = plan.imageries[i] as Plan<dynamic>;
+    for (var i = plan.impactsOnPlans.length - 1; i >= 0; --i) {
+      final exposed = plan.impactsOnPlans[i] as Plan<dynamic>;
 
-      final rendered = OnePictureImageRender(plan, imagery).rendered;
+      final rendered = OnePictureImageRender(plan, exposed).rendered;
       _writeRendered(rendered);
 
       final image = rendered.data;
 
       ++id;
-      tilesets.add(VImagery.fromImagery(
-        imageryHid: imagery.hid,
+      // all exposed of plan keeps into the folder `rendered`
+      final pictureImage = VPictureImage(
+        name: 'rendered/image/${exposed.hid}/data',
+        width: image.width,
+        height: image.height,
+      );
+      tilesets.add(VTileset(
+        name: exposed.hid,
         tileWidth: image.width,
         tileHeight: image.height,
+        image: pictureImage,
+        tileCount: 1,
         firstGid: id,
       ));
 
@@ -98,10 +106,10 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
       const wantIndentY = 40;
       final x = image.width / 2;
       lastY += image.height + wantIndentY;
-      tileObjects.add(VObjectTile.fromImagery(
+      tileObjects.add(VObjectTile(
         id: id,
         gid: id - 1,
-        imagery: imagery,
+        name: exposed.id,
         x: x.round(),
         y: lastY.round(),
         width: image.width,
@@ -134,10 +142,10 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
         ));
       }
 
-      // rendered imageries as tiles
+      // rendered exposed as tiles
       if (tileObjects.isNotEmpty) {
         ++id;
-        layers.add(VImageries(
+        layers.add(VExposedList(
           id: id,
           objects: tileObjects,
         ));

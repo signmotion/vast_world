@@ -31,10 +31,10 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
       picture: picture,
       story: (text: textStory),
     );
-    aerwynaJourney.addImagery(place);
+    aerwynaJourney.addToImpacts(place);
   }
 
-  allJourneys.addImagery(aerwynaJourney);
+  allJourneys.addToImpacts(aerwynaJourney);
 
   return allJourneys;
 }

@@ -12,7 +12,7 @@ void checkFileStructurePlan(
   Plan<dynamic> plan, {
   required String outputPath,
   required bool existsPicture,
-  required int countImageries,
+  required int countExposed,
   required List<String> checkPathPresence,
   required List<String> checkPathAbsence,
 }) {
@@ -35,8 +35,8 @@ void checkFileStructurePlan(
     reason: fw.npath,
   );
 
-  // checking imageries of the root
-  expect(plan.imageries.length, countImageries);
+  // checking exposed of the root
+  expect(plan.impactsOnPlans.length, countExposed);
 
   // checking other paths for their presence
   for (final path in checkPathPresence) {
@@ -52,7 +52,7 @@ void checkFileStructurePlan(
 void checkPlan(
   Plan<dynamic> plan, {
   required String hid,
-  required List<String> imageryIds,
+  required List<String> exposedIds,
 }) {
   expect(hid.isCorrectHid, true, reason: hid);
   expect(plan.hid, hid);
@@ -60,10 +60,10 @@ void checkPlan(
   expect(plan.uid, isUuid);
   expect(plan.uid == plan.hid, isFalse, reason: '${plan.id} == ${plan.hid}');
 
-  expect(plan.imageries.length, imageryIds.length);
-  for (final imageryId in imageryIds) {
-    final found =
-        plan.imageries.firstWhereOrNull((p) => (p as HasIdMix).id == imageryId);
+  expect(plan.impactsOnPlans.length, exposedIds.length);
+  for (final exposedId in exposedIds) {
+    final found = plan.impactsOnPlans
+        .firstWhereOrNull((p) => (p as HasIdMix).id == exposedId);
     expect(found, isNotNull);
   }
 }

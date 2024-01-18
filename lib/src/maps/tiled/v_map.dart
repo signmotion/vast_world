@@ -46,5 +46,5 @@ class VMap extends TiledMap {
 
   static const defaultBackgroundImageLayerName =
       VBackgroundLayer.defaultBackgroundImageLayerName;
-  static const defaultImageriesLayerName = VImageries.defaultImageriesLayerName;
+  static const defaultExposedLayerName = VExposedList.defaultExposedLayerName;
 }

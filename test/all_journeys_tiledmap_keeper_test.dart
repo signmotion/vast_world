@@ -32,15 +32,15 @@ void main() {
       );
       keeper.clear();
 
-      // saving the root and imageries plans
-      final planForKeep = plan.imageries.single.imageries[4];
+      // saving the root and exposed plans
+      final planForKeep = plan.impactsOnPlans.single.impactsOnPlans[4];
       keeper.write(planForKeep, 1);
 
       checkFileStructurePlan(
         planForKeep,
         outputPath: outputPath,
         existsPicture: true,
-        countImageries: 0,
+        countExposed: 0,
         checkPathPresence: [],
         checkPathAbsence: ['rendered'],
       );
@@ -63,15 +63,15 @@ void main() {
       );
       keeper.clear();
 
-      // saving the root and imageries plans
-      final planForKeep = plan.imageries.single.imageries[0];
+      // saving the root and exposed plans
+      final planForKeep = plan.impactsOnPlans.single.impactsOnPlans[0];
       keeper.write(planForKeep);
 
       checkFileStructurePlan(
         planForKeep,
         outputPath: outputPath,
         existsPicture: true,
-        countImageries: 0,
+        countExposed: 0,
         checkPathPresence: [],
         checkPathAbsence: ['rendered'],
       );
@@ -94,15 +94,15 @@ void main() {
       );
       keeper.clear();
 
-      // saving the root and imageries plans
-      final planForKeep = plan.imageries.single;
+      // saving the root and exposed plans
+      final planForKeep = plan.impactsOnPlans.single;
       keeper.write(planForKeep);
 
       checkFileStructurePlan(
         planForKeep,
         outputPath: outputPath,
         existsPicture: false,
-        countImageries: 5,
+        countExposed: 5,
         checkPathPresence: [
           'rendered/image/place_0/data.png',
           'rendered/image/place_1/data.png',
@@ -131,7 +131,7 @@ void main() {
       );
       keeper.clear();
 
-      // saving the root and imageries plans
+      // saving the root and exposed plans
       final planForKeep = plan;
       keeper.write(planForKeep);
 
@@ -139,7 +139,7 @@ void main() {
         planForKeep,
         outputPath: outputPath,
         existsPicture: false,
-        countImageries: 1,
+        countExposed: 1,
         checkPathPresence: ['rendered/image/aerwyna/data.png'],
         checkPathAbsence: [],
       );

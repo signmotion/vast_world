@@ -57,11 +57,11 @@ extension ListHidExt on List<String> {
   String get listToHid => join(HidExt.hidSeparator);
 }
 
-extension ImageryHidExt on String {
+extension ExposedHidExt on String {
   /// Examples:
   /// ```
   /// raeria.ri
   /// ri.elf_sea
   /// ```
-  bool get isCorrectImageryHid => hidToList.length == 2;
+  bool get isCorrectExposedHid => hidToList.length == 2;
 }

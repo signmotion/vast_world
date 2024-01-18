@@ -18,7 +18,7 @@ class Plan<I extends Plan<dynamic>> extends Quant {
 
   late final Entity innerEntity;
 
-  final List<I> imageries = <I>[];
+  final List<I> impactsOnPlans = <I>[];
 
-  void addImagery(I imagery) => imageries.add(imagery);
+  void addToImpacts(I plan) => impactsOnPlans.add(plan);
 }

@@ -1,9 +1,9 @@
 part of '../../vast_world.dart';
 
-/// The render that calculates [imageries] into [watched] and drawing count
+/// The render that calculates [exposed] into [watched] and drawing count
 /// into the [rendered].
-class CountImageriesImageRender extends ImageRender<ImageRenderConfigure> {
-  CountImageriesImageRender(
+class CountExposedImageRender extends ImageRender<ImageRenderConfigure> {
+  CountExposedImageRender(
     super.spectator,
     super.watched, {
     super.configure = const ImageRenderConfigure(),
@@ -18,11 +18,13 @@ class CountImageriesImageRender extends ImageRender<ImageRenderConfigure> {
     );
     drawString(
       image,
-      '${watched.imageries.length}',
+      '${watched.impactsOnPlans.length}',
       font: arial48,
       color: ColorRgba8(255, 255, 255, 255),
     );
 
-    return ImageRenderedData(spectator.id, watched.id, data: image);
+    final r = copyResize(image, width: 12, height: 12);
+
+    return ImageRenderedData(spectator.id, watched.id, data: r);
   }
 }

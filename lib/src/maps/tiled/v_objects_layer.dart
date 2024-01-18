@@ -8,13 +8,13 @@ class VObjectsLayer extends ObjectGroup {
   }) : super(objects: objects);
 }
 
-class VImageries extends VObjectsLayer {
-  VImageries({
+class VExposedList extends VObjectsLayer {
+  VExposedList({
     required super.id,
     super.objects,
-  }) : super(name: defaultImageriesLayerName);
+  }) : super(name: defaultExposedLayerName);
 
-  static const defaultImageriesLayerName = 'imageries';
+  static const defaultExposedLayerName = 'exposed';
 }
 
 /// Any components keeps into [ObjectGroup].
