@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:id_gen/id_gen.dart';
 import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
+import 'package:wfile/wfile.dart';
 
 // typedef DEPRECATED_PlanContent = Cell2DContent<int>;
 // typedef DEPRECATED_Plan = DEPRECATED_Plan2D<DEPRECATED_PlanContent>;
@@ -16,23 +17,23 @@ void checkFileStructurePlan(
   required List<String> checkPathPresence,
   required List<String> checkPathAbsence,
 }) {
-  final fw = FileWorker(outputPath);
+  final f = WFile(outputPath);
 
   // checking root
-  expect(fw.existsDirSync(plan.hid), isTrue, reason: fw.npath);
+  expect(f.existsDirSync(plan.hid), isTrue, reason: f.npath);
 
   // checking content
   expect(
-    fw.existsSync(plan.hid, VMap.defaultContentFilename),
+    f.existsSync(plan.hid, VMap.defaultContentFilename),
     isTrue,
-    reason: fw.npath,
+    reason: f.npath,
   );
 
   // with picture
   expect(
-    fw.existsSync(plan.hid, '${PictureComponent().hid}.png'),
+    f.existsSync(plan.hid, '${PictureComponent().hid}.png'),
     existsPicture,
-    reason: fw.npath,
+    reason: f.npath,
   );
 
   // checking exposed of the root
@@ -40,12 +41,12 @@ void checkFileStructurePlan(
 
   // checking other paths for their presence
   for (final path in checkPathPresence) {
-    expect(fw.existsSync(plan.hid, path), isTrue, reason: fw.npath);
+    expect(f.existsSync(plan.hid, path), isTrue, reason: f.npath);
   }
 
   // checking other paths for their absence
   for (final path in checkPathAbsence) {
-    expect(fw.existsSync(plan.hid, path), isFalse, reason: fw.npath);
+    expect(f.existsSync(plan.hid, path), isFalse, reason: f.npath);
   }
 }
 

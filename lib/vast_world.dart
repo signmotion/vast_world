@@ -7,13 +7,14 @@ import 'dart:typed_data';
 import 'package:advance_math/advance_math.dart' as amath;
 import 'package:astronomical_measurements/astronomical_measurements.dart';
 import 'package:collection/collection.dart';
-import 'package:dart_helpers/dart_helpers.dart';
+import 'package:dart_helpers/dart_helpers.dart' hide JsonMap, JsonList;
 import 'package:dart_tiledmap/dart_tiledmap.dart';
 import 'package:id_gen/id_gen.dart';
 import 'package:image/image.dart';
 import 'package:meta/meta.dart';
 import 'package:oxygen/oxygen.dart';
 import 'package:path/path.dart' as ph;
+import 'package:wfile/wfile.dart';
 
 part 'src/brokers/broker.dart';
 part 'src/brokers/filesystem_broker.dart';
@@ -79,7 +80,6 @@ part 'src/plans/universe.dart';
 
 part 'src/quant/axis_type.dart';
 part 'src/quant/background.dart';
-part 'src/quant/can_work_with_file.dart';
 part 'src/quant/DEPRECATED_geometry_shape_2d_quant.dart';
 part 'src/quant/DEPRECATED_has_geometry_2d_mix.dart';
 part 'src/quant/DEPRECATED_has_shape_2d_mix.dart';

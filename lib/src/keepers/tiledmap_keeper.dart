@@ -40,6 +40,18 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     int depth = Keeper.maxWritePlanDepth,
     String? pathPrefix,
   ]) {
+    // if (plan is PlacePlan) {
+    //   final tmx = TmxTiledmapPlacePlan(
+    //     plan.u,
+    //     hid: 'tmx_tiledmap_${plan.hid}',
+    //     uid: 'tmx_tiledmap_${plan.uid}',
+    //     placePlan: plan,
+    //   );
+
+    //   final render = tmx.get<XmlRenderComponent>();
+    // }
+
+    // TODO
     _writePlanXml(plan, pathPrefix);
     _writePlanPictureComponent(plan, pathPrefix);
 

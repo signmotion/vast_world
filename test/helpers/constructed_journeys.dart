@@ -1,17 +1,18 @@
 import 'package:vast_world/vast_world.dart';
+import 'package:wfile/wfile.dart';
 
 AllJourneysPlan get constructedAerwynaJourneyFromRaw {
   final u = Universe();
 
   const sourcePath =
       'test/data/journeys/aerwyna_journey_raw/journey_list/0.aerwyna';
-  final fw = FileWorker(sourcePath);
+  final f = WFile(sourcePath);
 
   // root plan: without parent ID
   final allJourneys = AllJourneysPlan(u, hid: 'all_journeys');
 
   // journey by Aerwyna
-  final about = fw.readAsJsonMapString('_.json')!;
+  final about = f.readAsJsonMapString('_.json')!;
   final aerwynaJourney = JourneyPlan(
     u,
     hid: 'aerwyna',
@@ -21,9 +22,9 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
   );
   final placeCount = int.parse(about['place_count']!);
   for (var i = 0; i < placeCount; ++i) {
-    final picture = fw.readAsImage(pathToFile: 'place_list/$i.png');
+    final picture = f.readAsImage(pathToFile: 'place_list/$i.png');
     final textStory = i == 4
-        ? fw.readAsText('place_list/$i/story/story.md')!
+        ? f.readAsText('place_list/$i/story/story.md')!
         : 'Some story into the place $i...';
     final place = PlacePlan(
       u,

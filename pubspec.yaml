@@ -34,6 +34,8 @@ dependencies:
   meta: ^1.11.0
   oxygen: ^0.2.0
   path: ^1.9.0
+  wfile:
+    path: ../wfile
 
 dev_dependencies:
   lints: ^3.0.0
