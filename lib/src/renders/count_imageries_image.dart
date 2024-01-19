@@ -12,19 +12,26 @@ class CountExposedImageRender extends ImageRender<ImageRenderConfigure> {
   /// Just use resized [PictureComponent] or [defaults];
   @override
   ImageRenderedData get rendered {
-    final image = Image(
+    var image = Image(
       width: cfg.defaultWidth,
       height: cfg.defaultHeight,
     );
-    drawString(
-      image,
-      '${watched.impactsOnPlans.length}',
-      font: arial48,
-      color: ColorRgba8(255, 255, 255, 255),
-    );
+    final color = ColorRgba8(255, 255, 255, 255);
+    const spaced = 48;
 
-    final r = copyResize(image, width: 12, height: 12);
+    void draw(String s, int q) => image = drawString(
+          image,
+          s,
+          font: arial48,
+          color: color,
+          y: image.height ~/ 2 + q * spaced,
+        );
 
-    return ImageRenderedData(spectator.id, watched.id, data: r);
+    final count = watched.impactsOnPlans.length;
+    draw("'${spectator.id}'", -3);
+    draw("'${watched.id}'", -1);
+    draw('$count', 2);
+
+    return ImageRenderedData(spectator.id, watched.id, data: image);
   }
 }

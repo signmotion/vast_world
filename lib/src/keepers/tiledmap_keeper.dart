@@ -80,7 +80,8 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     for (var i = plan.impactsOnPlans.length - 1; i >= 0; --i) {
       final exposed = plan.impactsOnPlans[i] as Plan<dynamic>;
 
-      final rendered = OnePictureImageRender(plan, exposed).rendered;
+      final rendered = CountExposedImageRender(plan, exposed).rendered;
+      //final rendered = OnePictureImageRender(plan, exposed).rendered;
       _writeRendered(rendered);
 
       final image = rendered.data;
