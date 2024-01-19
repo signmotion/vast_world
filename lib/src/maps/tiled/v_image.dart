@@ -24,4 +24,7 @@ class VPictureImage extends VImage {
     required super.width,
     required super.height,
   }) : super(source: '$name.png');
+
+  static const defaultPictureFilename =
+      '${VPictureLayer.defaultPictureImageLayerName}.png';
 }

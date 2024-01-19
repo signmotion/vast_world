@@ -11,3 +11,9 @@ String nothingStringRender(
   Plan<dynamic> watched,
 ) =>
     '';
+
+XmlDocument nothingXmlRender(
+  Plan<dynamic> spectator,
+  Plan<dynamic> watched,
+) =>
+    XmlDocument();

@@ -15,6 +15,7 @@ import 'package:meta/meta.dart';
 import 'package:oxygen/oxygen.dart';
 import 'package:path/path.dart' as ph;
 import 'package:wfile/wfile.dart';
+import 'package:xml/xml.dart';
 
 part 'src/brokers/broker.dart';
 part 'src/brokers/filesystem_broker.dart';
@@ -58,6 +59,7 @@ part 'src/plans/components/description.dart';
 part 'src/plans/components/geometry_2d.dart';
 part 'src/plans/components/greeting.dart';
 part 'src/plans/components/id.dart';
+part 'src/plans/components/image_render.dart';
 part 'src/plans/components/list.dart';
 part 'src/plans/components/name.dart';
 part 'src/plans/components/picture.dart';
@@ -67,6 +69,7 @@ part 'src/plans/components/story.dart';
 part 'src/plans/components/string.dart';
 part 'src/plans/components/transform_2d.dart';
 part 'src/plans/components/v.dart';
+part 'src/plans/components/xml_render.dart';
 
 part 'src/plans/DEPRECATED_plan2d.dart';
 part 'src/plans/nothing.dart';
@@ -75,7 +78,7 @@ part 'src/plans/all_journeys.dart';
 part 'src/plans/place.dart';
 part 'src/plans/plan.dart';
 part 'src/plans/plan2d.dart';
-part 'src/plans/tmx_tiledmap.dart';
+part 'src/plans/tmx_tiledmap_place.dart';
 part 'src/plans/universe.dart';
 
 part 'src/quant/axis_type.dart';
@@ -92,8 +95,10 @@ part 'src/renders/count_exposed_image.dart';
 part 'src/renders/image.dart';
 part 'src/renders/nothing.dart';
 part 'src/renders/one_picture_image.dart';
-part 'src/renders/rendered_data.dart';
 part 'src/renders/render.dart';
+part 'src/renders/rendered_data.dart';
+part 'src/renders/xml_tiledmap.dart';
+part 'src/renders/xml.dart';
 
 part 'src/shapes/infinity_shape.dart';
 part 'src/shapes/polygon_shape.dart';

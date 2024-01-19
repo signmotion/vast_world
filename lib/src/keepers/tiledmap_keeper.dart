@@ -40,29 +40,45 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     int depth = Keeper.maxWritePlanDepth,
     String? pathPrefix,
   ]) {
-    // if (plan is PlacePlan) {
-    //   final tmx = TmxTiledmapPlacePlan(
-    //     plan.u,
-    //     hid: 'tmx_tiledmap_${plan.hid}',
-    //     uid: 'tmx_tiledmap_${plan.uid}',
-    //     placePlan: plan,
-    //   );
+    if (plan is PlacePlan) {
+      final tmx = TmxTiledmapPlacePlan(
+        plan.u,
+        hid: 'tmx_tiledmap_${plan.hid}',
+        placePlan: plan,
+      );
 
-    //   final render = tmx.get<XmlRenderComponent>();
-    // }
+      // tmx file
+      {
+        final render = tmx.get<XmlRenderComponent>()!;
+        final xml = render.render(tmx, plan);
+        final s = xml.toXmlString(pretty: false);
+        final pf =
+            ph.join(pathPrefix ?? '', plan.id, VMap.defaultContentFilename);
+        textBroker.write(pf, s);
+      }
+
+      // content for tmx file
+      {
+        final render = tmx.get<ImageRenderComponent>()!;
+        final image = render.render(tmx, plan);
+        final pf =
+            ph.join(pathPrefix ?? '', plan.id, VMap.defaultPictureFilename);
+        imageBroker.write(pf, image);
+      }
+    }
 
     // TODO
-    _writePlanXml(plan, pathPrefix);
-    _writePlanPictureComponent(plan, pathPrefix);
+    // _writePlanXml(plan, pathPrefix);
+    // _writePlanPictureComponent(plan, pathPrefix);
 
-    // ! keep all plans to the root; reason: 1 plan can links to some exposed,
-    // ! change them & take changes them
-    final prefix = pathPrefix;
+    // // ! keep all plans to the root; reason: 1 plan can links to some exposed,
+    // // ! change them & take changes them
+    // final prefix = pathPrefix;
 
-    // save the exposed as plans
-    for (final exposed in plan.impactsOnPlans) {
-      _writePlan(exposed as Plan<dynamic>, depth - 1, prefix);
-    }
+    // // save the exposed as plans
+    // for (final exposed in plan.impactsOnPlans) {
+    //   _writePlan(exposed as Plan<dynamic>, depth - 1, prefix);
+    // }
   }
 
   void _writePlanXml(Plan<dynamic> plan, [String? pathPrefix]) {

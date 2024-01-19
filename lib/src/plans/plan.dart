@@ -9,6 +9,7 @@ class Plan<I extends Plan<dynamic>> extends Quant {
     super.hid = '',
     super.uid = '',
     RenderFn<Image>? imageRenderForExposed,
+    RenderFn<XmlDocument>? xmlRenderForExposed,
     List<I>? impactsOnPlans,
   }) {
     // to fix error `UnmodifiableList`
@@ -16,11 +17,13 @@ class Plan<I extends Plan<dynamic>> extends Quant {
 
     u.registerComponent(IdComponent.new);
     u.registerComponent(ImageRenderComponent.new);
+    u.registerComponent(XmlRenderComponent.new);
 
     // an one entity on each plan
     innerEntity = u.construct(id)
       ..add<IdComponent, IdT>((hid: hid, uid: uid))
-      ..add<ImageRenderComponent, RenderFn<Image>?>(imageRenderForExposed);
+      ..add<ImageRenderComponent, RenderFn<Image>?>(imageRenderForExposed)
+      ..add<XmlRenderComponent, RenderFn<XmlDocument>?>(xmlRenderForExposed);
   }
 
   final Universe u;

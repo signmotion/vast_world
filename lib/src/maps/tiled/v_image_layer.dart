@@ -34,4 +34,6 @@ class VPictureLayer extends VImageLayer {
             height: height,
           ),
         );
+
+  static const defaultPictureImageLayerName = 'picture';
 }
