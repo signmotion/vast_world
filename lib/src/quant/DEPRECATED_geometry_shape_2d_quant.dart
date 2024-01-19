@@ -83,6 +83,7 @@ part of '../../vast_world.dart';
 //           ' Channels: ${bgi.numChannels}.');
 //     }
 
+//     TODO Rewrite this loop as sepia() into Image?
 //     final bytes = bgi.buffer.asByteData();
 //     final w = bgi.width;
 //     final h = bgi.height;

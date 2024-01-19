@@ -73,9 +73,9 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
       ));
     }
 
-    final render = plan.get<RenderComponent>()?.render;
+    final imageRenderComponent = plan.get<ImageRenderComponent>();
     ae(
-      render != null || plan is NothingPlan,
+      imageRenderComponent != null || plan is NothingPlan,
       'Render should be defined for plan `${plan.id}`'
       ' or should be inheritance NothingPlan.',
     );
@@ -83,53 +83,52 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     // tilesets
     final tileObjects = <VObjectTile>[];
     final tilesets = <VTileset>[];
-    if (render != null) {
+    if (imageRenderComponent != null) {
       var lastY = 0.0;
       for (var i = plan.impactsOnPlans.length - 1; i >= 0; --i) {
         final exposed = plan.impactsOnPlans[i] as Plan<dynamic>;
 
-        final rendered =
-            render(plan, exposed, configure: const ImageRenderConfigure())
-                .renderedData as RenderedData<dynamic>;
+        final rendered = imageRenderComponent.renderData(
+          plan.id,
+          exposed.id,
+          data: imageRenderComponent.render(plan, exposed),
+        );
         //final rendered = CountExposedImageRender(plan, exposed).rendered;
         //final rendered = OnePictureImageRender(plan, exposed).rendered;
-        _writeRendered(rendered);
+        _writeImageRendered(rendered);
 
         final image = rendered.data;
-        argerr(image is Image, image, 'image');
 
-        if (image is Image) {
-          ++id;
-          // all exposed of plan keeps into the folder `rendered`
-          final pictureImage = VPictureImage(
-            name: 'rendered/image/${exposed.hid}/data',
-            width: image.width,
-            height: image.height,
-          );
-          tilesets.add(VTileset(
-            name: exposed.hid,
-            tileWidth: image.width,
-            tileHeight: image.height,
-            image: pictureImage,
-            tileCount: 1,
-            firstGid: id,
-          ));
+        ++id;
+        // all exposed of plan keeps into the folder `rendered`
+        final pictureImage = VPictureImage(
+          name: 'rendered/image/${exposed.hid}/data',
+          width: image.width,
+          height: image.height,
+        );
+        tilesets.add(VTileset(
+          name: exposed.hid,
+          tileWidth: image.width,
+          tileHeight: image.height,
+          image: pictureImage,
+          tileCount: 1,
+          firstGid: id,
+        ));
 
-          ++id;
-          // align by vertical center
-          const wantIndentY = 40;
-          final x = image.width / 2;
-          lastY += image.height + wantIndentY;
-          tileObjects.add(VObjectTile(
-            id: id,
-            gid: id - 1,
-            name: exposed.id,
-            x: x.round(),
-            y: lastY.round(),
-            width: image.width,
-            height: image.height,
-          ));
-        }
+        ++id;
+        // align by vertical center
+        const wantIndentY = 40;
+        final x = image.width / 2;
+        lastY += image.height + wantIndentY;
+        tileObjects.add(VObjectTile(
+          id: id,
+          gid: id - 1,
+          name: exposed.id,
+          x: x.round(),
+          y: lastY.round(),
+          width: image.width,
+          height: image.height,
+        ));
       }
     }
 
@@ -159,7 +158,7 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
       }
 
       // rendered exposed as tiles
-      if (render != null && tileObjects.isNotEmpty) {
+      if (imageRenderComponent != null && tileObjects.isNotEmpty) {
         ++id;
         layers.add(VExposedList(
           id: id,
@@ -190,9 +189,7 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     }
   }
 
-  void _writeRendered(RenderedData<dynamic> rendered) {
-    argerr(rendered is ImageRenderedData, rendered, 'rendered');
-
+  void _writeImageRendered(RenderedData<Image> rendered) {
     final pf = ph.join(
       rendered.spectatorId,
       'rendered',

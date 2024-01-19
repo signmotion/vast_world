@@ -8,16 +8,19 @@ class Plan<I extends Plan<dynamic>> extends Quant {
     this.u, {
     super.hid = '',
     super.uid = '',
-    required RenderBuilder? renderBuilderForExposed,
-    this.impactsOnPlans = const [],
+    RenderFn<Image>? imageRenderForExposed,
+    List<I>? impactsOnPlans,
   }) {
+    // to fix error `UnmodifiableList`
+    this.impactsOnPlans = impactsOnPlans ?? List<I>.empty(growable: true);
+
     u.registerComponent(IdComponent.new);
-    u.registerComponent(RenderComponent.new);
+    u.registerComponent(ImageRenderComponent.new);
 
     // an one entity on each plan
     innerEntity = u.construct(id)
       ..add<IdComponent, IdT>((hid: hid, uid: uid))
-      ..add<RenderComponent, RenderBuilder?>(renderBuilderForExposed);
+      ..add<ImageRenderComponent, RenderFn<Image>?>(imageRenderForExposed);
   }
 
   final Universe u;
@@ -25,7 +28,7 @@ class Plan<I extends Plan<dynamic>> extends Quant {
   @protected
   late final Entity innerEntity;
 
-  final List<I> impactsOnPlans;
+  late final List<I> impactsOnPlans;
 
   void addToImpacts(I plan) => impactsOnPlans.add(plan);
 

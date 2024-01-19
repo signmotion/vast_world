@@ -1,23 +1,11 @@
 part of '../../vast_world.dart';
 
-Render<Image, ImageRenderedData, ImageRenderConfigure> onePictureImageRender(
-  Plan<dynamic> spectator,
-  Plan<dynamic> watched, {
-  required ImageRenderConfigure configure,
-}) =>
-    Render(
-      spectator,
-      watched,
-      render: _onePictureImageRender,
-      defaults: defaultImage(configure),
-      configure: configure,
-    );
-
-Image _onePictureImageRender(
+Image onePictureImageRender(
   Plan<dynamic> spectator,
   Plan<dynamic> watched,
-  ImageRenderConfigure configure,
 ) {
+  const configure = ImageRenderConfigure();
+
   final picture = watched.get<PictureComponent>();
   final defaults = defaultImage(configure);
   var image = picture?.image ?? defaults;

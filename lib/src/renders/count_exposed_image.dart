@@ -1,23 +1,11 @@
 part of '../../vast_world.dart';
 
-Render<Image, ImageRenderedData, ImageRenderConfigure> countExposedImageRender(
-  Plan<dynamic> spectator,
-  Plan<dynamic> watched, {
-  required ImageRenderConfigure configure,
-}) =>
-    Render(
-      spectator,
-      watched,
-      render: _countExposedImageRender,
-      defaults: defaultImage(configure),
-      configure: configure,
-    );
-
-Image _countExposedImageRender(
+Image countExposedImageRender(
   Plan<dynamic> spectator,
   Plan<dynamic> watched,
-  ImageRenderConfigure configure,
 ) {
+  const configure = ImageRenderConfigure();
+
   var image = Image(
     width: configure.defaultWidth,
     height: configure.defaultHeight,

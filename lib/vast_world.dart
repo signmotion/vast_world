@@ -74,6 +74,7 @@ part 'src/plans/all_journeys.dart';
 part 'src/plans/place.dart';
 part 'src/plans/plan.dart';
 part 'src/plans/plan2d.dart';
+part 'src/plans/tmx_tiledmap.dart';
 part 'src/plans/universe.dart';
 
 part 'src/quant/axis_type.dart';
@@ -89,6 +90,7 @@ part 'src/quant/quant.dart';
 
 part 'src/renders/count_exposed_image.dart';
 part 'src/renders/image.dart';
+part 'src/renders/nothing.dart';
 part 'src/renders/one_picture_image.dart';
 part 'src/renders/rendered_data.dart';
 part 'src/renders/render.dart';
