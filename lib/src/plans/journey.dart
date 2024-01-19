@@ -12,7 +12,7 @@ class JourneyPlan extends Plan<PlacePlan> {
     required String name,
     required String greeting,
     required String description,
-  }) : super(renderForExposed: OnePictureImageRender.new) {
+  }) : super(renderBuilderForExposed: onePictureImageRender as RenderBuilder) {
     u.registerComponent(NameComponent.new);
     u.registerComponent(GreetingComponent.new);
     u.registerComponent(DescriptionComponent.new);

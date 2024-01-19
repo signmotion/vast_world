@@ -89,7 +89,8 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
         final exposed = plan.impactsOnPlans[i] as Plan<dynamic>;
 
         final rendered =
-            render(plan, exposed).rendered as RenderedData<dynamic>;
+            render(plan, exposed, configure: const ImageRenderConfigure())
+                .renderedData as RenderedData<dynamic>;
         //final rendered = CountExposedImageRender(plan, exposed).rendered;
         //final rendered = OnePictureImageRender(plan, exposed).rendered;
         _writeRendered(rendered);
@@ -158,7 +159,7 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
       }
 
       // rendered exposed as tiles
-      if (tileObjects.isNotEmpty) {
+      if (render != null && tileObjects.isNotEmpty) {
         ++id;
         layers.add(VExposedList(
           id: id,
@@ -167,10 +168,12 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
       }
     }
 
+    final w = picture?.width ?? 0;
+    final h = picture?.height ?? 0;
     final map = VMap(
-      width: picture?.width ?? 0,
-      height: picture?.height ?? 0,
-      infinite: true,
+      width: w,
+      height: h,
+      infinite: w == 0 || h == 0,
       tilesets: tilesets,
       layers: layers,
     );

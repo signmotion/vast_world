@@ -8,7 +8,8 @@ class Plan<I extends Plan<dynamic>> extends Quant {
     this.u, {
     super.hid = '',
     super.uid = '',
-    required RenderBuilder? renderForExposed,
+    required RenderBuilder? renderBuilderForExposed,
+    this.impactsOnPlans = const [],
   }) {
     u.registerComponent(IdComponent.new);
     u.registerComponent(RenderComponent.new);
@@ -16,7 +17,7 @@ class Plan<I extends Plan<dynamic>> extends Quant {
     // an one entity on each plan
     innerEntity = u.construct(id)
       ..add<IdComponent, IdT>((hid: hid, uid: uid))
-      ..add<RenderComponent, RenderBuilder?>(renderForExposed);
+      ..add<RenderComponent, RenderBuilder?>(renderBuilderForExposed);
   }
 
   final Universe u;
@@ -24,7 +25,7 @@ class Plan<I extends Plan<dynamic>> extends Quant {
   @protected
   late final Entity innerEntity;
 
-  final List<I> impactsOnPlans = <I>[];
+  final List<I> impactsOnPlans;
 
   void addToImpacts(I plan) => impactsOnPlans.add(plan);
 

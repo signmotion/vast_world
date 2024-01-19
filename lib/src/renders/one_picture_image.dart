@@ -1,36 +1,43 @@
 part of '../../vast_world.dart';
 
-/// The render that uses [PictureComponent] to construct [rendered].
-class OnePictureImageRender extends ImageRender<ImageRenderConfigure> {
-  OnePictureImageRender(
-    super.spectator,
-    super.watched, {
-    super.configure = const ImageRenderConfigure(),
-  });
-
-  /// Just use resized [PictureComponent] or [defaults];
-  @override
-  ImageRenderedData get rendered {
-    final picture = watched.get<PictureComponent>();
-    var image = picture?.image ?? defaults.data;
-    final w = amath.clamp(image.width, cfg.minWidth, cfg.maxWidth).toInt();
-    final h = amath.clamp(image.height, cfg.minHeight, cfg.maxHeight).toInt();
-    final size = fitSize(
-      Vector2(image.width.toDouble(), image.height.toDouble()),
-      Vector2(w.toDouble(), h.toDouble()),
+Render<Image, ImageRenderedData, ImageRenderConfigure> onePictureImageRender(
+  Plan<dynamic> spectator,
+  Plan<dynamic> watched, {
+  required ImageRenderConfigure configure,
+}) =>
+    Render(
+      spectator,
+      watched,
+      render: _onePictureImageRender,
+      defaults: defaultImage(configure),
+      configure: configure,
     );
 
-    image = copyResize(
-      image,
-      width: size.x.toInt(),
-      height: size.y.toInt(),
-      maintainAspect: true,
-      interpolation: Interpolation.cubic,
-    );
+Image _onePictureImageRender(
+  Plan<dynamic> spectator,
+  Plan<dynamic> watched,
+  ImageRenderConfigure configure,
+) {
+  final picture = watched.get<PictureComponent>();
+  final defaults = defaultImage(configure);
+  var image = picture?.image ?? defaults;
+  final w = image.width.clamp(configure.minWidth, configure.maxWidth);
+  final h = image.height.clamp(configure.minHeight, configure.maxHeight);
+  final size = fitSize(
+    Vector2(image.width.toDouble(), image.height.toDouble()),
+    Vector2(w.toDouble(), h.toDouble()),
+  );
 
-    //image = grayscale(image);
-    image = sepia(image);
+  image = copyResize(
+    image,
+    width: size.x.toInt(),
+    height: size.y.toInt(),
+    maintainAspect: true,
+    interpolation: Interpolation.cubic,
+  );
 
-    return ImageRenderedData(spectator.id, watched.id, data: image);
-  }
+  //image = grayscale(image);
+  image = sepia(image);
+
+  return image;
 }

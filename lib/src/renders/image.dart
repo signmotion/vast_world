@@ -1,24 +1,5 @@
 part of '../../vast_world.dart';
 
-/// The base render an image of [watched] for [spectator].
-abstract class ImageRender<C extends ImageRenderConfigure>
-    extends Render<Image, ImageRenderedData, C> {
-  ImageRender(
-    super.spectator,
-    super.watched, {
-    required super.configure,
-  });
-
-  ImageRenderedData get defaults => ImageRenderedData(
-        spectator.id,
-        watched.id,
-        data: Image(
-          width: cfg.defaultWidth,
-          height: cfg.defaultHeight,
-        ),
-      );
-}
-
 class ImageRenderConfigure extends RenderConfigure {
   const ImageRenderConfigure({
     this.minWidth = 64,
@@ -46,3 +27,8 @@ class ImageRenderedData extends RenderedData<Image> {
     required super.data,
   });
 }
+
+Image defaultImage(ImageRenderConfigure configure) => Image(
+      width: configure.defaultWidth,
+      height: configure.defaultHeight,
+    );
