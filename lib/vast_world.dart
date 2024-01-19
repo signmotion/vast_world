@@ -61,6 +61,7 @@ part 'src/plans/components/list.dart';
 part 'src/plans/components/name.dart';
 part 'src/plans/components/picture.dart';
 part 'src/plans/components/plan.dart';
+part 'src/plans/components/render.dart';
 part 'src/plans/components/story.dart';
 part 'src/plans/components/string.dart';
 part 'src/plans/components/transform_2d.dart';
@@ -86,7 +87,7 @@ part 'src/quant/parent_child_calc_2d_mix.dart';
 part 'src/quant/DEPRECATED_quant.dart';
 part 'src/quant/quant.dart';
 
-part 'src/renders/count_imageries_image.dart';
+part 'src/renders/count_exposed_image.dart';
 part 'src/renders/image.dart';
 part 'src/renders/one_picture_image.dart';
 part 'src/renders/rendered_data.dart';

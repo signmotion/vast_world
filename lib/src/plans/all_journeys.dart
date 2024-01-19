@@ -8,5 +8,5 @@ class AllJourneysPlan extends Plan<JourneyPlan> {
     super.u, {
     super.hid = '',
     super.uid = '',
-  });
+  }) : super(renderForExposed: CountExposedImageRender.new);
 }

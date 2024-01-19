@@ -9,7 +9,6 @@ class CountExposedImageRender extends ImageRender<ImageRenderConfigure> {
     super.configure = const ImageRenderConfigure(),
   });
 
-  /// Just use resized [PictureComponent] or [defaults];
   @override
   ImageRenderedData get rendered {
     var image = Image(

@@ -7,5 +7,5 @@ class NothingPlan extends Plan<Plan> {
     super.u, {
     super.hid = '',
     super.uid = '',
-  });
+  }) : super(renderForExposed: null);
 }
