@@ -1,6 +1,6 @@
 part of '../../../vast_world.dart';
 
-class ImageRenderComponent extends RenderComponent<Image> {
+class ImageRenderForExposedComponent extends RenderComponent<Image> {
   @override
   RenderFn<Image> get empty => nothingImageRender;
 

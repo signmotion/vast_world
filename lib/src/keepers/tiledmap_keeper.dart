@@ -57,13 +57,53 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
         textBroker.write(pf, s);
       }
 
-      // content for tmx file
+      // external content for tmx file
       {
-        final render = tmx.get<ImageRenderComponent>()!;
+        final render = tmx.get<ImageRenderForExposedComponent>()!;
         final image = render.render(tmx, plan);
         final pf =
             ph.join(pathPrefix ?? '', plan.id, VMap.defaultPictureFilename);
         imageBroker.write(pf, image);
+      }
+    }
+
+    if (plan is JourneyPlan) {
+      final tmx = TmxTiledmapJourneyPlan(
+        plan.u,
+        hid: 'tmx_tiledmap_${plan.hid}',
+        journeyPlan: plan,
+      );
+
+      // tmx file
+      {
+        final render = tmx.get<XmlRenderComponent>()!;
+        final xml = render.render(tmx, plan);
+        final s = xml.toXmlString(pretty: false);
+        final pf =
+            ph.join(pathPrefix ?? '', plan.id, VMap.defaultContentFilename);
+        textBroker.write(pf, s);
+      }
+
+      // external content for tmx file
+      {
+        final imageRenderForChildExposedComponent =
+            tmx.get<ImageRenderForChildExposedComponent>()!;
+        final p = tmx.exposed.single; // == plan
+        for (var i = p.impactsOnPlans.length - 1; i >= 0; --i) {
+          final exposed = p.impactsOnPlans[i];
+
+          final render =
+              imageRenderForChildExposedComponent.render(tmx, exposed);
+          final pf = ph.join(
+            pathPrefix ?? '',
+            plan.id,
+            'rendered',
+            'image',
+            exposed.id,
+            'data.png',
+          );
+          imageBroker.write(pf, render);
+        }
       }
     }
 
@@ -101,7 +141,7 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
       ));
     }
 
-    final imageRenderComponent = plan.get<ImageRenderComponent>();
+    final imageRenderComponent = plan.get<ImageRenderForExposedComponent>();
     ae(
       imageRenderComponent != null || plan is NothingPlan,
       'Render should be defined for plan `${plan.id}`'

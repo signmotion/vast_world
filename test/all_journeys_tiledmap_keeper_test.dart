@@ -112,7 +112,7 @@ void main() {
         ],
         checkPathAbsence: [],
       );
-    });
+    }, tags: ['current']);
 
     test(
         'Write all_journeys plan to TiledMap format'
@@ -143,6 +143,6 @@ void main() {
         checkPathPresence: ['rendered/image/aerwyna/data.png'],
         checkPathAbsence: [],
       );
-    }, tags: ['current']);
+    });
   });
 }

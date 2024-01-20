@@ -8,7 +8,6 @@ class TmxTiledmapPlacePlan extends Plan<PlacePlan> {
   TmxTiledmapPlacePlan(
     super.u, {
     super.hid = '',
-    super.uid = '',
     required PlacePlan placePlan,
   }) : super(
           imageRenderForExposed: _imageRenderForPlacePlan,

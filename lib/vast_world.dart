@@ -59,7 +59,8 @@ part 'src/plans/components/description.dart';
 part 'src/plans/components/geometry_2d.dart';
 part 'src/plans/components/greeting.dart';
 part 'src/plans/components/id.dart';
-part 'src/plans/components/image_render.dart';
+part 'src/plans/components/image_render_for_child_exposed.dart';
+part 'src/plans/components/image_render_for_exposed.dart';
 part 'src/plans/components/list.dart';
 part 'src/plans/components/name.dart';
 part 'src/plans/components/picture.dart';
@@ -78,6 +79,7 @@ part 'src/plans/all_journeys.dart';
 part 'src/plans/place.dart';
 part 'src/plans/plan.dart';
 part 'src/plans/plan2d.dart';
+part 'src/plans/tmx_tiledmap_journey.dart';
 part 'src/plans/tmx_tiledmap_place.dart';
 part 'src/plans/universe.dart';
 
