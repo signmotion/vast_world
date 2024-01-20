@@ -17,17 +17,18 @@ class Plan<I extends Plan<dynamic>> extends Quant {
     this.impactsOnPlans = impactsOnPlans ?? List<I>.empty(growable: true);
 
     u.registerComponent(IdComponent.new);
-    u.registerComponent(ImageRenderForExposedComponent.new);
-    u.registerComponent(XmlRenderComponent.new);
-    u.registerComponent(ImageRenderForChildExposedComponent.new);
+    u.registerComponent(DEPRECATED_ImageRenderForExposedComponent.new);
+    u.registerComponent(DEPRECATED_XmlRenderComponent.new);
+    u.registerComponent(DEPRECATED_ImageRenderForChildExposedComponent.new);
 
     // an one entity on each plan
     innerEntity = u.construct(id)
       ..add<IdComponent, IdT>((hid: hid, uid: uid))
-      ..add<ImageRenderForExposedComponent, RenderFn<Image>?>(
+      ..add<DEPRECATED_ImageRenderForExposedComponent, RenderFn<Image>?>(
           imageRenderForExposed)
-      ..add<XmlRenderComponent, RenderFn<XmlDocument>?>(xmlRenderForExposed)
-      ..add<ImageRenderForChildExposedComponent, RenderFn<Image>?>(
+      ..add<DEPRECATED_XmlRenderComponent, RenderFn<XmlDocument>?>(
+          xmlRenderForExposed)
+      ..add<DEPRECATED_ImageRenderForChildExposedComponent, RenderFn<Image>?>(
           imageRenderForChildExposed);
   }
 

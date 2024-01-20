@@ -1,8 +1,8 @@
 part of '../../../vast_world.dart';
 
 typedef TiledmapT = ({
-  ({String pathToFile, XmlDocument content}) fileXmlContent,
-  ({String pathToFile, Image content})? externalFileImageContent,
+  ({String pathToFile, XmlDocument content}) fileXml,
+  List<({String pathToFile, Image content})> fileImages,
 });
 
 class TiledmapRenderConfigure extends XmlRenderConfigure {

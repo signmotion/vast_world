@@ -17,8 +17,8 @@ TiledmapT nothingTiledmapTRender(
   Plan<dynamic> watched,
 ) =>
     (
-      fileXmlContent: (pathToFile: '', content: XmlDocument()),
-      externalFileImageContent: null,
+      fileXml: (pathToFile: '', content: XmlDocument()),
+      fileImages: [],
     );
 
 XmlDocument nothingXmlRender(

@@ -1,4 +1,4 @@
-import 'package:path/path.dart' as pf;
+import 'package:path/path.dart' as ph;
 import 'package:test/test.dart';
 
 import 'helpers/construct.dart';
@@ -15,7 +15,7 @@ void main() {
     test(
         'Write place_4_aerwyna_journey plan to TiledMap format'
         ' and check file structure', () {
-      final outputPath = pf.join(
+      final outputPath = ph.join(
         'test',
         'output',
         'journeys',
@@ -36,12 +36,12 @@ void main() {
         checkPathPresence: [],
         checkPathAbsence: ['rendered'],
       );
-    }, tags: ['current']);
+    });
 
     test(
         'Write place_0_aerwyna_journey plan to TiledMap format'
         ' and check file structure', () {
-      final outputPath = pf.join(
+      final outputPath = ph.join(
         'test',
         'output',
         'journeys',
@@ -67,7 +67,7 @@ void main() {
     test(
         'Write aerwyna_journey plan to TiledMap format'
         ' and check file structure', () {
-      final outputPath = pf.join(
+      final outputPath = ph.join(
         'test',
         'output',
         'journeys',
@@ -94,12 +94,12 @@ void main() {
         ],
         checkPathAbsence: [],
       );
-    });
+    }, tags: ['current']);
 
     test(
         'Write all_journeys plan to TiledMap format'
         ' and check file structure', () {
-      final outputPath = pf.join(
+      final outputPath = ph.join(
         'test',
         'output',
         'journeys',

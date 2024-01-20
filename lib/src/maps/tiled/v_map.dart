@@ -41,12 +41,17 @@ class VMap extends TiledMap {
       );
 
   static const defaultContentFilename = '_.tmx';
+
   static const defaultBackgroundFilename =
       VBackgroundImage.defaultBackgroundFilename;
+
   static String get defaultPictureFilename =>
       VPictureImage.defaultPictureFilename;
 
+  static const defaultDataImageFilename = 'data.png';
+
   static const defaultBackgroundImageLayerName =
       VBackgroundLayer.defaultBackgroundImageLayerName;
+
   static const defaultExposedLayerName = VExposedList.defaultExposedLayerName;
 }

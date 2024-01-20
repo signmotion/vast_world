@@ -1,10 +1,10 @@
 part of '../../../vast_world.dart';
 
-typedef BackgroundT = Background;
+typedef BackgroundT = DEPRECATED_Background;
 
-class BackgroundComponent extends VComponent<BackgroundT> {
+class DEPRECATED_BackgroundComponent extends VComponent<BackgroundT> {
   @override
-  BackgroundT get empty => Background('', image: Image.empty());
+  BackgroundT get empty => DEPRECATED_Background('', image: Image.empty());
 
   @override
   void check() {

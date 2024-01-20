@@ -6,7 +6,7 @@ TiledmapT placeTiledmapRender(
 ) {
   const configure = TiledmapRenderConfigure();
 
-  Image imageRenderForPlacePlan(
+  Image pictureLayerImageRender(
     Plan<dynamic> spectator,
     Plan<dynamic> watched,
   ) {
@@ -15,7 +15,7 @@ TiledmapT placeTiledmapRender(
     return picture?.image ?? defaultImage();
   }
 
-  XmlDocument xmlRenderForPlacePlan(
+  XmlDocument xmlRender(
     Plan<dynamic> spectator,
     Plan<dynamic> watched,
   ) {
@@ -75,13 +75,15 @@ TiledmapT placeTiledmapRender(
   }
 
   return (
-    fileXmlContent: (
+    fileXml: (
       pathToFile: ph.join(watched.id, VMap.defaultContentFilename),
-      content: xmlRenderForPlacePlan(spectator, watched)
+      content: xmlRender(spectator, watched),
     ),
-    externalFileImageContent: (
-      pathToFile: ph.join(watched.id, VMap.defaultPictureFilename),
-      content: imageRenderForPlacePlan(spectator, watched)
-    ),
+    fileImages: [
+      (
+        pathToFile: ph.join(watched.id, VMap.defaultPictureFilename),
+        content: pictureLayerImageRender(spectator, watched),
+      ),
+    ],
   );
 }

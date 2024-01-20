@@ -1,4 +1,4 @@
 part of '../../../vast_world.dart';
 
-class ImageRenderForChildExposedComponent
-    extends ImageRenderForExposedComponent {}
+class DEPRECATED_ImageRenderForChildExposedComponent
+    extends DEPRECATED_ImageRenderForExposedComponent {}

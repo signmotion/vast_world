@@ -1,40 +1,31 @@
-// ignore_for_file: inference_failure_on_function_invocation
+part of '../../../vast_world.dart';
 
-part of '../../vast_world.dart';
+TiledmapT journeyTiledmapRender(
+  Plan<dynamic> spectator,
+  Plan<dynamic> watched,
+) {
+  const configure = TiledmapRenderConfigure();
 
-/// The plan for spectate any [JourneyPlan] as TMX formatted plan.
-/// Attempt to rendering into TMX with [Plan] features.
-class DEPRECATED_TmxTiledmapJourneyPlan extends Plan<JourneyPlan> {
-  DEPRECATED_TmxTiledmapJourneyPlan(
-    super.u, {
-    super.hid = '',
-    required JourneyPlan journeyPlan,
-  }) : super(
-          imageRenderForExposed: _imageRenderForJourneyPlan,
-          xmlRenderForExposed: _xmlRenderForJourneyPlan,
-          imageRenderForChildExposed: _imageRenderForPlacePlan,
-        ) {
-    addToImpacts(journeyPlan);
-  }
+  ({String pathToFile, Image content}) imageryImageRender(
+    Plan<dynamic> spectator,
+    Plan<dynamic> watched,
+    Plan<dynamic> exposedWatched,
+  ) =>
+      (
+        pathToFile: ph.join(
+          watched.id,
+          'rendered',
+          'image',
+          exposedWatched.hid,
+          VMap.defaultDataImageFilename,
+        ),
+        content: onePictureImageRender(spectator, exposedWatched),
+      );
 
-  static Image _imageRenderForJourneyPlan(
+  XmlDocument xmlRender(
     Plan<dynamic> spectator,
     Plan<dynamic> watched,
   ) {
-    // ae(spectator == watched,
-    // "PlacePlan doesn't contain exposed therefore should be same.");
-
-    const configure = ImageRenderConfigure();
-
-    return defaultImage(configure);
-  }
-
-  static XmlDocument _xmlRenderForJourneyPlan(
-    Plan<dynamic> spectator,
-    Plan<dynamic> watched,
-  ) {
-    const configure = TiledmapRenderConfigure();
-
     final id = TransitIdGen();
 
     // tilesets
@@ -46,7 +37,6 @@ class DEPRECATED_TmxTiledmapJourneyPlan extends Plan<JourneyPlan> {
     for (var i = watched.impactsOnPlans.length - 1; i >= 0; --i) {
       final exposed = watched.impactsOnPlans[i] as Plan<dynamic>;
 
-      // TODO(sign): optimize Rendered twice.
       final render =
           imageRenderForChildExposedComponent.render(watched, exposed);
       final image = render;
@@ -104,9 +94,16 @@ class DEPRECATED_TmxTiledmapJourneyPlan extends Plan<JourneyPlan> {
     return TileMapConverter.convertToTmx(map);
   }
 
-  static Image _imageRenderForPlacePlan(
-    Plan<dynamic> spectator,
-    Plan<dynamic> watched,
-  ) =>
-      onePictureImageRender(spectator, watched);
+  final imageries = [
+    for (final we in watched.exposed)
+      imageryImageRender(spectator, watched, we as Plan<dynamic>)
+  ];
+
+  return (
+    fileXml: (
+      pathToFile: ph.join(watched.id, VMap.defaultContentFilename),
+      content: xmlRender(spectator, watched)
+    ),
+    fileImages: imageries,
+  );
 }

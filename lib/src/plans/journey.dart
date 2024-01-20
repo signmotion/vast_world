@@ -16,10 +16,14 @@ class JourneyPlan extends Plan<PlacePlan> {
     u.registerComponent(NameComponent.new);
     u.registerComponent(GreetingComponent.new);
     u.registerComponent(DescriptionComponent.new);
+    u.registerComponent(TiledmapRenderComponent.new);
 
     innerEntity
       ..add<NameComponent, String>(name)
       ..add<GreetingComponent, String>(name)
-      ..add<DescriptionComponent, String>(name);
+      ..add<DescriptionComponent, String>(name)
+      ..add<TiledmapRenderComponent, RenderFn<TiledmapT>>(
+          journeyTiledmapRender);
+    ;
   }
 }

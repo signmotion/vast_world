@@ -1,16 +1,16 @@
 part of '../../vast_world.dart';
 
-class Background extends WFile with ReadFileAsImage {
-  Background(super.pathToImageFile, {Image? image})
+class DEPRECATED_Background extends WFile with ReadFileAsImage {
+  DEPRECATED_Background(super.pathToImageFile, {Image? image})
       : assert(pathToImageFile.isNotEmpty || image != null) {
     numChannels = 4;
     alpha = null;
     this.image = image;
   }
 
-  factory Background.fromPathToImageFile(String pathToImageFile) =>
-      Background(pathToImageFile);
+  factory DEPRECATED_Background.fromPathToImageFile(String pathToImageFile) =>
+      DEPRECATED_Background(pathToImageFile);
 
-  factory Background.fromImage(Image initImage) =>
-      Background('', image: initImage);
+  factory DEPRECATED_Background.fromImage(Image initImage) =>
+      DEPRECATED_Background('', image: initImage);
 }

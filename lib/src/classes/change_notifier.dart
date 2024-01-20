@@ -1,4 +1,6 @@
 /// Source: Flutter
+// ignore_for_file: unused_field
+
 part of '../../vast_world.dart';
 
 /// An object that maintains a list of listeners.

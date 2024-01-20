@@ -4,8 +4,8 @@ part of '../../vast_world.dart';
 
 /// The plan for spectate any [PlacePlan] as TMX formatted plan.
 /// Attempt to rendering into TMX with [Plan] features.
-class TmxTiledmapPlacePlan extends Plan<PlacePlan> {
-  TmxTiledmapPlacePlan(
+class DEPRECATED_TmxTiledmapPlacePlan extends Plan<PlacePlan> {
+  DEPRECATED_TmxTiledmapPlacePlan(
     super.u, {
     super.hid = '',
     required PlacePlan placePlan,

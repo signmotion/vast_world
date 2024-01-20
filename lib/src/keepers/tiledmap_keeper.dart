@@ -48,7 +48,7 @@ class PlanTiledmapKeeper<
     int depth = Keeper.maxWritePlanDepth,
     String? pathPrefix,
   ]) {
-    if (plan is PlacePlan) {
+    if (plan is PlacePlan || plan is JourneyPlan) {
       final renderComponent = plan.get<TiledmapRenderComponent>();
       ae(
           renderComponent != null,
@@ -56,15 +56,17 @@ class PlanTiledmapKeeper<
           ' for transform the plan to Tiledmap format.');
 
       final r = renderComponent!.render(AbsolutePlan(), plan);
+      final pp = pathPrefix ?? '';
 
       xmlBroker.write(
-        ph.join(pathPrefix ?? '', r.fileXmlContent.pathToFile),
-        r.fileXmlContent.content,
+        ph.join(pp, r.fileXml.pathToFile),
+        r.fileXml.content,
       );
-      if (r.externalFileImageContent != null) {
+
+      for (final fm in r.fileImages) {
         imageBroker.write(
-          ph.join(pathPrefix ?? '', r.externalFileImageContent!.pathToFile),
-          r.externalFileImageContent!.content,
+          ph.join(pp, fm.pathToFile),
+          fm.content,
         );
       }
     }
@@ -103,7 +105,8 @@ class PlanTiledmapKeeper<
       ));
     }
 
-    final imageRenderComponent = plan.get<ImageRenderForExposedComponent>();
+    final imageRenderComponent =
+        plan.get<DEPRECATED_ImageRenderForExposedComponent>();
     ae(
       imageRenderComponent != null || plan is NothingPlan,
       'Render should be defined for plan `${plan.id}`'
