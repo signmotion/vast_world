@@ -3,6 +3,7 @@ import 'package:id_gen/id_gen.dart';
 import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
 import 'package:wfile/wfile.dart';
+import 'package:xml/xml.dart';
 
 // typedef DEPRECATED_PlanContent = Cell2DContent<int>;
 // typedef DEPRECATED_Plan = DEPRECATED_Plan2D<DEPRECATED_PlanContent>;
@@ -19,6 +20,8 @@ void checkFileStructurePlan(
   required int width,
   required int height,
   required bool infinite,
+  required String? imageLayerName,
+  required String? imageLayerImageSource,
 }) {
   final f = WFile([outputPath, plan.hid], exceptionWhenFileNotExists: true);
 
@@ -58,6 +61,12 @@ void checkFileStructurePlan(
   expect(map.getAttribute('width'), '$width');
   expect(map.getAttribute('height'), '$height');
   expect(map.getAttribute('infinite') ?? '0', infinite ? '1' : '0');
+
+  final imageLayer = map.findElements('imagelayer').firstOrNull;
+  expect(imageLayer?.getAttribute('name'), imageLayerName);
+
+  final imageLayerImage = imageLayer?.findElements('image').firstOrNull;
+  expect(imageLayerImage?.getAttribute('source'), imageLayerImageSource);
 }
 
 void checkPlan(

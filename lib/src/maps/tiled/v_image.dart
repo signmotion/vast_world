@@ -13,7 +13,7 @@ class VPictureImage extends VImage {
     required String name,
     required super.width,
     required super.height,
-  }) : super(source: ph.extension(name).isEmpty ? '$name.png' : name);
+  }) : super(source: '${ph.withoutExtension(name)}.png');
 
   static String get defaultPictureFilename =>
       '${VPictureLayer.defaultPictureImageLayerName}.png';

@@ -38,6 +38,8 @@ void main() {
         width: 1024,
         height: 1024,
         infinite: false,
+        imageLayerName: 'picture',
+        imageLayerImageSource: 'picture.png',
       );
     }, tags: ['current']);
 
@@ -67,6 +69,8 @@ void main() {
         width: 1024,
         height: 1024,
         infinite: false,
+        imageLayerName: 'picture',
+        imageLayerImageSource: 'picture.png',
       );
     });
 
@@ -102,6 +106,8 @@ void main() {
         width: 0,
         height: 0,
         infinite: true,
+        imageLayerName: null,
+        imageLayerImageSource: null,
       );
     });
 
@@ -131,6 +137,8 @@ void main() {
         width: 0,
         height: 0,
         infinite: true,
+        imageLayerName: null,
+        imageLayerImageSource: null,
       );
     });
   });

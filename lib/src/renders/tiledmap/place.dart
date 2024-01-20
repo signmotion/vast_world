@@ -45,7 +45,7 @@ TiledmapT placeTiledmapRender(
 
     // picture as background
     final picture = pictureComponentImageRender(spectator, watched);
-    final pathToFile = picture.pathToFile;
+    final pathToFile = picture.pathToFile.pathTail;
     final image = picture.content;
     layers.add(VPictureLayer(
       id: id.next,

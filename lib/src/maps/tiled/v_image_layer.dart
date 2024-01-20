@@ -3,9 +3,10 @@ part of '../../../vast_world.dart';
 class VImageLayer extends ImageLayer {
   VImageLayer({
     required super.id,
-    required super.name,
+    required String name,
     required super.image,
   }) : super(
+          name: ph.withoutExtension(name),
           repeatX: false,
           repeatY: false,
         );
