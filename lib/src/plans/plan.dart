@@ -8,28 +8,15 @@ class Plan<I extends Plan<dynamic>> extends Quant {
     this.u, {
     super.hid = '',
     super.uid = '',
-    RenderFn<Image>? imageRenderForExposed,
-    RenderFn<XmlDocument>? xmlRenderForExposed,
-    RenderFn<Image>? imageRenderForChildExposed,
     List<I>? impactsOnPlans,
   }) {
     // to fix error `UnmodifiableList`
     this.impactsOnPlans = impactsOnPlans ?? List<I>.empty(growable: true);
 
     u.registerComponent(IdComponent.new);
-    u.registerComponent(DEPRECATED_ImageRenderForExposedComponent.new);
-    u.registerComponent(DEPRECATED_XmlRenderComponent.new);
-    u.registerComponent(DEPRECATED_ImageRenderForChildExposedComponent.new);
 
     // an one entity on each plan
-    innerEntity = u.construct(id)
-      ..add<IdComponent, IdT>((hid: hid, uid: uid))
-      ..add<DEPRECATED_ImageRenderForExposedComponent, RenderFn<Image>?>(
-          imageRenderForExposed)
-      ..add<DEPRECATED_XmlRenderComponent, RenderFn<XmlDocument>?>(
-          xmlRenderForExposed)
-      ..add<DEPRECATED_ImageRenderForChildExposedComponent, RenderFn<Image>?>(
-          imageRenderForChildExposed);
+    innerEntity = u.construct(id)..add<IdComponent, IdT>((hid: hid, uid: uid));
   }
 
   final Universe u;

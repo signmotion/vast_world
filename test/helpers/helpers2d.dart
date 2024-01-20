@@ -16,22 +16,25 @@ void checkFileStructurePlan(
   required int countExposed,
   required List<String> checkPathPresence,
   required List<String> checkPathAbsence,
+  required int width,
+  required int height,
+  required bool infinite,
 }) {
-  final f = WFile(outputPath);
+  final f = WFile([outputPath, plan.hid], exceptionWhenFileNotExists: true);
 
   // checking root
-  expect(f.existsDirSync(plan.hid), isTrue, reason: f.npath);
+  expect(f.existsDir(), isTrue, reason: f.npath);
 
   // checking content
   expect(
-    f.existsSync(plan.hid, VMap.defaultContentFilename),
+    f.existsFile(VMap.defaultContentFilename),
     isTrue,
     reason: f.npath,
   );
 
   // with picture
   expect(
-    f.existsSync(plan.hid, '${PictureComponent().hid}.png'),
+    f.existsFile('${PictureComponent().hid}.png'),
     existsPicture,
     reason: f.npath,
   );
@@ -41,13 +44,20 @@ void checkFileStructurePlan(
 
   // checking other paths for their presence
   for (final path in checkPathPresence) {
-    expect(f.existsSync(plan.hid, path), isTrue, reason: f.npath);
+    expect(f.existsFile(path), isTrue, reason: f.npath);
   }
 
   // checking other paths for their absence
   for (final path in checkPathAbsence) {
-    expect(f.existsSync(plan.hid, path), isFalse, reason: f.npath);
+    expect(f.existsFile(path), isFalse, reason: f.npath);
   }
+
+  // checking data into xml file
+  final xml = f.readAsXml('_.tmx')!;
+  final map = xml.rootElement;
+  expect(map.getAttribute('width'), '$width');
+  expect(map.getAttribute('height'), '$height');
+  expect(map.getAttribute('infinite') ?? '0', infinite ? '1' : '0');
 }
 
 void checkPlan(

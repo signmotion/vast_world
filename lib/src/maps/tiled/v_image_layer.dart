@@ -11,16 +11,6 @@ class VImageLayer extends ImageLayer {
         );
 }
 
-class VBackgroundLayer extends VPictureLayer {
-  VBackgroundLayer({
-    required super.id,
-    required super.width,
-    required super.height,
-  }) : super(name: defaultBackgroundImageLayerName);
-
-  static const defaultBackgroundImageLayerName = 'bg';
-}
-
 class VPictureLayer extends VImageLayer {
   VPictureLayer({
     required super.id,

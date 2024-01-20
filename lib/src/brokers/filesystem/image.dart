@@ -13,7 +13,7 @@ class ImageFilesystemBroker extends FilesystemBroker<Image> {
 
   @override
   Image? read(String key) =>
-      readAsImage(pathToFile: key, numChannels: numChannels, alpha: alpha);
+      readAsImage(key, numChannels: numChannels, alpha: alpha);
 
   @override
   void write(String key, Image value) => writeAsImage(value, key);

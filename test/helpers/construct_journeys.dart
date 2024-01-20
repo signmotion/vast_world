@@ -22,7 +22,7 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
   );
   final placeCount = int.parse(about['place_count']!);
   for (var i = 0; i < placeCount; ++i) {
-    final picture = f.readAsImage(pathToFile: 'place_list/$i.png');
+    final picture = f.readAsImage('place_list/$i.png')!;
     final textStory = i == 4
         ? f.readAsText('place_list/$i/story/story.md')!
         : 'Some story into the place $i...';

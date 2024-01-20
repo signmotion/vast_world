@@ -35,8 +35,11 @@ void main() {
         countExposed: 0,
         checkPathPresence: [],
         checkPathAbsence: ['rendered'],
+        width: 1024,
+        height: 1024,
+        infinite: false,
       );
-    });
+    }, tags: ['current']);
 
     test(
         'Write place_0_aerwyna_journey plan to TiledMap format'
@@ -61,6 +64,9 @@ void main() {
         countExposed: 0,
         checkPathPresence: [],
         checkPathAbsence: ['rendered'],
+        width: 1024,
+        height: 1024,
+        infinite: false,
       );
     });
 
@@ -93,8 +99,11 @@ void main() {
           'rendered/image/place_4/data.png',
         ],
         checkPathAbsence: [],
+        width: 0,
+        height: 0,
+        infinite: true,
       );
-    }, tags: ['current']);
+    });
 
     test(
         'Write all_journeys plan to TiledMap format'
@@ -119,6 +128,9 @@ void main() {
         countExposed: 1,
         checkPathPresence: ['rendered/image/aerwyna/data.png'],
         checkPathAbsence: [],
+        width: 0,
+        height: 0,
+        infinite: true,
       );
     });
   });

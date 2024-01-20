@@ -8,5 +8,10 @@ class AllJourneysPlan extends Plan<JourneyPlan> {
     super.u, {
     super.hid = '',
     super.uid = '',
-  }) : super(imageRenderForExposed: countExposedImageRender);
+  }) {
+    //u.registerComponent(TiledmapRenderComponent.new);
+
+    //innerEntity.add<TiledmapRenderComponent, RenderFn<TiledmapT>>(
+    //    allJourneysTiledmapRender);
+  }
 }

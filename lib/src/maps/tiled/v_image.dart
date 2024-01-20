@@ -8,22 +8,12 @@ class VImage extends TiledImage {
   });
 }
 
-class VBackgroundImage extends VPictureImage {
-  const VBackgroundImage({
-    required super.width,
-    required super.height,
-  }) : super(name: defaultBackgroundFilename);
-
-  static const defaultBackgroundFilename =
-      '${VBackgroundLayer.defaultBackgroundImageLayerName}.png';
-}
-
 class VPictureImage extends VImage {
-  const VPictureImage({
+  VPictureImage({
     required String name,
     required super.width,
     required super.height,
-  }) : super(source: '$name.png');
+  }) : super(source: ph.extension(name).isEmpty ? '$name.png' : name);
 
   static String get defaultPictureFilename =>
       '${VPictureLayer.defaultPictureImageLayerName}.png';

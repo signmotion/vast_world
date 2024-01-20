@@ -58,13 +58,10 @@ part 'src/keepers/keeper.dart';
 part 'src/keepers/DEPRECATED_tiledmap_keeper.dart';
 part 'src/keepers/tiledmap_keeper.dart';
 
-part 'src/plans/components/background.dart';
 part 'src/plans/components/description.dart';
 part 'src/plans/components/geometry_2d.dart';
 part 'src/plans/components/greeting.dart';
 part 'src/plans/components/id.dart';
-part 'src/plans/components/image_render_for_child_exposed.dart';
-part 'src/plans/components/image_render_for_exposed.dart';
 part 'src/plans/components/list.dart';
 part 'src/plans/components/name.dart';
 part 'src/plans/components/picture.dart';
@@ -85,12 +82,9 @@ part 'src/plans/journey.dart';
 part 'src/plans/place.dart';
 part 'src/plans/plan.dart';
 part 'src/plans/plan2d.dart';
-part 'src/plans/tmx_tiledmap_journey.dart';
-part 'src/plans/tmx_tiledmap_place.dart';
 part 'src/plans/universe.dart';
 
 part 'src/quant/axis_type.dart';
-part 'src/quant/background.dart';
 part 'src/quant/DEPRECATED_geometry_shape_2d_quant.dart';
 part 'src/quant/DEPRECATED_has_geometry_2d_mix.dart';
 part 'src/quant/DEPRECATED_has_shape_2d_mix.dart';

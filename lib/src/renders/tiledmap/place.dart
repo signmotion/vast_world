@@ -6,13 +6,16 @@ TiledmapT placeTiledmapRender(
 ) {
   const configure = TiledmapRenderConfigure();
 
-  Image pictureLayerImageRender(
+  ({String pathToFile, Image content}) pictureComponentImageRender(
     Plan<dynamic> spectator,
     Plan<dynamic> watched,
   ) {
     final picture = watched.get<PictureComponent>();
 
-    return picture?.image ?? defaultImage();
+    return (
+      pathToFile: ph.join(watched.id, VMap.defaultPictureFilename),
+      content: picture?.image ?? defaultImage(),
+    );
   }
 
   XmlDocument xmlRender(
@@ -20,9 +23,6 @@ TiledmapT placeTiledmapRender(
     Plan<dynamic> watched,
   ) {
     final id = TransitIdGen();
-
-    // picture as background
-    final picture = watched.get<PictureComponent>();
 
     // story as text object
     final storyObjects = <VObjectText>[];
@@ -44,14 +44,15 @@ TiledmapT placeTiledmapRender(
     final layers = <Layer>[];
 
     // picture as background
-    if (picture != null) {
-      layers.add(VPictureLayer(
-        id: id.next,
-        name: picture.hid,
-        width: picture.width,
-        height: picture.height,
-      ));
-    }
+    final picture = pictureComponentImageRender(spectator, watched);
+    final pathToFile = picture.pathToFile;
+    final image = picture.content;
+    layers.add(VPictureLayer(
+      id: id.next,
+      name: pathToFile,
+      width: image.width,
+      height: image.height,
+    ));
 
     // story as text block
     if (story != null && storyObjects.isNotEmpty) {
@@ -62,8 +63,8 @@ TiledmapT placeTiledmapRender(
       ));
     }
 
-    final w = picture?.width ?? 0;
-    final h = picture?.height ?? 0;
+    final w = image.width;
+    final h = image.height;
     final map = VMap(
       width: w,
       height: h,
@@ -74,16 +75,13 @@ TiledmapT placeTiledmapRender(
     return TileMapConverter.convertToTmx(map);
   }
 
+  final image = pictureComponentImageRender(spectator, watched);
+
   return (
     fileXml: (
       pathToFile: ph.join(watched.id, VMap.defaultContentFilename),
       content: xmlRender(spectator, watched),
     ),
-    fileImages: [
-      (
-        pathToFile: ph.join(watched.id, VMap.defaultPictureFilename),
-        content: pictureLayerImageRender(spectator, watched),
-      ),
-    ],
+    fileImages: [image],
   );
 }

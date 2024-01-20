@@ -25,25 +25,29 @@ TiledmapT journeyTiledmapRender(
   XmlDocument xmlRender(
     Plan<dynamic> spectator,
     Plan<dynamic> watched,
+    List<({String pathToFile, Image content})> imageries,
   ) {
+    ae(
+        watched.exposed.length == imageries.length,
+        'Count of exposed into `watched` and'
+        ' count imageries should be equals.');
+
     final id = TransitIdGen();
 
     // tilesets
     final tileObjects = <VObjectTile>[];
     final tilesets = <VTileset>[];
-    final imageRenderForChildExposedComponent =
-        spectator.get<DEPRECATED_ImageRenderForChildExposedComponent>()!;
     var lastY = 0.0;
     for (var i = watched.impactsOnPlans.length - 1; i >= 0; --i) {
       final exposed = watched.impactsOnPlans[i] as Plan<dynamic>;
+      final imagery = imageries[i];
+      final pathToImageryFile = imagery.pathToFile;
+      final image = imagery.content;
 
-      final render =
-          imageRenderForChildExposedComponent.render(watched, exposed);
-      final image = render;
-
-      // all exposed of plan keeps into the folder `rendered`
+      // all exposed of plan keeps into the specific folder
+      // see [imageryImageRender]
       final pictureImage = VPictureImage(
-        name: 'rendered/image/${exposed.hid}/data',
+        name: pathToImageryFile,
         width: image.width,
         height: image.height,
       );
@@ -102,7 +106,7 @@ TiledmapT journeyTiledmapRender(
   return (
     fileXml: (
       pathToFile: ph.join(watched.id, VMap.defaultContentFilename),
-      content: xmlRender(spectator, watched)
+      content: xmlRender(spectator, watched, imageries),
     ),
     fileImages: imageries,
   );
