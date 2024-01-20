@@ -1,41 +1,24 @@
-// ignore_for_file: inference_failure_on_function_invocation
+part of '../../../vast_world.dart';
 
-part of '../../vast_world.dart';
+TiledmapT placeTiledmapRender(
+  Plan<dynamic> spectator,
+  Plan<dynamic> watched,
+) {
+  const configure = TiledmapRenderConfigure();
 
-/// The plan for spectate any [PlacePlan] as TMX formatted plan.
-/// Attempt to rendering into TMX with [Plan] features.
-class TmxTiledmapPlacePlan extends Plan<PlacePlan> {
-  TmxTiledmapPlacePlan(
-    super.u, {
-    super.hid = '',
-    required PlacePlan placePlan,
-  }) : super(
-          imageRenderForExposed: _imageRenderForPlacePlan,
-          xmlRenderForExposed: _xmlRenderForPlacePlan,
-        ) {
-    addToImpacts(placePlan);
-  }
-
-  static Image _imageRenderForPlacePlan(
+  Image imageRenderForPlacePlan(
     Plan<dynamic> spectator,
     Plan<dynamic> watched,
   ) {
-    // ae(spectator == watched,
-    // "PlacePlan doesn't contain exposed therefore should be same.");
-
-    const configure = ImageRenderConfigure();
-
     final picture = watched.get<PictureComponent>();
 
-    return picture?.image ?? defaultImage(configure);
+    return picture?.image ?? defaultImage();
   }
 
-  static XmlDocument _xmlRenderForPlacePlan(
+  XmlDocument xmlRenderForPlacePlan(
     Plan<dynamic> spectator,
     Plan<dynamic> watched,
   ) {
-    const configure = TiledmapRenderConfigure();
-
     final id = TransitIdGen();
 
     // picture as background
@@ -90,4 +73,15 @@ class TmxTiledmapPlacePlan extends Plan<PlacePlan> {
 
     return TileMapConverter.convertToTmx(map);
   }
+
+  return (
+    fileXmlContent: (
+      pathToFile: ph.join(watched.id, VMap.defaultContentFilename),
+      content: xmlRenderForPlacePlan(spectator, watched)
+    ),
+    externalFileImageContent: (
+      pathToFile: ph.join(watched.id, VMap.defaultPictureFilename),
+      content: imageRenderForPlacePlan(spectator, watched)
+    ),
+  );
 }

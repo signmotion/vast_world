@@ -5,5 +5,5 @@ class ImageRenderForExposedComponent extends RenderComponent<Image> {
   RenderFn<Image> get empty => nothingImageRender;
 
   @override
-  RenderFn<Image> get render => value!;
+  RenderFn<Image> get render => value;
 }

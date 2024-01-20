@@ -1,13 +1,10 @@
-import 'package:path/path.dart' as p;
-import 'package:vast_world/vast_world.dart';
+import 'package:path/path.dart' as pf;
 import 'package:test/test.dart';
 
-import 'helpers/constructed_journeys.dart';
+import 'helpers/construct.dart';
+import 'helpers/construct_journeys.dart';
 import 'helpers/helpers2d.dart';
 import 'prepare_test_env.dart';
-
-typedef Keeper = PlanTiledmapKeeper<AllJourneysPlan, ImageFilesystemBroker,
-    TextFilesystemBroker>;
 
 void main() {
   prepareTestEnv();
@@ -18,19 +15,14 @@ void main() {
     test(
         'Write place_4_aerwyna_journey plan to TiledMap format'
         ' and check file structure', () {
-      final outputPath = p.join(
+      final outputPath = pf.join(
         'test',
         'output',
         'journeys',
         'aerwyna_journey_tmx',
         'place_4_aerwyna_journeys',
       );
-      final keeper = Keeper(
-        textBroker: TextFilesystemBroker(outputPath),
-        imageBroker: ImageFilesystemBroker(outputPath),
-        readOnly: false,
-      );
-      keeper.clear();
+      final keeper = constructKeeper(outputPath)..clear();
 
       // saving the root and exposed plans
       final planForKeep = plan.impactsOnPlans.single.impactsOnPlans[4];
@@ -44,24 +36,19 @@ void main() {
         checkPathPresence: [],
         checkPathAbsence: ['rendered'],
       );
-    });
+    }, tags: ['current']);
 
     test(
         'Write place_0_aerwyna_journey plan to TiledMap format'
         ' and check file structure', () {
-      final outputPath = p.join(
+      final outputPath = pf.join(
         'test',
         'output',
         'journeys',
         'aerwyna_journey_tmx',
         'place_0_aerwyna_journeys',
       );
-      final keeper = Keeper(
-        textBroker: TextFilesystemBroker(outputPath),
-        imageBroker: ImageFilesystemBroker(outputPath),
-        readOnly: false,
-      );
-      keeper.clear();
+      final keeper = constructKeeper(outputPath)..clear();
 
       // saving the root and exposed plans
       final planForKeep = plan.impactsOnPlans.single.impactsOnPlans[0];
@@ -80,19 +67,14 @@ void main() {
     test(
         'Write aerwyna_journey plan to TiledMap format'
         ' and check file structure', () {
-      final outputPath = p.join(
+      final outputPath = pf.join(
         'test',
         'output',
         'journeys',
         'aerwyna_journey_tmx',
         'aerwyna_journeys',
       );
-      final keeper = Keeper(
-        textBroker: TextFilesystemBroker(outputPath),
-        imageBroker: ImageFilesystemBroker(outputPath),
-        readOnly: false,
-      );
-      keeper.clear();
+      final keeper = constructKeeper(outputPath)..clear();
 
       // saving the root and exposed plans
       final planForKeep = plan.impactsOnPlans.single;
@@ -112,24 +94,19 @@ void main() {
         ],
         checkPathAbsence: [],
       );
-    }, tags: ['current']);
+    });
 
     test(
         'Write all_journeys plan to TiledMap format'
         ' and check file structure', () {
-      final outputPath = p.join(
+      final outputPath = pf.join(
         'test',
         'output',
         'journeys',
         'aerwyna_journey_tmx',
         'journeys',
       );
-      final keeper = Keeper(
-        textBroker: TextFilesystemBroker(outputPath),
-        imageBroker: ImageFilesystemBroker(outputPath),
-        readOnly: false,
-      );
-      keeper.clear();
+      final keeper = constructKeeper(outputPath)..clear();
 
       // saving the root and exposed plans
       final planForKeep = plan;

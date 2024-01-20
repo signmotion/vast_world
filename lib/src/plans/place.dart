@@ -12,9 +12,11 @@ class PlacePlan extends NothingPlan {
   }) {
     u.registerComponent(PictureComponent.new);
     u.registerComponent(StoryComponent.new);
+    u.registerComponent(TiledmapRenderComponent.new);
 
     innerEntity
       ..add<PictureComponent, Image>(picture)
-      ..add<StoryComponent, StoryT>(story);
+      ..add<StoryComponent, StoryT>(story)
+      ..add<TiledmapRenderComponent, RenderFn<TiledmapT>>(placeTiledmapRender);
   }
 }

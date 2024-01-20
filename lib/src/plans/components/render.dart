@@ -2,16 +2,14 @@ part of '../../../vast_world.dart';
 
 /// Contains a render function for transform (drawing) exposed [Plan] to
 /// influential [Plan].
-class RenderComponent<R> extends VComponent<RenderFn<R>?> {
-  @override
-  RenderFn<R>? get empty => null;
+/// [R] extends [RenderFn<T>].
+abstract class RenderComponent<T> extends VComponent<RenderFn<T>> {
+  RenderFn<T> get render => value;
 
-  RenderFn<R>? get render => value;
-
-  RenderedData<R> renderData(
-    String spectatorId,
-    String watchedId, {
-    required R data,
-  }) =>
-      RenderedData<R>(spectatorId, watchedId, data: data);
+  RenderedData<T> renderData(Plan<dynamic> spectator, Plan<dynamic> watched) =>
+      RenderedData<T>(
+        spectator.id,
+        watched.id,
+        data: render(spectator, watched),
+      );
 }

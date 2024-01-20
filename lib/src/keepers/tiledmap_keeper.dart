@@ -1,10 +1,14 @@
 part of '../../vast_world.dart';
 
-abstract class TiledmapKeeper<Q extends Quant, ImgB extends Broker<dynamic>,
-    TxtB extends Broker<dynamic>> extends Keeper<Q, ImgB, TxtB> {
+abstract class TiledmapKeeper<
+    Q extends Quant,
+    ImgB extends Broker<dynamic>,
+    TxtB extends Broker<dynamic>,
+    XmlB extends Broker<dynamic>> extends Keeper<Q, ImgB, TxtB, XmlB> {
   TiledmapKeeper({
     required super.imageBroker,
     required super.textBroker,
+    required super.xmlBroker,
     super.readOnly = true,
   });
 }
@@ -13,11 +17,15 @@ abstract class TiledmapKeeper<Q extends Quant, ImgB extends Broker<dynamic>,
 /// ```
 /// typedef Keeper = PlanTiledmapKeeper<ImageFilesystemBroker, TextFilesystemBroker>;
 /// ```
-class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
-    TxtB extends Broker<dynamic>> extends TiledmapKeeper<P, ImgB, TxtB> {
+class PlanTiledmapKeeper<
+    P extends Plan<dynamic>,
+    ImgB extends Broker<dynamic>,
+    TxtB extends Broker<dynamic>,
+    XmlB extends Broker<dynamic>> extends TiledmapKeeper<P, ImgB, TxtB, XmlB> {
   PlanTiledmapKeeper({
     required super.imageBroker,
     required super.textBroker,
+    required super.xmlBroker,
     super.readOnly = true,
   });
 
@@ -41,69 +49,23 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
     String? pathPrefix,
   ]) {
     if (plan is PlacePlan) {
-      final tmx = TmxTiledmapPlacePlan(
-        plan.u,
-        hid: 'tmx_tiledmap_${plan.hid}',
-        placePlan: plan,
+      final renderComponent = plan.get<TiledmapRenderComponent>();
+      ae(
+          renderComponent != null,
+          'The plan `${plan.id}` should contains `TiledmapRenderComponent`'
+          ' for transform the plan to Tiledmap format.');
+
+      final r = renderComponent!.render(AbsolutePlan(), plan);
+
+      xmlBroker.write(
+        ph.join(pathPrefix ?? '', r.fileXmlContent.pathToFile),
+        r.fileXmlContent.content,
       );
-
-      // tmx file
-      {
-        final render = tmx.get<XmlRenderComponent>()!;
-        final xml = render.render(tmx, plan);
-        final s = xml.toXmlString(pretty: false);
-        final pf =
-            ph.join(pathPrefix ?? '', plan.id, VMap.defaultContentFilename);
-        textBroker.write(pf, s);
-      }
-
-      // external content for tmx file
-      {
-        final render = tmx.get<ImageRenderForExposedComponent>()!;
-        final image = render.render(tmx, plan);
-        final pf =
-            ph.join(pathPrefix ?? '', plan.id, VMap.defaultPictureFilename);
-        imageBroker.write(pf, image);
-      }
-    }
-
-    if (plan is JourneyPlan) {
-      final tmx = TmxTiledmapJourneyPlan(
-        plan.u,
-        hid: 'tmx_tiledmap_${plan.hid}',
-        journeyPlan: plan,
-      );
-
-      // tmx file
-      {
-        final render = tmx.get<XmlRenderComponent>()!;
-        final xml = render.render(tmx, plan);
-        final s = xml.toXmlString(pretty: false);
-        final pf =
-            ph.join(pathPrefix ?? '', plan.id, VMap.defaultContentFilename);
-        textBroker.write(pf, s);
-      }
-
-      // external content for tmx file
-      {
-        final imageRenderForChildExposedComponent =
-            tmx.get<ImageRenderForChildExposedComponent>()!;
-        final p = tmx.exposed.single; // == plan
-        for (var i = p.impactsOnPlans.length - 1; i >= 0; --i) {
-          final exposed = p.impactsOnPlans[i];
-
-          final render =
-              imageRenderForChildExposedComponent.render(tmx, exposed);
-          final pf = ph.join(
-            pathPrefix ?? '',
-            plan.id,
-            'rendered',
-            'image',
-            exposed.id,
-            'data.png',
-          );
-          imageBroker.write(pf, render);
-        }
+      if (r.externalFileImageContent != null) {
+        imageBroker.write(
+          ph.join(pathPrefix ?? '', r.externalFileImageContent!.pathToFile),
+          r.externalFileImageContent!.content,
+        );
       }
     }
 
@@ -156,16 +118,12 @@ class PlanTiledmapKeeper<P extends Plan<dynamic>, ImgB extends Broker<dynamic>,
       for (var i = plan.impactsOnPlans.length - 1; i >= 0; --i) {
         final exposed = plan.impactsOnPlans[i] as Plan<dynamic>;
 
-        final rendered = imageRenderComponent.renderData(
-          plan.id,
-          exposed.id,
-          data: imageRenderComponent.render(plan, exposed),
-        );
+        final rendered = imageRenderComponent.renderData(plan, exposed);
         //final rendered = CountExposedImageRender(plan, exposed).rendered;
         //final rendered = OnePictureImageRender(plan, exposed).rendered;
         _writeImageRendered(rendered);
 
-        final image = rendered.data;
+        final image = rendered.data!;
 
         ++id;
         // all exposed of plan keeps into the folder `rendered`

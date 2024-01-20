@@ -17,8 +17,12 @@ import 'package:path/path.dart' as ph;
 import 'package:wfile/wfile.dart';
 import 'package:xml/xml.dart';
 
+part 'src/brokers/filesystem/filesystem.dart';
+part 'src/brokers/filesystem/image.dart';
+part 'src/brokers/filesystem/text.dart';
+part 'src/brokers/filesystem/xml.dart';
+
 part 'src/brokers/broker.dart';
-part 'src/brokers/filesystem_broker.dart';
 
 part 'src/classes/bounding_box_2d.dart';
 part 'src/classes/change_notifier.dart';
@@ -68,14 +72,16 @@ part 'src/plans/components/plan.dart';
 part 'src/plans/components/render.dart';
 part 'src/plans/components/story.dart';
 part 'src/plans/components/string.dart';
+part 'src/plans/components/tiledmap_render.dart';
 part 'src/plans/components/transform_2d.dart';
 part 'src/plans/components/v.dart';
 part 'src/plans/components/xml_render.dart';
 
+part 'src/plans/absolute.dart';
+part 'src/plans/all_journeys.dart';
 part 'src/plans/DEPRECATED_plan2d.dart';
 part 'src/plans/nothing.dart';
 part 'src/plans/journey.dart';
-part 'src/plans/all_journeys.dart';
 part 'src/plans/place.dart';
 part 'src/plans/plan.dart';
 part 'src/plans/plan2d.dart';
@@ -93,13 +99,13 @@ part 'src/quant/parent_child_calc_2d_mix.dart';
 part 'src/quant/DEPRECATED_quant.dart';
 part 'src/quant/quant.dart';
 
+part 'src/renders/tiledmap/place.dart';
+part 'src/renders/tiledmap/tiledmap.dart';
 part 'src/renders/count_exposed_image.dart';
 part 'src/renders/image.dart';
 part 'src/renders/nothing.dart';
 part 'src/renders/one_picture_image.dart';
 part 'src/renders/render.dart';
-part 'src/renders/rendered_data.dart';
-part 'src/renders/xml_tiledmap.dart';
 part 'src/renders/xml.dart';
 
 part 'src/shapes/infinity_shape.dart';

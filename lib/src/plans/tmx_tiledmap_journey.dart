@@ -33,7 +33,7 @@ class TmxTiledmapJourneyPlan extends Plan<JourneyPlan> {
     Plan<dynamic> spectator,
     Plan<dynamic> watched,
   ) {
-    const configure = XmlTiledmapRenderConfigure();
+    const configure = TiledmapRenderConfigure();
 
     final id = TransitIdGen();
 

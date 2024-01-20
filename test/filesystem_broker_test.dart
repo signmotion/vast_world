@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:path/path.dart' as p;
+import 'package:path/path.dart' as pf;
 import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
 
@@ -11,7 +11,7 @@ void main() {
 
   group('FilesystemBroker Text', () {
     final outputPath =
-        p.join('test', 'output', 'filesystem_broker_test', 'text');
+        pf.join('test', 'output', 'filesystem_broker_test', 'text');
     final broker = TextFilesystemBroker(outputPath);
 
     const key = '1.txt';
@@ -27,7 +27,7 @@ void main() {
     test('Write and read', () {
       // write
       broker.write(key, value);
-      expect(File(p.join(outputPath, key)).existsSync(), isTrue);
+      expect(File(pf.join(outputPath, key)).existsSync(), isTrue);
 
       // read
       final r = broker.read(key);

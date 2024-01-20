@@ -12,6 +12,15 @@ String nothingStringRender(
 ) =>
     '';
 
+TiledmapT nothingTiledmapTRender(
+  Plan<dynamic> spectator,
+  Plan<dynamic> watched,
+) =>
+    (
+      fileXmlContent: (pathToFile: '', content: XmlDocument()),
+      externalFileImageContent: null,
+    );
+
 XmlDocument nothingXmlRender(
   Plan<dynamic> spectator,
   Plan<dynamic> watched,

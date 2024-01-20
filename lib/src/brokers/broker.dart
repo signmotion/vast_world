@@ -4,7 +4,7 @@ part of '../../vast_world.dart';
 abstract class Broker<T> {
   const Broker();
 
-  String get pathPrefix;
+  String get prefix;
 
   bool exists(String key);
 

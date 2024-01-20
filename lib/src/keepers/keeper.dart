@@ -2,10 +2,11 @@ part of '../../vast_world.dart';
 
 // The base class for keepers.
 abstract class Keeper<Q extends Quant, ImgB extends Broker<dynamic>,
-    TxtB extends Broker<dynamic>> {
+    TxtB extends Broker<dynamic>, XmlB extends Broker<dynamic>> {
   const Keeper({
     required this.imageBroker,
     required this.textBroker,
+    required this.xmlBroker,
     this.readOnly = true,
   });
 
@@ -14,6 +15,7 @@ abstract class Keeper<Q extends Quant, ImgB extends Broker<dynamic>,
 
   final ImgB imageBroker;
   final TxtB textBroker;
+  final XmlB xmlBroker;
 
   /// If `true` then prevent call methods [clear] and [write].
   final bool readOnly;
@@ -26,9 +28,11 @@ abstract class Keeper<Q extends Quant, ImgB extends Broker<dynamic>,
 
     imageBroker.clear();
     textBroker.clear();
+    xmlBroker.clear();
   }
 
-  bool exists(String id) => imageBroker.exists(id) || textBroker.exists(id);
+  bool exists(String id) =>
+      imageBroker.exists(id) || textBroker.exists(id) || xmlBroker.exists(id);
 
   @mustCallSuper
   Q? read(String id, [int depth = maxReadPlanDepth]) {

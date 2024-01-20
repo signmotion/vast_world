@@ -28,7 +28,10 @@ class ImageRenderedData extends RenderedData<Image> {
   });
 }
 
-Image defaultImage(ImageRenderConfigure configure) => Image(
+Image defaultImage([
+  ImageRenderConfigure configure = const ImageRenderConfigure(),
+]) =>
+    Image(
       width: configure.defaultWidth,
       height: configure.defaultHeight,
     );

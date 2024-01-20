@@ -5,5 +5,5 @@ class XmlRenderComponent extends RenderComponent<XmlDocument> {
   RenderFn<XmlDocument> get empty => nothingXmlRender;
 
   @override
-  RenderFn<XmlDocument> get render => value!;
+  RenderFn<XmlDocument> get render => value;
 }

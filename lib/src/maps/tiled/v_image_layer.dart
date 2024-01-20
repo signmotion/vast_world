@@ -35,5 +35,5 @@ class VPictureLayer extends VImageLayer {
           ),
         );
 
-  static const defaultPictureImageLayerName = 'picture';
+  static String get defaultPictureImageLayerName => PictureComponent().hid;
 }

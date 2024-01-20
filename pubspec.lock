@@ -196,7 +196,7 @@ packages:
       path: "../id_gen"
       relative: true
     source: path
-    version: "0.1.0"
+    version: "0.2.0"
   image:
     dependency: "direct main"
     description:
@@ -581,4 +581,4 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.2.4 <4.0.0"
+  dart: ">=3.2.5 <4.0.0"

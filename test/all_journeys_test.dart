@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-import 'helpers/constructed_journeys.dart';
+import 'helpers/construct_journeys.dart';
 import 'helpers/helpers2d.dart';
 import 'prepare_test_env.dart';
 
