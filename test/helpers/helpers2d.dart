@@ -22,6 +22,11 @@ void checkFileStructurePlan(
   required bool infinite,
   required String? imageLayerName,
   required String? imageLayerImageSource,
+  required int? countTileset,
+  required List<String> tilesetImageSources,
+  required String? objectGroupName,
+  required int? countObject,
+  required List<String> objectGroupObjectsNames,
 }) {
   final f = WFile([outputPath, plan.hid], exceptionWhenFileNotExists: true);
 
@@ -57,16 +62,36 @@ void checkFileStructurePlan(
 
   // checking data into xml file
   final xml = f.readAsXml('_.tmx')!;
+
+  // root <map>
   final map = xml.rootElement;
   expect(map.getAttribute('width'), '$width');
   expect(map.getAttribute('height'), '$height');
   expect(map.getAttribute('infinite') ?? '0', infinite ? '1' : '0');
 
+  // imagelayer
   final imageLayer = map.findElements('imagelayer').firstOrNull;
   expect(imageLayer?.getAttribute('name'), imageLayerName);
 
   final imageLayerImage = imageLayer?.findElements('image').firstOrNull;
   expect(imageLayerImage?.getAttribute('source'), imageLayerImageSource);
+
+  // tilesets
+  final tilesets = map.findElements('tileset');
+  expect(tilesets.length, countTileset ?? 0);
+
+  final tsis = tilesets.map((e) => e.firstChild?.getAttribute('source'));
+  expect(tsis, containsAll(tilesetImageSources));
+
+  // objectgroup
+  final objectgroup = map.findElements('objectgroup').firstOrNull;
+  expect(objectgroup?.getAttribute('name'), objectGroupName);
+
+  final objects = objectgroup?.findElements('object') ?? [];
+  expect(objects.length, countObject ?? 0);
+
+  final ogons = objects.map((e) => e.getAttribute('name'));
+  expect(ogons, containsAll(objectGroupObjectsNames));
 }
 
 void checkPlan(

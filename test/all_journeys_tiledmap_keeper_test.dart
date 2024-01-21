@@ -40,8 +40,13 @@ void main() {
         infinite: false,
         imageLayerName: 'picture',
         imageLayerImageSource: 'picture.png',
+        countTileset: null,
+        tilesetImageSources: [],
+        objectGroupName: 'story',
+        countObject: 1,
+        objectGroupObjectsNames: ['text'],
       );
-    }, tags: ['current']);
+    });
 
     test(
         'Write place_0_aerwyna_journey plan to TiledMap format'
@@ -71,6 +76,11 @@ void main() {
         infinite: false,
         imageLayerName: 'picture',
         imageLayerImageSource: 'picture.png',
+        countTileset: null,
+        tilesetImageSources: [],
+        objectGroupName: 'story',
+        countObject: 1,
+        objectGroupObjectsNames: ['text'],
       );
     });
 
@@ -96,11 +106,11 @@ void main() {
         existsPicture: false,
         countExposed: 5,
         checkPathPresence: [
-          'rendered/image/place_0/data.png',
-          'rendered/image/place_1/data.png',
-          'rendered/image/place_2/data.png',
-          'rendered/image/place_3/data.png',
           'rendered/image/place_4/data.png',
+          'rendered/image/place_3/data.png',
+          'rendered/image/place_2/data.png',
+          'rendered/image/place_1/data.png',
+          'rendered/image/place_0/data.png',
         ],
         checkPathAbsence: [],
         width: 0,
@@ -108,8 +118,25 @@ void main() {
         infinite: true,
         imageLayerName: null,
         imageLayerImageSource: null,
+        countTileset: 5,
+        tilesetImageSources: [
+          'rendered/image/place_4/data.png',
+          'rendered/image/place_3/data.png',
+          'rendered/image/place_2/data.png',
+          'rendered/image/place_1/data.png',
+          'rendered/image/place_0/data.png',
+        ],
+        objectGroupName: 'exposed',
+        countObject: 5,
+        objectGroupObjectsNames: [
+          'place_4',
+          'place_3',
+          'place_2',
+          'place_1',
+          'place_0',
+        ],
       );
-    });
+    }, tags: ['current']);
 
     test(
         'Write all_journeys plan to TiledMap format'
@@ -139,6 +166,11 @@ void main() {
         infinite: true,
         imageLayerName: null,
         imageLayerImageSource: null,
+        countTileset: 1,
+        tilesetImageSources: ['rendered/image/aerwyna/data.png'],
+        objectGroupName: 'exposed',
+        countObject: 1,
+        objectGroupObjectsNames: ['aerwyna'],
       );
     });
   });

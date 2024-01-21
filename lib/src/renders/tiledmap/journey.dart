@@ -41,7 +41,7 @@ TiledmapT journeyTiledmapRender(
     for (var i = watched.impactsOnPlans.length - 1; i >= 0; --i) {
       final exposed = watched.impactsOnPlans[i] as Plan<dynamic>;
       final imagery = imageries[i];
-      final pathToImageryFile = imagery.pathToFile;
+      final pathToImageryFile = imagery.pathToFile.pathAfterHead;
       final image = imagery.content;
 
       // all exposed of plan keeps into the specific folder
