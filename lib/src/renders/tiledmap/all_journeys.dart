@@ -1,6 +1,6 @@
 part of '../../../vast_world.dart';
 
-TiledmapT journeyTiledmapRender(
+TiledmapT allJourneysTiledmapRender(
   Plan<dynamic> spectator,
   Plan<dynamic> watched,
 ) {
@@ -19,7 +19,7 @@ TiledmapT journeyTiledmapRender(
           exposedWatched.hid,
           VMap.defaultDataImageFilename,
         ),
-        content: onePictureImageRender(watched, exposedWatched),
+        content: countExposedImageRender(watched, exposedWatched),
       );
 
   XmlDocument xmlRender(

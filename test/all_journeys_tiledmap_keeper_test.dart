@@ -136,7 +136,7 @@ void main() {
           'place_0',
         ],
       );
-    }, tags: ['current']);
+    });
 
     test(
         'Write all_journeys plan to TiledMap format'
@@ -172,6 +172,6 @@ void main() {
         countObject: 1,
         objectGroupObjectsNames: ['aerwyna'],
       );
-    });
+    }, tags: ['current']);
   });
 }
