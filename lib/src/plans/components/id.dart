@@ -47,9 +47,9 @@ extension HidExt on String {
 
   List<String> get hidToList => split(hidSeparator);
 
-  String get hidToNPath => replaceAll(hidSeparator, pathSeparator);
+  String get hidToNPath => replaceAll(hidSeparator, npathSeparator);
 
-  String get pathToHid => npath.split(pathSeparator).listToHid;
+  String get pathToHid => npath.split(npathSeparator).listToHid;
 }
 
 extension ListHidExt on List<String> {
