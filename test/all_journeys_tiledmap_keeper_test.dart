@@ -172,6 +172,6 @@ void main() {
         countObject: 1,
         objectGroupObjectsNames: ['aerwyna'],
       );
-    }, tags: ['current']);
+    });
   });
 }
