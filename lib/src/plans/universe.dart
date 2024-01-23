@@ -3,7 +3,12 @@
 part of '../../vast_world.dart';
 
 class Universe {
-  final inner = World();
+  Universe() {
+    inner = World();
+    _queryManager = QueryManager(inner.entityManager);
+  }
+
+  late final World inner;
 
   void registerSystem<T extends System>(T system) =>
       inner.registerSystem(system);
@@ -12,6 +17,11 @@ class Universe {
     ComponentBuilder<T> builder,
   ) =>
       inner.registerComponent(builder);
+
+  /// Retrieve an entity with [id] equals [hid] or [uid] from [Plan] [IdComponent].
+  Entity? entity(String id) =>
+      query([Has<IdComponent>()]).entities.firstWhereOrNull((e) =>
+          e.get<IdComponent>()!.hid == id || e.get<IdComponent>()!.uid == id);
 
   Entity construct([String? id]) => inner.createEntity(id);
 
@@ -24,4 +34,9 @@ class Universe {
 
   @override
   String toString() => toJson().sjson;
+
+  /// Create or retrieve a cached query.
+  Query query(Iterable<Filter> filters) => _queryManager.createQuery(filters);
+
+  late final QueryManager _queryManager;
 }
