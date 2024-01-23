@@ -19,6 +19,21 @@ class Plan<I extends Plan<dynamic>> extends Quant {
     innerEntity = u.construct(id)..add<IdComponent, IdT>((hid: hid, uid: uid));
   }
 
+  T? component<T extends VComponent<dynamic>>() => u.entity(id)!.get<T>();
+
+  Plan copyWith({
+    Universe? u,
+    String? hid,
+    String? uid,
+    List<I>? impactsOnPlans,
+  }) =>
+      Plan(
+        u ?? this.u,
+        hid: hid ?? this.hid,
+        uid: uid ?? this.uid,
+        impactsOnPlans: impactsOnPlans ?? this.impactsOnPlans,
+      );
+
   final Universe u;
 
   @protected
