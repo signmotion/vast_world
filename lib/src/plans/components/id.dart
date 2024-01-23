@@ -34,7 +34,7 @@ class IdComponent extends VComponent<IdT> with HasIdMix {
 extension HidExt on String {
   static const hidSeparator = '.';
 
-  bool get isCorrectId => isCorrectHid || this.isUuid;
+  bool get isCorrectId => isCorrectHid || isUuid;
 
   /// Examples:
   /// ```

@@ -10,6 +10,7 @@ import 'package:collection/collection.dart';
 import 'package:dart_helpers/dart_helpers.dart' hide JsonMap, JsonList;
 import 'package:dart_tiledmap/dart_tiledmap.dart';
 import 'package:id_gen/id_gen.dart';
+import 'package:id_gen/id_gen_helpers.dart';
 import 'package:image/image.dart';
 import 'package:meta/meta.dart';
 import 'package:oxygen/oxygen.dart';
@@ -26,6 +27,7 @@ part 'src/brokers/broker.dart';
 
 part 'src/classes/bounding_box_2d.dart';
 part 'src/classes/change_notifier.dart';
+part 'src/classes/live.dart';
 part 'src/classes/notifying_vector2.dart';
 part 'src/classes/platform_dispatcher.dart';
 part 'src/classes/transform_2d.dart';

@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:id_gen/id_gen.dart';
+import 'package:id_gen/id_gen_tests.dart';
 import 'package:vast_world/vast_world.dart';
 import 'package:test/test.dart';
 import 'package:wfile/wfile.dart';

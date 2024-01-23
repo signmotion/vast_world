@@ -10,5 +10,5 @@ mixin HasIdMix on Object {
   /// ID for access.
   String get id => hid.isEmpty ? uid : hid;
 
-  String generateUid() => const UuidV4Gen().get();
+  String generateUid() => genUuid;
 }
