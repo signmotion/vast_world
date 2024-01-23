@@ -23,7 +23,7 @@ class Lore {
   }
 
   /// The plan with [id] included into [Lore].
-  bool has(String id) => this[id] != null;
+  bool has(String id) => find(id) != null;
 
   /// Return a plan by [id].
   Plan<dynamic>? find(String id) =>
