@@ -5,12 +5,13 @@ class Live {
   /// Add [plan] to [plans].
   /// Remove a previous plan if was present. The previous plan detecting by
   /// [plan.id].
+  /// ! Create a copy of [plan] if the [plan] was present and uids are different.
   void add(Plan<dynamic> plan) {
     final prevUid = plans[plan.id]?.uid;
     if (plans.containsKey(plan.id)) {
       plans.remove(plan.id);
     }
-    plans[plan.id] = plan.copyWith(uid: prevUid);
+    plans[plan.id] = plan.id == prevUid ? plan : plan.copyWith(uid: prevUid);
   }
 
   /// Return a plan by [id].
