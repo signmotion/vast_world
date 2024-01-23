@@ -3,7 +3,9 @@ part of '../../../vast_world.dart';
 /// Component that contains a [defaults] value instead of null.
 /// See [ValueComponent] from Oxygen.
 abstract class VComponent<T> extends Component<T> {
-  late final T value;
+  late T _value;
+  T get value => _value;
+  set value(T? v) => _value = v ?? defaults;
 
   String get hid =>
       runtimeType.toString().replaceFirst('Component', '').toLowerCase();

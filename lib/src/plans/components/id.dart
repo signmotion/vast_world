@@ -5,11 +5,11 @@ typedef IdT = ({
   String uid,
 });
 
-class IdComponent extends VComponent<IdT> with HasIdMix {
+class IdComponent extends VComponent<IdT> with HasStringIdMix {
   @override
   void initv(IdT v) => value = (
         hid: v.hid,
-        uid: v.uid.isEmpty ? generateUid() : v.uid,
+        uid: v.uid,
       );
 
   @override

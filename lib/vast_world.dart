@@ -1,4 +1,4 @@
-library vast_world;
+library;
 
 import 'dart:io';
 import 'dart:math' as math;

@@ -25,6 +25,11 @@ class Universe {
 
   Entity construct([String? id]) => inner.createEntity(id);
 
+  /// Immediately remove [entity].
+  void removeEntity(Entity entity) => inner.entityManager
+    ..removeEntity(entity)
+    ..processRemovedEntities();
+
   JsonMap toJson() => <String, dynamic>{
         'entity_count': inner.entities.length,
         'entity_list': inner.entities.map((e) => e.name),

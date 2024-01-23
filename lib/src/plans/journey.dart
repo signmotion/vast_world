@@ -11,19 +11,12 @@ Plan<dynamic> constructJourneyPlan(
   required String name,
   required String greeting,
   required String description,
-}) {
-  final p = constructNothingPlan(u, hid: hid, uid: uid);
-
-  u.registerComponent(NameComponent.new);
-  u.registerComponent(GreetingComponent.new);
-  u.registerComponent(DescriptionComponent.new);
-  u.registerComponent(TiledmapRenderComponent.new);
-
-  p.innerEntity
-    ..add<NameComponent, String>(name)
-    ..add<GreetingComponent, String>(name)
-    ..add<DescriptionComponent, String>(name)
-    ..add<TiledmapRenderComponent, RenderFn<TiledmapT>>(journeyTiledmapRender);
-
-  return p;
-}
+}) =>
+    constructNothingPlan(u, hid: hid, uid: uid)
+      ..set<NameComponent, String>(NameComponent.new, name)
+      ..set<GreetingComponent, String>(GreetingComponent.new, greeting)
+      ..set<DescriptionComponent, String>(DescriptionComponent.new, description)
+      ..set<TiledmapRenderComponent, RenderFn<TiledmapT>>(
+        TiledmapRenderComponent.new,
+        journeyTiledmapRender,
+      );

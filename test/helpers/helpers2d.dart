@@ -108,7 +108,7 @@ void checkPlan(
   expect(plan.impactsOnPlans.length, exposedIds.length);
   for (final exposedId in exposedIds) {
     final found = plan.impactsOnPlans
-        .firstWhereOrNull((p) => (p as HasIdMix).id == exposedId);
+        .firstWhereOrNull((p) => (p as HasStringIdMix).id == exposedId);
     expect(found, isNotNull);
   }
 }

@@ -3,6 +3,7 @@
 part of '../../vast_world.dart';
 
 /// [render] Constructing a representation the [I] to this plan.
+/// ! Call [removeInnerEntity()] if working with a set of plans and removing the plan.
 class Plan<I extends Plan<dynamic>> extends Quant {
   Plan(
     this.u, {
@@ -13,13 +14,39 @@ class Plan<I extends Plan<dynamic>> extends Quant {
     // to fix error `UnmodifiableList`
     this.impactsOnPlans = impactsOnPlans ?? List<I>.empty(growable: true);
 
-    u.registerComponent(IdComponent.new);
-
     // an one entity on each plan
-    innerEntity = u.construct(id)..add<IdComponent, IdT>((hid: hid, uid: uid));
+    innerEntity = u.construct(id);
+    set<IdComponent, IdT>(IdComponent.new, (hid: hid, uid: uid));
   }
 
-  T? component<T extends VComponent<dynamic>>() => u.entity(id)!.get<T>();
+  /// Auto-detect to set [uid] or [hid].
+  @override
+  set id(String uidOrHid) {
+    super.id = uidOrHid;
+    component<IdComponent>()!.value = (hid: super.hid, uid: super.uid);
+  }
+
+  /// Alias [get].
+  T? component<T extends VComponent<dynamic>>() => innerEntity.get<T>();
+
+  /// Alias [component].
+  T? get<T extends VComponent<dynamic>>() => component<T>();
+
+  /// Set a component value and register the component when it absent.
+  /// See [addComponent], [VComponent], [component].
+  void set<T extends VComponent<V>, V>(ComponentBuilder<T> builder, [V? data]) {
+    u.registerComponent(builder);
+
+    final c = component<T>();
+    if (c == null) {
+      innerEntity.add<T, V>(data);
+    } else {
+      c.value = data;
+    }
+  }
+
+  /// Remove this plan from Universe.
+  void removeInnerEntity() => u.removeEntity(innerEntity);
 
   Plan copyWith({
     Universe? u,
@@ -37,7 +64,7 @@ class Plan<I extends Plan<dynamic>> extends Quant {
   final Universe u;
 
   @protected
-  late final Entity innerEntity;
+  late Entity innerEntity;
 
   late final List<I> impactsOnPlans;
 
@@ -45,6 +72,4 @@ class Plan<I extends Plan<dynamic>> extends Quant {
   List<I> get exposed => impactsOnPlans;
 
   void addToImpacts(I plan) => impactsOnPlans.add(plan);
-
-  T? get<T extends VComponent<dynamic>>() => innerEntity.get<T>();
 }
