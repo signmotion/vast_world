@@ -27,7 +27,7 @@ part 'src/brokers/broker.dart';
 
 part 'src/classes/bounding_box_2d.dart';
 part 'src/classes/change_notifier.dart';
-part 'src/classes/live.dart';
+part 'src/classes/lore.dart';
 part 'src/classes/notifying_vector2.dart';
 part 'src/classes/platform_dispatcher.dart';
 part 'src/classes/transform_2d.dart';

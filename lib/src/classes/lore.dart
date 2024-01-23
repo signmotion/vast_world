@@ -1,11 +1,11 @@
 part of '../../vast_world.dart';
 
-/// The pool for all plans.
-class Live {
+/// The collection of all plans.
+class Lore {
   /// Add [plan] to [plans].
   /// Remove a previous plan if was present. The previous plan detecting by
   /// [plan.id].
-  /// ! Create a copy of [plan] if the [plan] was present and uids are different.
+  /// ! Create a copy of [plan] if the [plan] was present and UIDs are different.
   void add(Plan<dynamic> plan) {
     final prevUid = plans[plan.id]?.uid;
     if (plans.containsKey(plan.id)) {
@@ -25,7 +25,6 @@ class Live {
     final pb = this[b];
     ae(pb != null, 'Plan `$b` not found.');
 
-    //final pbt = pb as JourneyPlan;
     pa!.addToImpacts(pb);
   }
 

@@ -10,12 +10,12 @@ void main() {
     final u = Universe();
 
     test('Add 2 plans', () {
-      final live = Live();
-      expect(live.count, 0);
+      final lore = Lore();
+      expect(lore.count, 0);
 
       final all = constructAllJourneysPlan(u);
-      live.add(all);
-      expect(live.count, 1);
+      lore.add(all);
+      expect(lore.count, 1);
 
       final aerwyna = constructJourneyPlan(
         u,
@@ -24,27 +24,27 @@ void main() {
         greeting: 'greeting',
         description: 'description',
       );
-      live.add(aerwyna);
-      expect(live.count, 2);
+      lore.add(aerwyna);
+      expect(lore.count, 2);
       // doesn't add a plan with able HID
-      live.add(aerwyna);
-      expect(live.count, 2);
+      lore.add(aerwyna);
+      expect(lore.count, 2);
       {
-        final p = live['aerwyna']!;
+        final p = lore['aerwyna']!;
         expect(aerwyna.hid, p.hid);
         expect(aerwyna.uid, p.uid);
       }
 
-      expect(live.universes, containsAll({u}));
+      expect(lore.universes, containsAll({u}));
     });
   });
 
   group('Get plans', () {
     final u = Universe();
-    final live = Live();
+    final lore = Lore();
 
     final all = constructAllJourneysPlan(u);
-    live.add(all);
+    lore.add(all);
 
     final aerwyna = constructJourneyPlan(
       u,
@@ -53,12 +53,12 @@ void main() {
       greeting: 'greeting',
       description: 'description',
     );
-    live.add(aerwyna);
+    lore.add(aerwyna);
 
     test('Get a plan by HID and UID', () {
-      final a = live[aerwyna.hid];
-      final b = live[aerwyna.uid];
-      final c = live[aerwyna.id];
+      final a = lore[aerwyna.hid];
+      final b = lore[aerwyna.uid];
+      final c = lore[aerwyna.id];
       expect(a, b);
       expect(a, c);
     });
@@ -68,7 +68,7 @@ void main() {
     final u = Universe();
 
     test('Update a whole empty plan', () {
-      final live = Live();
+      final lore = Lore();
 
       final aerwyna = constructJourneyPlan(
         u,
@@ -77,8 +77,8 @@ void main() {
         greeting: 'greeting',
         description: 'description',
       );
-      live.add(aerwyna);
-      expect(live.count, 1);
+      lore.add(aerwyna);
+      expect(lore.count, 1);
 
       final aerwynaUpdated = constructJourneyPlan(
         u,
@@ -89,10 +89,10 @@ void main() {
       );
       expect(aerwyna.hid, aerwynaUpdated.hid);
       expect(aerwyna.uid, isNot(equals(aerwynaUpdated.uid)));
-      live.add(aerwyna);
-      expect(live.count, 1);
+      lore.add(aerwyna);
+      expect(lore.count, 1);
       {
-        final p = live['aerwyna']!;
+        final p = lore['aerwyna']!;
         expect(aerwynaUpdated.hid, p.hid);
         expect(aerwyna.uid, p.uid);
         expect(aerwynaUpdated.component<NameComponent>()!.value,
@@ -109,10 +109,10 @@ void main() {
     final u = Universe();
 
     test('Bind 2 plans', () {
-      final live = Live();
+      final lore = Lore();
 
       final all = constructAllJourneysPlan(u);
-      live.add(all);
+      lore.add(all);
 
       final aerwyna = constructJourneyPlan(
         u,
@@ -121,15 +121,15 @@ void main() {
         greeting: 'greeting',
         description: 'description',
       );
-      live.add(aerwyna);
+      lore.add(aerwyna);
 
       {
-        final exposed = live[all.id]!.exposed as List<Plan<dynamic>>;
+        final exposed = lore[all.id]!.exposed as List<Plan<dynamic>>;
         expect(exposed, isEmpty);
       }
       {
-        live.bind(all.id, aerwyna.id);
-        final exposed = live[all.id]!.exposed as List<Plan<dynamic>>;
+        lore.bind(all.id, aerwyna.id);
+        final exposed = lore[all.id]!.exposed as List<Plan<dynamic>>;
         expect(exposed, isNotEmpty);
         final e = exposed.single;
         expect(e.hid, aerwyna.hid);
