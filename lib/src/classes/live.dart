@@ -2,8 +2,6 @@ part of '../../vast_world.dart';
 
 /// The pool for all plans.
 class Live {
-  Live();
-
   /// Add [plan] to [plans].
   /// Remove a previous plan if was present. The previous plan detecting by
   /// [plan.id].
@@ -15,8 +13,22 @@ class Live {
     plans[plan.id] = plan.copyWith(uid: prevUid);
   }
 
-  Plan<dynamic>? operator [](String id) => plans[id];
+  /// Return a plan by [id].
+  Plan<dynamic>? operator [](String id) =>
+      plans[id] ?? plans.values.firstWhere((p) => p.uid == id || p.hid == id);
 
+  void bind(String a, String b) {
+    final pa = this[a];
+    ae(pa != null, 'Plan `$a` not found.');
+
+    final pb = this[b];
+    ae(pb != null, 'Plan `$b` not found.');
+
+    //final pbt = pb as JourneyPlan;
+    pa!.addToImpacts(pb);
+  }
+
+  /// Count of [plans].
   int get count => plans.length;
 
   /// <[Plan.id], [Plan]>

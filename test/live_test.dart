@@ -6,18 +6,18 @@ import 'prepare_test_env.dart';
 void main() {
   prepareTestEnv();
 
-  group('Live', () {
+  group('Add empty plans', () {
     final u = Universe();
 
-    test('Add plan', () {
+    test('Add 2 plans', () {
       final live = Live();
       expect(live.count, 0);
 
-      final all = AllJourneysPlan(u);
+      final all = constructAllJourneysPlan(u);
       live.add(all);
       expect(live.count, 1);
 
-      final aerwyna = JourneyPlan(
+      final aerwyna = constructJourneyPlan(
         u,
         hid: 'aerwyna',
         name: 'Aerwyna',
@@ -35,13 +35,42 @@ void main() {
         expect(aerwyna.uid, p.uid);
       }
 
-      expect(live.universes, containsAll([u]));
+      expect(live.universes, containsAll({u}));
     });
+  });
 
-    test('Update plan', () {
+  group('Get plans', () {
+    final u = Universe();
+    final live = Live();
+
+    final all = constructAllJourneysPlan(u);
+    live.add(all);
+
+    final aerwyna = constructJourneyPlan(
+      u,
+      hid: 'aerwyna',
+      name: 'Aerwyna',
+      greeting: 'greeting',
+      description: 'description',
+    );
+    live.add(aerwyna);
+
+    test('Get a plan by HID and UID', () {
+      final a = live[aerwyna.hid];
+      final b = live[aerwyna.uid];
+      final c = live[aerwyna.id];
+      expect(a, b);
+      expect(a, c);
+    });
+  });
+
+  group('Update plans', () {
+    final u = Universe();
+
+    test('Update a whole empty plan', () {
       final live = Live();
 
-      final aerwyna = JourneyPlan(
+      final aerwyna = constructJourneyPlan(
         u,
         hid: 'aerwyna',
         name: 'Aerwyna',
@@ -51,7 +80,7 @@ void main() {
       live.add(aerwyna);
       expect(live.count, 1);
 
-      final aerwynaUpdated = JourneyPlan(
+      final aerwynaUpdated = constructJourneyPlan(
         u,
         hid: 'aerwyna',
         name: 'Aerwyna Updated',
@@ -72,6 +101,39 @@ void main() {
             p.component<GreetingComponent>()!.value);
         expect(aerwynaUpdated.component<DescriptionComponent>()!.value,
             p.component<DescriptionComponent>()!.value);
+      }
+    });
+  });
+
+  group('Bind plans or Add exposed plan', () {
+    final u = Universe();
+
+    test('Bind 2 plans', () {
+      final live = Live();
+
+      final all = constructAllJourneysPlan(u);
+      live.add(all);
+
+      final aerwyna = constructJourneyPlan(
+        u,
+        hid: 'aerwyna',
+        name: 'Aerwyna',
+        greeting: 'greeting',
+        description: 'description',
+      );
+      live.add(aerwyna);
+
+      {
+        final exposed = live[all.id]!.exposed as List<Plan<dynamic>>;
+        expect(exposed, isEmpty);
+      }
+      {
+        live.bind(all.id, aerwyna.id);
+        final exposed = live[all.id]!.exposed as List<Plan<dynamic>>;
+        expect(exposed, isNotEmpty);
+        final e = exposed.single;
+        expect(e.hid, aerwyna.hid);
+        expect(e.uid, aerwyna.uid);
       }
     });
   });

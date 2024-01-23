@@ -6,8 +6,8 @@ part of '../../vast_world.dart';
 class Plan<I extends Plan<dynamic>> extends Quant {
   Plan(
     this.u, {
-    super.hid = '',
-    super.uid = '',
+    super.hid,
+    super.uid,
     List<I>? impactsOnPlans,
   }) {
     // to fix error `UnmodifiableList`

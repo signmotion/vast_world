@@ -1,6 +1,6 @@
 import 'package:vast_world/vast_world.dart';
 
-typedef Keeper = PlanTiledmapKeeper<AllJourneysPlan, ImageFilesystemBroker,
+typedef Keeper = PlanTiledmapKeeper<Plan<dynamic>, ImageFilesystemBroker,
     TextFilesystemBroker, XmlFilesystemBroker>;
 
 Keeper constructKeeper(String outputPath) => Keeper(

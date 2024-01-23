@@ -1,7 +1,7 @@
 import 'package:vast_world/vast_world.dart';
 import 'package:wfile/wfile.dart';
 
-AllJourneysPlan get constructedAerwynaJourneyFromRaw {
+Plan<dynamic> get constructedAerwynaJourneyFromRaw {
   final u = Universe();
 
   const sourcePath =
@@ -9,11 +9,11 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
   final f = WFile(sourcePath);
 
   // root plan: without parent ID
-  final allJourneys = AllJourneysPlan(u, hid: 'all_journeys');
+  final allJourneys = constructAllJourneysPlan(u, hid: 'all_journeys');
 
   // journey by Aerwyna
   final about = f.readAsJsonMapString('_.json')!;
-  final aerwynaJourney = JourneyPlan(
+  final aerwynaJourney = constructJourneyPlan(
     u,
     hid: 'aerwyna',
     name: 'Aerwyna',
@@ -26,7 +26,7 @@ AllJourneysPlan get constructedAerwynaJourneyFromRaw {
     final textStory = i == 4
         ? f.readAsText('place_list/$i/story/story.md')!
         : 'Some story into the place $i...';
-    final place = PlacePlan(
+    final place = constructPlacePlan(
       u,
       hid: 'place_$i',
       picture: picture,

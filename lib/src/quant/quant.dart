@@ -2,10 +2,10 @@ part of '../../vast_world.dart';
 
 abstract class Quant with HasIdMix {
   Quant({
-    String hid = '',
-    String uid = '',
+    String? hid,
+    String? uid,
   }) {
-    this.hid = hid;
-    this.uid = uid.isEmpty ? generateUid() : uid;
+    this.hid = hid ?? '';
+    this.uid = uid == null || uid.isEmpty ? generateUid() : uid;
   }
 }

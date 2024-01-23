@@ -1,4 +1,5 @@
 import 'package:test/test.dart';
+import 'package:vast_world/vast_world.dart';
 
 import 'helpers/construct_journeys.dart';
 import 'helpers/helpers2d.dart';
@@ -9,7 +10,7 @@ void main() {
 
   group('AllJourneysPlan, check raw format', () {
     final allJourneys = constructedAerwynaJourneyFromRaw;
-    final aerwynaJourney = allJourneys.impactsOnPlans.single;
+    final aerwynaJourney = allJourneys.impactsOnPlans.single as Plan<dynamic>;
 
     test('Check `allJourneys` created from raw', () {
       checkPlan(
@@ -30,7 +31,7 @@ void main() {
     test('Check places of `aerwynaJourney` created from raw', () {
       for (final exposed in aerwynaJourney.impactsOnPlans) {
         checkPlan(
-          exposed,
+          exposed as Plan<dynamic>,
           hid: exposed.hid,
           exposedIds: [],
         );

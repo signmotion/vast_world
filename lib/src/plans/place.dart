@@ -2,21 +2,23 @@
 
 part of '../../vast_world.dart';
 
-class PlacePlan extends NothingPlan {
-  PlacePlan(
-    super.u, {
-    super.hid = '',
-    super.uid = '',
-    required Image picture,
-    required StoryT story,
-  }) {
-    u.registerComponent(PictureComponent.new);
-    u.registerComponent(StoryComponent.new);
-    u.registerComponent(TiledmapRenderComponent.new);
+Plan<dynamic> constructPlacePlan(
+  Universe u, {
+  String? hid,
+  String? uid,
+  required Image picture,
+  required StoryT story,
+}) {
+  final p = constructNothingPlan(u, hid: hid, uid: uid);
 
-    innerEntity
-      ..add<PictureComponent, Image>(picture)
-      ..add<StoryComponent, StoryT>(story)
-      ..add<TiledmapRenderComponent, RenderFn<TiledmapT>>(placeTiledmapRender);
-  }
+  u.registerComponent(PictureComponent.new);
+  u.registerComponent(StoryComponent.new);
+  u.registerComponent(TiledmapRenderComponent.new);
+
+  p.innerEntity
+    ..add<PictureComponent, Image>(picture)
+    ..add<StoryComponent, StoryT>(story)
+    ..add<TiledmapRenderComponent, RenderFn<TiledmapT>>(placeTiledmapRender);
+
+  return p;
 }

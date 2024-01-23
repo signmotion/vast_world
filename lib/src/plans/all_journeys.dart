@@ -3,15 +3,17 @@
 part of '../../vast_world.dart';
 
 /// Contains all journeys.
-class AllJourneysPlan extends Plan<JourneyPlan> {
-  AllJourneysPlan(
-    super.u, {
-    super.hid = '',
-    super.uid = '',
-  }) {
-    u.registerComponent(TiledmapRenderComponent.new);
+Plan<dynamic> constructAllJourneysPlan(
+  Universe u, {
+  String? hid,
+  String? uid,
+}) {
+  final p = constructNothingPlan(u, hid: hid, uid: uid);
 
-    innerEntity.add<TiledmapRenderComponent, RenderFn<TiledmapT>>(
-        allJourneysTiledmapRender);
-  }
+  u.registerComponent(TiledmapRenderComponent.new);
+
+  p.innerEntity.add<TiledmapRenderComponent, RenderFn<TiledmapT>>(
+      allJourneysTiledmapRender);
+
+  return p;
 }
