@@ -4,8 +4,15 @@ part of '../../../vast_world.dart';
 /// See [ValueComponent] from Oxygen.
 abstract class VComponent<T> extends Component<T> {
   late T _value;
+
   T get value => _value;
-  set value(T? v) => _value = v ?? defaults;
+
+  set value(T? v) {
+    _value = v ?? defaults;
+    if (v != null) {
+      check();
+    }
+  }
 
   String get hid =>
       runtimeType.toString().replaceFirst('Component', '').toLowerCase();
@@ -16,7 +23,7 @@ abstract class VComponent<T> extends Component<T> {
   @override
   void init([T? v]) {
     if (v == null) {
-      value = defaults;
+      _value = defaults;
       return;
     }
 
@@ -26,20 +33,20 @@ abstract class VComponent<T> extends Component<T> {
   }
 
   @protected
-  void initv(T v) => value = v;
+  void initv(T v) => _value = v;
 
   /// We can call [check] after [init] for verify filled values.
   void check() {}
 
   @override
-  void reset() => value = defaults;
+  void reset() => _value = defaults;
 
   T get defaults => empty;
 
   /// Empty value for [T].
   T get empty;
 
-  bool get isDefaults => value == defaults;
+  bool get isDefaults => _value == defaults;
 
-  bool get isEmpty => defaults == empty;
+  bool get isEmpty => _value == empty;
 }
