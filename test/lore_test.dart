@@ -18,7 +18,7 @@ void main() {
       final all = constructAllJourneysPlan(u);
       lore.addNew(all);
       expect(lore.count, 1);
-      expect(lore.universes.single.inner.entities.length, lore.count);
+      expect(lore.countsInUniverses.single, lore.count);
 
       final aerwyna = constructJourneyPlan(
         u,
@@ -32,7 +32,7 @@ void main() {
       // doesn't add a plan with able HID
       lore.addNew(aerwyna);
       expect(lore.count, 2);
-      expect(lore.universes.single.inner.entities.length, lore.count);
+      expect(lore.countsInUniverses.single, lore.count);
       {
         final p = lore['aerwyna']!;
         expect(aerwyna.hid, p.hid);
@@ -126,7 +126,7 @@ void main() {
       );
       lore.addNew(aerwyna);
       expect(lore.count, 1);
-      expect(lore.universes.single.inner.entities.length, lore.count);
+      expect(lore.countsInUniverses.single, lore.count);
 
       const newName = 'New Aerwyna';
       const newGreeting = 'new greeting';
@@ -136,7 +136,7 @@ void main() {
       lore.update(aerwyna.id, DescriptionComponent.new, newDescription);
 
       expect(lore.count, 1);
-      expect(lore.universes.single.inner.entities.length, lore.count);
+      expect(lore.countsInUniverses.single, lore.count);
       {
         final p = lore['aerwyna']!;
         expect(p.hid, aerwyna.hid);
@@ -166,6 +166,7 @@ void main() {
         description: 'description',
       );
       lore.addNew(aerwyna);
+      expect(lore.countsInUniverses.single, lore.count);
 
       {
         final exposed = lore[all.id]!.exposed as List<Plan<dynamic>>;
@@ -189,7 +190,7 @@ void main() {
       final plan = constructNothingPlan(u);
       expect(plan.get<NameComponent>(), isNull);
       plan.set(NameComponent.new);
-      expect(plan.get<NameComponent>()?.value, '');
+      expect(plan.get<NameComponent>()?.value, NameComponent().defaults);
     });
 
     test('Add a new component with value', () {

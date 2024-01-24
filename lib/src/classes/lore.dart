@@ -52,8 +52,12 @@ class Lore {
     pa!.addToImpacts(pb);
   }
 
-  /// Count of [plans].
+  /// Count of [plans] into the [Lore].
   int get count => plans.length;
+
+  /// Count of [Entity] into the [Universe].
+  Iterable<int> get countsInUniverses =>
+      universes.map((u) => u.inner.entities.length);
 
   /// <[Plan.id], [Plan]>
   final Map<String, Plan<dynamic>> plans = {};
