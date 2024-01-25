@@ -110,6 +110,5 @@ part 'src/shapes/polygon_shape.dart';
 part 'src/shapes/shape_2d.dart';
 part 'src/shapes/shape.dart';
 
-part 'src/utils/checkers.dart';
 part 'src/utils/random_fallback.dart';
 part 'src/utils/u2d.dart';
