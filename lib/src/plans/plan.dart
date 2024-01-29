@@ -29,19 +29,12 @@ class Plan<I extends Plan<dynamic>> extends Quant {
   final Universe u;
 
   /// [value] converted to [PlanBase].
-  PlanBase get base {
-    print(components);
-
-    //final components = <String, ComponentBase>{};
-    //for (final c in u.componentManager.components)
-
-    return PlanBase(
-      hid: hid,
-      uid: uid,
-      components: {},
-      exposed: {},
-    );
-  }
+  PlanBase get base => PlanBase(
+        hid: hid,
+        uid: uid,
+        components: {for (final c in components) c.id: c.base},
+        exposed: {for (final p in exposed) p.id: p.base},
+      );
 
   List<Component<dynamic>> get components {
     /// we can't access to components for [innerEntity] into Oxygen
