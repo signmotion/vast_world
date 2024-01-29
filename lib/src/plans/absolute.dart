@@ -5,5 +5,5 @@ part of '../../vast_world.dart';
 /// An 'absolute plan' with our [Universe].
 /// Use for some renders.
 class AbsolutePlan extends Plan<Plan> {
-  AbsolutePlan() : super(Universe());
+  AbsolutePlan() : super(Universe(), PlanBase.create());
 }

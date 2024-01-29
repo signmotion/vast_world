@@ -5,7 +5,11 @@ typedef IdT = ({
   String uid,
 });
 
-class IdComponent extends VComponent<IdT> with HasStringIdMix {
+class IdComponent extends Component<IdT> {
+  /// ! There is UID for this component, not his [value].
+  @override
+  String get uid => 'd009a66a-1a05-4ea1-9658-10900ce5b8a75';
+
   @override
   void initv(IdT v) => value = (
         hid: v.hid,
@@ -22,13 +26,17 @@ class IdComponent extends VComponent<IdT> with HasStringIdMix {
   @override
   IdT get empty => (hid: '', uid: '');
 
-  /// Human ID for nicely detection.
   @override
-  String get hid => value.hid;
+  JsonMap get valueAsJson => {'hid': hid, 'uid': uid};
 
-  /// UUID, version 4.
   @override
-  String get uid => value.uid;
+  IdT jsonAsValue(JsonMap json) => switch (json) {
+        {'hid': String? hid, 'uid': String? uid} => (
+            hid: hid ?? '',
+            uid: uid ?? '',
+          ),
+        _ => throw ArgumentError(json),
+      };
 }
 
 extension HidExt on String {

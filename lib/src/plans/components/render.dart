@@ -4,7 +4,7 @@ part of '../../../vast_world.dart';
 /// influential [Plan].
 /// Constructed by analogy [PlanListComponent].
 /// [R] extends [RenderFn<T>].
-abstract class RenderComponent<T> extends VComponent<RenderFn<T>> {
+abstract class RenderComponent<T> extends Component<RenderFn<T>> {
   RenderFn<T> get render => value;
 
   RenderedData<T> renderData(Plan<dynamic> spectator, Plan<dynamic> watched) =>

@@ -2,22 +2,57 @@ part of '../../vast_world.dart';
 
 /// The collection of all plans.
 class Lore {
+  //Lore(this.base);
+
+  late LoreBase base;
+
   /// Add [plan] to [plans].
   /// Ignore when [plan] has been submitted.
   void addNew(Plan<dynamic> plan) {
+    _addNewIntoBase(plan);
+    _addNewIntoRoot(plan);
+  }
+
+  void _addNewIntoBase(Plan<dynamic> plan) {
+    if (base.plans[plan.id] == null) {
+      base.plans[plan.id] = plan.base;
+    }
+  }
+
+  void _addNewIntoRoot(Plan<dynamic> plan) {
     if (this[plan.id] == null) {
       this[plan.id] = plan;
     }
   }
 
   /// Replace a [data] for component [T], plan [id].
-  void update<T extends VComponent<V>, V>(
+  void update<T extends Component<V>, V>(
     String id,
-    ComponentBuilder<T> componentBuilder,
+    oxygen.ComponentBuilder<T> componentBuilder,
+    V data,
+  ) {
+    _updateIntoBase(id, componentBuilder, data);
+    _updateIntoRoot(id, componentBuilder, data);
+  }
+
+  void _updateIntoBase<T extends Component<V>, V>(
+    String id,
+    oxygen.ComponentBuilder<T> componentBuilder,
+    V data,
+  ) {
+    final plan = base.plans[id];
+    ae(plan != null, 'Plan `$id` not found in the base.');
+
+    // TODO plan!.set<T, V>(componentBuilder, data);
+  }
+
+  void _updateIntoRoot<T extends Component<V>, V>(
+    String id,
+    oxygen.ComponentBuilder<T> componentBuilder,
     V data,
   ) {
     final plan = this[id];
-    ae(plan != null, 'Plan `{pland.id}` not found.');
+    ae(plan != null, 'Plan `$id` not found in the root.');
 
     plan!.set<T, V>(componentBuilder, data);
   }
@@ -64,4 +99,7 @@ class Lore {
 
   /// All unique [Universe]s from [plans].
   Set<Universe> get universes => {...plans.values.map((p) => p.u)};
+
+  @override
+  String toString() => '${base.shortMapWithSignificantFieldsMessage.blured()}';
 }

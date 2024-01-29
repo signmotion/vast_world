@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package syrokomskyi.type;
+
+import "google/protobuf/timestamp.proto";
+
+// The version representation.
+// Format:
+//   version: major.minor.patch
+// You can calculate the number version code by this formula:
+//   code = m[A]jor * 100 * 100 + m[I]nor * 100 + [P]atch
+// Otherwise: +AAIIPP
+message Version {
+    int32 major = 1;
+    int32 minor = 2;
+    int32 patch = 3;
+
+    google.protobuf.Timestamp created = 4;
+    google.protobuf.Timestamp updated = 5;
+}

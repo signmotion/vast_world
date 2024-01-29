@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package vw;
+
+import "vw/component.proto";
+
+message PlanBase {
+    /// The HID and UID has also duplicated into [components] as [IdComponent].
+    string hid = 1;
+    string uid = 2;
+
+    /// <componentId, ComponentBase>
+    map<string, ComponentBase> components = 10;
+
+    /// <planId, planBase>
+    map<string, PlanBase> exposed = 12;
+}

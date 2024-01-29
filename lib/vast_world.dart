@@ -10,12 +10,16 @@ import 'package:collection/collection.dart';
 import 'package:dart_helpers/dart_helpers.dart' hide JsonMap, JsonList;
 import 'package:dart_tiledmap/dart_tiledmap.dart';
 import 'package:id_gen/id_gen.dart';
+import 'package:id_gen/id_gen_helpers.dart';
 import 'package:image/image.dart';
 import 'package:meta/meta.dart';
-import 'package:oxygen/oxygen.dart';
+import 'package:oxygen/oxygen.dart' as oxygen;
 import 'package:path/path.dart' as ph;
-import 'package:wfile/wfile.dart';
+import 'package:protobuf/protobuf.dart';
+import 'package:wfile/wfile.dart' hide StringJsonExt;
 import 'package:xml/xml.dart';
+
+import 'vast_world_protos.dart';
 
 part 'src/brokers/filesystem/filesystem.dart';
 part 'src/brokers/filesystem/image.dart';
@@ -26,12 +30,13 @@ part 'src/brokers/broker.dart';
 
 part 'src/classes/bounding_box_2d.dart';
 part 'src/classes/change_notifier.dart';
-part 'src/classes/lore.dart';
+part 'src/plans/lore.dart';
 part 'src/classes/notifying_vector2.dart';
 part 'src/classes/platform_dispatcher.dart';
 part 'src/classes/transform_2d.dart';
 
 part 'src/extensions/aabb.dart';
+part 'src/extensions/convert_messages_ext.dart';
 part 'src/extensions/offset.dart';
 part 'src/extensions/rect.dart';
 part 'src/extensions/vector2.dart';
@@ -72,7 +77,7 @@ part 'src/plans/components/story.dart';
 part 'src/plans/components/string.dart';
 part 'src/plans/components/tiledmap_render.dart';
 part 'src/plans/components/transform_2d.dart';
-part 'src/plans/components/v.dart';
+part 'src/plans/components/component.dart';
 part 'src/plans/components/xml_render.dart';
 
 part 'src/plans/absolute.dart';

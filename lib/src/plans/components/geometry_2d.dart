@@ -8,7 +8,7 @@ typedef Geometry2DT = ({
   Shape2D? shape,
 });
 
-class Geometry2DComponent extends VComponent<Geometry2DT> {
+class Geometry2DComponent extends Component<Geometry2DT> {
   @override
   void initv(Geometry2DT v) {
     shape = v.shape ?? const InfinityShape();
@@ -77,4 +77,10 @@ class Geometry2DComponent extends VComponent<Geometry2DT> {
   Unit get realSquare => realWidth * realHeight;
 
   late final Shape2D shape;
+
+  @override
+  JsonMap get valueAsJson => throw UnimplementedError();
+
+  @override
+  Geometry2DT jsonAsValue(JsonMap json) => throw UnimplementedError();
 }

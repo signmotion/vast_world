@@ -4,29 +4,29 @@ part of '../../vast_world.dart';
 
 class Universe {
   Universe() {
-    inner = World();
-    _queryManager = QueryManager(inner.entityManager);
+    inner = oxygen.World();
+    _queryManager = oxygen.QueryManager(inner.entityManager);
   }
 
-  late final World inner;
+  late final oxygen.World inner;
 
-  void registerSystem<T extends System>(T system) =>
+  void registerSystem<T extends oxygen.System>(T system) =>
       inner.registerSystem(system);
 
   void registerComponent<T extends Component<V>, V>(
-    ComponentBuilder<T> builder,
+    oxygen.ComponentBuilder<T> builder,
   ) =>
       inner.registerComponent(builder);
 
   /// Retrieve an entity with [id] equals [hid] or [uid] from [Plan] [IdComponent].
-  Entity? entity(String id) =>
-      query([Has<IdComponent>()]).entities.firstWhereOrNull((e) =>
+  oxygen.Entity? entity(String id) =>
+      query([oxygen.Has<IdComponent>()]).entities.firstWhereOrNull((e) =>
           e.get<IdComponent>()!.hid == id || e.get<IdComponent>()!.uid == id);
 
-  Entity construct([String? id]) => inner.createEntity(id);
+  oxygen.Entity construct([String? id]) => inner.createEntity(id);
 
   /// Immediately remove [entity].
-  void removeEntity(Entity entity) => inner.entityManager
+  void removeEntity(oxygen.Entity entity) => inner.entityManager
     ..removeEntity(entity)
     ..processRemovedEntities();
 
@@ -41,7 +41,8 @@ class Universe {
   String toString() => toJson().sjson;
 
   /// Create or retrieve a cached query.
-  Query query(Iterable<Filter> filters) => _queryManager.createQuery(filters);
+  oxygen.Query query(Iterable<oxygen.Filter> filters) =>
+      _queryManager.createQuery(filters);
 
-  late final QueryManager _queryManager;
+  late final oxygen.QueryManager _queryManager;
 }
