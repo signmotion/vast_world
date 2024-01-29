@@ -70,6 +70,7 @@ part 'src/plans/components/greeting.dart';
 part 'src/plans/components/id.dart';
 part 'src/plans/components/list.dart';
 part 'src/plans/components/name.dart';
+part 'src/plans/components/nothing.dart';
 part 'src/plans/components/picture.dart';
 part 'src/plans/components/plan.dart';
 part 'src/plans/components/render.dart';

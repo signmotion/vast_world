@@ -7,41 +7,64 @@ part of '../../vast_world.dart';
 class Plan<I extends Plan<dynamic>> extends Quant {
 // TODO class Plan<I extends Plan<dynamic>, L extends LayoutComponent> extends Quant {
   Plan(
-    this.u,
-    this.base, {
+    this.u, {
     String? hid,
     String? uid,
     //L? layoutForExposed,
   }) {
-    base.hid = hid ?? base.hid;
-    base.uid = uid ?? (base.uid.isEmpty ? genUuid : base.uid);
+    this.hid = hid ?? '';
+    this.uid = uid ?? genUuid;
 
     // to fix error `UnmodifiableList`
     this.impactsOnPlans = List<I>.empty(growable: true);
 
     // an one entity on each plan
-    final debugId = base.hid.isEmpty ? base.uid : base.hid;
+    final debugId = id;
     innerEntity = u.construct(debugId);
 
-    set<IdComponent, IdT>(IdComponent.new, (hid: base.hid, uid: base.uid));
+    set<IdComponent, IdT>(IdComponent.new, (hid: this.hid, uid: this.uid));
     // TODO set<LayoutComponent>(layoutForExposed.builder);
   }
 
-  factory Plan.construst(
-    Universe u, {
-    String? hid,
-    String? uid,
-  }) =>
-      Plan(
-        u,
-        PlanBase(components: {}, exposed: {}),
-        hid: hid,
-        uid: uid,
-      );
-
   final Universe u;
 
-  final PlanBase base;
+  /// [value] converted to [PlanBase].
+  PlanBase get base {
+    print(components);
+
+    //final components = <String, ComponentBase>{};
+    //for (final c in u.componentManager.components)
+
+    return PlanBase(
+      hid: hid,
+      uid: uid,
+      components: {},
+      exposed: {},
+    );
+  }
+
+  List<Component<dynamic>> get components {
+    /// we can't access to components for [innerEntity] into Oxygen
+    /// TODO(sign): optimize
+    final l = <Component<dynamic>?>[
+      ie.get<DescriptionComponent>(),
+      ie.get<IdComponent>(),
+      ie.get<ListComponent<dynamic>>(),
+      ie.get<NameComponent>(),
+      ie.get<PictureComponent>(),
+      ie.get<StoryComponent>(),
+      ie.get<StringComponent>(),
+      ie.get<TiledmapRenderComponent>(),
+    ];
+    final r = <Component<dynamic>>[];
+    for (final c in l) {
+      if (c != null) {
+        r.add(c);
+      }
+    }
+
+    return r;
+  }
 
   /// TODO(sign): Return [uid] always when production.
   @override
@@ -55,7 +78,7 @@ class Plan<I extends Plan<dynamic>> extends Quant {
   }
 
   /// Alias [get].
-  T? component<T extends Component<dynamic>>() => innerEntity.get<T>();
+  T? component<T extends Component<dynamic>>() => ie.get<T>();
 
   /// Alias [component].
   T? get<T extends Component<dynamic>>() => component<T>();
@@ -66,52 +89,37 @@ class Plan<I extends Plan<dynamic>> extends Quant {
     oxygen.ComponentBuilder<T> builder, [
     V? data,
   ]) {
-    _setIntoBase(builder, data);
-    _setIntoRoot(builder, data);
-  }
-
-  void _setIntoBase<T extends Component<V>, V>(
-    oxygen.ComponentBuilder<T> builder, [
-    V? data,
-  ]) {
-    final c = builder()..init(data);
-    base.components[c.id] = c.base;
-  }
-
-  void _setIntoRoot<T extends Component<V>, V>(
-    oxygen.ComponentBuilder<T> builder, [
-    V? data,
-  ]) {
     u.registerComponent(builder);
 
     final c = component<T>();
     if (c == null) {
-      innerEntity.add<T, V>(data);
+      ie.add<T, V>(data);
     } else {
       c.init(data);
     }
   }
 
   /// Remove this plan from Universe.
-  void removeInnerEntity() => u.removeEntity(innerEntity);
+  void removeInnerEntity() => u.removeEntity(ie);
 
   Plan copyWith({
     Universe? u,
-    PlanBase? base,
     String? hid,
     String? uid,
     // TODO LayoutComponent? layoutForExposed,
   }) =>
       Plan(
         u ?? this.u,
-        base ?? this.base,
         hid: hid ?? this.hid,
         uid: uid ?? this.uid,
         // TODO layoutForExposed: layoutForExposed ?? this.layoutForExposed,
       );
 
   @protected
-  late oxygen.Entity innerEntity;
+  late final oxygen.Entity innerEntity;
+
+  /// Alias [innerEntity].
+  oxygen.Entity get ie => innerEntity;
 
   late final List<I> impactsOnPlans;
 
@@ -135,11 +143,6 @@ class Plan<I extends Plan<dynamic>> extends Quant {
     // TODO void addToImpacts<L extends LocationValue>(I plan, [L? location]) {
     // TODO plan.setLayout(layoutForExposed, location);
 
-    _addToImpactsIntoBase(plan);
-    _addToImpactsIntoRoot(plan);
+    impactsOnPlans.add(plan);
   }
-
-  void _addToImpactsIntoBase(I plan) => base.exposed[plan.id] = plan.base;
-
-  void _addToImpactsIntoRoot(I plan) => impactsOnPlans.add(plan);
 }

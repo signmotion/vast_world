@@ -7,4 +7,4 @@ Plan<dynamic> constructNothingPlan(
   String? hid = '',
   String? uid = '',
 }) =>
-    Plan(u, PlanBase.create(), hid: hid, uid: uid);
+    Plan(u, hid: hid, uid: uid);

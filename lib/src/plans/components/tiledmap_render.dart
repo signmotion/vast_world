@@ -9,7 +9,7 @@ class TiledmapRenderComponent extends RenderComponent<TiledmapT> {
   RenderFn<TiledmapT> get empty => nothingTiledmapTRender;
 
   @override
-  JsonMap get valueAsJson => throw UnimplementedError();
+  JsonMap get valueAsJson => {};
 
   @override
   RenderFn<TiledmapT> jsonAsValue(JsonMap json) => throw UnimplementedError();

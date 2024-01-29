@@ -8,7 +8,7 @@ typedef IdT = ({
 class IdComponent extends Component<IdT> {
   /// ! There is UID for this component, not his [value].
   @override
-  String get uid => 'd009a66a-1a05-4ea1-9658-10900ce5b8a75';
+  String get uid => 'd009a66a-1a05-4ea1-9658-10900ce5b8a7';
 
   @override
   void initv(IdT v) => value = (

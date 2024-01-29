@@ -9,26 +9,23 @@ abstract class Component<T> extends oxygen.Component<T> with HasStringIdMix {
   //   }
   // }
 
-  /// Will set when set a [value].
-  late ComponentBase base;
+  /// [value] converted to [ComponentBase].
+  ComponentBase get base => ComponentBase(
+        hid: hid,
+        uid: uid,
+        sjsonValue: valueAsJson.sjson,
+      );
 
   late T _value;
 
   T get value => _value;
 
   set value(T? v) {
-    _setValueIntoRoot(v);
-    _setValueIntoBase();
-  }
-
-  void _setValueIntoRoot(T? v) {
     _value = v ?? defaults;
     if (v != null) {
       check();
     }
   }
-
-  void _setValueIntoBase() => base = toBase();
 
   @override
   String get hid =>
@@ -74,13 +71,10 @@ abstract class Component<T> extends oxygen.Component<T> with HasStringIdMix {
 
   bool get isEmpty => _value == empty;
 
-  /// Converts [value] to [ComponentBase].
-  ComponentBase toBase() => ComponentBase.create()
-    ..hid = hid
-    ..uid = uid
-    ..sjsonValue = valueAsJson.sjson;
-
   JsonMap get valueAsJson;
 
   T jsonAsValue(JsonMap json);
+
+  @override
+  String toString() => '$id $valueAsJson'.bittenOfAllUuids32.abbreviate(120);
 }

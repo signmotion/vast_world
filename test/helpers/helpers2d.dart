@@ -112,6 +112,12 @@ void checkPlan(
         .firstWhereOrNull((p) => (p as HasStringIdMix).id == exposedId);
     expect(found, isNotNull);
   }
+
+  // base
+  final base = plan.base;
+  expect(base.hid, plan.hid);
+  expect(base.uid, plan.uid);
+  expect(base.exposed.length, plan.exposed.length, reason: '${base.exposed}');
 }
 
 
