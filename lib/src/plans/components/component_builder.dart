@@ -21,28 +21,13 @@ class ComponentBuilder {
     return component as T;
   }
 
-  TBuilder<Component<dynamic>> builder(String componentUid) {
-    if (componentUid == DescriptionComponent().uid) {
-      return DescriptionComponent.new;
-    }
+  TBuilder<Component<dynamic>> builder(String componentUid) =>
+      allBuilders.firstWhere(
+        (cb) => cb().uid == componentUid,
+        orElse: () => throw UnimplementedError(),
+      );
 
-    if (componentUid == GreetingComponent().uid) {
-      return GreetingComponent.new;
-    }
-
-    if (componentUid == IdComponent().uid) {
-      return IdComponent.new;
-    }
-
-    if (componentUid == NameComponent().uid) {
-      return NameComponent.new;
-    }
-
-    // TODO
-
-    throw UnimplementedError(componentUid);
-  }
-
+  /// Register, add, update component by [componentUid] with [jsonValue].
   void add(
     String componentUid,
     Universe u,
@@ -59,6 +44,7 @@ class ComponentBuilder {
           Universe? u,
           oxygen.Entity? entity,
           T? value,
+          dynamic accResult,
         }) {
           u!.registerComponent(builder);
           entity!.add<C, dynamic>(
@@ -67,7 +53,54 @@ class ComponentBuilder {
         },
       );
 
-  R runForComponent<R>(
+  /// All components of the [entity].
+  List<Component<dynamic>> components(
+    Universe u,
+    oxygen.Entity entity,
+  ) {
+    Component<dynamic>? run<C extends Component<dynamic>, T>(
+      TBuilder<C> builder, {
+      Universe? u,
+      oxygen.Entity? entity,
+      T? value,
+    }) {
+      final c = entity!.get<C>();
+      return c;
+    }
+
+    final r = <Component<dynamic>>[];
+    for (final componentBuilder in allBuilders) {
+      final found = runForComponent(
+        componentBuilder().uid,
+        u: u,
+        entity: entity,
+        run: run,
+      );
+      if (found != null) {
+        r.add(found);
+      }
+    }
+
+    return r;
+  }
+
+  /// All builders of component.
+  static const List<TBuilder<Component<dynamic>>> allBuilders = [
+    DescriptionComponent.new,
+    GreetingComponent.new,
+    IdComponent.new,
+    ListComponent.new,
+    NameComponent.new,
+    NothingComponent.new,
+    PictureComponent.new,
+    StoryComponent.new,
+    StringComponent.new,
+    TiledmapRenderComponent.new,
+  ];
+
+  /// Helper for generic detecting and processing a component.
+  /// Swiss knife for [Component], [oxygen.Entity] and [Universe].
+  R? runForComponent<R>(
     String componentUid, {
     required R Function<C extends Component<dynamic>, T>(
       TBuilder<C> builder, {
@@ -79,76 +112,156 @@ class ComponentBuilder {
     oxygen.Entity? entity,
     JsonMap? jsonValue,
   }) {
-    final json = jsonValue!;
+    /* - Doesn't work.
+    for (final b in allBuilders) {
+      if (b().uid == componentUid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
+    }
+    */
 
-    if (DescriptionComponent().uid == componentUid) {
-      return run(
-        DescriptionComponent.new,
-        u: u,
-        entity: entity,
-        value: DescriptionComponent().jsonAsValue(json),
-      );
+    final uid = componentUid;
+
+    /// a number of components will be checked
+    var count = 0;
+
+    ++count;
+    {
+      const b = DescriptionComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
     }
 
-    if (GreetingComponent().uid == componentUid) {
-      return run(
-        GreetingComponent.new,
-        u: u,
-        entity: entity,
-        value: GreetingComponent().jsonAsValue(json),
-      );
+    ++count;
+    {
+      const b = GreetingComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
     }
 
-    if (IdComponent().uid == componentUid) {
-      return run(
-        IdComponent.new,
-        u: u,
-        entity: entity,
-        value: IdComponent().jsonAsValue(json),
-      );
+    ++count;
+    {
+      const b = IdComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
     }
 
-    if (NameComponent().uid == componentUid) {
-      return run(
-        NameComponent.new,
-        u: u,
-        entity: entity,
-        value: NameComponent().jsonAsValue(json),
-      );
+    ++count;
+    {
+      const b = ListComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
     }
 
-    // TODO
+    ++count;
+    {
+      const b = NameComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
+    }
+
+    ++count;
+    {
+      const b = NothingComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
+    }
+
+    ++count;
+    {
+      const b = PictureComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
+    }
+
+    ++count;
+    {
+      const b = StoryComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
+    }
+
+    ++count;
+    {
+      const b = StringComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
+    }
+
+    ++count;
+    {
+      const b = TiledmapRenderComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
+    }
+
+    ae(count == allBuilders.length, 'Inconsistent list of components.');
 
     throw UnimplementedError(componentUid);
   }
-
-  // ) {
-
-  //   runForComponent
-  //   //const cb = ComponentBuilder();
-  //   //final builder = cb.builder(componentUid);
-  //   //u.registerComponent(builder);
-
-  //   if (DescriptionComponent().uid == componentUid) {
-  //     return DescriptionComponent.new;
-  //   }
-
-  //   if (GreetingComponent().uid == componentUid) {
-  //     return GreetingComponent.new;
-  //   }
-
-  //   if (IdComponent().uid == componentUid) {
-  //     return IdComponent.new;
-  //   }
-
-  //   if (NameComponent().uid == componentUid) {
-  //     u.registerComponent(NameComponent.new);
-  //     entity.add<NameComponent, String>(NameComponent().jsonAsValue(json));
-  //     return;
-  //   }
-
-  //   // TODO
-
-  //   throw UnimplementedError(componentUid);
-  // }
 }

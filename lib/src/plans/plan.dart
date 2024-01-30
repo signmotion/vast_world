@@ -38,28 +38,8 @@ class Plan<I extends Plan<dynamic>> extends Quant {
         exposed: {for (final p in exposed) p.id: p.base},
       );
 
-  List<Component<dynamic>> get components {
-    /// we can't access to components for [innerEntity] into Oxygen
-    /// TODO(sign): optimize, generalize
-    final l = <Component<dynamic>?>[
-      ie.get<DescriptionComponent>(),
-      ie.get<IdComponent>(),
-      ie.get<ListComponent<dynamic>>(),
-      ie.get<NameComponent>(),
-      ie.get<PictureComponent>(),
-      ie.get<StoryComponent>(),
-      ie.get<StringComponent>(),
-      ie.get<TiledmapRenderComponent>(),
-    ];
-    final r = <Component<dynamic>>[];
-    for (final c in l) {
-      if (c != null) {
-        r.add(c);
-      }
-    }
-
-    return r;
-  }
+  List<Component<dynamic>> get components =>
+      const ComponentBuilder().components(u, innerEntity);
 
   /// TODO(sign): Return [uid] always when production.
   @override
@@ -98,19 +78,11 @@ class Plan<I extends Plan<dynamic>> extends Quant {
   /// [component] absent.
   /// See [set].
   void setComponent(Component<dynamic> component) {
-    final found = components.firstWhere(
-      (c) => c.uid == component.uid,
-      orElse: () {
-        // const cb = ComponentBuilder();
-        // final builder = cb.builder(component.uid);
-        // u.registerComponent(builder);
-        const ComponentBuilder()
-            .add(component.uid, u, ie, component.valueAsJson);
-
-        return components.firstWhereOrNull((nc) => nc.uid == component.uid)!;
-      },
-    );
-
+    var found = components.firstWhereOrNull((c) => c.uid == component.uid);
+    if (found == null) {
+      const ComponentBuilder().add(component.uid, u, ie, component.valueAsJson);
+      found = components.firstWhereOrNull((c) => c.uid == component.uid)!;
+    }
     found.init(component.value);
   }
 

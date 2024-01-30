@@ -142,7 +142,7 @@ void main() {
       {
         final p = lore['aerwyna']!;
         expect(p.hid, aerwyna.hid);
-        expect(p.components.length, 4, reason: p.components.sjson);
+        expect(p.components.length, 5, reason: p.components.sjson);
         expect(p.uid, aerwyna.uid);
 
         expect(p.component<NameComponent>()!.value, newName);
@@ -157,13 +157,14 @@ void main() {
 
       final nothing = constructNothingPlan(u);
       lore.addNew(nothing);
+      // always have [IdComponent]
       expect(nothing.components.length, 1, reason: nothing.components.sjson);
 
       final newNameComponent = NameComponent()..init('Aerwyna');
       lore.updateComponent(nothing.id, newNameComponent);
       expect(nothing.components.length, 2, reason: nothing.components.sjson);
 
-      final newGreetingComponent = GreetingComponent()..init('new greeting');
+      final newGreetingComponent = GreetingComponent()..init('greeting');
       lore.updateComponent(nothing.id, newGreetingComponent);
       expect(nothing.components.length, 3, reason: nothing.components.sjson);
 
@@ -182,7 +183,7 @@ void main() {
       expect(lore.count, 1);
       expect(lore.countsInUniverses.single, lore.count);
       {
-        final p = lore['aerwyna']!;
+        final p = lore[nothing.id]!;
         expect(p.components.length, 4, reason: p.components.sjson);
 
         expect(

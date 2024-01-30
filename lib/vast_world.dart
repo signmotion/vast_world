@@ -87,7 +87,6 @@ part 'src/plans/components/string.dart';
 part 'src/plans/components/tiledmap_render.dart';
 part 'src/plans/components/transform_2d.dart';
 part 'src/plans/components/component.dart';
-part 'src/plans/components/xml_render.dart';
 
 part 'src/plans/absolute.dart';
 part 'src/plans/all_journeys.dart';
