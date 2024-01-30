@@ -29,6 +29,8 @@ class Plan<I extends Plan<dynamic>> extends Quant {
   final Universe u;
 
   /// [value] converted to [PlanBase].
+  /// See [jsonAsBase].
+  @override
   PlanBase get base => PlanBase(
         hid: hid,
         uid: uid,
@@ -38,7 +40,7 @@ class Plan<I extends Plan<dynamic>> extends Quant {
 
   List<Component<dynamic>> get components {
     /// we can't access to components for [innerEntity] into Oxygen
-    /// TODO(sign): optimize
+    /// TODO(sign): optimize, generalize
     final l = <Component<dynamic>?>[
       ie.get<DescriptionComponent>(),
       ie.get<IdComponent>(),
@@ -138,4 +140,30 @@ class Plan<I extends Plan<dynamic>> extends Quant {
 
     impactsOnPlans.add(plan);
   }
+
+  /// See [base].
+  @override
+  PlanBase jsonAsBase(JsonMap json) => switch (json) {
+        {
+          'hid': String? hid,
+          'uid': String? uid,
+          'components': Map<String?, Object?> components,
+          'exposed': Map<String?, Object?> exposed,
+        } =>
+          PlanBase(
+            hid: hid,
+            uid: uid,
+            components: {
+              for (final c in components.entries)
+                c.key!: ComponentBase.create()
+                  ..mergeFromProto3Json(c.value as JsonMap)
+            },
+            exposed: {
+              for (final c in exposed.entries)
+                c.key!: PlanBase.create()
+                  ..mergeFromProto3Json(c.value as JsonMap)
+            },
+          ),
+        _ => throw ArgumentError(json.sjson),
+      };
 }

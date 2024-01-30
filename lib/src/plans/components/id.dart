@@ -35,7 +35,7 @@ class IdComponent extends Component<IdT> {
             hid: hid ?? '',
             uid: uid ?? '',
           ),
-        _ => throw ArgumentError(json),
+        _ => throw ArgumentError(json.sjson),
       };
 }
 

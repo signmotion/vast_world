@@ -41,6 +41,6 @@ class ListComponent<T> extends Component<List<T>> {
   @override
   List<T> jsonAsValue(JsonMap json) => switch (json) {
         {'value': List<dynamic>? l} => (l ?? []).map((v) => v as T).toList(),
-        _ => throw ArgumentError(json),
+        _ => throw ArgumentError(json.sjson),
       };
 }

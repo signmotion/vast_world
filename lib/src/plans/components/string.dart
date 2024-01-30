@@ -13,6 +13,6 @@ class StringComponent extends Component<String> {
   @override
   String jsonAsValue(JsonMap json) => switch (json) {
         {'value': String? value} => value ?? '',
-        _ => throw ArgumentError(json),
+        _ => throw ArgumentError(json.sjson),
       };
 }

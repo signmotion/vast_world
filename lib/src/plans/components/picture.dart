@@ -17,7 +17,11 @@ class PictureComponent extends Component<Image> {
   JsonMap get valueAsJson => {
         'width': width,
         'height': height,
-        'bytes': image.data!.getBytes(),
+        'bytes': VSConfig.shrinkImageDataInComponent == -1
+            ? image.data!.getBytes()
+            : image.data!
+                .getBytes()
+                .sublist(0, VSConfig.shrinkImageDataInComponent),
       };
 
   @override
@@ -28,6 +32,6 @@ class PictureComponent extends Component<Image> {
             height: height,
             bytes: bytes.buffer,
           ),
-        _ => throw ArgumentError(json),
+        _ => throw ArgumentError(json.sjson),
       };
 }

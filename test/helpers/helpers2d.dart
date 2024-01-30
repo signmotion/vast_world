@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:dart_helpers/dart_helpers.dart';
 import 'package:id_gen/id_gen.dart';
 import 'package:id_gen/id_gen_tests.dart';
 import 'package:vast_world/vast_world.dart';
@@ -117,7 +118,23 @@ void checkPlan(
   final base = plan.base;
   expect(base.hid, plan.hid);
   expect(base.uid, plan.uid);
-  expect(base.exposed.length, plan.exposed.length, reason: '${base.exposed}');
+  expect(
+    base.exposed.length,
+    plan.exposed.length,
+    reason: '${base.exposed}'.abbreviate(120),
+  );
+
+  final jsonBase = plan.baseAsJson;
+  final recoveryBase = plan.jsonAsBase(jsonBase);
+  expect(plan.base.hid, recoveryBase.hid);
+  expect(plan.base.uid, recoveryBase.uid);
+  final pc = plan.base.components;
+  final rc = recoveryBase.components;
+  expect(pc.length, rc.length);
+  if (pc.isNotEmpty) {
+    expect(pc.keys, containsAll(rc.keys));
+    expect(pc.values, containsAll(rc.values));
+  }
 }
 
 
