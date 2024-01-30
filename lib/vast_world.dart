@@ -21,6 +21,10 @@ import 'package:xml/xml.dart';
 
 import 'vast_world_protos.dart';
 
+part 'src/acts/act_builder.dart';
+part 'src/acts/act.dart';
+part 'src/acts/change_value.dart';
+
 part 'src/brokers/filesystem/filesystem.dart';
 part 'src/brokers/filesystem/image.dart';
 part 'src/brokers/filesystem/text.dart';
@@ -64,6 +68,10 @@ part 'src/keepers/keeper.dart';
 part 'src/keepers/DEPRECATED_tiledmap_keeper.dart';
 part 'src/keepers/tiledmap_keeper.dart';
 
+part 'src/plans/influencers/lore.dart';
+part 'src/plans/influencers/influencer.dart';
+
+part 'src/plans/components/component_builder.dart';
 part 'src/plans/components/description.dart';
 part 'src/plans/components/geometry_2d.dart';
 part 'src/plans/components/greeting.dart';

@@ -28,7 +28,7 @@ class Plan<I extends Plan<dynamic>> extends Quant {
 
   final Universe u;
 
-  /// [value] converted to [PlanBase].
+  /// This plan converted to [PlanBase].
   /// See [jsonAsBase].
   @override
   PlanBase get base => PlanBase(
@@ -94,6 +94,26 @@ class Plan<I extends Plan<dynamic>> extends Quant {
     }
   }
 
+  /// Set a [component] with value and register [component] the component when
+  /// [component] absent.
+  /// See [set].
+  void setComponent(Component<dynamic> component) {
+    final found = components.firstWhere(
+      (c) => c.uid == component.uid,
+      orElse: () {
+        // const cb = ComponentBuilder();
+        // final builder = cb.builder(component.uid);
+        // u.registerComponent(builder);
+        const ComponentBuilder()
+            .add(component.uid, u, ie, component.valueAsJson);
+
+        return components.firstWhereOrNull((nc) => nc.uid == component.uid)!;
+      },
+    );
+
+    found.init(component.value);
+  }
+
   /// Remove this plan from Universe.
   void removeInnerEntity() => u.removeEntity(ie);
 
@@ -142,28 +162,30 @@ class Plan<I extends Plan<dynamic>> extends Quant {
   }
 
   /// See [base].
+  /// See [jsonAsPlanBase].
   @override
-  PlanBase jsonAsBase(JsonMap json) => switch (json) {
-        {
-          'hid': String? hid,
-          'uid': String? uid,
-          'components': Map<String?, Object?> components,
-          'exposed': Map<String?, Object?> exposed,
-        } =>
-          PlanBase(
-            hid: hid,
-            uid: uid,
-            components: {
-              for (final c in components.entries)
-                c.key!: ComponentBase.create()
-                  ..mergeFromProto3Json(c.value as JsonMap)
-            },
-            exposed: {
-              for (final c in exposed.entries)
-                c.key!: PlanBase.create()
-                  ..mergeFromProto3Json(c.value as JsonMap)
-            },
-          ),
-        _ => throw ArgumentError(json.sjson),
-      };
+  PlanBase jsonAsBase(JsonMap json) => jsonAsPlanBase(json);
 }
+
+PlanBase jsonAsPlanBase(JsonMap json) => switch (json) {
+      {
+        'hid': String? hid,
+        'uid': String? uid,
+        'components': Map<String?, Object?> components,
+        'exposed': Map<String?, Object?> exposed,
+      } =>
+        PlanBase(
+          hid: hid,
+          uid: uid,
+          components: {
+            for (final c in components.entries)
+              c.key!: ComponentBase.create()
+                ..mergeFromProto3Json(c.value as JsonMap)
+          },
+          exposed: {
+            for (final p in exposed.entries)
+              p.key!: PlanBase.create()..mergeFromProto3Json(p.value as JsonMap)
+          },
+        ),
+      _ => throw ArgumentError(json.sjson),
+    };

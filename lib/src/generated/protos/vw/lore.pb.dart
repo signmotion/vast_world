@@ -13,11 +13,11 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'plan.pb.dart' as $1;
+import 'plan.pb.dart' as $2;
 
 class LoreBase extends $pb.GeneratedMessage {
   factory LoreBase({
-    $core.Map<$core.String, $1.PlanBase>? plans,
+    $core.Map<$core.String, $2.PlanBase>? plans,
   }) {
     final $result = create();
     if (plans != null) {
@@ -30,7 +30,7 @@ class LoreBase extends $pb.GeneratedMessage {
   factory LoreBase.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'LoreBase', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw'), createEmptyInstance: create)
-    ..m<$core.String, $1.PlanBase>(10, _omitFieldNames ? '' : 'plans', entryClassName: 'LoreBase.PlansEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $1.PlanBase.create, valueDefaultOrMaker: $1.PlanBase.getDefault, packageName: const $pb.PackageName('vw'))
+    ..m<$core.String, $2.PlanBase>(10, _omitFieldNames ? '' : 'plans', entryClassName: 'LoreBase.PlansEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $2.PlanBase.create, valueDefaultOrMaker: $2.PlanBase.getDefault, packageName: const $pb.PackageName('vw'))
     ..hasRequiredFields = false
   ;
 
@@ -57,7 +57,7 @@ class LoreBase extends $pb.GeneratedMessage {
 
   /// / <planId, PlanBase>
   @$pb.TagNumber(10)
-  $core.Map<$core.String, $1.PlanBase> get plans => $_getMap(0);
+  $core.Map<$core.String, $2.PlanBase> get plans => $_getMap(0);
 }
 
 

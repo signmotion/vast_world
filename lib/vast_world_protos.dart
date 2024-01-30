@@ -1,5 +1,13 @@
 library;
 
+export 'src/generated/protos/vw/act_type_enum.pb.dart';
+export 'src/generated/protos/vw/act_type_enum.pbenum.dart';
+export 'src/generated/protos/vw/act_type_enum.pbjson.dart';
+
+export 'src/generated/protos/vw/act.pb.dart';
+export 'src/generated/protos/vw/act.pbenum.dart';
+export 'src/generated/protos/vw/act.pbjson.dart';
+
 export 'src/generated/protos/vw/component.pb.dart';
 export 'src/generated/protos/vw/component.pbenum.dart';
 export 'src/generated/protos/vw/component.pbjson.dart';

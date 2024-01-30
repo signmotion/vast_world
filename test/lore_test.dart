@@ -1,5 +1,6 @@
 // ignore_for_file: inference_failure_on_function_invocation
 
+import 'package:dart_helpers/dart_helpers.dart';
 import 'package:test/test.dart';
 import 'package:vast_world/vast_world.dart';
 
@@ -69,8 +70,6 @@ void main() {
   });
 
   group('Update plans', () {
-    final u = Universe();
-
     /* TODO
     test('Update a whole empty plan', () {
       final lore = Lore();
@@ -114,7 +113,8 @@ void main() {
     });
     */
 
-    test('Update the components of plan', () {
+    test('Update the components of plan, set<>()', () {
+      final u = Universe();
       final lore = Lore();
 
       final aerwyna = constructJourneyPlan(
@@ -129,10 +129,12 @@ void main() {
       expect(lore.countsInUniverses.single, lore.count);
 
       const newName = 'New Aerwyna';
-      const newGreeting = 'new greeting';
-      const newDescription = 'new description';
       lore.update(aerwyna.id, NameComponent.new, newName);
+
+      const newGreeting = 'new greeting';
       lore.update(aerwyna.id, GreetingComponent.new, newGreeting);
+
+      const newDescription = 'new description';
       lore.update(aerwyna.id, DescriptionComponent.new, newDescription);
 
       expect(lore.count, 1);
@@ -140,6 +142,7 @@ void main() {
       {
         final p = lore['aerwyna']!;
         expect(p.hid, aerwyna.hid);
+        expect(p.components.length, 4, reason: p.components.sjson);
         expect(p.uid, aerwyna.uid);
 
         expect(p.component<NameComponent>()!.value, newName);
@@ -147,12 +150,60 @@ void main() {
         expect(p.component<DescriptionComponent>()!.value, newDescription);
       }
     });
+
+    test('Update the components of nothing plan, updateComponent()', () {
+      final u = Universe();
+      final lore = Lore();
+
+      final nothing = constructNothingPlan(u);
+      lore.addNew(nothing);
+      expect(nothing.components.length, 1, reason: nothing.components.sjson);
+
+      final newNameComponent = NameComponent()..init('Aerwyna');
+      lore.updateComponent(nothing.id, newNameComponent);
+      expect(nothing.components.length, 2, reason: nothing.components.sjson);
+
+      final newGreetingComponent = GreetingComponent()..init('new greeting');
+      lore.updateComponent(nothing.id, newGreetingComponent);
+      expect(nothing.components.length, 3, reason: nothing.components.sjson);
+
+      // first update: component absents
+      final newDescriptionComponent1 = DescriptionComponent()
+        ..init('description 1');
+      lore.updateComponent(nothing.id, newDescriptionComponent1);
+      expect(nothing.components.length, 4, reason: nothing.components.sjson);
+
+      // second update: component presents
+      final newDescriptionComponent2 = DescriptionComponent()
+        ..init('description 2');
+      lore.updateComponent(nothing.id, newDescriptionComponent2);
+      expect(nothing.components.length, 4, reason: nothing.components.sjson);
+
+      expect(lore.count, 1);
+      expect(lore.countsInUniverses.single, lore.count);
+      {
+        final p = lore['aerwyna']!;
+        expect(p.components.length, 4, reason: p.components.sjson);
+
+        expect(
+          p.component<NameComponent>()!.value,
+          newNameComponent.value,
+        );
+        expect(
+          p.component<GreetingComponent>()!.value,
+          newGreetingComponent.value,
+        );
+        expect(
+          p.component<DescriptionComponent>()!.value,
+          newDescriptionComponent2.value,
+        );
+      }
+    });
   });
 
   group('Bind plans or Add exposed plan', () {
-    final u = Universe();
-
     test('Bind 2 plans', () {
+      final u = Universe();
       final lore = Lore();
 
       final all = constructAllJourneysPlan(u);

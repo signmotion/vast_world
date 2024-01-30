@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package vw;
+
+import "vw/act_type_enum.proto";
+
+message ActBase {
+  optional string debug_name = 1;
+
+  string uid = 2;
+
+  ActTypeEnumBase type = 6;
+
+  optional string plan_id = 12;
+
+  /// <component_id, value>
+  map<string, string> values = 13;
+}
