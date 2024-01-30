@@ -118,3 +118,5 @@ part 'src/shapes/shape.dart';
 
 part 'src/utils/random_fallback.dart';
 part 'src/utils/u2d.dart';
+
+part 'src/vs_config.dart';
