@@ -7,17 +7,18 @@ class ActBuilder {
 
   T fromBase<T extends Act>(ActBase base) {
     logi('🧙‍♂️🟨 Constructing act based on '
-        '`${base.shortMapWithSignificantFieldsMessage}...');
+            '`${base.shortMapWithSignificantFieldsMessage}...'
+        .bittenOfAllUuids32);
 
     final act = switch (base.type) {
       ActTypeEnum.CHANGE_VALUE_ACT_TYPE => ChangeValueAct(
           debugName: base.debugName,
           uid: base.uid,
           planId: base.planId,
-          components: {
+          initializedComponents: [
             for (final e in base.components.entries)
-              e.key: const ComponentBuilder().fromBase(e.value)
-          },
+              const ComponentBuilder().fromBase(e.value)
+          ],
         ),
       // unsupported
       _ => throw UnimplementedError(base.sjson),

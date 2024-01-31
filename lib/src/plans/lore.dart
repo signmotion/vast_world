@@ -36,16 +36,16 @@ class Lore {
     }
   }
 
-  /// Replace a [data] for component [T], plan [id].
-  void update<T extends Component<V>, V>(
+  /// Replace a [data] for component [C], plan [id].
+  void update<C extends Component<V>, V>(
     String id,
-    oxygen.ComponentBuilder<T> componentBuilder,
+    oxygen.ComponentBuilder<C> componentBuilder,
     V data,
   ) {
     final plan = this[id];
     ae(plan != null, 'Plan `$id` not found in the root.');
 
-    plan!.set<T, V>(componentBuilder, data);
+    plan!.set<C, V>(componentBuilder, data);
   }
 
   /// Replace a [data] for component [T], plan [id].

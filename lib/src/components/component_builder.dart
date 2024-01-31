@@ -5,12 +5,13 @@ part of '../../vast_world.dart';
 class ComponentBuilder {
   const ComponentBuilder();
 
-  T fromJson<T extends Component<dynamic>>(JsonMap json) =>
+  C fromJson<C extends Component<dynamic>>(JsonMap json) =>
       fromBase(jsonAsComponentBase(json));
 
-  T fromBase<T extends Component<dynamic>>(ComponentBase base) {
+  C fromBase<C extends Component<dynamic>>(ComponentBase base) {
     logi('🧙‍♂️🟨 Constructing component based on '
-        '`${base.shortMapWithSignificantFieldsMessage}...');
+            '`${base.shortMapWithSignificantFieldsMessage}...'
+        .bittenOfAllUuids32);
 
     final component = builder(base.uid)();
     final json = base.sjsonValue.jsonMap;
@@ -18,7 +19,7 @@ class ComponentBuilder {
 
     logi('🧙‍♂️💚 Component `$component` constructed.');
 
-    return component as T;
+    return component as C;
   }
 
   TBuilder<Component<dynamic>> builder(String componentUid) =>

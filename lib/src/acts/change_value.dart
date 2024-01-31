@@ -5,14 +5,21 @@ class ChangeValueAct extends Act {
     super.debugName,
     super.uid,
     required super.planId,
-    required super.components,
-  }) : super(type: ActTypeEnum.CHANGE_VALUE_ACT_TYPE);
+    required List<Component<dynamic>> initializedComponents,
+  }) : super(
+          type: ActTypeEnum.CHANGE_VALUE_ACT_TYPE,
+          components: {for (final ic in initializedComponents) ic.id: ic},
+        );
 
   @override
-  T innerRun<T>(T o) => switch (T.runtimeType) {
-        (Lore v) => _runOnLore(v),
-        _ => throw UnimplementedError(),
-      } as T;
+  T innerRun<T>(T o) {
+    switch (o) {
+      case final Lore lore:
+        return _runOnLore(lore) as T;
+      default:
+        throw UnimplementedError();
+    }
+  }
 
   Lore _runOnLore(Lore lore) {
     //lore.changeValue(planId: planId, values: values);

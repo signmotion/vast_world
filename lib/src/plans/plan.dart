@@ -52,23 +52,27 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
     set(IdComponent.new, (hid: super.hid, uid: super.uid));
   }
 
-  /// Alias [get].
-  T? component<T extends Component<dynamic>>() => ie.get<T>();
+  /// Returns the [Component].
+  /// See [get], [getValue].
+  C? component<C extends Component<dynamic>>() => ie.get<C>();
 
   /// Alias [component].
-  T? get<T extends Component<dynamic>>() => component<T>();
+  C? get<C extends Component<dynamic>>() => component<C>();
+
+  /// Returns a value of the [Component].
+  dynamic getValue<C extends Component<dynamic>>() => get<C>()?.value;
 
   /// Set a component value and register the component when it absent.
   /// See [addComponent], [Component], [component].
-  void set<T extends Component<V>, V>(
-    oxygen.ComponentBuilder<T> builder, [
+  void set<C extends Component<V>, V>(
+    oxygen.ComponentBuilder<C> builder, [
     V? data,
   ]) {
     u.registerComponent(builder);
 
-    final c = component<T>();
+    final c = component<C>();
     if (c == null) {
-      ie.add<T, V>(data);
+      ie.add<C, V>(data);
     } else {
       c.init(data);
     }

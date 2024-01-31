@@ -10,7 +10,8 @@ class PlanBuilder {
 
   T fromBase<T extends Plan<dynamic>>(PlanBase base) {
     logi('🧙‍♂️🟨 Constructing plan based on '
-        '`${base.shortMapWithSignificantFieldsMessage}...');
+            '`${base.shortMapWithSignificantFieldsMessage}...'
+        .bittenOfAllUuids32);
 
     final plan = constructNothingPlan(
       universe,

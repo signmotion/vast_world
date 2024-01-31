@@ -34,7 +34,7 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
       );
 
   T run<T>(T o) {
-    logi('Running the act `$this` on the `$o`...');
+    logi('Running the act `$this` on the `$o`...'.bittenOfAllUuids32);
 
     return innerRun<T>(o);
   }

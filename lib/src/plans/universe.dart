@@ -13,8 +13,8 @@ class Universe {
   void registerSystem<T extends oxygen.System>(T system) =>
       inner.registerSystem(system);
 
-  void registerComponent<T extends Component<V>, V>(
-    oxygen.ComponentBuilder<T> builder,
+  void registerComponent<C extends Component<V>, V>(
+    oxygen.ComponentBuilder<C> builder,
   ) =>
       inner.registerComponent(builder);
 
