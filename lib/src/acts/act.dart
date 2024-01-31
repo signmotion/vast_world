@@ -2,7 +2,7 @@ part of '../../vast_world.dart';
 
 /// By analogy with [Component] and [Plan].
 /// See [ActBuilder].
-abstract class Act with HasStringIdMix {
+abstract class Act with HasProtoBaseMix, HasStringIdMix {
   Act({
     this.debugName,
     String? uid,
@@ -24,6 +24,7 @@ abstract class Act with HasStringIdMix {
 
   /// This act converted to [ActBase].
   /// See [jsonAsBase].
+  @override
   ActBase get base => ActBase(
         debugName: debugName,
         uid: uid,
@@ -40,16 +41,10 @@ abstract class Act with HasStringIdMix {
 
   T innerRun<T>(T o);
 
-  JsonMap get baseAsJson => base.toProto3Json() as JsonMap;
-
   /// See [base].
   /// See [jsonAsActBase].
-  ActBase jsonAsBase(JsonMap json) => jsonAsActBase(json);
-
   @override
-  String toString() => '${base.shortMapWithSignificantFieldsMessage.blured()}'
-      .bittenOfAllUuids32
-      .abbreviate(120);
+  ActBase jsonAsBase(JsonMap json) => jsonAsActBase(json);
 }
 
 ActBase jsonAsActBase(JsonMap json) => switch (json) {

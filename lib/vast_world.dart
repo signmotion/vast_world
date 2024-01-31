@@ -34,7 +34,7 @@ part 'src/brokers/broker.dart';
 
 part 'src/classes/bounding_box_2d.dart';
 part 'src/classes/change_notifier.dart';
-part 'src/plans/lore.dart';
+part 'src/classes/has_proto_base_mix.dart';
 part 'src/classes/notifying_vector2.dart';
 part 'src/classes/platform_dispatcher.dart';
 part 'src/classes/transform_2d.dart';
@@ -93,6 +93,7 @@ part 'src/plans/all_journeys.dart';
 part 'src/plans/DEPRECATED_plan2d.dart';
 part 'src/plans/nothing.dart';
 part 'src/plans/journey.dart';
+part 'src/plans/lore.dart';
 part 'src/plans/place.dart';
 part 'src/plans/plan_builder.dart';
 part 'src/plans/plan.dart';

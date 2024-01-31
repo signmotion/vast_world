@@ -2,12 +2,14 @@ part of '../../vast_world.dart';
 
 /// Component that contains a [defaults] value instead of null.
 /// See [ValueComponent] from Oxygen.
-abstract class Component<T> extends oxygen.Component<T> with HasStringIdMix {
+abstract class Component<T> extends oxygen.Component<T>
+    with HasProtoBaseMix, HasStringIdMix {
   Component() {
     _value = defaults;
   }
 
   /// [value] converted to [ComponentBase].
+  @override
   ComponentBase get base => ComponentBase(
         hid: hid,
         uid: uid,
@@ -73,16 +75,10 @@ abstract class Component<T> extends oxygen.Component<T> with HasStringIdMix {
 
   T jsonAsValue(JsonMap json);
 
-  JsonMap get baseAsJson => base.toProto3Json() as JsonMap;
-
   /// See [base].
   /// See [jsonAsComponentBase].
-  ComponentBase jsonAsBase(JsonMap json) => jsonAsComponentBase(json);
-
   @override
-  String toString() => '${base.shortMapWithSignificantFieldsMessage.blured()}'
-      .bittenOfAllUuids32
-      .abbreviate(120);
+  ComponentBase jsonAsBase(JsonMap json) => jsonAsComponentBase(json);
 }
 
 ComponentBase jsonAsComponentBase(JsonMap json) => switch (json) {

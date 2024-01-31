@@ -1,6 +1,6 @@
 part of '../../vast_world.dart';
 
-abstract class Quant with HasStringIdMix {
+abstract class Quant with HasProtoBaseMix, HasStringIdMix {
   Quant({
     String? hid,
     String? uid,
@@ -8,10 +8,4 @@ abstract class Quant with HasStringIdMix {
     this.hid = hid;
     this.uid = uid;
   }
-
-  GeneratedMessage get base;
-
-  JsonMap get baseAsJson => base.toProto3Json() as JsonMap;
-
-  GeneratedMessage jsonAsBase(JsonMap json);
 }

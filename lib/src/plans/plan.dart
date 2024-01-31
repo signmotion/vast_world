@@ -140,11 +140,6 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   /// See [jsonAsPlanBase].
   @override
   PlanBase jsonAsBase(JsonMap json) => jsonAsPlanBase(json);
-
-  @override
-  String toString() => '${base.shortMapWithSignificantFieldsMessage.blured()}'
-      .bittenOfAllUuids32
-      .abbreviate(120);
 }
 
 PlanBase jsonAsPlanBase(JsonMap json) => switch (json) {
