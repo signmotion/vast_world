@@ -86,7 +86,7 @@ class Lore {
     final pb = this[b];
     ae(pb != null, 'Plan `$b` not found.');
 
-    pa!.addToImpacts(pb);
+    pa!.bind(pb);
   }
 
   @override

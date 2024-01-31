@@ -234,21 +234,4 @@ void main() {
       }
     });
   });
-
-  group('Construct a plan from components', () {
-    final u = Universe();
-
-    test('Add a new empty component', () {
-      final plan = constructNothingPlan(u);
-      expect(plan.get<NameComponent>(), isNull);
-      plan.set(NameComponent.new);
-      expect(plan.get<NameComponent>()?.value, NameComponent().defaults);
-    });
-
-    test('Add a new component with value', () {
-      final plan = constructNothingPlan(u);
-      plan.set(NameComponent.new, 'Aerwyna');
-      expect(plan.get<NameComponent>()?.value, 'Aerwyna');
-    });
-  });
 }

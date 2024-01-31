@@ -4,7 +4,7 @@ part of '../../vast_world.dart';
 
 /// [render] Constructing a representation the [I] to this plan.
 /// ! Call [removeInnerEntity()] if working with a set of plans and removing the plan.
-class Plan<I extends Plan<dynamic>> extends Quant {
+class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
 // TODO class Plan<I extends Plan<dynamic>, L extends LayoutComponent> extends Quant {
   Plan(
     this.u, {
@@ -123,6 +123,9 @@ class Plan<I extends Plan<dynamic>> extends Quant {
   //   layoutForExposed = layoutFromParent;
   //   layoutForExposed.init(location);
   // }
+
+  /// Alias [addToImpacts].
+  void bind(I plan) => addToImpacts(plan);
 
   /// Every added [plan] will be enhanced with a component from [layout].
   /// This is necessary for compound [exposed] plans.

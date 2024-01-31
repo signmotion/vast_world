@@ -3,6 +3,10 @@ part of '../../../vast_world.dart';
 /// Component that contains a [defaults] value instead of null.
 /// See [ValueComponent] from Oxygen.
 abstract class Component<T> extends oxygen.Component<T> with HasStringIdMix {
+  Component() {
+    _value = defaults;
+  }
+
   /// [value] converted to [ComponentBase].
   ComponentBase get base => ComponentBase(
         hid: hid,
