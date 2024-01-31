@@ -80,7 +80,9 @@ abstract class Component<T> extends oxygen.Component<T> with HasStringIdMix {
   ComponentBase jsonAsBase(JsonMap json) => jsonAsComponentBase(json);
 
   @override
-  String toString() => '$id $valueAsJson'.bittenOfAllUuids32.abbreviate(120);
+  String toString() => '${base.shortMapWithSignificantFieldsMessage.blured()}'
+      .bittenOfAllUuids32
+      .abbreviate(120);
 }
 
 ComponentBase jsonAsComponentBase(JsonMap json) => switch (json) {

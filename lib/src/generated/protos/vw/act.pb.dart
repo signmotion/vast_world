@@ -13,15 +13,16 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'act_type_enum.pbenum.dart' as $0;
+import 'act_type_enum.pbenum.dart' as $1;
+import 'component.pb.dart' as $0;
 
 class ActBase extends $pb.GeneratedMessage {
   factory ActBase({
     $core.String? debugName,
     $core.String? uid,
-    $0.ActTypeEnumBase? type,
+    $1.ActTypeEnumBase? type,
     $core.String? planId,
-    $core.Map<$core.String, $core.String>? values,
+    $core.Map<$core.String, $0.ComponentBase>? components,
   }) {
     final $result = create();
     if (debugName != null) {
@@ -36,8 +37,8 @@ class ActBase extends $pb.GeneratedMessage {
     if (planId != null) {
       $result.planId = planId;
     }
-    if (values != null) {
-      $result.values.addAll(values);
+    if (components != null) {
+      $result.components.addAll(components);
     }
     return $result;
   }
@@ -48,9 +49,9 @@ class ActBase extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ActBase', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'debugName')
     ..aOS(2, _omitFieldNames ? '' : 'uid')
-    ..e<$0.ActTypeEnumBase>(6, _omitFieldNames ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: $0.ActTypeEnumBase.UNSPECIFIED_ACT_TYPE, valueOf: $0.ActTypeEnumBase.valueOf, enumValues: $0.ActTypeEnumBase.values)
+    ..e<$1.ActTypeEnumBase>(6, _omitFieldNames ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: $1.ActTypeEnumBase.UNSPECIFIED_ACT_TYPE, valueOf: $1.ActTypeEnumBase.valueOf, enumValues: $1.ActTypeEnumBase.values)
     ..aOS(12, _omitFieldNames ? '' : 'planId')
-    ..m<$core.String, $core.String>(13, _omitFieldNames ? '' : 'values', entryClassName: 'ActBase.ValuesEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('vw'))
+    ..m<$core.String, $0.ComponentBase>(13, _omitFieldNames ? '' : 'components', entryClassName: 'ActBase.ComponentsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.ComponentBase.create, valueDefaultOrMaker: $0.ComponentBase.getDefault, packageName: const $pb.PackageName('vw'))
     ..hasRequiredFields = false
   ;
 
@@ -94,9 +95,9 @@ class ActBase extends $pb.GeneratedMessage {
   void clearUid() => clearField(2);
 
   @$pb.TagNumber(6)
-  $0.ActTypeEnumBase get type => $_getN(2);
+  $1.ActTypeEnumBase get type => $_getN(2);
   @$pb.TagNumber(6)
-  set type($0.ActTypeEnumBase v) { setField(6, v); }
+  set type($1.ActTypeEnumBase v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasType() => $_has(2);
   @$pb.TagNumber(6)
@@ -111,9 +112,9 @@ class ActBase extends $pb.GeneratedMessage {
   @$pb.TagNumber(12)
   void clearPlanId() => clearField(12);
 
-  /// / <component_id, value>
+  /// / <component_id, ComponentBase>
   @$pb.TagNumber(13)
-  $core.Map<$core.String, $core.String> get values => $_getMap(4);
+  $core.Map<$core.String, $0.ComponentBase> get components => $_getMap(4);
 }
 
 

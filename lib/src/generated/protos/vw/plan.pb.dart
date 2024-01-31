@@ -13,13 +13,13 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'component.pb.dart' as $1;
+import 'component.pb.dart' as $0;
 
 class PlanBase extends $pb.GeneratedMessage {
   factory PlanBase({
     $core.String? hid,
     $core.String? uid,
-    $core.Map<$core.String, $1.ComponentBase>? components,
+    $core.Map<$core.String, $0.ComponentBase>? components,
     $core.Map<$core.String, PlanBase>? exposed,
   }) {
     final $result = create();
@@ -44,7 +44,7 @@ class PlanBase extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PlanBase', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'hid')
     ..aOS(2, _omitFieldNames ? '' : 'uid')
-    ..m<$core.String, $1.ComponentBase>(10, _omitFieldNames ? '' : 'components', entryClassName: 'PlanBase.ComponentsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $1.ComponentBase.create, valueDefaultOrMaker: $1.ComponentBase.getDefault, packageName: const $pb.PackageName('vw'))
+    ..m<$core.String, $0.ComponentBase>(10, _omitFieldNames ? '' : 'components', entryClassName: 'PlanBase.ComponentsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.ComponentBase.create, valueDefaultOrMaker: $0.ComponentBase.getDefault, packageName: const $pb.PackageName('vw'))
     ..m<$core.String, PlanBase>(12, _omitFieldNames ? '' : 'exposed', entryClassName: 'PlanBase.ExposedEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: PlanBase.create, valueDefaultOrMaker: PlanBase.getDefault, packageName: const $pb.PackageName('vw'))
     ..hasRequiredFields = false
   ;
@@ -89,11 +89,11 @@ class PlanBase extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearUid() => clearField(2);
 
-  /// / <componentId, ComponentBase>
+  /// / <component_id, ComponentBase>
   @$pb.TagNumber(10)
-  $core.Map<$core.String, $1.ComponentBase> get components => $_getMap(2);
+  $core.Map<$core.String, $0.ComponentBase> get components => $_getMap(2);
 
-  /// / <planId, planBase>
+  /// / <plan_id, planBase>
   @$pb.TagNumber(12)
   $core.Map<$core.String, PlanBase> get exposed => $_getMap(3);
 }

@@ -1,5 +1,3 @@
-// ignore_for_file: inference_failure_on_function_invocation
-
 part of '../../vast_world.dart';
 
 /// Example:
@@ -13,10 +11,7 @@ Plan<dynamic> constructJourneyPlan(
   required String description,
 }) =>
     constructNothingPlan(u, hid: hid, uid: uid)
-      ..set<NameComponent, String>(NameComponent.new, name)
-      ..set<GreetingComponent, String>(GreetingComponent.new, greeting)
-      ..set<DescriptionComponent, String>(DescriptionComponent.new, description)
-      ..set<TiledmapRenderComponent, RenderFn<TiledmapT>>(
-        TiledmapRenderComponent.new,
-        journeyTiledmapRender,
-      );
+      ..set(NameComponent.new, name)
+      ..set(GreetingComponent.new, greeting)
+      ..set(DescriptionComponent.new, description)
+      ..set(TiledmapRenderComponent.new, journeyTiledmapRender);

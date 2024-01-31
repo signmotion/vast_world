@@ -21,9 +21,9 @@ const ActBase$json = {
     {'1': 'uid', '3': 2, '4': 1, '5': 9, '10': 'uid'},
     {'1': 'type', '3': 6, '4': 1, '5': 14, '6': '.vw.ActTypeEnumBase', '10': 'type'},
     {'1': 'plan_id', '3': 12, '4': 1, '5': 9, '9': 1, '10': 'planId', '17': true},
-    {'1': 'values', '3': 13, '4': 3, '5': 11, '6': '.vw.ActBase.ValuesEntry', '10': 'values'},
+    {'1': 'components', '3': 13, '4': 3, '5': 11, '6': '.vw.ActBase.ComponentsEntry', '10': 'components'},
   ],
-  '3': [ActBase_ValuesEntry$json],
+  '3': [ActBase_ComponentsEntry$json],
   '8': [
     {'1': '_debug_name'},
     {'1': '_plan_id'},
@@ -31,11 +31,11 @@ const ActBase$json = {
 };
 
 @$core.Deprecated('Use actBaseDescriptor instead')
-const ActBase_ValuesEntry$json = {
-  '1': 'ValuesEntry',
+const ActBase_ComponentsEntry$json = {
+  '1': 'ComponentsEntry',
   '2': [
     {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
-    {'1': 'value', '3': 2, '4': 1, '5': 9, '10': 'value'},
+    {'1': 'value', '3': 2, '4': 1, '5': 11, '6': '.vw.ComponentBase', '10': 'value'},
   ],
   '7': {'7': true},
 };
@@ -44,7 +44,8 @@ const ActBase_ValuesEntry$json = {
 final $typed_data.Uint8List actBaseDescriptor = $convert.base64Decode(
     'CgdBY3RCYXNlEiIKCmRlYnVnX25hbWUYASABKAlIAFIJZGVidWdOYW1liAEBEhAKA3VpZBgCIA'
     'EoCVIDdWlkEicKBHR5cGUYBiABKA4yEy52dy5BY3RUeXBlRW51bUJhc2VSBHR5cGUSHAoHcGxh'
-    'bl9pZBgMIAEoCUgBUgZwbGFuSWSIAQESLwoGdmFsdWVzGA0gAygLMhcudncuQWN0QmFzZS5WYW'
-    'x1ZXNFbnRyeVIGdmFsdWVzGjkKC1ZhbHVlc0VudHJ5EhAKA2tleRgBIAEoCVIDa2V5EhQKBXZh'
-    'bHVlGAIgASgJUgV2YWx1ZToCOAFCDQoLX2RlYnVnX25hbWVCCgoIX3BsYW5faWQ=');
+    'bl9pZBgMIAEoCUgBUgZwbGFuSWSIAQESOwoKY29tcG9uZW50cxgNIAMoCzIbLnZ3LkFjdEJhc2'
+    'UuQ29tcG9uZW50c0VudHJ5Ugpjb21wb25lbnRzGlAKD0NvbXBvbmVudHNFbnRyeRIQCgNrZXkY'
+    'ASABKAlSA2tleRInCgV2YWx1ZRgCIAEoCzIRLnZ3LkNvbXBvbmVudEJhc2VSBXZhbHVlOgI4AU'
+    'INCgtfZGVidWdfbmFtZUIKCghfcGxhbl9pZA==');
 

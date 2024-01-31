@@ -9,9 +9,9 @@ message PlanBase {
     string hid = 1;
     string uid = 2;
 
-    /// <componentId, ComponentBase>
+    /// <component_id, ComponentBase>
     map<string, ComponentBase> components = 10;
 
-    /// <planId, planBase>
+    /// <plan_id, planBase>
     map<string, PlanBase> exposed = 12;
 }

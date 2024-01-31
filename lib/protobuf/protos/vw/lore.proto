@@ -5,6 +5,6 @@ package vw;
 import "vw/plan.proto";
 
 message LoreBase {
-    /// <planId, PlanBase>
+    /// <plan_id, PlanBase>
     map<string, PlanBase> plans = 10;
 }

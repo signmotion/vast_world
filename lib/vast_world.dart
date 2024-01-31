@@ -94,6 +94,7 @@ part 'src/plans/DEPRECATED_plan2d.dart';
 part 'src/plans/nothing.dart';
 part 'src/plans/journey.dart';
 part 'src/plans/place.dart';
+part 'src/plans/plan_builder.dart';
 part 'src/plans/plan.dart';
 part 'src/plans/plan2d.dart';
 part 'src/plans/universe.dart';

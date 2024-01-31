@@ -14,7 +14,10 @@ class ActBuilder {
           debugName: base.debugName,
           uid: base.uid,
           planId: base.planId,
-          values: base.values,
+          components: {
+            for (final e in base.components.entries)
+              e.key: const ComponentBuilder().fromBase(e.value)
+          },
         ),
       // unsupported
       _ => throw UnimplementedError(base.sjson),

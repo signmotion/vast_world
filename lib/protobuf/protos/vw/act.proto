@@ -3,6 +3,7 @@ syntax = "proto3";
 package vw;
 
 import "vw/act_type_enum.proto";
+import "vw/component.proto";
 
 message ActBase {
   optional string debug_name = 1;
@@ -13,6 +14,6 @@ message ActBase {
 
   optional string plan_id = 12;
 
-  /// <component_id, value>
-  map<string, string> values = 13;
+  /// <component_id, ComponentBase>
+  map<string, ComponentBase> components = 13;
 }

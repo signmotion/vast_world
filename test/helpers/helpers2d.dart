@@ -99,6 +99,7 @@ void checkFileStructurePlan(
 void checkPlan(
   Plan<dynamic> plan, {
   required String hid,
+  required List<String> componentIds,
   required List<String> exposedIds,
 }) {
   expect(hid.isCorrectHid, true, reason: hid);
@@ -107,11 +108,27 @@ void checkPlan(
   expect(plan.uid, isUuid);
   expect(plan.uid == plan.hid, isFalse, reason: '${plan.id} == ${plan.hid}');
 
-  expect(plan.impactsOnPlans.length, exposedIds.length);
+  // components
+  expect(
+    plan.components.length,
+    componentIds.length,
+    reason: plan.components.sjson,
+  );
+  for (final componentId in componentIds) {
+    final found = plan.components.firstWhereOrNull((c) => c.id == componentId);
+    expect(found, isNotNull, reason: componentId);
+  }
+
+  // exposed
+  expect(
+    plan.impactsOnPlans.length,
+    exposedIds.length,
+    reason: plan.impactsOnPlans.sjson,
+  );
   for (final exposedId in exposedIds) {
     final found = plan.impactsOnPlans
         .firstWhereOrNull((p) => (p as HasStringIdMix).id == exposedId);
-    expect(found, isNotNull);
+    expect(found, isNotNull, reason: exposedId);
   }
 
   // base

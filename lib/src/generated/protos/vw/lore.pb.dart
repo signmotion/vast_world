@@ -55,7 +55,7 @@ class LoreBase extends $pb.GeneratedMessage {
   static LoreBase getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LoreBase>(create);
   static LoreBase? _defaultInstance;
 
-  /// / <planId, PlanBase>
+  /// / <plan_id, PlanBase>
   @$pb.TagNumber(10)
   $core.Map<$core.String, $2.PlanBase> get plans => $_getMap(0);
 }

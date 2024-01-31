@@ -16,6 +16,10 @@ void main() {
       checkPlan(
         allJourneys,
         hid: 'all_journeys',
+        componentIds: [
+          IdComponent().id,
+          TiledmapRenderComponent().id,
+        ],
         exposedIds: ['aerwyna'],
       );
     });
@@ -24,6 +28,13 @@ void main() {
       checkPlan(
         aerwynaJourney,
         hid: 'aerwyna',
+        componentIds: [
+          IdComponent().id,
+          NameComponent().id,
+          GreetingComponent().id,
+          DescriptionComponent().id,
+          TiledmapRenderComponent().id,
+        ],
         exposedIds: ['place_0', 'place_1', 'place_2', 'place_3', 'place_4'],
       );
     });
@@ -33,6 +44,12 @@ void main() {
         checkPlan(
           exposed as Plan<dynamic>,
           hid: exposed.hid,
+          componentIds: [
+            IdComponent().id,
+            PictureComponent().id,
+            StoryComponent().id,
+            TiledmapRenderComponent().id,
+          ],
           exposedIds: [],
         );
       }

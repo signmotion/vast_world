@@ -4,11 +4,11 @@ part of '../../vast_world.dart';
 /// See [ActBuilder].
 abstract class Act with HasStringIdMix {
   Act({
-    this.type = ActTypeEnum.UNSPECIFIED_ACT_TYPE,
     this.debugName,
     String? uid,
+    required this.type,
     this.planId,
-    this.values = const {},
+    this.components = const {},
   }) {
     this.uid = uid ?? genUuid;
   }
@@ -17,8 +17,10 @@ abstract class Act with HasStringIdMix {
   final ActTypeEnum type;
   final String? planId;
 
-  /// <component_id, sjson_value>
-  final Map<String, String> values;
+  /// Initialized components.
+  /// By analogy with [Plan].
+  /// <component_id, ComponentBase>
+  final Map<String, Component<dynamic>> components;
 
   /// This act converted to [ActBase].
   /// See [jsonAsBase].
@@ -27,11 +29,11 @@ abstract class Act with HasStringIdMix {
         uid: uid,
         type: type,
         planId: planId,
-        values: values,
+        components: {for (final e in components.entries) e.key: e.value.base},
       );
 
   T run<T>(T o) {
-    logi('Runnint the act `$this` on the `$o`...');
+    logi('Running the act `$this` on the `$o`...');
 
     return innerRun<T>(o);
   }
@@ -45,7 +47,9 @@ abstract class Act with HasStringIdMix {
   ActBase jsonAsBase(JsonMap json) => jsonAsActBase(json);
 
   @override
-  String toString() => '${base.shortMapWithSignificantFieldsMessage.blured()}';
+  String toString() => '${base.shortMapWithSignificantFieldsMessage.blured()}'
+      .bittenOfAllUuids32
+      .abbreviate(120);
 }
 
 ActBase jsonAsActBase(JsonMap json) => switch (json) {
@@ -54,14 +58,18 @@ ActBase jsonAsActBase(JsonMap json) => switch (json) {
         'uid': String? uid,
         'type': ActTypeEnumBase type,
         'planId': String? planId,
-        'values': Map<String, String> values,
+        'components': Map<String?, Object?> components,
       } =>
         ActBase(
           debugName: debugName,
           uid: uid,
           type: type,
           planId: planId,
-          values: values,
+          components: {
+            for (final c in components.entries)
+              c.key!: ComponentBase.create()
+                ..mergeFromProto3Json(c.value as JsonMap)
+          },
         ),
       _ => throw ArgumentError(json.sjson),
     };
