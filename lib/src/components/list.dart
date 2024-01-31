@@ -1,4 +1,4 @@
-part of '../../../vast_world.dart';
+part of '../../vast_world.dart';
 
 /// List of [Plan] represents as [Component].
 // typedef PlanListComponent = ListComponent<Plan>;

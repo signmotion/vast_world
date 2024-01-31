@@ -1,4 +1,4 @@
-part of '../../../vast_world.dart';
+part of '../../vast_world.dart';
 
 class PictureComponent extends Component<Image> {
   @override

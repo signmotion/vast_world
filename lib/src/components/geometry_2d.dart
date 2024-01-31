@@ -1,4 +1,4 @@
-part of '../../../vast_world.dart';
+part of '../../vast_world.dart';
 
 typedef Geometry2DT = ({
   Vector2? axisSize,

@@ -1,4 +1,4 @@
-part of '../../../vast_world.dart';
+part of '../../vast_world.dart';
 
 /// Component that contains a [defaults] value instead of null.
 /// See [ValueComponent] from Oxygen.

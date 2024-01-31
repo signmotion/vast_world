@@ -1,4 +1,4 @@
-part of '../../../vast_world.dart';
+part of '../../vast_world.dart';
 
 /// Helper component with [value] always is `null`.
 class NothingComponent extends Component<dynamic> {

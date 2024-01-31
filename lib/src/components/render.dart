@@ -1,4 +1,4 @@
-part of '../../../vast_world.dart';
+part of '../../vast_world.dart';
 
 /// Contains a render function for transform (drawing) exposed [Plan] to
 /// influential [Plan].

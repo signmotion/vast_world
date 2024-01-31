@@ -1,4 +1,4 @@
-part of '../../../vast_world.dart';
+part of '../../vast_world.dart';
 
 /// Impact [Act] to [Lore].
 class LoreInfluencer extends Influencer<Lore> {

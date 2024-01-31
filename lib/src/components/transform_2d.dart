@@ -1,4 +1,4 @@
-part of '../../../vast_world.dart';
+part of '../../vast_world.dart';
 
 // class Transform2DComponent extends Component<Transform2D> {
 //   Transform2DComponent(super.base);
