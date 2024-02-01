@@ -15,7 +15,6 @@ import 'package:image/image.dart';
 import 'package:meta/meta.dart';
 import 'package:oxygen/oxygen.dart' as oxygen;
 import 'package:path/path.dart' as ph;
-import 'package:protobuf/protobuf.dart';
 import 'package:wfile/wfile.dart' hide StringJsonExt;
 import 'package:xml/xml.dart';
 

@@ -56,6 +56,21 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  base_server:
+    dependency: "direct main"
+    description:
+      path: "../base_server"
+      relative: true
+    source: path
+    version: "0.1.0"
+  bloc:
+    dependency: transitive
+    description:
+      name: bloc
+      sha256: "3820f15f502372d979121de1f6b97bfcf1630ebff8fe1d52fb2b0bfa49be5b49"
+      url: "https://pub.dev"
+    source: hosted
+    version: "8.1.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -174,6 +189,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  googleapis_auth:
+    dependency: transitive
+    description:
+      name: googleapis_auth
+      sha256: "127b1bbd32170ab8312f503bd57f1d654d8e4039ddfbc63c027d3f7ade0eff74"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.1"
+  grpc:
+    dependency: "direct main"
+    description:
+      name: grpc
+      sha256: e93ee3bce45c134bf44e9728119102358c7cd69de7832d9a874e2e74eb8cab40
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.4"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.13.6"
+  http2:
+    dependency: transitive
+    description:
+      name: http2
+      sha256: "9ced024a160b77aba8fb8674e38f70875e321d319e6f303ec18e87bd5a4b0c1d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.0"
   http_multi_server:
     dependency: transitive
     description:
@@ -494,6 +541,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
+  thematic_names:
+    dependency: "direct main"
+    description:
+      name: thematic_names
+      sha256: "5b55a0010fdfa07f7fed4bd67b81e0de2859ef02ecd9d7d4794b25b70a3380bd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   typed_data:
     dependency: transitive
     description:

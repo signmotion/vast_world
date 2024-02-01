@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package vw.maia;
+
+import "vw/act.proto";
+import "vw/maia/answer_type_enum.proto";
+
+service Service {
+  rpc claimSession (ClaimSessionRequest) returns (ClaimSessionResponse);
+  rpc approveSession (ApproveSessionRequest) returns (ApproveSessionResponse);
+  
+  rpc getAboutServer (GetAboutServerRequest) returns (GetAboutServerResponse);
+
+  // TODO? rpc push (PushRequest) returns (PushResponse);
+  // TODO? rpc pop (PopRequest) returns (PopResponse);
+
+  /// Sending own (Client) acts in own plans to server and
+  /// receiving acts from server.
+  rpc synchronize (stream ActBaseRequest) returns (stream ActBaseResponse);
+}
+
+
+message ClaimSessionRequest {
+  string uid_device = 2;
+}
+
+message ClaimSessionResponse {
+  string issued_session = 1;
+}
+
+message ApproveSessionRequest {
+  string session = 1;
+  string uid_device = 2;
+}
+
+message ApproveSessionResponse {
+  bool approved = 1;
+}
+
+message GetAboutServerRequest {
+  string session = 1;
+}
+
+message GetAboutServerResponse {
+  string name = 1;
+}
+
+message ActBaseRequest {
+  string session = 3;
+  ActBase act = 6;
+}
+
+message ActBaseResponse {
+  string session = 3;
+  ActBase act = 6;
+  AnswerTypeEnumBase answer = 7;
+}
