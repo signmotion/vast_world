@@ -10,15 +10,22 @@ class ActBuilder {
             '`${base.shortMapWithSignificantFieldsMessage}...'
         .bittenOfAllUuids32);
 
+    final initializedComponents = [
+      for (final e in base.components.entries)
+        const ComponentBuilder().fromBase(e.value)
+    ];
     final act = switch (base.type) {
+      ActTypeEnum.ADD_PLAN_ACT_TYPE => AddPlanAct(
+          debugName: base.debugName,
+          uid: base.uid,
+          planId: base.planId,
+          initializedComponents: initializedComponents,
+        ),
       ActTypeEnum.CHANGE_VALUE_ACT_TYPE => ChangeValueAct(
           debugName: base.debugName,
           uid: base.uid,
           planId: base.planId,
-          initializedComponents: [
-            for (final e in base.components.entries)
-              const ComponentBuilder().fromBase(e.value)
-          ],
+          initializedComponents: initializedComponents,
         ),
       // unsupported
       _ => throw UnimplementedError(base.sjson),

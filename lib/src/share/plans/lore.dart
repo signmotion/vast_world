@@ -5,12 +5,10 @@ part of '../../../vast_world_share.dart';
 class Lore {
   Lore({
     Map<String, Plan<dynamic>>? plans,
-  }) {
-    this.plans = plans ?? {};
-  }
+  }) : plans = plans ?? {};
 
   /// <[Plan.id], [Plan]>
-  late final Map<String, Plan<dynamic>> plans;
+  final Map<String, Plan<dynamic>> plans;
 
   /// This act converted to [ActBase].
   /// See [jsonAsBase].
@@ -92,7 +90,7 @@ class Lore {
   }
 
   @override
-  String toString() => '${base.shortMapWithSignificantFieldsMessage.blured()}';
+  String toString() => '${base.shortMapWithSignificantFieldsMessage}';
 
   /// See [base].
   /// See [jsonAsLoreBase].

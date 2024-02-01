@@ -8,7 +8,7 @@ mixin HasProtoBaseMix on Object {
   GeneratedMessage jsonAsBase(JsonMap json);
 
   @override
-  String toString() => '${base.shortMapWithSignificantFieldsMessage.blured()}'
+  String toString() => '${base.mapWithSignificantFieldsMessage}'
       .bittenOfAllUuids32
       .abbreviate(120);
 }

@@ -37,6 +37,9 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
       );
 
   @override
+  bool get isCorrectHid => hid.isActHid;
+
+  @override
   bool get isCorrectUid => uid.isActUid;
 
   T run<T>(Universe u, T o) {

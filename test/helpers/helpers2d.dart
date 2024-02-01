@@ -117,8 +117,8 @@ void checkPlan(
   for (final componentId in componentIds) {
     final found = plan.components.firstWhereOrNull((c) => c.id == componentId);
     expect(found, isNotNull, reason: componentId);
-    expect(found!.isCorrectUid, isTrue);
-    expect(found.isCorrectHid, isTrue);
+    expect(found!.isCorrectHid, isTrue, reason: found.hid);
+    expect(found.isCorrectUid, isTrue, reason: found.uid);
   }
 
   // exposed
@@ -129,8 +129,11 @@ void checkPlan(
   );
   for (final exposedId in exposedIds) {
     final found = plan.impactsOnPlans
-        .firstWhereOrNull((p) => (p as HasStringIdMix).id == exposedId);
+            .firstWhereOrNull((p) => (p as HasStringIdMix).id == exposedId)
+        as Quant?;
     expect(found, isNotNull, reason: exposedId);
+    expect(found!.isCorrectHid, isTrue, reason: found.hid);
+    expect(found.isCorrectUid, isTrue, reason: found.uid);
   }
 
   // base

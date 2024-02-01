@@ -10,6 +10,25 @@ void main() {
   group('Influence to Lore', () {
     const influencer = LoreInfluencer();
 
+    test('Add a new plan', () {
+      final u = Universe();
+      final lore = Lore();
+      expect(lore.plans, isEmpty);
+
+      final act = AddPlanAct(
+        planId: 'aerwyna',
+        initializedComponents: [
+          NameComponent()..init('Aerwyna'),
+        ],
+      );
+      influencer.processing(u, lore, act);
+      expect(lore.plans.length, 1, reason: lore.plans.sjson);
+
+      final p = lore[act.planId!]!;
+      expect(p.components.length, 2, reason: p.components.sjson);
+      expect(p.getValue<NameComponent>(), 'Aerwyna');
+    }, tags: ['current']);
+
     test('Change a value', () {
       final u = Universe();
       final lore = Lore();
@@ -21,7 +40,7 @@ void main() {
 
       lore.addNew(plan);
 
-      // add new component
+      // add a new component
       {
         final act = ChangeValueAct(
           planId: plan.id,
@@ -35,7 +54,7 @@ void main() {
         expect(p.getValue<NameComponent>(), 'Aerwyna');
       }
 
-      // update component
+      // update the component
       {
         final act = ChangeValueAct(
           planId: plan.id,

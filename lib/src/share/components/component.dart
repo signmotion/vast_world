@@ -31,6 +31,9 @@ abstract class Component<T> extends oxygen.Component<T>
   String get hid =>
       runtimeType.toString().replaceFirst('Component', '').toLowerCase();
 
+  @override
+  bool get isCorrectHid => hid.isComponentHid;
+
   /// Should be implemented for each descendant.
   @override
   String get uid =>

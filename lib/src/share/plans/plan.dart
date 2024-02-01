@@ -14,6 +14,13 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
     //L? layoutForExposed,
   }) : assert((id != null && hid == null && uid == null) || id == null,
             '[id] should be defined without [hid] and [uid].') {
+    // an one entity on each plan
+    final debugId = id;
+    innerEntity = this.u.construct(debugId);
+
+    // to fix error `UnmodifiableList`
+    this.impactsOnPlans = List<I>.empty(growable: true);
+
     if (id == null) {
       this.hid = hid ?? '';
       this.uid = uid ?? genPlanUid;
@@ -21,14 +28,8 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
       this.id = id;
     }
 
-    // to fix error `UnmodifiableList`
-    this.impactsOnPlans = List<I>.empty(growable: true);
-
-    // an one entity on each plan
-    final debugId = id;
-    innerEntity = this.u.construct(debugId);
-
     set<IdComponent, IdT>(IdComponent.new, (hid: this.hid, uid: this.uid));
+
     // TODO set<LayoutComponent>(layoutForExposed.builder);
   }
 
@@ -47,6 +48,9 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   List<Component<dynamic>> get components =>
       const ComponentBuilder().components(u, innerEntity);
 
+  @override
+  bool get isCorrectHid => hid.isPlanHid;
+
   /// TODO(sign): Return [uid] always when production.
   @override
   String get id => super.id;
@@ -54,8 +58,16 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   /// Auto-detect to set [uid] or [hid].
   @override
   set id(String uidOrHid) {
-    super.id = uidOrHid;
-    set(IdComponent.new, (hid: super.hid, uid: super.uid));
+    if (uidOrHid.isPlanUid) {
+      hid = '';
+      uid = uidOrHid;
+    } else {
+      hid = uidOrHid;
+      uid = genPlanUid;
+    }
+    argerr(hid.isEmpty || isCorrectHid, hid, 'hid');
+    argerr(isCorrectUid, uid, 'uid');
+    set(IdComponent.new, (hid: hid, uid: uid));
   }
 
   @override

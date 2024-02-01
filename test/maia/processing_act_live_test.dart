@@ -1,4 +1,4 @@
-import 'package:id_gen/id_gen_tests.dart';
+import 'package:dart_helpers/dart_helpers.dart';
 import 'package:test/test.dart';
 import 'package:vast_world/vast_world.dart';
 
@@ -20,16 +20,16 @@ void main() async {
       final act = AddPlanAct(planId: planId);
       ma.processingActOnLoreSession(session: session, actBase: act.base);
 
-      expect(ma.state.lores.length, 1, reason: '${ma.state.lores}');
+      expect(ma.state.lores.length, 1, reason: ma.state.lores.sjson);
       final lore = ma.state.lores[session]!;
-      expect(lore.plans.length, 1, reason: '${lore.plans}');
+      expect(lore.plans.length, 1, reason: lore.plans.sjson);
       final plan = lore.plans[planId]!;
       expect(plan.hid, planId);
       expect(plan.isCorrectHid, isTrue, reason: plan.hid);
       expect(plan.isCorrectUid, isTrue, reason: plan.uid);
       // always have IdComponent
-      expect(plan.components.length, 1, reason: '${plan.components}');
-      expect(plan.getValue<IdComponent>(), (hid: planId, plan.uid));
+      expect(plan.components.length, 1, reason: plan.components.sjson);
+      expect(plan.getValue<IdComponent>(), (hid: planId, uid: plan.uid));
     });
   });
 }

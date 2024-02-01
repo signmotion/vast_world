@@ -54,6 +54,11 @@ class ServerLive extends BaseLive<ServerState> {
       check(session, claimSession: true);
     }
 
+    if (state.lores[session] == null) {
+      logw('Session `$session` not found. New Lore created.');
+      emit(state.copyWith(lores: {session: Lore()}));
+    }
+
     state.lores.update(
       session,
       (lore) {
