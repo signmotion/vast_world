@@ -4,5 +4,5 @@ part of '../../../vast_world_share.dart';
 abstract class Influencer<T> {
   const Influencer();
 
-  T processing(T o, Act act);
+  void processing(T o, Act act);
 }

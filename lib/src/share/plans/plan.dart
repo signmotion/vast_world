@@ -13,7 +13,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
     //L? layoutForExposed,
   }) {
     this.hid = hid ?? '';
-    this.uid = uid ?? genUuid;
+    this.uid = uid ?? genPlanUid;
 
     // to fix error `UnmodifiableList`
     this.impactsOnPlans = List<I>.empty(growable: true);

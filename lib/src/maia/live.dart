@@ -13,7 +13,7 @@ class Live extends BaseLive<ServerState> {
   }
 
   Future<String> claimSession({required String uidDevice}) async {
-    final session = genUuid;
+    final session = genSessionUid;
     check(session);
 
     state.ss.freeze();
@@ -51,15 +51,14 @@ class Live extends BaseLive<ServerState> {
   }) async {
     check(session, claimSession: true);
 
-    //final act = const ActBuilder().fromBase(actBase);
+    final act = const ActBuilder().fromBase(actBase);
 
     state.ss.freeze();
     final ns = state.ss.rebuild((v) {
       final lore = state.lores[session];
       ae(lore != null, 'Lore for session `$session` not found.');
 
-      // TODO v.lores[session] = loreInfluencer.processing(lore!, act);
-      throw UnimplementedError();
+      loreInfluencer.processing(lore!, act);
     });
     emit(state.copyWith(ss: ns));
 
@@ -74,7 +73,7 @@ class Live extends BaseLive<ServerState> {
     bool permitSession = false,
   }) {
     void checkSession(String session) =>
-        session.isUuid ? null : throw SessionUidIllegalError(session);
+        session.isSessionUid ? null : throw SessionUidIllegalError(session);
 
     checkSession(session);
 

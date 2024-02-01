@@ -55,7 +55,8 @@ class Service extends ServiceBase with ServiceMix {
   @override
   Stream<ActBaseResponse> synchronize(
     ServiceCall call,
-    Stream<ActBaseRequest> request,
+    // ignore: avoid_renaming_method_parameters
+    Stream<ActBaseRequest> clientActs,
   ) {
     logi('Opening streams between Client and Server...');
 
@@ -63,28 +64,30 @@ class Service extends ServiceBase with ServiceMix {
     /// the Client will be subsribe to [serverActs] below
     final serverActs = StreamController<ActBaseResponse>();
 
-    request.listen(
+    clientActs.listen(
       (ActBaseRequest ar) async {
         logi('Processing the received act from Client.'
             ' `${ar.act.type.name}`');
 
-        late final ActBaseResponse answer;
+        late final bool success;
         try {
-          final success = await live.processingActOnLoreSession(
+          success = await live.processingActOnLoreSession(
             session: ar.session,
             actBase: ar.act,
           );
-          answer = ActBaseResponse(
-            session: ar.session,
-            act: ar.act,
-            answer: success
-                ? ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE
-                : ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
-          );
         } catch (ex) {
           loge(ex);
+          success = false;
         }
 
+        // TODO(sign): optimize Don't send the act, only type or uid of the act.
+        final answer = ActBaseResponse(
+          session: ar.session,
+          act: ar.act,
+          answer: success
+              ? ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE
+              : ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
+        );
         serverActs.sink.add(answer);
       },
       onError: (dynamic s) => loge('synchronize() clientActs onError `$s`'),

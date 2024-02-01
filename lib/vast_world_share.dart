@@ -126,5 +126,6 @@ part 'src/share/shapes/shape.dart';
 
 part 'src/share/utils/random_fallback.dart';
 part 'src/share/utils/u2d.dart';
+part 'src/share/utils/uid.dart';
 
 part 'src/share/vs_config.dart';

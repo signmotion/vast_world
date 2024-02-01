@@ -1,6 +1,6 @@
 library;
 
-export 'package:grpc/grpc.dart';
+export 'package:grpc/grpc.dart' hide Client, Server, Service;
 export 'package:protobuf/protobuf.dart';
 
 // hermes

@@ -78,12 +78,12 @@ class ServerStateBase extends $pb.GeneratedMessage {
   $1.ServerOptionsBase ensureOptions() => $_ensure(0);
 
   /// / The sessions that the Client requested (claimed) from Server.
-  /// / session, uidDevice
+  /// / <session, uidDevice>
   @$pb.TagNumber(2)
   $core.Map<$core.String, $core.String> get claimedSessionsDevices => $_getMap(1);
 
   /// / The sessions that the Server has approved to Clients.
-  /// / session, true
+  /// / <session, true>
   @$pb.TagNumber(3)
   $core.Map<$core.String, $core.bool> get approvedSessions => $_getMap(2);
 }

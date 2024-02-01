@@ -9,11 +9,11 @@ message ServerStateBase {
     ServerOptionsBase options = 1;
 
     /// The sessions that the Client requested (claimed) from Server.
-    /// session, uidDevice
+    /// <session, uidDevice>
     map<string, string> claimed_sessions_devices = 2;
 
     /// The sessions that the Server has approved to Clients.
-    /// session, true
+    /// <session, true>
     map<string, bool> approved_sessions = 3;
 
     /// The key is `session`.

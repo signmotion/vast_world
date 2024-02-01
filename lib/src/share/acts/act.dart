@@ -10,7 +10,7 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
     this.planId,
     this.components = const {},
   }) {
-    this.uid = uid ?? genUuid;
+    this.uid = uid ?? genActUid;
   }
 
   final String? debugName;
