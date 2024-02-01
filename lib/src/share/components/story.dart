@@ -6,7 +6,9 @@ typedef StoryT = ({
 
 class StoryComponent extends Component<StoryT> {
   @override
-  String get uid => 'ad12f5d5-889e-4b64-9451-21bb4bd43956';
+  String get uid => '$componentUidPrefix-$suid';
+
+  static const suid = 'ad12f5d5-889e-4b64-9451-21bb4bd43956';
 
   @override
   void initv(StoryT v) => value = (text: v.text);

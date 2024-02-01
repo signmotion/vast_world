@@ -2,7 +2,9 @@ part of '../../../vast_world_share.dart';
 
 class PictureComponent extends Component<Image> {
   @override
-  String get uid => 'e08d85f0-71e3-4964-abcd-a92a17ba22fc';
+  String get uid => '$componentUidPrefix-$suid';
+
+  static const suid = 'e08d85f0-71e3-4964-abcd-a92a17ba22fc';
 
   @override
   Image get empty => Image.empty();

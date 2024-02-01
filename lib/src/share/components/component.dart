@@ -35,8 +35,11 @@ abstract class Component<T> extends oxygen.Component<T>
   @override
   String get uid =>
       throw UnimplementedError('UID should be defined for this component.'
-          ' Use UID genearator.'
+          ' Use UID genearator and set a prefic consider to [isComponentUid].'
           'For example, https://uuidgenerator.net');
+
+  @override
+  bool get isCorrectUid => uid.isComponentUid;
 
   /// This method call a chain: [initv] -> [check] for non-null [v] or
   /// set [value] to [defaults].

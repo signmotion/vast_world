@@ -3,7 +3,9 @@ part of '../../../vast_world_share.dart';
 /// Helper component with [value] always is `null`.
 class NothingComponent extends Component<dynamic> {
   @override
-  String get uid => '05165ba9-0156-463f-942d-71ffcc08d50c';
+  String get uid => '$componentUidPrefix-$suid';
+
+  static const suid = '05165ba9-0156-463f-942d-71ffcc08d50c';
 
   @override
   dynamic get empty => null;

@@ -8,7 +8,9 @@ typedef IdT = ({
 class IdComponent extends Component<IdT> {
   /// ! There is UID for this component, not his [value].
   @override
-  String get uid => 'd009a66a-1a05-4ea1-9658-10900ce5b8a7';
+  String get uid => '$componentUidPrefix-$suid';
+
+  static const suid = 'd009a66a-1a05-4ea1-9658-10900ce5b8a7';
 
   @override
   void initv(IdT v) => value = (
@@ -18,8 +20,8 @@ class IdComponent extends Component<IdT> {
 
   @override
   void check() {
-    argerr(hid.isEmpty || hid.isCorrectHid, hid, 'hid');
-    argerr(uid.isUuid, uid, 'uid');
+    argerr(hid.isEmpty || isCorrectHid, hid, 'hid');
+    argerr(isCorrectUid, uid, 'uid');
     ae(hid.isNotEmpty || uid.isNotEmpty, 'Hid or UID should be defined.');
   }
 
@@ -42,7 +44,7 @@ class IdComponent extends Component<IdT> {
 extension HidExt on String {
   static const hidSeparator = '.';
 
-  bool get isCorrectId => isCorrectHid || isUuid;
+  //bool get isCorrectId => isCorrectHid || isUuid;
 
   /// Examples:
   /// ```
@@ -51,7 +53,7 @@ extension HidExt on String {
   /// elf_sea
   /// askatria_land
   /// ```
-  bool get isCorrectHid => RegExp(r'^[a-z0-9_]*$').hasMatch(this);
+  //bool get isCorrectHid => RegExp(r'^[a-z0-9_]*$').hasMatch(this);
 
   List<String> get hidToList => split(hidSeparator);
 
@@ -70,5 +72,5 @@ extension ExposedHidExt on String {
   /// raeria.ri
   /// ri.elf_sea
   /// ```
-  bool get isCorrectExposedHid => hidToList.length == 2;
+  //bool get isCorrectExposedHid => hidToList.length == 2;
 }
