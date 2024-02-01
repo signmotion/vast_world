@@ -1,7 +1,7 @@
 part of '../../../vast_world_maia.dart';
 
-class Live extends BaseLive<ServerState> {
-  Live(super.state) : loreInfluencer = const LoreInfluencer();
+class ServerLive extends BaseLive<ServerState> {
+  ServerLive(super.state) : loreInfluencer = const LoreInfluencer();
 
   final LoreInfluencer loreInfluencer;
 
@@ -48,19 +48,22 @@ class Live extends BaseLive<ServerState> {
   Future<bool> processingActOnLoreSession({
     required String session,
     required ActBase actBase,
+    bool checkSession = false,
   }) async {
-    check(session, claimSession: true);
+    if (checkSession) {
+      check(session, claimSession: true);
+    }
 
-    final act = const ActBuilder().fromBase(actBase);
-
-    state.ss.freeze();
-    final ns = state.ss.rebuild((v) {
-      final lore = state.lores[session];
-      ae(lore != null, 'Lore for session `$session` not found.');
-
-      loreInfluencer.processing(lore!, act);
-    });
-    emit(state.copyWith(ss: ns));
+    state.lores.update(
+      session,
+      (lore) {
+        final act = const ActBuilder().fromBase(actBase);
+        return loreInfluencer.processing(state.u, lore, act);
+      },
+      ifAbsent: () =>
+          throw ArgumentError('Lore for session `$session` not found.'),
+    );
+    emit(state.copyWith(lores: state.lores));
 
     return true;
   }
@@ -105,7 +108,8 @@ class Live extends BaseLive<ServerState> {
   }
 }
 
-final live = Live(ServerState(
+final serverLive = ServerLive(ServerState(
   ss: ServerStateBase(),
+  u: Universe(),
   lores: const {},
 ));
