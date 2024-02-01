@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:vast_world/vast_world.dart';
+import 'package:vast_world/vast_world_share.dart';
 
 import 'helpers/construct_journeys.dart';
 import 'helpers/helpers2d.dart';

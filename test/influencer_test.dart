@@ -1,6 +1,6 @@
 import 'package:dart_helpers/dart_helpers.dart';
 import 'package:test/test.dart';
-import 'package:vast_world/vast_world.dart';
+import 'package:vast_world/vast_world_share.dart';
 
 import 'prepare_test_env.dart';
 

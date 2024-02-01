@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package vw.share;
+
+import "vw/share/plan.proto";
+
+message LoreBase {
+    /// <plan_id, PlanBase>
+    map<string, PlanBase> plans = 10;
+}

@@ -2,11 +2,11 @@ syntax = "proto3";
 
 package vw.maia;
 
-import "vw/lore.proto";
+import "vw/maia/server_options.proto";
 
 /// Use for Server only.
 message ServerStateBase {
-    OptionsBase options = 1;
+    ServerOptionsBase options = 1;
 
     /// The sessions that the Client requested (claimed) from Server.
     /// session, uidDevice
@@ -17,9 +17,5 @@ message ServerStateBase {
     map<string, bool> approved_sessions = 3;
 
     /// The key is `session`.
-    map<string, vw.LoreBase> lores = 1200;
-}
-
-/// Options for the Maia.
-message OptionsBase {
+    // map<string, vw.LoreBase> lores = 1200; - Keep into class [ServerState] as Lore.
 }

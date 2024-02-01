@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package vw.maia;
+
+/// Options for the Maia.
+message ServerOptionsBase {
+}

@@ -1,4 +1,4 @@
-import 'package:vast_world/vast_world.dart';
+import 'package:vast_world/vast_world_share.dart';
 
 typedef Keeper = PlanTiledmapKeeper<Plan<dynamic>, ImageFilesystemBroker,
     TextFilesystemBroker, XmlFilesystemBroker>;

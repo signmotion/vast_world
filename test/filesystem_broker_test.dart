@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:path/path.dart' as ph;
-import 'package:vast_world/vast_world.dart';
+import 'package:vast_world/vast_world_share.dart';
 import 'package:test/test.dart';
 
 import 'prepare_test_env.dart';

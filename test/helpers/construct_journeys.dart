@@ -1,4 +1,4 @@
-import 'package:vast_world/vast_world.dart';
+import 'package:vast_world/vast_world_share.dart';
 import 'package:wfile/wfile.dart';
 
 Plan<dynamic> get constructedAerwynaJourneyFromRaw {

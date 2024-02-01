@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package vw.maia;
+
+// Enum describing server answers on the sent [Act]s.
+enum ServerAnswerTypeEnumBase {
+  UNSPECIFIED_SERVER_ANSWER_TYPE = 0;
+
+  ACCEPTED_SERVER_ANSWER_TYPE = 200;
+  REJECTED_SERVER_ANSWER_TYPE = 400;
+}

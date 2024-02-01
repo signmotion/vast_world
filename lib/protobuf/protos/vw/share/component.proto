@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package vw.share;
+
+message ComponentBase {
+    /// HID of this component.
+    string hid = 1;
+
+    /// UID of this component.
+    string uid = 2;
+
+    /// Type of this component.
+    //ComponentTypeBase type = 6; - Use HID or UID instead of type.
+
+    /// To stringify JSON because we have a boilerplate code
+    /// with protobuf map and any-value.
+    optional string sjson_value = 12;
+}

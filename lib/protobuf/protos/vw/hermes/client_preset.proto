@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package vw.hermes;
+
+/// Preset (options) for Client's App.
+message ClientPresetBase {
+    optional string appTitle = 1;
+    optional string darkThemePageTitle = 2;
+    optional string lightThemePageTitle = 3;
+
+    optional string serverHost = 5;
+    optional int32 serverPort = 6;
+
+    optional bool showAppState = 102;
+    optional bool showNumberMessage = 103;
+    optional bool showDebugMessages = 104;
+    optional bool showDebugDetailsMessage = 105;
+}

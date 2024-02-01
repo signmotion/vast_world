@@ -2,10 +2,10 @@
 
 @setlocal
 
-rmdir /S /Q "..\src\generated"
+rmdir /S /Q "..\src\share\generated"
 
 Set "in=protos"
-Set "out=..\src\generated\%in%"
+Set "out=..\src\share\generated\%in%"
 
 
 @Set "suffix=google\protobuf"
@@ -26,11 +26,15 @@ protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 
 
-@Set "suffix=vw"
+@Set "suffix=vw\hermes"
 @mkdir "%out%\%suffix%"
 protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 
 @Set "suffix=vw\maia"
+@mkdir "%out%\%suffix%"
+protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
+
+@Set "suffix=vw\share"
 @mkdir "%out%\%suffix%"
 protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 

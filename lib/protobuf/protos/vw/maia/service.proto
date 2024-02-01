@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package vw.maia;
 
-import "vw/act.proto";
-import "vw/maia/answer_type_enum.proto";
+import "vw/maia/server_answer_type_enum.proto";
+import "vw/share/act.proto";
 
 service Service {
   rpc claimSession (ClaimSessionRequest) returns (ClaimSessionResponse);
@@ -21,16 +21,16 @@ service Service {
 
 
 message ClaimSessionRequest {
-  string uid_device = 2;
+  string uid_device = 4;
 }
 
 message ClaimSessionResponse {
-  string issued_session = 1;
+  string issued_session = 3;
 }
 
 message ApproveSessionRequest {
-  string session = 1;
-  string uid_device = 2;
+  string session = 3;
+  string uid_device = 4;
 }
 
 message ApproveSessionResponse {
@@ -38,7 +38,7 @@ message ApproveSessionResponse {
 }
 
 message GetAboutServerRequest {
-  string session = 1;
+  string session = 3;
 }
 
 message GetAboutServerResponse {
@@ -47,11 +47,11 @@ message GetAboutServerResponse {
 
 message ActBaseRequest {
   string session = 3;
-  ActBase act = 6;
+  share.ActBase act = 6;
 }
 
 message ActBaseResponse {
   string session = 3;
-  ActBase act = 6;
-  AnswerTypeEnumBase answer = 7;
+  share.ActBase act = 6;
+  ServerAnswerTypeEnumBase answer = 7;
 }

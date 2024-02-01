@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package vw.hermes;
+
+import "vw/hermes/client_state_enum.proto";
+
+/// Use for Client's App only.
+message ClientStateBase {
+    ClientStateEnumBase state = 1;
+
+    string uidDevice = 2;
+    optional string session = 3;
+    optional bool sessionApproved = 4;
+
+    optional string nameServer = 100;
+
+    // vw.LoreBase lore = 1200; - Keep into class [ClientState] as [Lore].
+}

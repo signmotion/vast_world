@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package vw.share;
+
+import "vw/share/act_type_enum.proto";
+import "vw/share/component.proto";
+
+message ActBase {
+  optional string debug_name = 1;
+
+  string uid = 2;
+
+  ActTypeEnumBase type = 6;
+
+  optional string plan_id = 12;
+
+  /// <component_id, ComponentBase>
+  map<string, ComponentBase> components = 13;
+}

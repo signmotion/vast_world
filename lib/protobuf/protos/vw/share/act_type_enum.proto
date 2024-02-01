@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package vw.share;
+
+// Enum describing types of [Act]s.
+enum ActTypeEnumBase {
+  UNSPECIFIED_ACT_TYPE = 0;
+
+  CHANGE_VALUE_ACT_TYPE = 12;
+  CHANGE_VALUE_TO_DEFAULTS_ACT_TYPE = 13;
+  CHANGE_VALUE_TO_EMPTY_ACT_TYPE = 14;
+
+  REMOVE_VALUE_ACT_TYPE = 20;
+}
