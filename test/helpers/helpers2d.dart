@@ -102,10 +102,10 @@ void checkPlan(
   required List<String> componentIds,
   required List<String> exposedIds,
 }) {
-  expect(hid.isCorrectHid, true, reason: hid);
   expect(plan.hid, hid);
+  expect(plan.isCorrectHid, isTrue, reason: plan.hid);
 
-  expect(plan.uid, isUuid);
+  expect(plan.isCorrectUid, isTrue, reason: plan.uid);
   expect(plan.uid == plan.hid, isFalse, reason: '${plan.id} == ${plan.hid}');
 
   // components
@@ -117,6 +117,8 @@ void checkPlan(
   for (final componentId in componentIds) {
     final found = plan.components.firstWhereOrNull((c) => c.id == componentId);
     expect(found, isNotNull, reason: componentId);
+    expect(found!.isCorrectUid, isTrue);
+    expect(found.isCorrectHid, isTrue);
   }
 
   // exposed

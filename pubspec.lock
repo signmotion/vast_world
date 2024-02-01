@@ -240,10 +240,9 @@ packages:
   id_gen:
     dependency: "direct main"
     description:
-      name: id_gen
-      sha256: c8e354e383bc96a827ac3e103a30c73a88b54f68eeaf9daa15163a3ad1025222
-      url: "https://pub.dev"
-    source: hosted
+      path: "../id_gen"
+      relative: true
+    source: path
     version: "0.4.1"
   image:
     dependency: "direct main"

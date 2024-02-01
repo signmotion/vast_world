@@ -29,7 +29,7 @@ void main() {
             NameComponent()..init('Aerwyna'),
           ],
         );
-        influencer.processing(lore, act);
+        influencer.processing(u, lore, act);
         final p = lore[plan.id]!;
         expect(p.components.length, 2, reason: p.components.sjson);
         expect(p.getValue<NameComponent>(), 'Aerwyna');
@@ -43,7 +43,7 @@ void main() {
             NameComponent()..init('New Aerwyna'),
           ],
         );
-        influencer.processing(lore, act);
+        influencer.processing(u, lore, act);
         final p = lore[plan.id]!;
         expect(p.components.length, 2, reason: p.components.sjson);
         expect(p.getValue<NameComponent>(), 'New Aerwyna');

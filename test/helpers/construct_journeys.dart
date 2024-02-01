@@ -9,7 +9,10 @@ Plan<dynamic> get constructedAerwynaJourneyFromRaw {
   final f = WFile(sourcePath);
 
   // root plan: without parent ID
-  final allJourneys = constructAllJourneysPlan(u, hid: 'all_journeys');
+  final allJourneys = constructAllJourneysPlan(
+    u,
+    hid: 'all_journeys',
+  );
 
   // journey by Aerwyna
   final about = f.readAsJsonMapString('_.json')!;

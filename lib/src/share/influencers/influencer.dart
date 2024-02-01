@@ -1,8 +1,8 @@
 part of '../../../vast_world_share.dart';
 
-/// Impact [Act] to [T].
+/// Impact [Act] to [T] into [Universe].
 abstract class Influencer<T> {
   const Influencer();
 
-  void processing(T o, Act act);
+  T processing(Universe u, T o, Act act);
 }

@@ -15,7 +15,10 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
 
   final String? debugName;
   final ActTypeEnum type;
+
   final String? planId;
+  String? get planHid => planId?.isPlanHid ?? false ? planId : null;
+  String? get planUid => planId?.isPlanUid ?? false ? planId : null;
 
   /// Initialized components.
   /// By analogy with [Plan].
@@ -33,13 +36,16 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
         components: {for (final e in components.entries) e.key: e.value.base},
       );
 
-  T run<T>(T o) {
+  @override
+  bool get isCorrectUid => uid.isActUid;
+
+  T run<T>(Universe u, T o) {
     logi('Running the act `$this` on the `$o`...'.bittenOfAllUuids32);
 
-    return innerRun<T>(o);
+    return innerRun<T>(u, o);
   }
 
-  T innerRun<T>(T o);
+  T innerRun<T>(Universe u, T o);
 
   /// See [base].
   /// See [jsonAsActBase].

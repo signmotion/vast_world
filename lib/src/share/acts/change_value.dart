@@ -5,14 +5,14 @@ class ChangeValueAct extends Act {
     super.debugName,
     super.uid,
     required super.planId,
-    required List<Component<dynamic>> initializedComponents,
+    required Iterable<Component<dynamic>> initializedComponents,
   }) : super(
           type: ActTypeEnum.CHANGE_VALUE_ACT_TYPE,
           components: {for (final ic in initializedComponents) ic.id: ic},
         );
 
   @override
-  T innerRun<T>(T o) {
+  T innerRun<T>(Universe u, T o) {
     switch (o) {
       case final Lore lore:
         return _runOnLore(lore) as T;

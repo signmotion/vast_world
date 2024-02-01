@@ -15,14 +15,14 @@ extension ConvertGeneratedMessageExt on GeneratedMessage {
       mapMessage.jsonWithSignificantFields.blured();
 }
 
-extension ConvertListGeneratedMessageExt on List<GeneratedMessage> {
-  List<String> get sShortMapWithSignificantFieldsMessage =>
-      map((e) => e.sShortMapWithSignificantFieldsMessage).toList();
-  List<JsonMap> get shortMapWithSignificantFieldsMessage =>
-      map((e) => e.shortMapWithSignificantFieldsMessage).toList();
+extension ConvertListGeneratedMessageExt on Iterable<GeneratedMessage> {
+  Iterable<String> get sShortMapWithSignificantFieldsMessage =>
+      map((e) => e.sShortMapWithSignificantFieldsMessage);
+  Iterable<JsonMap> get shortMapWithSignificantFieldsMessage =>
+      map((e) => e.shortMapWithSignificantFieldsMessage);
 
-  List<String> get sMapWithSignificantFieldsMessage =>
-      map((e) => e.sMapWithSignificantFieldsMessage).toList();
-  List<JsonMap> get mapWithSignificantFieldsMessage =>
-      map((e) => e.mapWithSignificantFieldsMessage).toList();
+  Iterable<String> get sMapWithSignificantFieldsMessage =>
+      map((e) => e.sMapWithSignificantFieldsMessage);
+  Iterable<JsonMap> get mapWithSignificantFieldsMessage =>
+      map((e) => e.mapWithSignificantFieldsMessage);
 }

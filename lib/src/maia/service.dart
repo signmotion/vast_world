@@ -12,7 +12,7 @@ class Service extends ServiceBase with ServiceMix {
     logiRequest(call, request);
 
     final response = ClaimSessionResponse(
-      issuedSession: await live.claimSession(
+      issuedSession: await serverLive.claimSession(
         uidDevice: request.uidDevice,
       ),
     );
@@ -30,7 +30,7 @@ class Service extends ServiceBase with ServiceMix {
     logiRequest(call, request);
 
     final response = ApproveSessionResponse(
-      approved: await live.approveSession(session: request.session),
+      approved: await serverLive.approveSession(session: request.session),
     );
 
     logiResponse(call, response);
@@ -71,7 +71,7 @@ class Service extends ServiceBase with ServiceMix {
 
         late final bool success;
         try {
-          success = await live.processingActOnLoreSession(
+          success = await serverLive.processingActOnLoreSession(
             session: ar.session,
             actBase: ar.act,
           );

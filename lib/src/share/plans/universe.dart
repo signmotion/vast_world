@@ -8,6 +8,8 @@ class Universe {
     _queryManager = oxygen.QueryManager(inner.entityManager);
   }
 
+  //static Universe defaults = Universe();
+
   late final oxygen.World inner;
 
   void registerSystem<T extends oxygen.System>(T system) =>

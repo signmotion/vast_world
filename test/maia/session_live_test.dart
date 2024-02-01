@@ -6,7 +6,7 @@ import '../prepare_test_env.dart';
 void main() async {
   prepareTestEnv();
 
-  final ma = live;
+  final ma = serverLive;
 
   Future<String> claimSession() async => ma.claimSession(uidDevice: 'device-a');
 

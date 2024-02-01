@@ -2,7 +2,7 @@
 
 part of '../../../vast_world_share.dart';
 
-/// An 'absolute plan' with own [Universe].
+/// An 'absolute plan' with default [Universe].
 /// Use for some renders.
 class AbsolutePlan extends Plan<Plan> {
   AbsolutePlan() : super(Universe());

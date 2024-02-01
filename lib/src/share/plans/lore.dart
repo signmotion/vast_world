@@ -30,6 +30,7 @@ class Lore {
 
   /// Add [plan] to [plans].
   /// Ignore when [plan] has been submitted.
+  /// See [has].
   void addNew(Plan<dynamic> plan) {
     if (this[plan.id] == null) {
       this[plan.id] = plan;
@@ -60,6 +61,7 @@ class Lore {
   }
 
   /// The plan with [id] included into [Lore].
+  /// See [find].
   bool has(String id) => find(id) != null;
 
   /// Return a plan by [id].

@@ -31,7 +31,8 @@ dependencies:
   dart_tiledmap:
     path: ../dart_tiledmap
   grpc: ^3.2.4
-  id_gen: ^0.4.1
+  id_gen:
+    path: ../id_gen
   image: ^4.1.3
   meta: ^1.10.0
   oxygen: ^0.2.0

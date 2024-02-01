@@ -1,9 +1,9 @@
 part of '../../../vast_world_share.dart';
 
 class PlanBuilder {
-  const PlanBuilder(this.universe);
+  const PlanBuilder(this.u);
 
-  final Universe universe;
+  final Universe u;
 
   T fromJson<T extends Plan<dynamic>>(JsonMap json) =>
       fromBase(jsonAsPlanBase(json));
@@ -14,21 +14,41 @@ class PlanBuilder {
         .bittenOfAllUuids32);
 
     final plan = constructNothingPlan(
-      universe,
+      u,
       hid: base.hid,
       uid: base.uid,
     );
 
     // components
-    for (final componentBase in base.components.values) {
-      final component = const ComponentBuilder().fromBase(componentBase);
+    for (final cbase in base.components.values) {
+      final component = const ComponentBuilder().fromBase(cbase);
       plan.setComponent(component);
     }
 
     // exposed
     for (final exposedBase in base.exposed.values) {
-      final exposed = PlanBuilder(universe).fromBase(exposedBase);
+      final exposed = PlanBuilder(u).fromBase(exposedBase);
       plan.bind(exposed);
+    }
+
+    logi('🧙‍♂️💚 Plan `$plan` constructed.');
+
+    return plan as T;
+  }
+
+  T fromIdAndComponents<T extends Plan<dynamic>>(
+    String id,
+    Iterable<Component<dynamic>> components,
+  ) {
+    logi('🧙‍♂️🟨 Constructing plan with ID `$id`'
+            ' and components `$components`...'
+        .bittenOfAllUuids32);
+
+    final plan = constructNothingPlan(u, id: id);
+
+    // components
+    for (final component in components) {
+      plan.setComponent(component);
     }
 
     logi('🧙‍♂️💚 Plan `$plan` constructed.');

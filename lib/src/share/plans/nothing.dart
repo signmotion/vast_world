@@ -3,7 +3,8 @@ part of '../../../vast_world_share.dart';
 /// Can act as the basis for any plan.
 Plan<dynamic> constructNothingPlan(
   Universe u, {
+  String? id,
   String? hid,
   String? uid,
 }) =>
-    Plan(u, hid: hid, uid: uid);
+    Plan(u, id: id, hid: hid, uid: uid);

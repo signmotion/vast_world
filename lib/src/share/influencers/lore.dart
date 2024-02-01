@@ -5,5 +5,5 @@ class LoreInfluencer extends Influencer<Lore> {
   const LoreInfluencer();
 
   @override
-  void processing(Lore o, Act act) => act.run(o);
+  Lore processing(Universe u, Lore o, Act act) => act.run(u, o);
 }

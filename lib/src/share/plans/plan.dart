@@ -8,19 +8,25 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
 // TODO class Plan<I extends Plan<dynamic>, L extends LayoutComponent> extends Quant {
   Plan(
     this.u, {
+    String? id,
     String? hid,
     String? uid,
     //L? layoutForExposed,
-  }) {
-    this.hid = hid ?? '';
-    this.uid = uid ?? genPlanUid;
+  }) : assert((id != null && hid == null && uid == null) || id == null,
+            '[id] should be defined without [hid] and [uid].') {
+    if (id == null) {
+      this.hid = hid ?? '';
+      this.uid = uid ?? genPlanUid;
+    } else {
+      this.id = id;
+    }
 
     // to fix error `UnmodifiableList`
     this.impactsOnPlans = List<I>.empty(growable: true);
 
     // an one entity on each plan
     final debugId = id;
-    innerEntity = u.construct(debugId);
+    innerEntity = this.u.construct(debugId);
 
     set<IdComponent, IdT>(IdComponent.new, (hid: this.hid, uid: this.uid));
     // TODO set<LayoutComponent>(layoutForExposed.builder);
@@ -51,6 +57,9 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
     super.id = uidOrHid;
     set(IdComponent.new, (hid: super.hid, uid: super.uid));
   }
+
+  @override
+  bool get isCorrectUid => uid.isPlanUid;
 
   /// Returns the [Component].
   /// See [get], [getValue].
