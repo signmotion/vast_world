@@ -1,6 +1,5 @@
 library;
 
-import 'dart:io';
 import 'dart:math' as math;
 import 'dart:typed_data';
 
@@ -24,13 +23,6 @@ part 'src/share/acts/act_builder.dart';
 part 'src/share/acts/act.dart';
 part 'src/share/acts/add_plan_act.dart';
 part 'src/share/acts/change_value.dart';
-
-part 'src/share/brokers/filesystem/filesystem.dart';
-part 'src/share/brokers/filesystem/image.dart';
-part 'src/share/brokers/filesystem/text.dart';
-part 'src/share/brokers/filesystem/xml.dart';
-
-part 'src/share/brokers/broker.dart';
 
 part 'src/share/classes/bounding_box_2d.dart';
 part 'src/share/classes/change_notifier.dart';
