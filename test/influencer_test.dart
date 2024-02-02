@@ -1,4 +1,4 @@
-import 'package:dart_helpers/dart_helpers.dart';
+import 'package:json_dart/json_dart.dart';
 import 'package:test/test.dart';
 import 'package:vast_world/vast_world_share.dart';
 
@@ -26,6 +26,7 @@ void main() {
 
       final p = lore[act.planId!]!;
       expect(p.components.length, 2, reason: p.components.sjson);
+      expect(p.getValue<IdComponent>(), (hid: p.hid, uid: p.uid));
       expect(p.getValue<NameComponent>(), 'Aerwyna');
     });
 

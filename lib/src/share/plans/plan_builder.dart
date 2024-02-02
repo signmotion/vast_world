@@ -9,8 +9,8 @@ class PlanBuilder {
       fromBase(jsonAsPlanBase(json));
 
   T fromBase<T extends Plan<dynamic>>(PlanBase base) {
-    logi('🧙‍♂️🟨 Constructing plan based on '
-            '`${base.shortMapWithSignificantFieldsMessage}...'
+    logi('🧙‍♂️🟨 Constructing plan based on'
+            ' `${base.shortMapWithSignificantFieldsMessage}...'
         .bittenOfAllUuids32);
 
     final plan = constructNothingPlan(

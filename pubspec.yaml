@@ -23,8 +23,11 @@ dependencies:
   advance_math: ^3.3.7
   astronomical_measurements:
     path: ../astronomical_measurements
+  auto_size_text: ^3.0.0
   base_server:
     path: ../base_server
+  bloc: ^8.1.2
+  bloc_concurrency: ^0.2.3
   collection: ">=1.18.0 <2.0.0"
   dart_helpers:
     path: ../dart_helpers
@@ -34,6 +37,7 @@ dependencies:
   id_gen:
     path: ../id_gen
   image: ^4.1.6
+  json_dart: ^0.1.0
   meta: ^1.10.0
   oxygen: ^0.2.0
   path: ">=1.8.0 <2.0.0"

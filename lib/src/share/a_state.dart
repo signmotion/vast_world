@@ -1,4 +1,4 @@
-part of '../../../vast_world_maia.dart';
+part of '../../vast_world_share.dart';
 
 typedef TState = AState<GeneratedMessage>;
 

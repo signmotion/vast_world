@@ -9,8 +9,8 @@ class ComponentBuilder {
       fromBase(jsonAsComponentBase(json));
 
   C fromBase<C extends Component<dynamic>>(ComponentBase base) {
-    logi('🧙‍♂️🟨 Constructing component based on '
-            '`${base.shortMapWithSignificantFieldsMessage}...'
+    logi('🧙‍♂️🟨 Constructing component based on'
+            ' `${base.shortMapWithSignificantFieldsMessage}...'
         .bittenOfAllUuids32);
 
     final component = builder(base.uid)();

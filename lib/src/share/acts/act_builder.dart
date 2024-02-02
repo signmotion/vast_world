@@ -6,8 +6,8 @@ class ActBuilder {
   T fromJson<T extends Act>(JsonMap json) => fromBase(jsonAsActBase(json));
 
   T fromBase<T extends Act>(ActBase base) {
-    logi('🧙‍♂️🟨 Constructing act based on '
-            '`${base.shortMapWithSignificantFieldsMessage}...'
+    logi('🧙‍♂️🟨 Constructing act based on'
+            ' `${base.shortMapWithSignificantFieldsMessage}...'
         .bittenOfAllUuids32);
 
     final initializedComponents = [

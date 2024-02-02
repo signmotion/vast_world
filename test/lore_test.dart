@@ -1,6 +1,6 @@
 // ignore_for_file: inference_failure_on_function_invocation
 
-import 'package:dart_helpers/dart_helpers.dart';
+import 'package:json_dart/json_dart.dart';
 import 'package:test/test.dart';
 import 'package:vast_world/vast_world_share.dart';
 
