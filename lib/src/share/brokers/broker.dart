@@ -1,19 +1,19 @@
 part of '../../../vast_world_share.dart';
 
 /// The base class for key-value brokers.
-abstract class Broker<T> {
+abstract class Broker<K, T> {
   const Broker();
 
-  String get prefix;
+  K get prefix;
 
-  bool exists(String key);
+  bool exists(K key);
 
-  T? read(String key);
+  T? read(K key);
 
-  void write(String key, T value);
+  void write(K key, T value);
 
   /// Delete this key-value.
-  void delete(String key);
+  void delete(K key);
 
   /// Delete all pairs of key-value.
   void clear();

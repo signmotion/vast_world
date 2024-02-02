@@ -1,6 +1,6 @@
 part of '../../../../vast_world_share.dart';
 
-abstract class FilesystemBroker<T> extends Broker<T> {
+abstract class FilesystemBroker<T> extends Broker<String, T> {
   FilesystemBroker(
     String path, {
     bool createPathIfNotExists = false,

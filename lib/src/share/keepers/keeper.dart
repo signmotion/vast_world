@@ -1,8 +1,11 @@
 part of '../../../vast_world_share.dart';
 
 // The base class for keepers.
-abstract class Keeper<Q extends Quant, ImgB extends Broker<dynamic>,
-    TxtB extends Broker<dynamic>, XmlB extends Broker<dynamic>> {
+abstract class Keeper<
+    Q extends Quant,
+    ImgB extends Broker<dynamic, dynamic>,
+    TxtB extends Broker<dynamic, dynamic>,
+    XmlB extends Broker<dynamic, dynamic>> {
   const Keeper({
     required this.imageBroker,
     required this.textBroker,

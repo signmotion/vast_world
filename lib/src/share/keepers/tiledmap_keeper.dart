@@ -2,9 +2,9 @@ part of '../../../vast_world_share.dart';
 
 abstract class TiledmapKeeper<
     Q extends Quant,
-    ImgB extends Broker<dynamic>,
-    TxtB extends Broker<dynamic>,
-    XmlB extends Broker<dynamic>> extends Keeper<Q, ImgB, TxtB, XmlB> {
+    ImgB extends Broker<dynamic, dynamic>,
+    TxtB extends Broker<dynamic, dynamic>,
+    XmlB extends Broker<dynamic, dynamic>> extends Keeper<Q, ImgB, TxtB, XmlB> {
   TiledmapKeeper({
     required super.imageBroker,
     required super.textBroker,
@@ -18,10 +18,11 @@ abstract class TiledmapKeeper<
 /// typedef Keeper = PlanTiledmapKeeper<ImageFilesystemBroker, TextFilesystemBroker>;
 /// ```
 class PlanTiledmapKeeper<
-    P extends Plan<dynamic>,
-    ImgB extends Broker<dynamic>,
-    TxtB extends Broker<dynamic>,
-    XmlB extends Broker<dynamic>> extends TiledmapKeeper<P, ImgB, TxtB, XmlB> {
+        P extends Plan<dynamic>,
+        ImgB extends Broker<dynamic, dynamic>,
+        TxtB extends Broker<dynamic, dynamic>,
+        XmlB extends Broker<dynamic, dynamic>>
+    extends TiledmapKeeper<P, ImgB, TxtB, XmlB> {
   PlanTiledmapKeeper({
     required super.imageBroker,
     required super.textBroker,
