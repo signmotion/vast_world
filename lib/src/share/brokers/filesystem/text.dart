@@ -1,11 +1,15 @@
 part of '../../../../vast_world_share.dart';
 
 class TextFilesystemBroker extends FilesystemBroker<String> {
-  TextFilesystemBroker(super.path);
+  TextFilesystemBroker(
+    super.path, {
+    super.createPathIfNotExists = false,
+    super.exceptionWhenFileNotExists = false,
+  });
 
   @override
-  String? read(String key) => readAsText(key);
+  String? read(String key) => wfile.readAsText(key);
 
   @override
-  void write(String key, String value) => writeAsText(value, key);
+  void write(String key, String value) => wfile.writeAsText(value, key);
 }

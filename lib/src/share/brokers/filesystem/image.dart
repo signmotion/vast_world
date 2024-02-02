@@ -6,6 +6,8 @@ class ImageFilesystemBroker extends FilesystemBroker<Image> {
     super.path, {
     this.numChannels,
     this.alpha,
+    super.createPathIfNotExists = false,
+    super.exceptionWhenFileNotExists = false,
   });
 
   final int? numChannels;
@@ -13,8 +15,8 @@ class ImageFilesystemBroker extends FilesystemBroker<Image> {
 
   @override
   Image? read(String key) =>
-      readAsImage(key, numChannels: numChannels, alpha: alpha);
+      wfile.readAsImage(key, numChannels: numChannels, alpha: alpha);
 
   @override
-  void write(String key, Image value) => writeAsImage(value, key);
+  void write(String key, Image value) => wfile.writeAsImage(value, key);
 }

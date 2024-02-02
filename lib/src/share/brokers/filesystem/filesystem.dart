@@ -1,25 +1,33 @@
 part of '../../../../vast_world_share.dart';
 
-abstract class FilesystemBroker<T> extends Broker<T> with CanWorkWithFile {
-  FilesystemBroker(String path) {
-    this.path = path;
+abstract class FilesystemBroker<T> extends Broker<T> {
+  FilesystemBroker(
+    String path, {
+    bool createPathIfNotExists = false,
+    bool exceptionWhenFileNotExists = false,
+  }) : wfile = WFile(
+          path,
+          createPathIfNotExists: createPathIfNotExists,
+          exceptionWhenFileNotExists: exceptionWhenFileNotExists,
+        );
 
-    counstructPath();
-  }
+  final WFile wfile;
 
   @override
-  String get prefix => npath;
+  String get prefix => wfile.npath;
 
   @override
-  bool exists(String key) => existsAny(key);
+  bool exists(String key) => wfile.existsAny(key);
+
+  @override
+  void delete(String key) => wfile.delete(key);
 
   @override
   void clear() {
-    final directory = Directory(path);
-    if (directory.existsSync()) {
-      directory.deleteSync(recursive: true);
-    }
+    wfile.delete();
 
-    counstructPath();
+    if (wfile.createPathIfNotExists) {
+      wfile.counstructPath();
+    }
   }
 }

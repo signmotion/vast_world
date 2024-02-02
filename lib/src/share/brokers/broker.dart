@@ -8,9 +8,13 @@ abstract class Broker<T> {
 
   bool exists(String key);
 
-  void clear();
-
   T? read(String key);
 
   void write(String key, T value);
+
+  /// Delete this key-value.
+  void delete(String key);
+
+  /// Delete all pairs of key-value.
+  void clear();
 }
