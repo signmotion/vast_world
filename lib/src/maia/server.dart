@@ -1,6 +1,6 @@
 part of '../../../vast_world_maia.dart';
 
-class Server extends BaseServer<Server> {
+class Server extends BaseServer {
   Server()
       : super(
           name: Names.volcanos().next,
