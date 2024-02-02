@@ -8,15 +8,21 @@ final _emptyState = ClientState(
 
 class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   DefaultClientBloc({
+    required this.uidDevice,
     required this.serverHost,
     required this.serverPort,
-  })  : loreInfluencer = const LoreInfluencer(),
+  })  : assert(uidDevice.isNotEmpty),
+        assert(serverHost.isNotEmpty),
+        assert(serverPort > 0),
+        loreInfluencer = const LoreInfluencer(),
         super(_emptyState) {
     on<AClientEvent>(
       _onEvent,
       transformer: sequential(),
     );
   }
+
+  final String uidDevice;
 
   final String serverHost;
   final int serverPort;
@@ -84,8 +90,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     RegisteringClientEvent event,
     Emitter<ClientState> emit,
   ) async {
-    final device = await uidDevice;
-    logi('Registering a client for device `$device`...');
+    logi('Registering a client for device `$uidDevice`...');
 
     add(const ClaimingSessionClientEvent());
     add(const ApprovingSessionClientEvent());
@@ -99,21 +104,20 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     ClaimingSessionClientEvent event,
     Emitter<ClientState> emit,
   ) async {
-    final device = await uidDevice;
-    logi('Claiming a session for the device `$device`...');
+    logi('Claiming a session for the device `$uidDevice`...');
 
     state.ss.freeze();
     emit(
       state.copyWith(
         ss: state.ss.rebuild((v) {
           v.state = ClientStateEnum.CLAIMING_SESSION_CLIENT_STATE;
-          v.uidDevice = device;
+          v.uidDevice = uidDevice;
         }),
       ),
     );
 
     final response = await maiaStub.claimSession(
-      ClaimSessionRequest(uidDevice: device),
+      ClaimSessionRequest(uidDevice: uidDevice),
     );
     final session = response.issuedSession;
 
@@ -126,14 +130,13 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       ),
     );
 
-    logi('Session `$session` claimed for the device `$device`.');
+    logi('Session `$session` claimed for the device `$uidDevice`.');
   }
 
   Future<void> _onApprovingSessionEvent(
     ApprovingSessionClientEvent event,
     Emitter<ClientState> emit,
   ) async {
-    final device = await uidDevice;
     final session = state.ss.session;
     logi('Approving the session `$session`...');
 
@@ -148,7 +151,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
     final response = await maiaStub.approveSession(
       ApproveSessionRequest(
-        uidDevice: device,
+        uidDevice: uidDevice,
         session: session,
       ),
     );
@@ -346,10 +349,6 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       throw maia.NotApprovedSessionError(state.ss.session);
     }
   }
-
-  String? _uidDevice;
-  Future<String> get uidDevice async => _uidDevice ??=
-      (await PlatformDeviceId.getDeviceId) ?? 'D-$randomPositiveInt';
 
   ClientChannel? _channel;
   ClientChannel get channel => _channel ??= ClientChannel(

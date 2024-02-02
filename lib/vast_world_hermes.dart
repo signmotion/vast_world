@@ -6,7 +6,6 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:dart_helpers/dart_helpers.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_dart/json_dart.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 
 import 'vast_world_maia.dart' as maia;
 import 'vast_world_protos.dart';
