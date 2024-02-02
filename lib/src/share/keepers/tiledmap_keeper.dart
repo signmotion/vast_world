@@ -46,7 +46,6 @@ class PlanTiledmapKeeper<
   void _writePlan(
     Plan<dynamic> plan, [
     int depth = Keeper.maxWritePlanDepth,
-    String? pathPrefix,
   ]) {
     final renderComponent = plan.get<TiledmapRenderComponent>();
     ae(
@@ -55,28 +54,14 @@ class PlanTiledmapKeeper<
         ' for transform the plan to Tiledmap format.');
 
     final r = renderComponent!.render(AbsolutePlan(), plan);
-    final pp = pathPrefix ?? '';
 
-    xmlBroker.write(
-      ph.join(pp, r.fileXml.pathToFile),
-      r.fileXml.content,
-    );
+    xmlBroker.write(r.fileXml.pathToFile, r.fileXml.content);
 
     for (final fm in r.fileImages) {
-      imageBroker.write(
-        ph.join(pp, fm.pathToFile),
-        fm.content,
-      );
+      imageBroker.write(fm.pathToFile, fm.content);
     }
 
     // TODO
-    // _writePlanXml(plan, pathPrefix);
-    // _writePlanPictureComponent(plan, pathPrefix);
-
-    // // ! keep all plans to the root; reason: 1 plan can links to some exposed,
-    // // ! change them & take changes them
-    // final prefix = pathPrefix;
-
     // // save the exposed as plans
     // for (final exposed in plan.impactsOnPlans) {
     //   _writePlan(exposed as Plan<dynamic>, depth - 1, prefix);
