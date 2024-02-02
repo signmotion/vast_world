@@ -1,4 +1,4 @@
-part of '../../../vast_world_maia.dart';
+part of '../../../vast_world_share.dart';
 
 abstract class Error extends BaseEquatable implements Exception {
   const Error(this.message);
@@ -14,6 +14,7 @@ abstract class Error extends BaseEquatable implements Exception {
 
   @override
   String toString() => '!) Error: $message${message.endsWith('.') ? '' : '.'}'
+      ' ${props.sublist(1).sjsonInLineWithoutWrappers}'
       '\nProvider: $runtimeType';
 
   String get details => super.toString();

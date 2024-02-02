@@ -9,10 +9,9 @@ import 'prepare_test_env.dart';
 void main() {
   prepareTestEnv();
 
-  group('Add empty plans', () {
-    final u = Universe();
-
-    test('Add 2 plans', () {
+  group('Add plans', () {
+    test('Add 2 unique plans', () {
+      final u = Universe();
       final lore = Lore();
       expect(lore.count, 0);
 
@@ -30,9 +29,6 @@ void main() {
       );
       lore.addNew(aerwyna);
       expect(lore.count, 2);
-      // doesn't add a plan with able HID
-      lore.addNew(aerwyna);
-      expect(lore.count, 2);
       expect(lore.countsInUniverses.single, lore.count);
       {
         final p = lore['aerwyna']!;
@@ -41,6 +37,18 @@ void main() {
       }
 
       expect(lore.universes, containsAll({u}));
+    });
+
+    test('Add 2 same plans', () {
+      final u = Universe();
+      final lore = Lore();
+      expect(lore.count, 0);
+
+      final all = constructAllJourneysPlan(u);
+      // add a first
+      lore.addNew(all);
+      // attempt to add a second
+      expect(() => lore.addNew(all), throwsA(isA<AlreadyExistsPlanError>()));
     });
   });
 

@@ -27,7 +27,22 @@ void main() {
       final p = lore[act.planId!]!;
       expect(p.components.length, 2, reason: p.components.sjson);
       expect(p.getValue<NameComponent>(), 'Aerwyna');
-    }, tags: ['current']);
+    });
+
+    test('Add an exists plan', () {
+      final u = Universe();
+      final lore = Lore();
+      expect(lore.plans, isEmpty);
+
+      final act = AddPlanAct(planId: 'aerwyna');
+      // add a first
+      influencer.processing(u, lore, act);
+      // attempt to add a second
+      expect(
+        () => influencer.processing(u, lore, act),
+        throwsA(isA<AlreadyExistsPlanError>()),
+      );
+    });
 
     test('Change a value', () {
       final u = Universe();

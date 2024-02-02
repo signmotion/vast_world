@@ -32,6 +32,8 @@ class Lore {
   void addNew(Plan<dynamic> plan) {
     if (this[plan.id] == null) {
       this[plan.id] = plan;
+    } else {
+      throw AlreadyExistsPlanError(plan.id);
     }
   }
 

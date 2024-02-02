@@ -31,6 +31,9 @@ part 'src/share/classes/notifying_vector2.dart';
 part 'src/share/classes/platform_dispatcher.dart';
 part 'src/share/classes/transform_2d.dart';
 
+part 'src/share/errors/error.dart';
+part 'src/share/errors/plan_error.dart';
+
 part 'src/share/extensions/aabb.dart';
 part 'src/share/extensions/convert_messages_ext.dart';
 part 'src/share/extensions/offset.dart';
