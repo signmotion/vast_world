@@ -19,7 +19,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
     innerEntity = this.u.construct(debugId);
 
     // to fix error `UnmodifiableList`
-    this.impactsOnPlans = List<I>.empty(growable: true);
+    this.exposed = List<I>.empty(growable: true);
 
     if (id == null) {
       this.hid = hid ?? '';
@@ -36,7 +36,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   final Universe u;
 
   /// This plan converted to [PlanBase].
-  /// See [jsonAsBase].
+  /// See [jsonAsBase] to backward conversion.
   @override
   PlanBase get base => PlanBase(
         hid: hid,
@@ -83,8 +83,8 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   /// Returns a value of the [Component].
   dynamic getValue<C extends Component<dynamic>>() => get<C>()?.value;
 
-  /// Set a component value and register the component when it absent.
-  /// See [addComponent], [Component], [component].
+  /// Set the component [data] and register the component when it absent.
+  /// See [setComponent], [addComponent], [Component], [component].
   void set<C extends Component<V>, V>(
     oxygen.ComponentBuilder<C> builder, [
     V? data,
@@ -133,10 +133,13 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   /// Alias [innerEntity].
   oxygen.Entity get ie => innerEntity;
 
-  late final List<I> impactsOnPlans;
-
-  /// Alias [impactsOnPlans].
-  List<I> get exposed => impactsOnPlans;
+  /// The plans that this plan can view and change.
+  /// This plan can be changing any [exposed] into it plans.
+  /// But not each plan should change [exposed] plans.
+  /// For example, a projection of some place as hologram, on display or
+  /// just drawing.
+  /// TODO Declare permissions?
+  late final List<I> exposed;
 
   /// Layout for [exposed] plans.
   /// See [setLayout].
@@ -149,16 +152,17 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   //   layoutForExposed.init(location);
   // }
 
-  /// Alias [addToImpacts].
-  void bind(I plan) => addToImpacts(plan);
+  /// Alias [addToExposed].
+  void bind(I plan) => addToExposed(plan);
 
   /// Every added [plan] will be enhanced with a component from [layout].
   /// This is necessary for compound [exposed] plans.
-  void addToImpacts(I plan) {
+  /// See [bind].
+  void addToExposed(I plan) {
     // TODO void addToImpacts<L extends LocationValue>(I plan, [L? location]) {
     // TODO plan.setLayout(layoutForExposed, location);
 
-    impactsOnPlans.add(plan);
+    exposed.add(plan);
   }
 
   /// See [base].

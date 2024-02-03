@@ -50,7 +50,7 @@ void checkFileStructurePlan(
   );
 
   // checking exposed of the root
-  expect(plan.impactsOnPlans.length, countExposed);
+  expect(plan.exposed.length, countExposed);
 
   // checking other paths for their presence
   for (final path in checkPathPresence) {
@@ -123,12 +123,12 @@ void checkPlan(
 
   // exposed
   expect(
-    plan.impactsOnPlans.length,
+    plan.exposed.length,
     exposedIds.length,
-    reason: plan.impactsOnPlans.sjson,
+    reason: plan.exposed.sjson,
   );
   for (final exposedId in exposedIds) {
-    final found = plan.impactsOnPlans
+    final found = plan.exposed
             .firstWhereOrNull((p) => (p as HasStringIdMix).id == exposedId)
         as Quant?;
     expect(found, isNotNull, reason: exposedId);

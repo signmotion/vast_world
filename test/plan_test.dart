@@ -77,7 +77,7 @@ void main() {
       );
       expect(all.exposed, isEmpty);
 
-      all.addToImpacts(aerwyna);
+      all.addToExposed(aerwyna);
       expect(all.exposed.length, 1);
       final e = all.exposed.single as Plan<dynamic>;
       expect(e.hid, aerwyna.hid);

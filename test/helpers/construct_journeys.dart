@@ -35,10 +35,10 @@ Plan<dynamic> get constructedAerwynaJourneyFromRaw {
       picture: picture,
       story: (text: textStory),
     );
-    aerwynaJourney.addToImpacts(place);
+    aerwynaJourney.addToExposed(place);
   }
 
-  allJourneys.addToImpacts(aerwynaJourney);
+  allJourneys.addToExposed(aerwynaJourney);
 
   return allJourneys;
 }

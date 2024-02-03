@@ -38,8 +38,8 @@ TiledmapT journeyTiledmapRender(
     final tileObjects = <VObjectTile>[];
     final tilesets = <VTileset>[];
     var lastY = 0.0;
-    for (var i = watched.impactsOnPlans.length - 1; i >= 0; --i) {
-      final exposed = watched.impactsOnPlans[i] as Plan<dynamic>;
+    for (var i = watched.exposed.length - 1; i >= 0; --i) {
+      final exposed = watched.exposed[i] as Plan<dynamic>;
       final imagery = imageries[i];
       final pathToImageryFile = imagery.pathToFile.pathAfterHead;
       final image = imagery.content;

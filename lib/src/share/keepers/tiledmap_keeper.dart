@@ -64,7 +64,7 @@ class PlanTiledmapKeeper<
 
     // TODO
     // // save the exposed as plans
-    // for (final exposed in plan.impactsOnPlans) {
+    // for (final exposed in plan.exposed) {
     //   _writePlan(exposed as Plan<dynamic>, depth - 1, prefix);
     // }
   }

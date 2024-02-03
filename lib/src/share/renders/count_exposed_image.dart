@@ -21,7 +21,7 @@ Image countExposedImageRender(
         y: image.height ~/ 2 + q * spaced,
       );
 
-  final count = watched.impactsOnPlans.length;
+  final count = watched.exposed.length;
   draw("'${spectator.id}'", -3);
   draw("'${watched.id}'", -1);
   draw('$count', 2);
