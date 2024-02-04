@@ -86,17 +86,14 @@ part 'src/share/components/transform_2d.dart';
 part 'src/share/components/component.dart';
 
 part 'src/share/plans/absolute.dart';
-part 'src/share/plans/all_journeys.dart';
 part 'src/share/plans/DEPRECATED_plan2d.dart';
 part 'src/share/plans/nothing.dart';
-part 'src/share/plans/journey.dart';
 part 'src/share/plans/lore.dart';
 part 'src/share/plans/lore_builder.dart';
-part 'src/share/plans/place.dart';
 part 'src/share/plans/plan_builder.dart';
 part 'src/share/plans/plan.dart';
 part 'src/share/plans/plan2d.dart';
-part 'src/share/plans/universe.dart';
+part 'src/share/universe.dart';
 
 part 'src/share/quant/axis_type.dart';
 part 'src/share/quant/DEPRECATED_geometry_shape_2d_quant.dart';

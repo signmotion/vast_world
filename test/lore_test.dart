@@ -4,6 +4,8 @@ import 'package:json_dart/json_dart.dart';
 import 'package:test/test.dart';
 import 'package:vast_world/vast_world_share.dart';
 
+import 'plans/all_journeys.dart';
+import 'plans/journey.dart';
 import 'prepare_test_env.dart';
 
 void main() {

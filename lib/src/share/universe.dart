@@ -1,6 +1,6 @@
 // ignore_for_file: inference_failure_on_function_invocation
 
-part of '../../../vast_world_share.dart';
+part of '../../vast_world_share.dart';
 
 class Universe {
   Universe() {

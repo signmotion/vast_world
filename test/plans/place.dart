@@ -1,5 +1,10 @@
-part of '../../../vast_world_share.dart';
+import 'package:image/image.dart';
+import 'package:vast_world/vast_world_share.dart';
 
+import 'journey.dart';
+
+/// A place of journey.
+/// See [constructJourneyPlan].
 Plan<dynamic> constructPlacePlan(
   Universe u, {
   String? hid,

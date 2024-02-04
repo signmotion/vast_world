@@ -1,7 +1,10 @@
-part of '../../../vast_world_share.dart';
+import 'package:vast_world/vast_world_share.dart';
+
+import 'place.dart';
 
 /// Example:
 ///   A journey by country.
+/// See [constructPlacePlan].
 Plan<dynamic> constructJourneyPlan(
   Universe u, {
   String? hid,
