@@ -7,20 +7,20 @@ part of '../../../vast_world_share.dart';
 class ComponentBuilder {
   const ComponentBuilder();
 
-  C fromJson<C extends Component<dynamic>>(JsonMap json) =>
+  C fromJson<C extends AnyComponent>(JsonMap json) =>
       fromBase(jsonAsComponentBase(json));
 
   /// See note for this class.
-  C fromBase<C extends Component<dynamic>>(ComponentBase base) {
+  C fromBase<C extends AnyComponent>(ComponentBase base) {
     logi('🧙‍♂️🟨 Constructing component based on'
             ' `${base.shortMapWithSignificantFieldsMessage}...'
         .bittenOfAllUuids32);
 
-    late final Component<dynamic> component;
+    late final AnyComponent component;
     try {
       component = _fromBase(base);
     } on UnimplementedError catch (_) {
-      component = extendedFromBase(base);
+      //component = extendedFromBase(base); - don't need this, covered by [builder]
     }
 
     logi('🧙‍♂️💚 Component `$component` constructed.');
@@ -29,10 +29,10 @@ class ComponentBuilder {
   }
 
   /// Will call after [fromBase].
-  C extendedFromBase<C extends Component<dynamic>>(ComponentBase base) =>
-      throw UnimplementedError(base.hid);
+  // C extendedFromBase<C extends AnyComponent>(ComponentBase base) =>
+  //     throw UnimplementedError(base.hid);
 
-  C _fromBase<C extends Component<dynamic>>(ComponentBase base) {
+  C _fromBase<C extends AnyComponent>(ComponentBase base) {
     final component = builder(base.uid)();
     final json = base.sjsonValue.jsonMap;
     component.init(component.jsonAsValue(json));
@@ -40,8 +40,7 @@ class ComponentBuilder {
     return component as C;
   }
 
-  TBuilder<Component<dynamic>> builder(String componentUid) =>
-      allBuilders.firstWhere(
+  TBuilder<AnyComponent> builder(String componentUid) => allBuilders.firstWhere(
         (cb) => cb().uid == componentUid,
         orElse: () => throw UnimplementedError(),
       );
@@ -58,7 +57,7 @@ class ComponentBuilder {
         u: u,
         entity: entity,
         jsonValue: jsonValue,
-        run: <C extends Component<dynamic>, T>(
+        run: <C extends AnyComponent, T>(
           TBuilder<C> builder, {
           Universe? u,
           oxygen.Entity? entity,
@@ -73,11 +72,11 @@ class ComponentBuilder {
       );
 
   /// All components of the [entity].
-  List<Component<dynamic>> components(
+  List<AnyComponent> components(
     Universe u,
     oxygen.Entity entity,
   ) {
-    Component<dynamic>? run<C extends Component<dynamic>, T>(
+    AnyComponent? run<C extends AnyComponent, T>(
       TBuilder<C> builder, {
       Universe? u,
       oxygen.Entity? entity,
@@ -86,7 +85,7 @@ class ComponentBuilder {
         // looking at concrete component
         entity!.get<C>();
 
-    final r = <Component<dynamic>>[];
+    final r = <AnyComponent>[];
     for (final componentBuilder in allBuilders) {
       final found = runForComponent(
         componentBuilder().uid,
@@ -102,12 +101,12 @@ class ComponentBuilder {
     return r;
   }
 
-  List<TBuilder<Component<dynamic>>> get allBuilders =>
+  List<TBuilder<AnyComponent>> get allBuilders =>
       [...nativeBuilders, ...extendedBuilders];
 
   /// Native builders for components.
   /// You should override [extendedBuilders] for detect own components.
-  List<TBuilder<Component<dynamic>>> get nativeBuilders => [
+  List<TBuilder<AnyComponent>> get nativeBuilders => [
         DescriptionComponent.new,
         GreetingComponent.new,
         IdComponent.new,
@@ -120,14 +119,14 @@ class ComponentBuilder {
         TiledmapRenderComponent.new,
       ];
 
-  List<TBuilder<Component<dynamic>>> get extendedBuilders => [];
+  List<TBuilder<AnyComponent>> get extendedBuilders => [];
 
   /// Helper for generic detecting and processing a component.
   /// Swiss knife for [Component], [oxygen.Entity] and [Universe].
   /// You should override [extendedRunForComponent] for detect own components.
   R? runForComponent<R>(
     String componentUid, {
-    required R Function<C extends Component<dynamic>, T>(
+    required R Function<C extends AnyComponent, T>(
       TBuilder<C> builder, {
       Universe? u,
       oxygen.Entity? entity,
@@ -300,7 +299,7 @@ class ComponentBuilder {
   /// Will call after [runForComponent].
   R? extendedRunForComponent<R>(
     String componentUid, {
-    required R Function<C extends Component<dynamic>, T>(
+    required R Function<C extends AnyComponent, T>(
       TBuilder<C> builder, {
       Universe? u,
       oxygen.Entity? entity,

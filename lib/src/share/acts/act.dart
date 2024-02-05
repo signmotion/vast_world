@@ -23,7 +23,7 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
   /// Initialized components.
   /// By analogy with [Plan].
   /// <component_id, ComponentBase>
-  final Map<String, Component<dynamic>> components;
+  final Map<String, AnyComponent> components;
 
   /// This act converted to [ActBase].
   /// See [jsonAsBase].

@@ -5,7 +5,7 @@ class AddPlanAct extends Act {
     super.debugName,
     super.uid,
     required super.planId,
-    Iterable<Component<dynamic>> initializedComponents = const [],
+    Iterable<AnyComponent> initializedComponents = const [],
   }) : super(
           type: ActTypeEnum.ADD_PLAN_ACT_TYPE,
           components: {for (final ic in initializedComponents) ic.id: ic},

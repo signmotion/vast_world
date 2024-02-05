@@ -1,5 +1,7 @@
 part of '../../../vast_world_share.dart';
 
+typedef AnyComponent = Component<dynamic>;
+
 /// Component that contains a [defaults] value instead of null.
 /// See [ValueComponent] from Oxygen.
 abstract class Component<T> extends oxygen.Component<T>

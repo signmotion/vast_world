@@ -1,9 +1,8 @@
 part of '../../../vast_world_share.dart';
 
 /// Contains a render function for transform (drawing) exposed [Plan] to
-/// influential [Plan].
+/// top [Plan].
 /// Constructed by analogy [PlanListComponent].
-/// [R] extends [RenderFn<T>].
 abstract class RenderComponent<T> extends Component<RenderFn<T>> {
   RenderFn<T> get render => value;
 

@@ -45,7 +45,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
         exposed: {for (final p in exposed) p.id: p.base},
       );
 
-  List<Component<dynamic>> get components =>
+  List<AnyComponent> get components =>
       const ComponentBuilder().components(u, innerEntity);
 
   @override
@@ -75,13 +75,13 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
 
   /// Returns the [Component].
   /// See [get], [getValue].
-  C? component<C extends Component<dynamic>>() => ie.get<C>();
+  C? component<C extends AnyComponent>() => ie.get<C>();
 
   /// Alias [component].
-  C? get<C extends Component<dynamic>>() => component<C>();
+  C? get<C extends AnyComponent>() => component<C>();
 
   /// Returns a value of the [Component].
-  dynamic getValue<C extends Component<dynamic>>() => get<C>()?.value;
+  dynamic getValue<C extends AnyComponent>() => get<C>()?.value;
 
   /// Set the component [data] and register the component when it absent.
   /// See [setComponent], [addComponent], [Component], [component].
@@ -102,7 +102,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   /// Set a [component] with value and register [component] the component when
   /// [component] absent.
   /// See [set].
-  void setComponent(Component<dynamic> component) {
+  void setComponent(AnyComponent component) {
     var found = components.firstWhereOrNull((c) => c.uid == component.uid);
     if (found == null) {
       const ComponentBuilder().add(component.uid, u, ie, component.valueAsJson);

@@ -21,6 +21,8 @@ import 'package:xml/xml.dart';
 
 import 'vast_world_protos.dart';
 
+export 'vast_world_protos.dart';
+
 part 'src/share/acts/act_builder.dart';
 part 'src/share/acts/act.dart';
 part 'src/share/acts/add_plan_act.dart';

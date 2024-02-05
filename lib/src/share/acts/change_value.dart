@@ -5,7 +5,7 @@ class ChangeValueAct extends Act {
     super.debugName,
     super.uid,
     required super.planId,
-    required Iterable<Component<dynamic>> initializedComponents,
+    required Iterable<AnyComponent> initializedComponents,
   }) : super(
           type: ActTypeEnum.CHANGE_VALUE_ACT_TYPE,
           components: {for (final ic in initializedComponents) ic.id: ic},

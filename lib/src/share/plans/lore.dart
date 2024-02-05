@@ -52,7 +52,7 @@ class Lore {
   /// Replace a [data] for component [T], plan [id].
   void updateComponent(
     String id,
-    Component<dynamic> component,
+    AnyComponent component,
   ) {
     final plan = this[id];
     ae(plan != null, 'Plan `$id` not found in the root.');

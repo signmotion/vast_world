@@ -38,7 +38,7 @@ class PlanBuilder {
 
   T fromIdAndComponents<T extends Plan<dynamic>>(
     String id,
-    Iterable<Component<dynamic>> components,
+    Iterable<AnyComponent> components,
   ) {
     logi('🧙‍♂️🟨 Constructing plan with ID `$id`'
             ' and components `$components`...'
