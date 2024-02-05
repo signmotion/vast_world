@@ -2,22 +2,40 @@
 
 part of '../../../vast_world_share.dart';
 
+/// You should override [extendedFromBase], [extendedBuilders] and
+/// [extendedRunForComponent] for construct own components.
 class ComponentBuilder {
   const ComponentBuilder();
 
   C fromJson<C extends Component<dynamic>>(JsonMap json) =>
       fromBase(jsonAsComponentBase(json));
 
+  /// See note for this class.
   C fromBase<C extends Component<dynamic>>(ComponentBase base) {
     logi('🧙‍♂️🟨 Constructing component based on'
             ' `${base.shortMapWithSignificantFieldsMessage}...'
         .bittenOfAllUuids32);
 
+    late final Component<dynamic> component;
+    try {
+      component = _fromBase(base);
+    } on UnimplementedError catch (_) {
+      component = extendedFromBase(base);
+    }
+
+    logi('🧙‍♂️💚 Component `$component` constructed.');
+
+    return component as C;
+  }
+
+  /// Will call after [fromBase].
+  C extendedFromBase<C extends Component<dynamic>>(ComponentBase base) =>
+      throw UnimplementedError(base.hid);
+
+  C _fromBase<C extends Component<dynamic>>(ComponentBase base) {
     final component = builder(base.uid)();
     final json = base.sjsonValue.jsonMap;
     component.init(component.jsonAsValue(json));
-
-    logi('🧙‍♂️💚 Component `$component` constructed.');
 
     return component as C;
   }
@@ -64,10 +82,9 @@ class ComponentBuilder {
       Universe? u,
       oxygen.Entity? entity,
       T? value,
-    }) {
-      final c = entity!.get<C>();
-      return c;
-    }
+    }) =>
+        // looking at concrete component
+        entity!.get<C>();
 
     final r = <Component<dynamic>>[];
     for (final componentBuilder in allBuilders) {
@@ -85,22 +102,29 @@ class ComponentBuilder {
     return r;
   }
 
-  /// All builders of component.
-  static const List<TBuilder<Component<dynamic>>> allBuilders = [
-    DescriptionComponent.new,
-    GreetingComponent.new,
-    IdComponent.new,
-    ListComponent.new,
-    NameComponent.new,
-    NothingComponent.new,
-    PictureComponent.new,
-    StoryComponent.new,
-    StringComponent.new,
-    TiledmapRenderComponent.new,
-  ];
+  List<TBuilder<Component<dynamic>>> get allBuilders =>
+      [...nativeBuilders, ...extendedBuilders];
+
+  /// Native builders for components.
+  /// You should override [extendedBuilders] for detect own components.
+  List<TBuilder<Component<dynamic>>> get nativeBuilders => [
+        DescriptionComponent.new,
+        GreetingComponent.new,
+        IdComponent.new,
+        ListComponent.new,
+        NameComponent.new,
+        NothingComponent.new,
+        PictureComponent.new,
+        StoryComponent.new,
+        StringComponent.new,
+        TiledmapRenderComponent.new,
+      ];
+
+  List<TBuilder<Component<dynamic>>> get extendedBuilders => [];
 
   /// Helper for generic detecting and processing a component.
   /// Swiss knife for [Component], [oxygen.Entity] and [Universe].
+  /// You should override [extendedRunForComponent] for detect own components.
   R? runForComponent<R>(
     String componentUid, {
     required R Function<C extends Component<dynamic>, T>(
@@ -261,8 +285,30 @@ class ComponentBuilder {
       }
     }
 
-    ae(count == allBuilders.length, 'Inconsistent list of components.');
+    ae(count == nativeBuilders.length,
+        'Inconsistent list of native components.');
 
-    throw UnimplementedError(componentUid);
+    return extendedRunForComponent(
+      componentUid,
+      u: u,
+      entity: entity,
+      jsonValue: jsonValue,
+      run: run,
+    );
   }
+
+  /// Will call after [runForComponent].
+  R? extendedRunForComponent<R>(
+    String componentUid, {
+    required R Function<C extends Component<dynamic>, T>(
+      TBuilder<C> builder, {
+      Universe? u,
+      oxygen.Entity? entity,
+      T? value,
+    }) run,
+    Universe? u,
+    oxygen.Entity? entity,
+    JsonMap? jsonValue,
+  }) =>
+      null;
 }
