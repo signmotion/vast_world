@@ -11,6 +11,12 @@ class AddPlanAct extends Act {
           components: {for (final ic in initializedComponents) ic.id: ic},
         );
 
+  factory AddPlanAct.fromPlan(Plan<dynamic> plan) => AddPlanAct(
+        debugName: 'AddPlanAct.${plan.id}',
+        planId: plan.id,
+        initializedComponents: plan.components,
+      );
+
   @override
   T innerRun<T>(Universe u, T o) {
     switch (o) {
