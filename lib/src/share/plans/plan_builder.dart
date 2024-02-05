@@ -10,7 +10,8 @@ class PlanBuilder {
 
   T fromBase<T extends Plan<dynamic>>(PlanBase base) {
     logi('🧙‍♂️🟨 Constructing plan based on'
-            ' `${base.shortMapWithSignificantFieldsMessage}...'
+            ' `${base.shortMapWithSignificantFieldsMessage} with components'
+            ' `${base.components.values.map((c) => c.hid)}`...'
         .bittenOfAllUuids32);
 
     final plan = constructNothingPlan(
@@ -31,7 +32,8 @@ class PlanBuilder {
       plan.bind(exposed);
     }
 
-    logi('🧙‍♂️💚 Plan `$plan` constructed.');
+    logi('🧙‍♂️💚 Plan `$plan` constructed with components'
+        ' `${plan.componentsBuilders.map((b) => b().runtimeType)}`');
 
     return plan as T;
   }
@@ -40,8 +42,8 @@ class PlanBuilder {
     String id,
     Iterable<AnyComponent> components,
   ) {
-    logi('🧙‍♂️🟨 Constructing plan with ID `$id`'
-            ' and components `$components`...'
+    logi('🧙‍♂️🟨 Constructing plan with ID `$id` and components'
+            ' `${components.map((c) => c.runtimeType)}`...'
         .bittenOfAllUuids32);
 
     final plan = constructNothingPlan(u, id: id);
@@ -51,7 +53,8 @@ class PlanBuilder {
       plan.setComponent(component);
     }
 
-    logi('🧙‍♂️💚 Plan `$plan` constructed.');
+    logi('🧙‍♂️💚 Plan `$plan` constructed with components'
+        ' `${plan.componentsBuilders.map((b) => b().runtimeType)}`');
 
     return plan as T;
   }

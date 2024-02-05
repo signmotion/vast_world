@@ -50,6 +50,10 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
 
   T innerRun<T>(Universe u, T o);
 
+  @override
+  String toString() =>
+      '${base.mapWithSignificantFieldsMessage}'.bittenOfAllUuids32;
+
   /// See [base].
   /// See [jsonAsActBase].
   @override
