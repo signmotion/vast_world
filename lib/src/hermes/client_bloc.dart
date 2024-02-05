@@ -361,11 +361,11 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
   late final maia.ServiceClient maiaStub;
 
-  void logi(Object msg) => logi(_logToState(LogType.info, msg));
+  void logi(Object msg) => dh.logi(_logToState(LogType.info, msg));
 
-  void logw(Object msg) => logw(_logToState(LogType.warning, msg));
+  void logw(Object msg) => dh.logw(_logToState(LogType.warning, msg));
 
-  void loge(Object msg) => loge(_logToState(LogType.error, msg));
+  void loge(Object msg) => dh.loge(_logToState(LogType.error, msg));
 
   String _logToState(LogType type, Object msg) {
     // TODO ?
