@@ -52,7 +52,7 @@ class PlanTiledmapKeeper<
     ae(
         renderComponent != null,
         'The plan `${plan.id}` should contains `TiledmapRenderComponent`'
-        ' for transform the plan to Tiledmap format.');
+        ' for transform the plan to Tiledmap representation.');
 
     final r = renderComponent!.render(AbsolutePlan(), plan);
 
