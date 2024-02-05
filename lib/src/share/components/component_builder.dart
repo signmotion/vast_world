@@ -71,7 +71,7 @@ class ComponentBuilder {
         },
       );
 
-  /// All components of the [entity].
+  /// All components for the [entity].
   List<AnyComponent> components(
     Universe u,
     oxygen.Entity entity,
@@ -95,6 +95,36 @@ class ComponentBuilder {
       );
       if (found != null) {
         r.add(found);
+      }
+    }
+
+    return r;
+  }
+
+  /// All builders of components for the [entity].
+  List<TBuilder<AnyComponent>> componentsBuilders(
+    Universe u,
+    oxygen.Entity entity,
+  ) {
+    bool run<C extends AnyComponent, T>(
+      TBuilder<C> builder, {
+      Universe? u,
+      oxygen.Entity? entity,
+      T? value,
+    }) =>
+        // looking at concrete component is able
+        entity!.has<C>();
+
+    final r = <TBuilder<AnyComponent>>[];
+    for (final componentBuilder in allBuilders) {
+      final found = runForComponent(
+        componentBuilder().uid,
+        u: u,
+        entity: entity,
+        run: run,
+      )!;
+      if (found) {
+        r.add(componentBuilder);
       }
     }
 

@@ -48,6 +48,9 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   List<AnyComponent> get components =>
       const ComponentBuilder().components(u, innerEntity);
 
+  List<TBuilder<AnyComponent>> get componentsBuilders =>
+      const ComponentBuilder().componentsBuilders(u, innerEntity);
+
   @override
   bool get isCorrectHid => hid.isPlanHid;
 
