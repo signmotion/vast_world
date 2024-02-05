@@ -32,6 +32,14 @@ class OpeningSyncStreamsClientEvent extends AClientEvent {
   const OpeningSyncStreamsClientEvent();
 }
 
+class SuccessInitClientEvent extends AClientEvent {
+  const SuccessInitClientEvent();
+}
+
+class FailureInitClientEvent extends AClientEvent {
+  const FailureInitClientEvent();
+}
+
 class WaitingInputClientEvent extends AClientEvent {
   const WaitingInputClientEvent();
 }

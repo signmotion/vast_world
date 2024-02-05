@@ -54,6 +54,8 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
         ApprovingSessionClientEvent e => _onApprovingSessionEvent(e, emit),
         GettingAboutServerClientEvent e => _onGettingAboutServerEvent(e, emit),
         OpeningSyncStreamsClientEvent e => _onOpeningSyncStreamsEvent(e, emit),
+        SuccessInitClientEvent e => _onSuccessInitEvent(e, emit),
+        FailureInitClientEvent e => _onFailureInitEvent(e, emit),
         WaitingInputClientEvent e => _onWaitingInputEvent(e, emit),
         SendingToServerActClientEvent e => _onSendingToServerActEvent(e, emit),
         ProcessingActClientEvent e => _onProcessingOnClientActEvent(e, emit),
@@ -245,8 +247,28 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     );
     logi('A stream from Server to Client opened.');
 
+    add(const SuccessInitClientEvent());
+  }
+
+  Future<void> _onSuccessInitEvent(
+    SuccessInitClientEvent event,
+    Emitter<ClientState> emit,
+  ) async {
+    whenSuccessInit();
     add(const WaitingInputClientEvent());
   }
+
+  void whenSuccessInit() {}
+
+  Future<void> _onFailureInitEvent(
+    FailureInitClientEvent event,
+    Emitter<ClientState> emit,
+  ) async {
+    whenFailureInit();
+    add(const WaitingInputClientEvent());
+  }
+
+  void whenFailureInit() {}
 
   Future<void> _onWaitingInputEvent(
     WaitingInputClientEvent event,
