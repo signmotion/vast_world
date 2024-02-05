@@ -185,5 +185,5 @@ class NotifyingVector2 extends Vector2 with ChangeNotifier {
   }
 
   @override
-  Float64List get storage => UnmodifiableFloat64ListView(super.storage);
+  Float32List get storage => UnmodifiableFloat32ListView(super.storage);
 }
