@@ -29,6 +29,8 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
   final LoreInfluencer loreInfluencer;
 
+  Universe get u => state.u;
+
   /// Override this method for catching own events.
   Future<void> onExtendedEvent(
     AClientEvent event,
