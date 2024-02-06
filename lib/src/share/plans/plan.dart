@@ -89,6 +89,9 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   /// Returns a value of the [Component].
   dynamic getValue<C extends AnyComponent>() => get<C>()?.value;
 
+  /// [component] already added.
+  bool has<C extends AnyComponent>() => ie.has<C>();
+
   /// Set the component [data] and register the component when it absent.
   /// See [setComponent], [addComponent], [Component], [component].
   void set<C extends Component<V>, V>(
@@ -121,6 +124,10 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
       if (found == null) {
         logw('Component `${component.id}` unimplemented'
             ' into ${b.runtimeType}.');
+        ae(
+          !has<UnimplementedComponent>(),
+          'TODO Can keep only 1 UnimplementedComponent.',
+        );
         set(UnimplementedComponent.new, (idUnimplemented: component.id));
         return;
       }
