@@ -13,9 +13,8 @@ class ClientState extends AState<ClientStateBase> {
 
   final Universe u;
 
-  final T2Builder<NativePlanBuilder, Universe, TBuilder<NativeComponentBuilder>>
-      planBuilder;
-  final TBuilder<NativeComponentBuilder> componentBuilder;
+  final TPlanBuilder planBuilder;
+  final TComponentBuilder componentBuilder;
 
   final Lore lore;
 
@@ -25,9 +24,8 @@ class ClientState extends AState<ClientStateBase> {
   ClientState copyWith({
     ClientStateBase? ss,
     Universe? u,
-    TBuilder<NativeComponentBuilder>? componentBuilder,
-    T2Builder<NativePlanBuilder, Universe, TBuilder<NativeComponentBuilder>>?
-        planBuilder,
+    TComponentBuilder? componentBuilder,
+    TPlanBuilder? planBuilder,
     Lore? lore,
     LoreInfluencer? loreInfluencer,
   }) =>

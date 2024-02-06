@@ -36,7 +36,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
 
   final Universe u;
 
-  final TBuilder<NativeComponentBuilder> componentBuilder;
+  final TComponentBuilder componentBuilder;
 
   /// This plan converted to [PlanBase].
   /// See [jsonAsBase] to backward conversion.
@@ -51,7 +51,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   List<AnyComponent> get components =>
       componentBuilder().components(u, innerEntity);
 
-  List<TBuilder<AnyComponent>> get componentsBuilders =>
+  List<TAnyComponentBuilder> get componentsBuilders =>
       componentBuilder().componentsBuilders(u, innerEntity);
 
   @override
@@ -113,7 +113,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   /// See [set].
   void setComponent(
     AnyComponent component, {
-    required TBuilder<NativeComponentBuilder> componentBuilder,
+    required TComponentBuilder componentBuilder,
   }) {
     var found = components.firstWhereOrNull((c) => c.uid == component.uid);
     if (found == null) {
@@ -142,7 +142,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
     Universe? u,
     String? hid,
     String? uid,
-    TBuilder<NativeComponentBuilder>? componentBuilder,
+    TComponentBuilder? componentBuilder,
     // TODO LayoutComponent? layoutForExposed,
   }) =>
       Plan(

@@ -11,7 +11,7 @@ class Lore {
   /// <[Plan.id], [Plan]>
   final Map<String, Plan<dynamic>> plans;
 
-  final TBuilder<NativeComponentBuilder> componentBuilder;
+  final TComponentBuilder componentBuilder;
 
   /// This act converted to [ActBase].
   /// See [jsonAsBase].

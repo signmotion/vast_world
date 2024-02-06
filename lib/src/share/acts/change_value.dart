@@ -15,10 +15,8 @@ class ChangeValueAct extends Act {
   T innerRun<T>(
     Universe u,
     T o, {
-    required T2Builder<NativePlanBuilder, Universe,
-            TBuilder<NativeComponentBuilder>>
-        planBuilder,
-    required TBuilder<NativeComponentBuilder> componentBuilder,
+    required TPlanBuilder planBuilder,
+    required TComponentBuilder componentBuilder,
   }) {
     switch (o) {
       case final Lore lore:
@@ -34,10 +32,8 @@ class ChangeValueAct extends Act {
 
   Lore _runOnLore(
     Lore lore, {
-    required T2Builder<NativePlanBuilder, Universe,
-            TBuilder<NativeComponentBuilder>>
-        planBuilder,
-    required TBuilder<NativeComponentBuilder> componentBuilder,
+    required TPlanBuilder planBuilder,
+    required TComponentBuilder componentBuilder,
   }) {
     //lore.changeValue(planId: planId, values: values);
     lore.plans.update(planId!, (plan) {

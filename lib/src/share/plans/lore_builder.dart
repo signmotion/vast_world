@@ -9,9 +9,8 @@ class LoreBuilder {
 
   final Universe u;
 
-  final T2Builder<NativePlanBuilder, Universe, TBuilder<NativeComponentBuilder>>
-      planBuilder;
-  final TBuilder<NativeComponentBuilder> componentBuilder;
+  final TPlanBuilder planBuilder;
+  final TComponentBuilder componentBuilder;
 
   T fromJson<T extends Lore>(JsonMap json) => fromBase(jsonAsLoreBase(json));
 

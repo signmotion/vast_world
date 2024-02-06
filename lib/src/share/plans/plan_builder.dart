@@ -1,5 +1,8 @@
 part of '../../../vast_world_share.dart';
 
+typedef TPlanBuilder
+    = T2Builder<NativePlanBuilder, Universe, TComponentBuilder>;
+
 class NativePlanBuilder {
   const NativePlanBuilder(
     this.u,
@@ -9,7 +12,7 @@ class NativePlanBuilder {
   final Universe u;
 
   /// We can use inheritanced builder.
-  final TBuilder<NativeComponentBuilder> componentBuilder;
+  final TComponentBuilder componentBuilder;
 
   T fromJson<T extends Plan<dynamic>>(JsonMap json) =>
       fromBase(jsonAsPlanBase(json));

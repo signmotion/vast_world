@@ -21,10 +21,8 @@ class AddPlanAct extends Act {
   T innerRun<T>(
     Universe u,
     T o, {
-    required T2Builder<NativePlanBuilder, Universe,
-            TBuilder<NativeComponentBuilder>>
-        planBuilder,
-    required TBuilder<NativeComponentBuilder> componentBuilder,
+    required TPlanBuilder planBuilder,
+    required TComponentBuilder componentBuilder,
   }) {
     switch (o) {
       case final Lore lore:
@@ -42,10 +40,8 @@ class AddPlanAct extends Act {
   Lore _runOnLore(
     Universe u,
     Lore lore, {
-    required T2Builder<NativePlanBuilder, Universe,
-            TBuilder<NativeComponentBuilder>>
-        planBuilder,
-    required TBuilder<NativeComponentBuilder> componentBuilder,
+    required TPlanBuilder planBuilder,
+    required TComponentBuilder componentBuilder,
   }) {
     final b = planBuilder(u, componentBuilder);
     final plan = b.fromIdAndComponents(planId!, components.values);

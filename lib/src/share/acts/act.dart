@@ -45,10 +45,8 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
   T run<T>(
     Universe u,
     T o, {
-    required T2Builder<NativePlanBuilder, Universe,
-            TBuilder<NativeComponentBuilder>>
-        planBuilder,
-    required TBuilder<NativeComponentBuilder> componentBuilder,
+    required TPlanBuilder planBuilder,
+    required TComponentBuilder componentBuilder,
   }) {
     logi('Running the act `$this` on the `$o`...'.bittenOfAllUuids32);
 
@@ -63,10 +61,8 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
   T innerRun<T>(
     Universe u,
     T o, {
-    required T2Builder<NativePlanBuilder, Universe,
-            TBuilder<NativeComponentBuilder>>
-        planBuilder,
-    required TBuilder<NativeComponentBuilder> componentBuilder,
+    required TPlanBuilder planBuilder,
+    required TComponentBuilder componentBuilder,
   });
 
   @override

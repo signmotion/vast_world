@@ -1,10 +1,12 @@
 part of '../../../vast_world_share.dart';
 
+typedef TActBuilder = TBuilder<NativeActBuilder>;
+
 class NativeActBuilder {
   const NativeActBuilder(this.componentBuilder);
 
   /// We can use inheritanced builder.
-  final TBuilder<NativeComponentBuilder> componentBuilder;
+  final TComponentBuilder componentBuilder;
 
   T fromJson<T extends Act>(JsonMap json) => fromBase(jsonAsActBase(json));
 

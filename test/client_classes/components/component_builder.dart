@@ -9,7 +9,7 @@ class ClientomponentBuilder extends NativeComponentBuilder {
   const ClientomponentBuilder();
 
   @override
-  List<TBuilder<AnyComponent>> get extendedBuilders => [
+  List<TAnyComponentBuilder> get extendedBuilders => [
         ClientWidgetRenderComponent.new,
       ];
 

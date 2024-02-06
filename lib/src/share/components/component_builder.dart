@@ -2,6 +2,10 @@
 
 part of '../../../vast_world_share.dart';
 
+typedef TComponentBuilder = TBuilder<NativeComponentBuilder>;
+
+typedef TAnyComponentBuilder = TBuilder<AnyComponent>;
+
 typedef RunComponentBuilderFn<R> = R Function<C extends AnyComponent, T>(
   TBuilder<C> builder, {
   Universe? u,
@@ -47,7 +51,7 @@ class NativeComponentBuilder {
     return component as C;
   }
 
-  TBuilder<AnyComponent> builder(String componentUid) => allBuilders.firstWhere(
+  TAnyComponentBuilder builder(String componentUid) => allBuilders.firstWhere(
         (cb) => cb().uid == componentUid,
         orElse: () => throw UnimplementedError('`$componentUid` not found in'
             ' ${allBuilders.map((b) => b().runtimeType)}'),
@@ -112,7 +116,7 @@ class NativeComponentBuilder {
   }
 
   /// All builders of components for the [entity].
-  List<TBuilder<AnyComponent>> componentsBuilders(
+  List<TAnyComponentBuilder> componentsBuilders(
     Universe u,
     oxygen.Entity entity,
   ) {
@@ -125,7 +129,7 @@ class NativeComponentBuilder {
         // looking at concrete component is able
         entity!.has<C>();
 
-    final r = <TBuilder<AnyComponent>>[];
+    final r = <TAnyComponentBuilder>[];
     for (final componentBuilder in allBuilders) {
       final found = runForComponent(
         componentBuilder().uid,
@@ -141,12 +145,12 @@ class NativeComponentBuilder {
     return r;
   }
 
-  List<TBuilder<AnyComponent>> get allBuilders =>
+  List<TAnyComponentBuilder> get allBuilders =>
       [...nativeBuilders, ...extendedBuilders];
 
   /// Native builders for components.
   /// You should override [extendedBuilders] for detect own components.
-  List<TBuilder<AnyComponent>> get nativeBuilders => [
+  List<TAnyComponentBuilder> get nativeBuilders => [
         DescriptionComponent.new,
         GreetingComponent.new,
         IdComponent.new,
@@ -160,7 +164,7 @@ class NativeComponentBuilder {
         UnimplementedComponent.new,
       ];
 
-  List<TBuilder<AnyComponent>> get extendedBuilders => [];
+  List<TAnyComponentBuilder> get extendedBuilders => [];
 
   /// Helper for generic detecting and processing a component.
   /// Swiss knife for [Component], [oxygen.Entity] and [Universe].

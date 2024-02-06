@@ -13,9 +13,8 @@ class ServerState extends AState<ServerStateBase> {
 
   final Universe u;
 
-  final T2Builder<NativePlanBuilder, Universe, TBuilder<NativeComponentBuilder>>
-      planBuilder;
-  final TBuilder<NativeComponentBuilder> componentBuilder;
+  final TPlanBuilder planBuilder;
+  final TComponentBuilder componentBuilder;
 
   /// <session, Lore>
   final Map<String, Lore> lores;
@@ -26,9 +25,8 @@ class ServerState extends AState<ServerStateBase> {
   ServerState copyWith({
     ServerStateBase? ss,
     Universe? u,
-    TBuilder<NativeComponentBuilder>? componentBuilder,
-    T2Builder<NativePlanBuilder, Universe, TBuilder<NativeComponentBuilder>>?
-        planBuilder,
+    TComponentBuilder? componentBuilder,
+    TPlanBuilder? planBuilder,
     Map<String, Lore>? lores,
     LoreInfluencer? loreInfluencer,
   }) =>

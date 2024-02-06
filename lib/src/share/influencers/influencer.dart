@@ -8,9 +8,8 @@ abstract class Influencer<T> {
     required this.componentBuilder,
   });
 
-  final T2Builder<NativePlanBuilder, Universe, TBuilder<NativeComponentBuilder>>
-      planBuilder;
-  final TBuilder<NativeComponentBuilder> componentBuilder;
+  final TPlanBuilder planBuilder;
+  final TComponentBuilder componentBuilder;
 
   final Universe u;
 

@@ -10,9 +10,8 @@ class UniverseFiller {
 
   final Universe u;
 
-  final T2Builder<NativePlanBuilder, Universe, TBuilder<NativeComponentBuilder>>
-      planBuilder;
-  final TBuilder<NativeComponentBuilder> componentBuilder;
+  final TPlanBuilder planBuilder;
+  final TComponentBuilder componentBuilder;
 
   Universe fromLore(Lore lore) => fromLoreBase(lore.base);
 
