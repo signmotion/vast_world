@@ -28,7 +28,8 @@ class AddPlanAct extends Act {
   }
 
   Lore _runOnLore(Universe u, Lore lore) {
-    final plan = PlanBuilder(u).fromIdAndComponents(planId!, components.values);
+    final plan =
+        NativePlanBuilder(u).fromIdAndComponents(planId!, components.values);
     lore.addNew(plan);
 
     return lore;

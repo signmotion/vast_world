@@ -4,8 +4,8 @@ part of '../../../vast_world_share.dart';
 
 /// You should override [extendedFromBase], [extendedBuilders] and
 /// [extendedRunForComponent] for construct own components.
-class ComponentBuilder {
-  const ComponentBuilder();
+class NativeComponentBuilder {
+  const NativeComponentBuilder();
 
   C fromJson<C extends AnyComponent>(JsonMap json) =>
       fromBase(jsonAsComponentBase(json));

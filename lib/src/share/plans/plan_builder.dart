@@ -1,7 +1,7 @@
 part of '../../../vast_world_share.dart';
 
-class PlanBuilder {
-  const PlanBuilder(this.u);
+class NativePlanBuilder {
+  const NativePlanBuilder(this.u);
 
   final Universe u;
 
@@ -22,13 +22,13 @@ class PlanBuilder {
 
     // components
     for (final cbase in base.components.values) {
-      final component = const ComponentBuilder().fromBase(cbase);
+      final component = const NativeComponentBuilder().fromBase(cbase);
       plan.setComponent(component);
     }
 
     // exposed
     for (final exposedBase in base.exposed.values) {
-      final exposed = PlanBuilder(u).fromBase(exposedBase);
+      final exposed = NativePlanBuilder(u).fromBase(exposedBase);
       plan.bind(exposed);
     }
 

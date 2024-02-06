@@ -15,7 +15,7 @@ class LoreBuilder {
     final lore = Lore(
       plans: {
         for (final p in base.plans.entries)
-          p.key: PlanBuilder(u).fromBase(p.value)
+          p.key: NativePlanBuilder(u).fromBase(p.value)
       },
     );
 

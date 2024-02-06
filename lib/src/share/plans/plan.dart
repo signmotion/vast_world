@@ -46,10 +46,10 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
       );
 
   List<AnyComponent> get components =>
-      const ComponentBuilder().components(u, innerEntity);
+      const NativeComponentBuilder().components(u, innerEntity);
 
   List<TBuilder<AnyComponent>> get componentsBuilders =>
-      const ComponentBuilder().componentsBuilders(u, innerEntity);
+      const NativeComponentBuilder().componentsBuilders(u, innerEntity);
 
   @override
   bool get isCorrectHid => hid.isPlanHid;
@@ -108,7 +108,8 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   void setComponent(AnyComponent component) {
     var found = components.firstWhereOrNull((c) => c.uid == component.uid);
     if (found == null) {
-      const ComponentBuilder().add(component.uid, u, ie, component.valueAsJson);
+      const NativeComponentBuilder()
+          .add(component.uid, u, ie, component.valueAsJson);
       found = components.firstWhereOrNull((c) => c.uid == component.uid)!;
     }
     found.init(component.value);

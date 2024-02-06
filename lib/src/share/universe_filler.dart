@@ -15,7 +15,7 @@ class UniverseFiller {
 
     // plans
     for (final p in base.plans.values) {
-      PlanBuilder(u).fromBase(p);
+      NativePlanBuilder(u).fromBase(p);
     }
 
     logi('🧙‍♂️💚 Universe filled with'

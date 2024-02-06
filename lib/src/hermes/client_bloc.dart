@@ -235,7 +235,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     serverActs = maiaStub.synchronize(clientActs.stream);
     serverActs.listen(
       (ActBaseResponse ar) {
-        final act = const ActBuilder().fromBase(ar.act);
+        final act = const NativeActBuilder().fromBase(ar.act);
         logi('Processing the received act from Server.'
             ' `${ar.act.type.name}` -> `$act`');
 

@@ -12,7 +12,7 @@ void main() {
       final u = Universe();
       final plan = constructNothingPlan(u);
       final base = plan.base;
-      final constructed = PlanBuilder(u).fromBase(base);
+      final constructed = NativePlanBuilder(u).fromBase(base);
       checkPlan(
         constructed,
         hid: '',

@@ -1,7 +1,7 @@
 part of '../../../vast_world_share.dart';
 
-class ActBuilder {
-  const ActBuilder();
+class NativeActBuilder {
+  const NativeActBuilder();
 
   T fromJson<T extends Act>(JsonMap json) => fromBase(jsonAsActBase(json));
 
@@ -12,7 +12,7 @@ class ActBuilder {
 
     final initializedComponents = [
       for (final e in base.components.entries)
-        const ComponentBuilder().fromBase(e.value)
+        const NativeComponentBuilder().fromBase(e.value)
     ];
     final act = switch (base.type) {
       ActTypeEnum.ADD_PLAN_ACT_TYPE => AddPlanAct(

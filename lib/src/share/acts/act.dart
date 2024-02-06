@@ -1,7 +1,7 @@
 part of '../../../vast_world_share.dart';
 
 /// By analogy with [Component] and [Plan].
-/// See [ActBuilder].
+/// See [NativeActBuilder].
 abstract class Act with HasProtoBaseMix, HasStringIdMix {
   Act({
     this.debugName,
