@@ -12,20 +12,37 @@ class ChangeValueAct extends Act {
         );
 
   @override
-  T innerRun<T>(Universe u, T o) {
+  T innerRun<T>(
+    Universe u,
+    T o, {
+    required T2Builder<NativePlanBuilder, Universe,
+            TBuilder<NativeComponentBuilder>>
+        planBuilder,
+    required TBuilder<NativeComponentBuilder> componentBuilder,
+  }) {
     switch (o) {
       case final Lore lore:
-        return _runOnLore(lore) as T;
+        return _runOnLore(
+          lore,
+          planBuilder: planBuilder,
+          componentBuilder: componentBuilder,
+        ) as T;
       default:
         throw UnimplementedError();
     }
   }
 
-  Lore _runOnLore(Lore lore) {
+  Lore _runOnLore(
+    Lore lore, {
+    required T2Builder<NativePlanBuilder, Universe,
+            TBuilder<NativeComponentBuilder>>
+        planBuilder,
+    required TBuilder<NativeComponentBuilder> componentBuilder,
+  }) {
     //lore.changeValue(planId: planId, values: values);
     lore.plans.update(planId!, (plan) {
       for (final e in components.entries) {
-        plan.setComponent(e.value);
+        plan.setComponent(e.value, componentBuilder: componentBuilder);
       }
 
       return plan;

@@ -4,11 +4,14 @@ part of '../../../vast_world_share.dart';
 /// By analogy with [Component] and [Plan].
 class Lore {
   Lore({
+    required this.componentBuilder,
     Map<String, Plan<dynamic>>? plans,
   }) : plans = plans ?? {};
 
   /// <[Plan.id], [Plan]>
   final Map<String, Plan<dynamic>> plans;
+
+  final TBuilder<NativeComponentBuilder> componentBuilder;
 
   /// This act converted to [ActBase].
   /// See [jsonAsBase].
@@ -57,7 +60,7 @@ class Lore {
     final plan = this[id];
     ae(plan != null, 'Plan `$id` not found in the root.');
 
-    plan!.setComponent(component);
+    plan!.setComponent(component, componentBuilder: componentBuilder);
   }
 
   /// The plan with [id] included into [Lore].

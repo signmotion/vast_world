@@ -1,6 +1,7 @@
 part of '../../../vast_world_share.dart';
 
-typedef RenderFn<R> = R Function(
+/// See [unimplementedRender].
+typedef RenderFn<T> = T Function(
   Plan<dynamic> spectator,
   Plan<dynamic> watched,
 );

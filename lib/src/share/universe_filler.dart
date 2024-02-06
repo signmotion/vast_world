@@ -2,9 +2,17 @@ part of '../../../vast_world_share.dart';
 
 /// Fill [u] from source.
 class UniverseFiller {
-  const UniverseFiller(this.u);
+  const UniverseFiller(
+    this.u, {
+    required this.planBuilder,
+    required this.componentBuilder,
+  });
 
   final Universe u;
+
+  final T2Builder<NativePlanBuilder, Universe, TBuilder<NativeComponentBuilder>>
+      planBuilder;
+  final TBuilder<NativeComponentBuilder> componentBuilder;
 
   Universe fromLore(Lore lore) => fromLoreBase(lore.base);
 
@@ -15,7 +23,8 @@ class UniverseFiller {
 
     // plans
     for (final p in base.plans.values) {
-      NativePlanBuilder(u).fromBase(p);
+      final b = NativePlanBuilder(u, componentBuilder);
+      b.fromBase(p);
     }
 
     logi('🧙‍♂️💚 Universe filled with'

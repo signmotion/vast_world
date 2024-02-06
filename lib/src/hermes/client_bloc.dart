@@ -1,35 +1,28 @@
 part of '../../../vast_world_hermes.dart';
 
-final _emptyState = ClientState(
-  ss: ClientStateBase(),
-  u: Universe(),
-  lore: Lore(),
-);
-
 class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   DefaultClientBloc({
-    required this.uidDevice,
     required this.serverHost,
     required this.serverPort,
-  })  : assert(uidDevice.isNotEmpty),
+    required ClientState state,
+  })  : assert(state.ss.uidDevice.isNotEmpty),
         assert(serverHost.isNotEmpty),
         assert(serverPort > 0),
-        loreInfluencer = const LoreInfluencer(),
-        super(_emptyState) {
+        super(state) {
     on<AClientEvent>(
       _onEvent,
       transformer: sequential(),
     );
   }
 
-  final String uidDevice;
-
   final String serverHost;
   final int serverPort;
 
-  final LoreInfluencer loreInfluencer;
+  String get uidDevice => state.ss.uidDevice;
 
   Universe get u => state.u;
+
+  LoreInfluencer get loreInfluencer => state.loreInfluencer;
 
   /// Override this method for catching own events.
   Future<void> onExtendedEvent(
@@ -72,9 +65,6 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     InitializingClientEvent event,
     Emitter<ClientState> emit,
   ) async {
-    // reset state
-    emit(_emptyState);
-
     logi('🐣 Opening a connection to server'
         ' $serverHost:$serverPort.'
         ' Waiting answer...');
@@ -346,7 +336,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     try {
       emit(
         state.copyWith(
-          lore: loreInfluencer.processing(state.u, state.lore, event.act),
+          lore: state.loreInfluencer.processing(state.lore, event.act),
         ),
       );
       success = true;
@@ -398,7 +388,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   }
 
   @override
-  ClientState fromJson(JsonMap json) => ClientState.fromJson(json);
+  ClientState fromJson(JsonMap json) => state.fromJson(json);
 
   @override
   JsonMap toJson(ClientState state) => state.toJson();

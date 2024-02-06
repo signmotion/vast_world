@@ -156,6 +156,7 @@ class NativeComponentBuilder {
         StoryComponent.new,
         StringComponent.new,
         TiledmapRenderComponent.new,
+        UnimplementedComponent.new,
       ];
 
   List<TBuilder<AnyComponent>> get extendedBuilders => [];
@@ -308,6 +309,19 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = TiledmapRenderComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
+    }
+
+    ++count;
+    {
+      const b = UnimplementedComponent.new;
       if (b().uid == uid) {
         return run(
           b,

@@ -11,10 +11,12 @@ import 'prepare_test_env.dart';
 void main() {
   prepareTestEnv();
 
+  const componentBuilder = NativeComponentBuilder.new;
+
   group('Construct a plan from components, set<>()', () {
     test('Add a new empty component', () {
       final u = Universe();
-      final plan = constructNothingPlan(u);
+      final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
       // always have [IdComponent]
       expect(plan.get<IdComponent>(), isNotNull);
       expect(plan.get<NameComponent>(), isNull);
@@ -27,7 +29,7 @@ void main() {
 
     test('Add a new component with value', () {
       final u = Universe();
-      final plan = constructNothingPlan(u);
+      final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
       plan.set(NameComponent.new, 'Aerwyna');
       expect(plan.getValue<NameComponent>(), 'Aerwyna');
     });
@@ -36,21 +38,24 @@ void main() {
   group('Construct a plan from components, setComponent()', () {
     test('Add a new empty component', () {
       final u = Universe();
-      final plan = constructNothingPlan(u);
+      final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
       // always have [IdComponent]
       expect(plan.get<IdComponent>(), isNotNull);
       expect(plan.get<NameComponent>(), isNull);
       expect(plan.components.length, 1, reason: plan.components.sjson);
 
-      plan.setComponent(NameComponent());
+      plan.setComponent(NameComponent(), componentBuilder: componentBuilder);
       expect(plan.getValue<NameComponent>(), NameComponent().defaults);
       expect(plan.components.length, 2, reason: plan.components.sjson);
     });
 
     test('Add a new component with value', () {
       final u = Universe();
-      final plan = constructNothingPlan(u);
-      plan.setComponent(NameComponent()..init('Aerwyna'));
+      final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
+      plan.setComponent(
+        NameComponent()..init('Aerwyna'),
+        componentBuilder: componentBuilder,
+      );
       expect(plan.getValue<NameComponent>(), 'Aerwyna');
     });
   });

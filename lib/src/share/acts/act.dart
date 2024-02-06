@@ -42,13 +42,32 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
   @override
   bool get isCorrectUid => uid.isActUid;
 
-  T run<T>(Universe u, T o) {
+  T run<T>(
+    Universe u,
+    T o, {
+    required T2Builder<NativePlanBuilder, Universe,
+            TBuilder<NativeComponentBuilder>>
+        planBuilder,
+    required TBuilder<NativeComponentBuilder> componentBuilder,
+  }) {
     logi('Running the act `$this` on the `$o`...'.bittenOfAllUuids32);
 
-    return innerRun<T>(u, o);
+    return innerRun<T>(
+      u,
+      o,
+      planBuilder: planBuilder,
+      componentBuilder: componentBuilder,
+    );
   }
 
-  T innerRun<T>(Universe u, T o);
+  T innerRun<T>(
+    Universe u,
+    T o, {
+    required T2Builder<NativePlanBuilder, Universe,
+            TBuilder<NativeComponentBuilder>>
+        planBuilder,
+    required TBuilder<NativeComponentBuilder> componentBuilder,
+  });
 
   @override
   String toString() =>

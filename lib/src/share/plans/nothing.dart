@@ -6,5 +6,6 @@ Plan<dynamic> constructNothingPlan(
   String? id,
   String? hid,
   String? uid,
+  required TBuilder<NativeComponentBuilder> componentBuilder,
 }) =>
-    Plan(u, id: id, hid: hid, uid: uid);
+    Plan(u, id: id, hid: hid, uid: uid, componentBuilder: componentBuilder);

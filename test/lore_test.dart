@@ -14,7 +14,7 @@ void main() {
   group('Add plans', () {
     test('Add 2 unique plans', () {
       final u = Universe();
-      final lore = Lore();
+      final lore = Lore(componentBuilder: NativeComponentBuilder.new);
       expect(lore.count, 0);
 
       final all = constructAllJourneysPlan(u);
@@ -43,7 +43,7 @@ void main() {
 
     test('Add 2 same plans', () {
       final u = Universe();
-      final lore = Lore();
+      final lore = Lore(componentBuilder: NativeComponentBuilder.new);
       expect(lore.count, 0);
 
       final all = constructAllJourneysPlan(u);
@@ -56,7 +56,7 @@ void main() {
 
   group('Get plans', () {
     final u = Universe();
-    final lore = Lore();
+    final lore = Lore(componentBuilder: NativeComponentBuilder.new);
 
     final all = constructAllJourneysPlan(u);
     lore.addNew(all);
@@ -125,7 +125,7 @@ void main() {
 
     test('Update the components of plan, set<>()', () {
       final u = Universe();
-      final lore = Lore();
+      final lore = Lore(componentBuilder: NativeComponentBuilder.new);
 
       final aerwyna = constructJourneyPlan(
         u,
@@ -163,9 +163,11 @@ void main() {
 
     test('Update the components of nothing plan, updateComponent()', () {
       final u = Universe();
-      final lore = Lore();
+      const componentBuilder = NativeComponentBuilder.new;
+      final lore = Lore(componentBuilder: componentBuilder);
 
-      final nothing = constructNothingPlan(u);
+      final nothing =
+          constructNothingPlan(u, componentBuilder: componentBuilder);
       lore.addNew(nothing);
       // always have [IdComponent]
       expect(nothing.components.length, 1, reason: nothing.components.sjson);
@@ -215,7 +217,7 @@ void main() {
   group('Bind plans or Add exposed plan', () {
     test('Bind 2 plans', () {
       final u = Universe();
-      final lore = Lore();
+      final lore = Lore(componentBuilder: NativeComponentBuilder.new);
 
       final all = constructAllJourneysPlan(u);
       lore.addNew(all);

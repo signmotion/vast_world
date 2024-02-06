@@ -7,12 +7,15 @@ import 'prepare_test_env.dart';
 void main() {
   prepareTestEnv();
 
-  group('Constructing a plan from PlanBase', () {
+  const componentBuilder = NativeComponentBuilder.new;
+
+  group('Constructing a plan from PlanBase with NativePlanBuilder', () {
     test('Empty plan', () {
       final u = Universe();
-      final plan = constructNothingPlan(u);
+      final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
       final base = plan.base;
-      final constructed = NativePlanBuilder(u).fromBase(base);
+      final b = NativePlanBuilder(u, NativeComponentBuilder.new);
+      final constructed = b.fromBase(base);
       checkPlan(
         constructed,
         hid: '',

@@ -4,32 +4,46 @@ class ClientState extends AState<ClientStateBase> {
   const ClientState({
     required super.ss,
     required this.u,
+    required this.planBuilder,
+    required this.componentBuilder,
     required this.lore,
+    required this.loreInfluencer,
   });
 
   final Universe u;
 
+  final T2Builder<NativePlanBuilder, Universe, TBuilder<NativeComponentBuilder>>
+      planBuilder;
+  final TBuilder<NativeComponentBuilder> componentBuilder;
+
   final Lore lore;
+
+  final LoreInfluencer loreInfluencer;
 
   @override
   ClientState copyWith({
     ClientStateBase? ss,
     Universe? u,
+    TBuilder<NativeComponentBuilder>? componentBuilder,
+    T2Builder<NativePlanBuilder, Universe, TBuilder<NativeComponentBuilder>>?
+        planBuilder,
     Lore? lore,
+    LoreInfluencer? loreInfluencer,
   }) =>
       ClientState(
         ss: ss ?? this.ss,
         u: u ?? this.u,
+        planBuilder: planBuilder ?? this.planBuilder,
+        componentBuilder: componentBuilder ?? this.componentBuilder,
         lore: lore ?? this.lore,
+        loreInfluencer: loreInfluencer ?? this.loreInfluencer,
       );
 
   @override
-  List<Object?> get props => [...super.props, lore, u];
+  List<Object?> get props => [...super.props, lore, loreInfluencer, u];
 
-  /// Return a new state with new [Universe].
-  static ClientState fromJson(JsonMap json) {
-    final newUniverse = Universe();
-
+  /// Return a new state with same [u], [loreInfluencer] and [componentBuilder].
+  ClientState fromJson(JsonMap json) {
     return switch (json) {
       {
         'ss': Map<String?, Object?> ss,
@@ -37,8 +51,15 @@ class ClientState extends AState<ClientStateBase> {
       } =>
         ClientState(
           ss: ClientStateBase.fromJson(ss.sjson),
-          u: newUniverse,
-          lore: LoreBuilder(newUniverse).fromJson(loreJson as JsonMap),
+          u: u,
+          planBuilder: planBuilder,
+          componentBuilder: componentBuilder,
+          lore: LoreBuilder(
+            u,
+            planBuilder: planBuilder,
+            componentBuilder: componentBuilder,
+          ).fromJson(loreJson as JsonMap),
+          loreInfluencer: loreInfluencer,
         ),
       _ => throw ArgumentError(json.sjson),
     };

@@ -35,6 +35,29 @@ part 'src/share/classes/notifying_vector2.dart';
 part 'src/share/classes/platform_dispatcher.dart';
 part 'src/share/classes/transform_2d.dart';
 
+part 'src/share/components/component_builder.dart';
+part 'src/share/components/component.dart';
+part 'src/share/components/description.dart';
+part 'src/share/components/geometry_2d.dart';
+part 'src/share/components/greeting.dart';
+part 'src/share/components/id.dart';
+part 'src/share/components/list.dart';
+part 'src/share/components/name.dart';
+part 'src/share/components/nothing.dart';
+part 'src/share/components/picture.dart';
+part 'src/share/components/plan.dart';
+part 'src/share/components/render.dart';
+part 'src/share/components/story.dart';
+part 'src/share/components/string.dart';
+part 'src/share/components/tiledmap_render.dart';
+part 'src/share/components/transform_2d.dart';
+part 'src/share/components/unimplemented.dart';
+
+part 'src/share/contents/content.dart';
+part 'src/share/contents/cell_1d_content.dart';
+part 'src/share/contents/cell_2d_content.dart';
+part 'src/share/contents/empty_content.dart';
+
 part 'src/share/errors/error.dart';
 part 'src/share/errors/plan_error.dart';
 
@@ -43,11 +66,6 @@ part 'src/share/extensions/convert_messages_ext.dart';
 part 'src/share/extensions/offset.dart';
 part 'src/share/extensions/rect.dart';
 part 'src/share/extensions/vector2.dart';
-
-part 'src/share/contents/content.dart';
-part 'src/share/contents/cell_1d_content.dart';
-part 'src/share/contents/cell_2d_content.dart';
-part 'src/share/contents/empty_content.dart';
 
 part 'src/share/maps/tiled/v_converter.dart';
 part 'src/share/maps/tiled/v_image.dart';
@@ -69,23 +87,6 @@ part 'src/share/keepers/tiledmap_keeper.dart';
 
 part 'src/share/influencers/lore.dart';
 part 'src/share/influencers/influencer.dart';
-
-part 'src/share/components/component_builder.dart';
-part 'src/share/components/description.dart';
-part 'src/share/components/geometry_2d.dart';
-part 'src/share/components/greeting.dart';
-part 'src/share/components/id.dart';
-part 'src/share/components/list.dart';
-part 'src/share/components/name.dart';
-part 'src/share/components/nothing.dart';
-part 'src/share/components/picture.dart';
-part 'src/share/components/plan.dart';
-part 'src/share/components/render.dart';
-part 'src/share/components/story.dart';
-part 'src/share/components/string.dart';
-part 'src/share/components/tiledmap_render.dart';
-part 'src/share/components/transform_2d.dart';
-part 'src/share/components/component.dart';
 
 part 'src/share/plans/absolute.dart';
 part 'src/share/plans/DEPRECATED_plan2d.dart';
@@ -115,6 +116,7 @@ part 'src/share/renders/image.dart';
 part 'src/share/renders/nothing.dart';
 part 'src/share/renders/one_picture_image.dart';
 part 'src/share/renders/render.dart';
+part 'src/share/renders/unimplemented.dart';
 part 'src/share/renders/xml.dart';
 
 part 'src/share/shapes/infinity_shape.dart';

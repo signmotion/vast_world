@@ -18,18 +18,37 @@ class AddPlanAct extends Act {
       );
 
   @override
-  T innerRun<T>(Universe u, T o) {
+  T innerRun<T>(
+    Universe u,
+    T o, {
+    required T2Builder<NativePlanBuilder, Universe,
+            TBuilder<NativeComponentBuilder>>
+        planBuilder,
+    required TBuilder<NativeComponentBuilder> componentBuilder,
+  }) {
     switch (o) {
       case final Lore lore:
-        return _runOnLore(u, lore) as T;
+        return _runOnLore(
+          u,
+          lore,
+          planBuilder: planBuilder,
+          componentBuilder: componentBuilder,
+        ) as T;
       default:
         throw UnimplementedError();
     }
   }
 
-  Lore _runOnLore(Universe u, Lore lore) {
-    final plan =
-        NativePlanBuilder(u).fromIdAndComponents(planId!, components.values);
+  Lore _runOnLore(
+    Universe u,
+    Lore lore, {
+    required T2Builder<NativePlanBuilder, Universe,
+            TBuilder<NativeComponentBuilder>>
+        planBuilder,
+    required TBuilder<NativeComponentBuilder> componentBuilder,
+  }) {
+    final b = planBuilder(u, componentBuilder);
+    final plan = b.fromIdAndComponents(planId!, components.values);
     lore.addNew(plan);
 
     return lore;

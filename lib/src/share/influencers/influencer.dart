@@ -2,7 +2,17 @@ part of '../../../vast_world_share.dart';
 
 /// Impact [Act] to [T] into [Universe].
 abstract class Influencer<T> {
-  const Influencer();
+  const Influencer({
+    required this.u,
+    required this.planBuilder,
+    required this.componentBuilder,
+  });
 
-  T processing(Universe u, T o, Act act);
+  final T2Builder<NativePlanBuilder, Universe, TBuilder<NativeComponentBuilder>>
+      planBuilder;
+  final TBuilder<NativeComponentBuilder> componentBuilder;
+
+  final Universe u;
+
+  T processing(T o, Act act);
 }

@@ -9,5 +9,9 @@ Plan<dynamic> constructAllJourneysPlan(
   String? hid,
   String? uid,
 }) =>
-    constructNothingPlan(u, hid: hid, uid: uid)
-      ..set(TiledmapRenderComponent.new, allJourneysTiledmapRender);
+    constructNothingPlan(
+      u,
+      hid: hid,
+      uid: uid,
+      componentBuilder: NativeComponentBuilder.new,
+    )..set(TiledmapRenderComponent.new, allJourneysTiledmapRender);

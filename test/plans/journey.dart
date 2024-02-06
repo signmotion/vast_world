@@ -13,7 +13,12 @@ Plan<dynamic> constructJourneyPlan(
   required String greeting,
   required String description,
 }) =>
-    constructNothingPlan(u, hid: hid, uid: uid)
+    constructNothingPlan(
+      u,
+      hid: hid,
+      uid: uid,
+      componentBuilder: NativeComponentBuilder.new,
+    )
       ..set(NameComponent.new, name)
       ..set(GreetingComponent.new, greeting)
       ..set(DescriptionComponent.new, description)

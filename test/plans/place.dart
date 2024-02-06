@@ -12,7 +12,12 @@ Plan<dynamic> constructPlacePlan(
   required Image picture,
   required StoryT story,
 }) =>
-    constructNothingPlan(u, hid: hid, uid: uid)
+    constructNothingPlan(
+      u,
+      hid: hid,
+      uid: uid,
+      componentBuilder: NativeComponentBuilder.new,
+    )
       ..set(PictureComponent.new, picture)
       ..set(StoryComponent.new, story)
       ..set(TiledmapRenderComponent.new, placeTiledmapRender);

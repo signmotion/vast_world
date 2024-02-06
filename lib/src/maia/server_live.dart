@@ -1,9 +1,7 @@
 part of '../../../vast_world_maia.dart';
 
 class ServerLive extends BaseLive<ServerState> {
-  ServerLive(super.state) : loreInfluencer = const LoreInfluencer();
-
-  final LoreInfluencer loreInfluencer;
+  ServerLive(super.state);
 
   Future<String> claimAndApproveSession({required String uidDevice}) async {
     final session = await claimSession(uidDevice: uidDevice);
@@ -56,14 +54,18 @@ class ServerLive extends BaseLive<ServerState> {
 
     if (state.lores[session] == null) {
       logw('Session `$session` not found. New Lore created.');
-      emit(state.copyWith(lores: {session: Lore()}));
+      emit(
+        state.copyWith(lores: {
+          session: Lore(componentBuilder: NativeComponentBuilder.new),
+        }),
+      );
     }
 
     state.lores.update(
       session,
       (lore) {
         final act = const NativeActBuilder().fromBase(actBase);
-        return loreInfluencer.processing(state.u, lore, act);
+        return state.loreInfluencer.processing(lore, act);
       },
       ifAbsent: () =>
           throw ArgumentError('Lore for session `$session` not found.'),
@@ -113,8 +115,17 @@ class ServerLive extends BaseLive<ServerState> {
   }
 }
 
-final serverLive = ServerLive(ServerState(
+final _universe = Universe();
+
+final _state = ServerState(
   ss: ServerStateBase(),
   u: Universe(),
   lores: const {},
-));
+  loreInfluencer: LoreInfluencer(
+    u: _universe,
+    planBuilder: NativePlanBuilder.new,
+    componentBuilder: NativeComponentBuilder.new,
+  ),
+);
+
+final serverLive = ServerLive(_state);

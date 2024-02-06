@@ -11,6 +11,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
     String? id,
     String? hid,
     String? uid,
+    required this.componentBuilder,
     //L? layoutForExposed,
   }) : assert((id != null && hid == null && uid == null) || id == null,
             '[id] should be defined without [hid] and [uid].') {
@@ -35,6 +36,8 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
 
   final Universe u;
 
+  final TBuilder<NativeComponentBuilder> componentBuilder;
+
   /// This plan converted to [PlanBase].
   /// See [jsonAsBase] to backward conversion.
   @override
@@ -46,10 +49,10 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
       );
 
   List<AnyComponent> get components =>
-      const NativeComponentBuilder().components(u, innerEntity);
+      componentBuilder().components(u, innerEntity);
 
   List<TBuilder<AnyComponent>> get componentsBuilders =>
-      const NativeComponentBuilder().componentsBuilders(u, innerEntity);
+      componentBuilder().componentsBuilders(u, innerEntity);
 
   @override
   bool get isCorrectHid => hid.isPlanHid;
@@ -103,14 +106,24 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   }
 
   /// Set a [component] with value and register [component] the component when
-  /// [component] absent.
+  /// [component] absent with using [componentBuilder].
   /// See [set].
-  void setComponent(AnyComponent component) {
+  void setComponent(
+    AnyComponent component, {
+    required TBuilder<NativeComponentBuilder> componentBuilder,
+  }) {
     var found = components.firstWhereOrNull((c) => c.uid == component.uid);
     if (found == null) {
-      const NativeComponentBuilder()
-          .add(component.uid, u, ie, component.valueAsJson);
-      found = components.firstWhereOrNull((c) => c.uid == component.uid)!;
+      final b = componentBuilder();
+      b.add(component.uid, u, ie, component.valueAsJson);
+      found = components.firstWhereOrNull((c) => c.uid == component.uid);
+      // some components can be absent on the other side (Client / Server)
+      if (found == null) {
+        logw('Component `${component.id}` unimplemented'
+            ' into ${b.runtimeType}.');
+        set(UnimplementedComponent.new, (idUnimplemented: component.id));
+        return;
+      }
     }
     found.init(component.value);
   }
@@ -122,12 +135,14 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
     Universe? u,
     String? hid,
     String? uid,
+    TBuilder<NativeComponentBuilder>? componentBuilder,
     // TODO LayoutComponent? layoutForExposed,
   }) =>
       Plan(
         u ?? this.u,
         hid: hid ?? this.hid,
         uid: uid ?? this.uid,
+        componentBuilder: componentBuilder ?? this.componentBuilder,
         // TODO layoutForExposed: layoutForExposed ?? this.layoutForExposed,
       );
 
