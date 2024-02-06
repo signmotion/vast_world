@@ -2,6 +2,13 @@
 
 part of '../../../vast_world_share.dart';
 
+typedef RunComponentBuilderFn<R> = R Function<C extends AnyComponent, T>(
+  TBuilder<C> builder, {
+  Universe? u,
+  oxygen.Entity? entity,
+  T? value,
+});
+
 /// You should override [extendedFromBase], [extendedBuilders] and
 /// [extendedRunForComponent] for construct own components.
 class NativeComponentBuilder {
@@ -51,25 +58,27 @@ class NativeComponentBuilder {
     Universe u,
     oxygen.Entity entity,
     JsonMap jsonValue,
-  ) =>
-      runForComponent(
-        componentUid,
-        u: u,
-        entity: entity,
-        jsonValue: jsonValue,
-        run: <C extends AnyComponent, T>(
-          TBuilder<C> builder, {
-          Universe? u,
-          oxygen.Entity? entity,
-          T? value,
-          dynamic accResult,
-        }) {
-          u!.registerComponent(builder);
-          entity!.add<C, dynamic>(
-            builder().jsonAsValue(jsonValue) as T,
-          );
-        },
+  ) {
+    void run<C extends AnyComponent, T>(
+      TBuilder<C> builder, {
+      Universe? u,
+      oxygen.Entity? entity,
+      T? value,
+    }) {
+      u!.registerComponent(builder);
+      entity!.add<C, dynamic>(
+        builder().jsonAsValue(jsonValue) as T,
       );
+    }
+
+    return runForComponent(
+      componentUid,
+      u: u,
+      entity: entity,
+      jsonValue: jsonValue,
+      run: run,
+    );
+  }
 
   /// All components for the [entity].
   List<AnyComponent> components(
@@ -156,12 +165,7 @@ class NativeComponentBuilder {
   /// You should override [extendedRunForComponent] for detect own components.
   R? runForComponent<R>(
     String componentUid, {
-    required R Function<C extends AnyComponent, T>(
-      TBuilder<C> builder, {
-      Universe? u,
-      oxygen.Entity? entity,
-      T? value,
-    }) run,
+    required RunComponentBuilderFn<R> run,
     Universe? u,
     oxygen.Entity? entity,
     JsonMap? jsonValue,
@@ -329,12 +333,7 @@ class NativeComponentBuilder {
   /// Will call after [runForComponent].
   R? extendedRunForComponent<R>(
     String componentUid, {
-    required R Function<C extends AnyComponent, T>(
-      TBuilder<C> builder, {
-      Universe? u,
-      oxygen.Entity? entity,
-      T? value,
-    }) run,
+    required RunComponentBuilderFn<R> run,
     Universe? u,
     oxygen.Entity? entity,
     JsonMap? jsonValue,
