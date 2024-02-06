@@ -42,7 +42,14 @@ class ServerState extends AState<ServerStateBase> {
       );
 
   @override
-  List<Object?> get props => [...super.props, lores, loreInfluencer, u];
+  List<Object?> get props => [
+        ...super.props,
+        componentBuilder().runtimeType,
+        planBuilder(u, componentBuilder).runtimeType,
+        lores,
+        loreInfluencer,
+        u,
+      ];
 
   /// Return a new state with same [u], [loreInfluencer] and [componentBuilder].
   ServerState fromJson(JsonMap json) => throw UnimplementedError();

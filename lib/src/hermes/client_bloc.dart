@@ -13,6 +13,8 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       _onEvent,
       transformer: sequential(),
     );
+
+    logi('$runtimeType created with state `$state`.');
   }
 
   final String serverHost;
@@ -225,7 +227,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     serverActs = maiaStub.synchronize(clientActs.stream);
     serverActs.listen(
       (ActBaseResponse ar) {
-        final act = const NativeActBuilder().fromBase(ar.act);
+        final act = NativeActBuilder(state.componentBuilder).fromBase(ar.act);
         logi('Processing the received act from Server.'
             ' `${ar.act.type.name}` -> `$act`');
 

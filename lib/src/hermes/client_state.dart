@@ -41,7 +41,14 @@ class ClientState extends AState<ClientStateBase> {
       );
 
   @override
-  List<Object?> get props => [...super.props, lore, loreInfluencer, u];
+  List<Object?> get props => [
+        ...super.props,
+        componentBuilder().runtimeType,
+        planBuilder(u, componentBuilder).runtimeType,
+        lore,
+        loreInfluencer,
+        u,
+      ];
 
   /// Return a new state with same [u], [loreInfluencer] and [componentBuilder].
   ClientState fromJson(JsonMap json) {

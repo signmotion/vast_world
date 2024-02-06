@@ -20,15 +20,11 @@ class NativeComponentBuilder {
   /// See note for this class.
   C fromBase<C extends AnyComponent>(ComponentBase base) {
     logi('🧙‍♂️🟨 Constructing component based on'
-            ' `${base.shortMapWithSignificantFieldsMessage}...'
+            ' `${base.shortMapWithSignificantFieldsMessage}`'
+            ' with builder `$runtimeType`...'
         .bittenOfAllUuids32);
 
-    late final AnyComponent component;
-    try {
-      component = _fromBase(base);
-    } on UnimplementedError catch (_) {
-      //component = extendedFromBase(base); - don't need this, covered by [builder]
-    }
+    final component = _fromBase(base);
 
     logi('🧙‍♂️💚 Component `$component` constructed.');
 
@@ -42,14 +38,19 @@ class NativeComponentBuilder {
   C _fromBase<C extends AnyComponent>(ComponentBase base) {
     final component = builder(base.uid)();
     final json = base.sjsonValue.jsonMap;
+    //try {
     component.init(component.jsonAsValue(json));
+    //} on UnimplementedError catch (_) {
+    //  // thats ok: some components are not needed init
+    //}
 
     return component as C;
   }
 
   TBuilder<AnyComponent> builder(String componentUid) => allBuilders.firstWhere(
         (cb) => cb().uid == componentUid,
-        orElse: () => throw UnimplementedError(),
+        orElse: () => throw UnimplementedError('`$componentUid` not found in'
+            ' ${allBuilders.map((b) => b().runtimeType)}'),
       );
 
   /// Register, add, update component by [componentUid] with [jsonValue].

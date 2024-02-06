@@ -64,7 +64,7 @@ class ServerLive extends BaseLive<ServerState> {
     state.lores.update(
       session,
       (lore) {
-        final act = const NativeActBuilder().fromBase(actBase);
+        final act = NativeActBuilder(state.componentBuilder).fromBase(actBase);
         return state.loreInfluencer.processing(lore, act);
       },
       ifAbsent: () =>
