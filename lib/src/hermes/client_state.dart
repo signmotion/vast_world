@@ -1,5 +1,6 @@
 part of '../../vast_world_hermes.dart';
 
+/// By analogy with [ServerState].
 class ClientState extends AState<ClientStateBase> {
   const ClientState({
     required super.ss,

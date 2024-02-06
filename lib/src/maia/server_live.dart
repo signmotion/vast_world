@@ -56,7 +56,7 @@ class ServerLive extends BaseLive<ServerState> {
       logw('Session `$session` not found. New Lore created.');
       emit(
         state.copyWith(lores: {
-          session: Lore(componentBuilder: NativeComponentBuilder.new),
+          session: Lore(componentBuilder: state.componentBuilder),
         }),
       );
     }
@@ -120,6 +120,8 @@ final _universe = Universe();
 final _state = ServerState(
   ss: ServerStateBase(),
   u: Universe(),
+  planBuilder: NativePlanBuilder.new,
+  componentBuilder: NativeComponentBuilder.new,
   lores: const {},
   loreInfluencer: LoreInfluencer(
     u: _universe,

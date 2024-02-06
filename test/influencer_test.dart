@@ -108,8 +108,6 @@ void main() {
     final clientUniverse = Universe();
     const clientPlanBuilder = ClientPlanBuilder.new;
     const clientComponentBuilder = ClientomponentBuilder.new;
-    final cpb = clientPlanBuilder(clientUniverse, clientComponentBuilder);
-    final ccb = clientComponentBuilder();
 
     final serverUniverse = Universe();
     const serverPlanBuilder = NativePlanBuilder.new;
