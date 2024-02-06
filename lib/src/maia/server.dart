@@ -8,7 +8,7 @@ class Server extends BaseServer {
         );
 
   @override
-  List<Service> get services => [Service()];
+  List<ServerService> get services => [ServerService()];
 }
 
 final server = Server();

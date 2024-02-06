@@ -1,6 +1,6 @@
 part of '../../../vast_world_maia.dart';
 
-class Service extends ServiceBase with ServiceMix {
+class ServerService extends ServiceBase with ServiceMix {
   @override
   String get name => 'Maia';
 

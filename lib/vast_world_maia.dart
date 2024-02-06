@@ -19,10 +19,10 @@ part 'src/maia/errors/session_error.dart';
 part 'src/maia/errors/uid_device_client_error.dart';
 part 'src/maia/errors/value_illegal_error.dart';
 
-part 'src/maia/answer_type_enum.dart';
+part 'src/maia/server_answer_type_enum.dart';
 part 'src/maia/log_server.dart';
 part 'src/maia/server_config.dart';
 part 'src/maia/server_live.dart';
 part 'src/maia/server_state.dart';
 part 'src/maia/server.dart';
-part 'src/maia/service.dart';
+part 'src/maia/server_service.dart';
