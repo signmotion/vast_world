@@ -1,6 +1,10 @@
 part of '../../../vast_world_maia.dart';
 
 class ServerService extends ServiceBase with ServiceMix {
+  ServerService() : serverLive = constructServerLive();
+
+  final ServerLive serverLive;
+
   @override
   String get name => 'Maia';
 

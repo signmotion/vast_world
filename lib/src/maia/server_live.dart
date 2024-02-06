@@ -115,19 +115,21 @@ class ServerLive extends BaseLive<ServerState> {
   }
 }
 
-final _universe = Universe();
+ServerLive constructServerLive() {
+  final universe = Universe();
 
-final _state = ServerState(
-  ss: ServerStateBase(),
-  u: Universe(),
-  planBuilder: NativePlanBuilder.new,
-  componentBuilder: NativeComponentBuilder.new,
-  lores: const {},
-  loreInfluencer: LoreInfluencer(
-    u: _universe,
+  final state = ServerState(
+    ss: ServerStateBase(),
+    u: universe,
     planBuilder: NativePlanBuilder.new,
     componentBuilder: NativeComponentBuilder.new,
-  ),
-);
+    lores: const {},
+    loreInfluencer: LoreInfluencer(
+      u: universe,
+      planBuilder: NativePlanBuilder.new,
+      componentBuilder: NativeComponentBuilder.new,
+    ),
+  );
 
-final serverLive = ServerLive(_state);
+  return ServerLive(state);
+}
