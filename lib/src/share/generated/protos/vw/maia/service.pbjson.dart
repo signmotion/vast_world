@@ -88,6 +88,37 @@ const GetAboutServerResponse$json = {
 final $typed_data.Uint8List getAboutServerResponseDescriptor = $convert.base64Decode(
     'ChZHZXRBYm91dFNlcnZlclJlc3BvbnNlEhIKBG5hbWUYASABKAlSBG5hbWU=');
 
+@$core.Deprecated('Use setCurrentPlanRequestDescriptor instead')
+const SetCurrentPlanRequest$json = {
+  '1': 'SetCurrentPlanRequest',
+  '2': [
+    {'1': 'session', '3': 3, '4': 1, '5': 9, '10': 'session'},
+    {'1': 'plan_id', '3': 4, '4': 1, '5': 9, '10': 'planId'},
+  ],
+};
+
+/// Descriptor for `SetCurrentPlanRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List setCurrentPlanRequestDescriptor = $convert.base64Decode(
+    'ChVTZXRDdXJyZW50UGxhblJlcXVlc3QSGAoHc2Vzc2lvbhgDIAEoCVIHc2Vzc2lvbhIXCgdwbG'
+    'FuX2lkGAQgASgJUgZwbGFuSWQ=');
+
+@$core.Deprecated('Use setCurrentPlanResponseDescriptor instead')
+const SetCurrentPlanResponse$json = {
+  '1': 'SetCurrentPlanResponse',
+  '2': [
+    {'1': 'answer', '3': 7, '4': 1, '5': 14, '6': '.vw.maia.ServerAnswerTypeEnumBase', '10': 'answer'},
+    {'1': 'code_explain', '3': 8, '4': 1, '5': 14, '6': '.vw.share.ErrorExplainEnumBase', '10': 'codeExplain'},
+    {'1': 'message_explain', '3': 9, '4': 1, '5': 9, '10': 'messageExplain'},
+  ],
+};
+
+/// Descriptor for `SetCurrentPlanResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List setCurrentPlanResponseDescriptor = $convert.base64Decode(
+    'ChZTZXRDdXJyZW50UGxhblJlc3BvbnNlEjkKBmFuc3dlchgHIAEoDjIhLnZ3Lm1haWEuU2Vydm'
+    'VyQW5zd2VyVHlwZUVudW1CYXNlUgZhbnN3ZXISQQoMY29kZV9leHBsYWluGAggASgOMh4udncu'
+    'c2hhcmUuRXJyb3JFeHBsYWluRW51bUJhc2VSC2NvZGVFeHBsYWluEicKD21lc3NhZ2VfZXhwbG'
+    'FpbhgJIAEoCVIObWVzc2FnZUV4cGxhaW4=');
+
 @$core.Deprecated('Use actBaseRequestDescriptor instead')
 const ActBaseRequest$json = {
   '1': 'ActBaseRequest',

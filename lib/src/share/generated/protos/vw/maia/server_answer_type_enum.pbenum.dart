@@ -13,7 +13,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-/// Enum describing server answers on the sent [Act]s.
+/// Enum describing server answer on the call a service.
 class ServerAnswerTypeEnumBase extends $pb.ProtobufEnum {
   static const ServerAnswerTypeEnumBase UNSPECIFIED_SERVER_ANSWER_TYPE = ServerAnswerTypeEnumBase._(0, _omitEnumNames ? '' : 'UNSPECIFIED_SERVER_ANSWER_TYPE');
   static const ServerAnswerTypeEnumBase ACCEPTED_SERVER_ANSWER_TYPE = ServerAnswerTypeEnumBase._(200, _omitEnumNames ? '' : 'ACCEPTED_SERVER_ANSWER_TYPE');

@@ -10,9 +10,11 @@ message ClientStateBase {
 
     string uidDevice = 2;
     optional string session = 3;
-    optional bool sessionApproved = 4;
+    optional bool session_approved = 4;
 
-    optional string nameServer = 100;
+    optional string name_server = 100;
+
+    string current_plan_id = 200;
 
     // vw.LoreBase lore = 1200; - Keep into class [ClientState] as [Lore].
 }

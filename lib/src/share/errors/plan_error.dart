@@ -1,7 +1,7 @@
 part of '../../../vast_world_share.dart';
 
 abstract class PlanError extends Error {
-  const PlanError(super.message, {required this.planId});
+  const PlanError(super.code, super.message, {required this.planId});
 
   final String planId;
 
@@ -11,5 +11,9 @@ abstract class PlanError extends Error {
 
 class AlreadyExistsPlanError extends PlanError {
   const AlreadyExistsPlanError(String planId)
-      : super('Plan already exists.', planId: planId);
+      : super(
+          ErrorExplainEnum.EXISTS_PLAN_ERROR_EXPLAIN,
+          'Plan already exists.',
+          planId: planId,
+        );
 }

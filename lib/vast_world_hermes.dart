@@ -9,7 +9,6 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_dart/json_dart.dart';
 
 import 'vast_world_maia.dart' as maia;
-import 'vast_world_protos.dart';
 import 'vast_world_share.dart';
 
 export 'vast_world_protos.dart';

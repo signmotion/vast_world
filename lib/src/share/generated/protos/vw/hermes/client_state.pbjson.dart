@@ -20,13 +20,14 @@ const ClientStateBase$json = {
     {'1': 'state', '3': 1, '4': 1, '5': 14, '6': '.vw.hermes.ClientStateEnumBase', '10': 'state'},
     {'1': 'uidDevice', '3': 2, '4': 1, '5': 9, '10': 'uidDevice'},
     {'1': 'session', '3': 3, '4': 1, '5': 9, '9': 0, '10': 'session', '17': true},
-    {'1': 'sessionApproved', '3': 4, '4': 1, '5': 8, '9': 1, '10': 'sessionApproved', '17': true},
-    {'1': 'nameServer', '3': 100, '4': 1, '5': 9, '9': 2, '10': 'nameServer', '17': true},
+    {'1': 'session_approved', '3': 4, '4': 1, '5': 8, '9': 1, '10': 'sessionApproved', '17': true},
+    {'1': 'name_server', '3': 100, '4': 1, '5': 9, '9': 2, '10': 'nameServer', '17': true},
+    {'1': 'current_plan_id', '3': 200, '4': 1, '5': 9, '10': 'currentPlanId'},
   ],
   '8': [
     {'1': '_session'},
-    {'1': '_sessionApproved'},
-    {'1': '_nameServer'},
+    {'1': '_session_approved'},
+    {'1': '_name_server'},
   ],
 };
 
@@ -34,7 +35,8 @@ const ClientStateBase$json = {
 final $typed_data.Uint8List clientStateBaseDescriptor = $convert.base64Decode(
     'Cg9DbGllbnRTdGF0ZUJhc2USNAoFc3RhdGUYASABKA4yHi52dy5oZXJtZXMuQ2xpZW50U3RhdG'
     'VFbnVtQmFzZVIFc3RhdGUSHAoJdWlkRGV2aWNlGAIgASgJUgl1aWREZXZpY2USHQoHc2Vzc2lv'
-    'bhgDIAEoCUgAUgdzZXNzaW9uiAEBEi0KD3Nlc3Npb25BcHByb3ZlZBgEIAEoCEgBUg9zZXNzaW'
-    '9uQXBwcm92ZWSIAQESIwoKbmFtZVNlcnZlchhkIAEoCUgCUgpuYW1lU2VydmVyiAEBQgoKCF9z'
-    'ZXNzaW9uQhIKEF9zZXNzaW9uQXBwcm92ZWRCDQoLX25hbWVTZXJ2ZXI=');
+    'bhgDIAEoCUgAUgdzZXNzaW9uiAEBEi4KEHNlc3Npb25fYXBwcm92ZWQYBCABKAhIAVIPc2Vzc2'
+    'lvbkFwcHJvdmVkiAEBEiQKC25hbWVfc2VydmVyGGQgASgJSAJSCm5hbWVTZXJ2ZXKIAQESJwoP'
+    'Y3VycmVudF9wbGFuX2lkGMgBIAEoCVINY3VycmVudFBsYW5JZEIKCghfc2Vzc2lvbkITChFfc2'
+    'Vzc2lvbl9hcHByb3ZlZEIOCgxfbmFtZV9zZXJ2ZXI=');
 

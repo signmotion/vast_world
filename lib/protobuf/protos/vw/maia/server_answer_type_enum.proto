@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package vw.maia;
 
-// Enum describing server answers on the sent [Act]s.
+// Enum describing server answer on the call a service.
 enum ServerAnswerTypeEnumBase {
   UNSPECIFIED_SERVER_ANSWER_TYPE = 0;
 

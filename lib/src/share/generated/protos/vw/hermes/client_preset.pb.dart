@@ -61,15 +61,15 @@ class ClientPresetBase extends $pb.GeneratedMessage {
   factory ClientPresetBase.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ClientPresetBase', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.hermes'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'appTitle', protoName: 'appTitle')
-    ..aOS(2, _omitFieldNames ? '' : 'darkThemePageTitle', protoName: 'darkThemePageTitle')
-    ..aOS(3, _omitFieldNames ? '' : 'lightThemePageTitle', protoName: 'lightThemePageTitle')
-    ..aOS(5, _omitFieldNames ? '' : 'serverHost', protoName: 'serverHost')
-    ..a<$core.int>(6, _omitFieldNames ? '' : 'serverPort', $pb.PbFieldType.O3, protoName: 'serverPort')
-    ..aOB(102, _omitFieldNames ? '' : 'showAppState', protoName: 'showAppState')
-    ..aOB(103, _omitFieldNames ? '' : 'showNumberMessage', protoName: 'showNumberMessage')
-    ..aOB(104, _omitFieldNames ? '' : 'showDebugMessages', protoName: 'showDebugMessages')
-    ..aOB(105, _omitFieldNames ? '' : 'showDebugDetailsMessage', protoName: 'showDebugDetailsMessage')
+    ..aOS(1, _omitFieldNames ? '' : 'appTitle')
+    ..aOS(2, _omitFieldNames ? '' : 'darkThemePageTitle')
+    ..aOS(3, _omitFieldNames ? '' : 'lightThemePageTitle')
+    ..aOS(5, _omitFieldNames ? '' : 'serverHost')
+    ..a<$core.int>(6, _omitFieldNames ? '' : 'serverPort', $pb.PbFieldType.O3)
+    ..aOB(102, _omitFieldNames ? '' : 'showAppState')
+    ..aOB(103, _omitFieldNames ? '' : 'showNumberMessage')
+    ..aOB(104, _omitFieldNames ? '' : 'showDebugMessages')
+    ..aOB(105, _omitFieldNames ? '' : 'showDebugDetailsMessage')
     ..hasRequiredFields = false
   ;
 

@@ -21,6 +21,7 @@ class ServerStateBase extends $pb.GeneratedMessage {
     $1.ServerOptionsBase? options,
     $core.Map<$core.String, $core.String>? claimedSessionsDevices,
     $core.Map<$core.String, $core.bool>? approvedSessions,
+    $core.Map<$core.String, $core.String>? currentPlanIds,
   }) {
     final $result = create();
     if (options != null) {
@@ -32,6 +33,9 @@ class ServerStateBase extends $pb.GeneratedMessage {
     if (approvedSessions != null) {
       $result.approvedSessions.addAll(approvedSessions);
     }
+    if (currentPlanIds != null) {
+      $result.currentPlanIds.addAll(currentPlanIds);
+    }
     return $result;
   }
   ServerStateBase._() : super();
@@ -42,6 +46,7 @@ class ServerStateBase extends $pb.GeneratedMessage {
     ..aOM<$1.ServerOptionsBase>(1, _omitFieldNames ? '' : 'options', subBuilder: $1.ServerOptionsBase.create)
     ..m<$core.String, $core.String>(2, _omitFieldNames ? '' : 'claimedSessionsDevices', entryClassName: 'ServerStateBase.ClaimedSessionsDevicesEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('vw.maia'))
     ..m<$core.String, $core.bool>(3, _omitFieldNames ? '' : 'approvedSessions', entryClassName: 'ServerStateBase.ApprovedSessionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OB, packageName: const $pb.PackageName('vw.maia'))
+    ..m<$core.String, $core.String>(200, _omitFieldNames ? '' : 'currentPlanIds', entryClassName: 'ServerStateBase.CurrentPlanIdsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('vw.maia'))
     ..hasRequiredFields = false
   ;
 
@@ -86,6 +91,10 @@ class ServerStateBase extends $pb.GeneratedMessage {
   /// / <session, true>
   @$pb.TagNumber(3)
   $core.Map<$core.String, $core.bool> get approvedSessions => $_getMap(2);
+
+  /// / <session, planId>
+  @$pb.TagNumber(200)
+  $core.Map<$core.String, $core.String> get currentPlanIds => $_getMap(3);
 }
 
 

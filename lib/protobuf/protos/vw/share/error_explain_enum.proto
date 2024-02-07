@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package vw.share;
+
+// Enum explaining an [Error].
+enum ErrorExplainEnumBase {
+  UNSPECIFIED_ERROR_EXPLAIN = 0;
+
+  // plan
+  ABSENT_PLAN_ERROR_EXPLAIN = 100;
+  EXISTS_PLAN_ERROR_EXPLAIN = 101;
+
+  // session
+  ILLEGAL_UID_SESSION_ERROR_EXPLAIN = 1000;
+  NOT_APPROVED_SESSION_ERROR_EXPLAIN = 1010;
+  NOT_CLAIMED_SESSION_ERROR_EXPLAIN = 1020;
+
+  // others
+  NOT_DEFINED_DEVICE_ERROR_EXPLAIN = 6000;
+}

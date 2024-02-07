@@ -83,7 +83,7 @@ class ServerLive extends BaseLive<ServerState> {
     bool permitSession = false,
   }) {
     void checkSession(String session) =>
-        session.isSessionUid ? null : throw SessionUidIllegalError(session);
+        session.isSessionUid ? null : throw IllegalUidSessionError(session);
 
     checkSession(session);
 

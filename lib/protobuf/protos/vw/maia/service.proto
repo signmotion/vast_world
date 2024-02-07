@@ -4,12 +4,15 @@ package vw.maia;
 
 import "vw/maia/server_answer_type_enum.proto";
 import "vw/share/act.proto";
+import "vw/share/error_explain_enum.proto";
 
 service Service {
   rpc claimSession (ClaimSessionRequest) returns (ClaimSessionResponse);
   rpc approveSession (ApproveSessionRequest) returns (ApproveSessionResponse);
   
   rpc getAboutServer (GetAboutServerRequest) returns (GetAboutServerResponse);
+
+  rpc setCurrentPlan (SetCurrentPlanRequest) returns (SetCurrentPlanResponse);
 
   // TODO? rpc push (PushRequest) returns (PushResponse);
   // TODO? rpc pop (PopRequest) returns (PopResponse);
@@ -43,6 +46,17 @@ message GetAboutServerRequest {
 
 message GetAboutServerResponse {
   string name = 1;
+}
+
+message SetCurrentPlanRequest {
+  string session = 3;
+  string plan_id = 4;
+}
+
+message SetCurrentPlanResponse {
+  ServerAnswerTypeEnumBase answer = 7;
+  share.ErrorExplainEnumBase code_explain = 8;
+  string message_explain = 9;
 }
 
 message ActBaseRequest {

@@ -17,41 +17,41 @@ import 'dart:typed_data' as $typed_data;
 const ClientPresetBase$json = {
   '1': 'ClientPresetBase',
   '2': [
-    {'1': 'appTitle', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'appTitle', '17': true},
-    {'1': 'darkThemePageTitle', '3': 2, '4': 1, '5': 9, '9': 1, '10': 'darkThemePageTitle', '17': true},
-    {'1': 'lightThemePageTitle', '3': 3, '4': 1, '5': 9, '9': 2, '10': 'lightThemePageTitle', '17': true},
-    {'1': 'serverHost', '3': 5, '4': 1, '5': 9, '9': 3, '10': 'serverHost', '17': true},
-    {'1': 'serverPort', '3': 6, '4': 1, '5': 5, '9': 4, '10': 'serverPort', '17': true},
-    {'1': 'showAppState', '3': 102, '4': 1, '5': 8, '9': 5, '10': 'showAppState', '17': true},
-    {'1': 'showNumberMessage', '3': 103, '4': 1, '5': 8, '9': 6, '10': 'showNumberMessage', '17': true},
-    {'1': 'showDebugMessages', '3': 104, '4': 1, '5': 8, '9': 7, '10': 'showDebugMessages', '17': true},
-    {'1': 'showDebugDetailsMessage', '3': 105, '4': 1, '5': 8, '9': 8, '10': 'showDebugDetailsMessage', '17': true},
+    {'1': 'app_title', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'appTitle', '17': true},
+    {'1': 'dark_theme_page_title', '3': 2, '4': 1, '5': 9, '9': 1, '10': 'darkThemePageTitle', '17': true},
+    {'1': 'light_theme_page_title', '3': 3, '4': 1, '5': 9, '9': 2, '10': 'lightThemePageTitle', '17': true},
+    {'1': 'server_host', '3': 5, '4': 1, '5': 9, '9': 3, '10': 'serverHost', '17': true},
+    {'1': 'server_port', '3': 6, '4': 1, '5': 5, '9': 4, '10': 'serverPort', '17': true},
+    {'1': 'show_app_state', '3': 102, '4': 1, '5': 8, '9': 5, '10': 'showAppState', '17': true},
+    {'1': 'show_number_message', '3': 103, '4': 1, '5': 8, '9': 6, '10': 'showNumberMessage', '17': true},
+    {'1': 'show_debug_messages', '3': 104, '4': 1, '5': 8, '9': 7, '10': 'showDebugMessages', '17': true},
+    {'1': 'show_debug_details_message', '3': 105, '4': 1, '5': 8, '9': 8, '10': 'showDebugDetailsMessage', '17': true},
   ],
   '8': [
-    {'1': '_appTitle'},
-    {'1': '_darkThemePageTitle'},
-    {'1': '_lightThemePageTitle'},
-    {'1': '_serverHost'},
-    {'1': '_serverPort'},
-    {'1': '_showAppState'},
-    {'1': '_showNumberMessage'},
-    {'1': '_showDebugMessages'},
-    {'1': '_showDebugDetailsMessage'},
+    {'1': '_app_title'},
+    {'1': '_dark_theme_page_title'},
+    {'1': '_light_theme_page_title'},
+    {'1': '_server_host'},
+    {'1': '_server_port'},
+    {'1': '_show_app_state'},
+    {'1': '_show_number_message'},
+    {'1': '_show_debug_messages'},
+    {'1': '_show_debug_details_message'},
   ],
 };
 
 /// Descriptor for `ClientPresetBase`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List clientPresetBaseDescriptor = $convert.base64Decode(
-    'ChBDbGllbnRQcmVzZXRCYXNlEh8KCGFwcFRpdGxlGAEgASgJSABSCGFwcFRpdGxliAEBEjMKEm'
-    'RhcmtUaGVtZVBhZ2VUaXRsZRgCIAEoCUgBUhJkYXJrVGhlbWVQYWdlVGl0bGWIAQESNQoTbGln'
-    'aHRUaGVtZVBhZ2VUaXRsZRgDIAEoCUgCUhNsaWdodFRoZW1lUGFnZVRpdGxliAEBEiMKCnNlcn'
-    'Zlckhvc3QYBSABKAlIA1IKc2VydmVySG9zdIgBARIjCgpzZXJ2ZXJQb3J0GAYgASgFSARSCnNl'
-    'cnZlclBvcnSIAQESJwoMc2hvd0FwcFN0YXRlGGYgASgISAVSDHNob3dBcHBTdGF0ZYgBARIxCh'
-    'FzaG93TnVtYmVyTWVzc2FnZRhnIAEoCEgGUhFzaG93TnVtYmVyTWVzc2FnZYgBARIxChFzaG93'
-    'RGVidWdNZXNzYWdlcxhoIAEoCEgHUhFzaG93RGVidWdNZXNzYWdlc4gBARI9ChdzaG93RGVidW'
-    'dEZXRhaWxzTWVzc2FnZRhpIAEoCEgIUhdzaG93RGVidWdEZXRhaWxzTWVzc2FnZYgBAUILCglf'
-    'YXBwVGl0bGVCFQoTX2RhcmtUaGVtZVBhZ2VUaXRsZUIWChRfbGlnaHRUaGVtZVBhZ2VUaXRsZU'
-    'INCgtfc2VydmVySG9zdEINCgtfc2VydmVyUG9ydEIPCg1fc2hvd0FwcFN0YXRlQhQKEl9zaG93'
-    'TnVtYmVyTWVzc2FnZUIUChJfc2hvd0RlYnVnTWVzc2FnZXNCGgoYX3Nob3dEZWJ1Z0RldGFpbH'
-    'NNZXNzYWdl');
+    'ChBDbGllbnRQcmVzZXRCYXNlEiAKCWFwcF90aXRsZRgBIAEoCUgAUghhcHBUaXRsZYgBARI2Ch'
+    'VkYXJrX3RoZW1lX3BhZ2VfdGl0bGUYAiABKAlIAVISZGFya1RoZW1lUGFnZVRpdGxliAEBEjgK'
+    'FmxpZ2h0X3RoZW1lX3BhZ2VfdGl0bGUYAyABKAlIAlITbGlnaHRUaGVtZVBhZ2VUaXRsZYgBAR'
+    'IkCgtzZXJ2ZXJfaG9zdBgFIAEoCUgDUgpzZXJ2ZXJIb3N0iAEBEiQKC3NlcnZlcl9wb3J0GAYg'
+    'ASgFSARSCnNlcnZlclBvcnSIAQESKQoOc2hvd19hcHBfc3RhdGUYZiABKAhIBVIMc2hvd0FwcF'
+    'N0YXRliAEBEjMKE3Nob3dfbnVtYmVyX21lc3NhZ2UYZyABKAhIBlIRc2hvd051bWJlck1lc3Nh'
+    'Z2WIAQESMwoTc2hvd19kZWJ1Z19tZXNzYWdlcxhoIAEoCEgHUhFzaG93RGVidWdNZXNzYWdlc4'
+    'gBARJAChpzaG93X2RlYnVnX2RldGFpbHNfbWVzc2FnZRhpIAEoCEgIUhdzaG93RGVidWdEZXRh'
+    'aWxzTWVzc2FnZYgBAUIMCgpfYXBwX3RpdGxlQhgKFl9kYXJrX3RoZW1lX3BhZ2VfdGl0bGVCGQ'
+    'oXX2xpZ2h0X3RoZW1lX3BhZ2VfdGl0bGVCDgoMX3NlcnZlcl9ob3N0Qg4KDF9zZXJ2ZXJfcG9y'
+    'dEIRCg9fc2hvd19hcHBfc3RhdGVCFgoUX3Nob3dfbnVtYmVyX21lc3NhZ2VCFgoUX3Nob3dfZG'
+    'VidWdfbWVzc2FnZXNCHQobX3Nob3dfZGVidWdfZGV0YWlsc19tZXNzYWdl');
 

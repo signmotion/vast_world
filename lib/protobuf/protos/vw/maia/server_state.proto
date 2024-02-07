@@ -16,6 +16,9 @@ message ServerStateBase {
     /// <session, true>
     map<string, bool> approved_sessions = 3;
 
+    /// <session, planId>
+    map<string, string> current_plan_ids = 200;
+
     /// The key is `session`.
     // map<string, vw.LoreBase> lores = 1200; - Keep into class [ServerState] as Lore.
 }

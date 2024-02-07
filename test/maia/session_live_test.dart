@@ -47,7 +47,7 @@ void main() async {
       const session = '';
       expectLater(
         ma.approveSession(session: session),
-        throwsA(isA<SessionUidIllegalError>()),
+        throwsA(isA<IllegalUidSessionError>()),
       );
     });
 
@@ -56,7 +56,7 @@ void main() async {
       final session = genActUid;
       expectLater(
         ma.approveSession(session: session),
-        throwsA(isA<SessionUidIllegalError>()),
+        throwsA(isA<IllegalUidSessionError>()),
       );
     });
 

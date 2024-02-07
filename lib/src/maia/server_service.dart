@@ -57,6 +57,33 @@ class ServerService extends ServiceBase with ServiceMix {
   }
 
   @override
+  Future<SetCurrentPlanResponse> setCurrentPlan(
+    ServiceCall call,
+    SetCurrentPlanRequest request,
+  ) async {
+    logiRequest(call, request);
+
+    late final SetCurrentPlanResponse response;
+    try {
+      response = SetCurrentPlanResponse(
+        answer: ServerAnswerTypeEnumBase.ACCEPTED_SERVER_ANSWER_TYPE,
+      );
+    } catch (ex) {
+      loge(ex);
+      response = SetCurrentPlanResponse(
+        answer: ServerAnswerTypeEnumBase.REJECTED_SERVER_ANSWER_TYPE,
+        codeExplain:
+            ex is Error ? ex.code : ErrorExplainEnum.UNSPECIFIED_ERROR_EXPLAIN,
+        messageExplain: '$ex',
+      );
+    }
+
+    logiResponse(call, response);
+
+    return response;
+  }
+
+  @override
   Stream<ActBaseResponse> synchronize(
     ServiceCall call,
     // ignore: avoid_renaming_method_parameters

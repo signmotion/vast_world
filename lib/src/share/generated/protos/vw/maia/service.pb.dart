@@ -14,6 +14,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../share/act.pb.dart' as $2;
+import '../share/error_explain_enum.pbenum.dart' as $4;
 import 'server_answer_type_enum.pbenum.dart' as $3;
 
 class ClaimSessionRequest extends $pb.GeneratedMessage {
@@ -328,6 +329,148 @@ class GetAboutServerResponse extends $pb.GeneratedMessage {
   $core.bool hasName() => $_has(0);
   @$pb.TagNumber(1)
   void clearName() => clearField(1);
+}
+
+class SetCurrentPlanRequest extends $pb.GeneratedMessage {
+  factory SetCurrentPlanRequest({
+    $core.String? session,
+    $core.String? planId,
+  }) {
+    final $result = create();
+    if (session != null) {
+      $result.session = session;
+    }
+    if (planId != null) {
+      $result.planId = planId;
+    }
+    return $result;
+  }
+  SetCurrentPlanRequest._() : super();
+  factory SetCurrentPlanRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SetCurrentPlanRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SetCurrentPlanRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
+    ..aOS(3, _omitFieldNames ? '' : 'session')
+    ..aOS(4, _omitFieldNames ? '' : 'planId')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  SetCurrentPlanRequest clone() => SetCurrentPlanRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SetCurrentPlanRequest copyWith(void Function(SetCurrentPlanRequest) updates) => super.copyWith((message) => updates(message as SetCurrentPlanRequest)) as SetCurrentPlanRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static SetCurrentPlanRequest create() => SetCurrentPlanRequest._();
+  SetCurrentPlanRequest createEmptyInstance() => create();
+  static $pb.PbList<SetCurrentPlanRequest> createRepeated() => $pb.PbList<SetCurrentPlanRequest>();
+  @$core.pragma('dart2js:noInline')
+  static SetCurrentPlanRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SetCurrentPlanRequest>(create);
+  static SetCurrentPlanRequest? _defaultInstance;
+
+  @$pb.TagNumber(3)
+  $core.String get session => $_getSZ(0);
+  @$pb.TagNumber(3)
+  set session($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasSession() => $_has(0);
+  @$pb.TagNumber(3)
+  void clearSession() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get planId => $_getSZ(1);
+  @$pb.TagNumber(4)
+  set planId($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasPlanId() => $_has(1);
+  @$pb.TagNumber(4)
+  void clearPlanId() => clearField(4);
+}
+
+class SetCurrentPlanResponse extends $pb.GeneratedMessage {
+  factory SetCurrentPlanResponse({
+    $3.ServerAnswerTypeEnumBase? answer,
+    $4.ErrorExplainEnumBase? codeExplain,
+    $core.String? messageExplain,
+  }) {
+    final $result = create();
+    if (answer != null) {
+      $result.answer = answer;
+    }
+    if (codeExplain != null) {
+      $result.codeExplain = codeExplain;
+    }
+    if (messageExplain != null) {
+      $result.messageExplain = messageExplain;
+    }
+    return $result;
+  }
+  SetCurrentPlanResponse._() : super();
+  factory SetCurrentPlanResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SetCurrentPlanResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SetCurrentPlanResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
+    ..e<$3.ServerAnswerTypeEnumBase>(7, _omitFieldNames ? '' : 'answer', $pb.PbFieldType.OE, defaultOrMaker: $3.ServerAnswerTypeEnumBase.UNSPECIFIED_SERVER_ANSWER_TYPE, valueOf: $3.ServerAnswerTypeEnumBase.valueOf, enumValues: $3.ServerAnswerTypeEnumBase.values)
+    ..e<$4.ErrorExplainEnumBase>(8, _omitFieldNames ? '' : 'codeExplain', $pb.PbFieldType.OE, defaultOrMaker: $4.ErrorExplainEnumBase.UNSPECIFIED_ERROR_EXPLAIN, valueOf: $4.ErrorExplainEnumBase.valueOf, enumValues: $4.ErrorExplainEnumBase.values)
+    ..aOS(9, _omitFieldNames ? '' : 'messageExplain')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  SetCurrentPlanResponse clone() => SetCurrentPlanResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SetCurrentPlanResponse copyWith(void Function(SetCurrentPlanResponse) updates) => super.copyWith((message) => updates(message as SetCurrentPlanResponse)) as SetCurrentPlanResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static SetCurrentPlanResponse create() => SetCurrentPlanResponse._();
+  SetCurrentPlanResponse createEmptyInstance() => create();
+  static $pb.PbList<SetCurrentPlanResponse> createRepeated() => $pb.PbList<SetCurrentPlanResponse>();
+  @$core.pragma('dart2js:noInline')
+  static SetCurrentPlanResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SetCurrentPlanResponse>(create);
+  static SetCurrentPlanResponse? _defaultInstance;
+
+  @$pb.TagNumber(7)
+  $3.ServerAnswerTypeEnumBase get answer => $_getN(0);
+  @$pb.TagNumber(7)
+  set answer($3.ServerAnswerTypeEnumBase v) { setField(7, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasAnswer() => $_has(0);
+  @$pb.TagNumber(7)
+  void clearAnswer() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $4.ErrorExplainEnumBase get codeExplain => $_getN(1);
+  @$pb.TagNumber(8)
+  set codeExplain($4.ErrorExplainEnumBase v) { setField(8, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasCodeExplain() => $_has(1);
+  @$pb.TagNumber(8)
+  void clearCodeExplain() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get messageExplain => $_getSZ(2);
+  @$pb.TagNumber(9)
+  set messageExplain($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasMessageExplain() => $_has(2);
+  @$pb.TagNumber(9)
+  void clearMessageExplain() => clearField(9);
 }
 
 class ActBaseRequest extends $pb.GeneratedMessage {

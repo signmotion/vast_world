@@ -23,6 +23,7 @@ class ClientStateBase extends $pb.GeneratedMessage {
     $core.String? session,
     $core.bool? sessionApproved,
     $core.String? nameServer,
+    $core.String? currentPlanId,
   }) {
     final $result = create();
     if (state != null) {
@@ -40,6 +41,9 @@ class ClientStateBase extends $pb.GeneratedMessage {
     if (nameServer != null) {
       $result.nameServer = nameServer;
     }
+    if (currentPlanId != null) {
+      $result.currentPlanId = currentPlanId;
+    }
     return $result;
   }
   ClientStateBase._() : super();
@@ -50,8 +54,9 @@ class ClientStateBase extends $pb.GeneratedMessage {
     ..e<$0.ClientStateEnumBase>(1, _omitFieldNames ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: $0.ClientStateEnumBase.UNSPECIFIED_CLIENT_STATE, valueOf: $0.ClientStateEnumBase.valueOf, enumValues: $0.ClientStateEnumBase.values)
     ..aOS(2, _omitFieldNames ? '' : 'uidDevice', protoName: 'uidDevice')
     ..aOS(3, _omitFieldNames ? '' : 'session')
-    ..aOB(4, _omitFieldNames ? '' : 'sessionApproved', protoName: 'sessionApproved')
-    ..aOS(100, _omitFieldNames ? '' : 'nameServer', protoName: 'nameServer')
+    ..aOB(4, _omitFieldNames ? '' : 'sessionApproved')
+    ..aOS(100, _omitFieldNames ? '' : 'nameServer')
+    ..aOS(200, _omitFieldNames ? '' : 'currentPlanId')
     ..hasRequiredFields = false
   ;
 
@@ -120,6 +125,15 @@ class ClientStateBase extends $pb.GeneratedMessage {
   $core.bool hasNameServer() => $_has(4);
   @$pb.TagNumber(100)
   void clearNameServer() => clearField(100);
+
+  @$pb.TagNumber(200)
+  $core.String get currentPlanId => $_getSZ(5);
+  @$pb.TagNumber(200)
+  set currentPlanId($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(200)
+  $core.bool hasCurrentPlanId() => $_has(5);
+  @$pb.TagNumber(200)
+  void clearCurrentPlanId() => clearField(200);
 }
 
 

@@ -26,15 +26,15 @@ protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 
 
+@Set "suffix=vw\share"
+@mkdir "%out%\%suffix%"
+protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
+
 @Set "suffix=vw\hermes"
 @mkdir "%out%\%suffix%"
 protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 
 @Set "suffix=vw\maia"
-@mkdir "%out%\%suffix%"
-protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
-
-@Set "suffix=vw\share"
 @mkdir "%out%\%suffix%"
 protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 

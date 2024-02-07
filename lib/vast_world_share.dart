@@ -59,7 +59,14 @@ part 'src/share/contents/cell_2d_content.dart';
 part 'src/share/contents/empty_content.dart';
 
 part 'src/share/errors/error.dart';
+part 'src/share/errors/error_explain_enum.dart';
+part 'src/share/errors/not_defined_device_error.dart';
+part 'src/share/errors/not_found_error.dart';
+part 'src/share/errors/not_found_session_error.dart';
 part 'src/share/errors/plan_error.dart';
+part 'src/share/errors/session_error.dart';
+part 'src/share/errors/value_error.dart';
+part 'src/share/errors/value_session_error.dart';
 
 part 'src/share/extensions/aabb.dart';
 part 'src/share/extensions/convert_messages_ext.dart';

@@ -47,6 +47,10 @@ export 'src/share/generated/protos/vw/share/component.pb.dart';
 export 'src/share/generated/protos/vw/share/component.pbenum.dart';
 export 'src/share/generated/protos/vw/share/component.pbjson.dart';
 
+export 'src/share/generated/protos/vw/share/error_explain_enum.pb.dart';
+export 'src/share/generated/protos/vw/share/error_explain_enum.pbenum.dart';
+export 'src/share/generated/protos/vw/share/error_explain_enum.pbjson.dart';
+
 export 'src/share/generated/protos/vw/share/lore.pb.dart';
 export 'src/share/generated/protos/vw/share/lore.pbenum.dart';
 export 'src/share/generated/protos/vw/share/lore.pbjson.dart';
