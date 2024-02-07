@@ -13,8 +13,8 @@ typedef RunComponentBuilderFn<R> = R Function<C extends AnyComponent, T>(
   T? value,
 });
 
-/// You should override [extendedFromBase], [extendedBuilders] and
-/// [extendedRunForComponent] for construct own components.
+/// You should override [extendedBuilders] and [extendedRunForComponent] for
+/// construct own components.
 class NativeComponentBuilder {
   const NativeComponentBuilder();
 
@@ -28,25 +28,24 @@ class NativeComponentBuilder {
             ' with builder `$runtimeType`...'
         .bittenOfAllUuids32);
 
-    final component = _fromBase(base);
+    late final AnyComponent component;
+    try {
+      component = _fromBase(base);
+    } on UnimplementedError catch (_) {
+      // some components can be absent on the other side (Client / Server)
+      logw('Component `${base.hid}` unimplemented into $runtimeType.');
+      component = UnimplementedComponent()..init((idUnimplemented: base.hid));
+    }
 
     logi('🧙‍♂️💚 Component `$component` constructed.');
 
     return component as C;
   }
 
-  /// Will call after [fromBase].
-  // C extendedFromBase<C extends AnyComponent>(ComponentBase base) =>
-  //     throw UnimplementedError(base.hid);
-
   C _fromBase<C extends AnyComponent>(ComponentBase base) {
     final component = builder(base.uid)();
     final json = base.sjsonValue.jsonMap;
-    //try {
     component.init(component.jsonAsValue(json));
-    //} on UnimplementedError catch (_) {
-    //  // thats ok: some components are not needed init
-    //}
 
     return component as C;
   }
