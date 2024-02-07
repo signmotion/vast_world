@@ -38,7 +38,7 @@ class ChangeValueAct extends Act {
     //lore.changeValue(planId: planId, values: values);
     lore.plans.update(planId!, (plan) {
       for (final e in components.entries) {
-        plan.setComponent(e.value, componentBuilder: componentBuilder);
+        plan.setComponent(e.value);
       }
 
       return plan;

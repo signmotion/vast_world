@@ -44,7 +44,7 @@ void main() {
       expect(plan.get<NameComponent>(), isNull);
       expect(plan.components.length, 1, reason: plan.components.sjson);
 
-      plan.setComponent(NameComponent(), componentBuilder: componentBuilder);
+      plan.setComponent(NameComponent());
       expect(plan.getValue<NameComponent>(), NameComponent().defaults);
       expect(plan.components.length, 2, reason: plan.components.sjson);
     });
@@ -52,11 +52,42 @@ void main() {
     test('Add a new component with value', () {
       final u = Universe();
       final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
-      plan.setComponent(
-        NameComponent()..init('Aerwyna'),
-        componentBuilder: componentBuilder,
-      );
+      plan.setComponent(NameComponent()..init('Aerwyna'));
       expect(plan.getValue<NameComponent>(), 'Aerwyna');
+    });
+  });
+
+  group('Get components from plan', () {
+    test('some inherited children', () {
+      final u = Universe();
+      final plan = constructJourneyPlan(
+        u,
+        hid: 'aerwyna',
+        name: 'Aerwyna',
+        greeting: 'greeting',
+        description: 'description',
+      );
+      final inherited = plan.inheritedComponents<StringComponent>();
+      expect(
+          inherited.map((c) => c.runtimeType),
+          containsAll([
+            NameComponent(),
+            GreetingComponent(),
+            DescriptionComponent(),
+          ].map((c) => c.runtimeType)));
+    });
+
+    test('last child', () {
+      final u = Universe();
+      final plan = constructJourneyPlan(
+        u,
+        hid: 'aerwyna',
+        name: 'Aerwyna',
+        greeting: 'greeting',
+        description: 'description',
+      );
+      final inherited = plan.inheritedComponents<GreetingComponent>();
+      expect(inherited.single.runtimeType, GreetingComponent().runtimeType);
     });
   });
 

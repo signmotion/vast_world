@@ -33,7 +33,7 @@ class NativePlanBuilder {
     // components
     for (final cbase in base.components.values) {
       final component = componentBuilder().fromBase(cbase);
-      plan.setComponent(component, componentBuilder: componentBuilder);
+      plan.setComponent(component);
     }
 
     // exposed
@@ -61,7 +61,7 @@ class NativePlanBuilder {
 
     // components
     for (final component in components) {
-      plan.setComponent(component, componentBuilder: componentBuilder);
+      plan.setComponent(component);
     }
 
     logi('🧙‍♂️💚 Plan `$plan` constructed with components'

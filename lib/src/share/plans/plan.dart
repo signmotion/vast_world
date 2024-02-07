@@ -86,6 +86,15 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   /// Alias [component].
   C? get<C extends AnyComponent>() => component<C>();
 
+  /// Returns all [Component]s inherited from [C].
+  /// See [getInheritedComponents], [get].
+  List<C> inheritedComponents<C extends AnyComponent>() =>
+      components.whereType<C>().toList();
+
+  /// Alias [inheritedComponents].
+  List<C> getInheritedComponents<C extends AnyComponent>() =>
+      inheritedComponents<C>();
+
   /// Returns a value of the [Component].
   dynamic getValue<C extends AnyComponent>() => get<C>()?.value;
 
@@ -111,10 +120,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   /// Set a [component] with value and register [component] the component when
   /// [component] absent with using [componentBuilder].
   /// See [set].
-  void setComponent(
-    AnyComponent component, {
-    required TComponentBuilder componentBuilder,
-  }) {
+  void setComponent(AnyComponent component) {
     var found = components.firstWhereOrNull((c) => c.uid == component.uid);
     if (found == null) {
       final b = componentBuilder();

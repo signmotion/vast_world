@@ -60,7 +60,7 @@ class Lore {
     final plan = this[id];
     ae(plan != null, 'Plan `$id` not found in the root.');
 
-    plan!.setComponent(component, componentBuilder: componentBuilder);
+    plan!.setComponent(component);
   }
 
   /// The plan with [id] included into [Lore].
