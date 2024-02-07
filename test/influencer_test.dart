@@ -25,6 +25,7 @@ void main() {
       expect(lore.plans, isEmpty);
 
       final act = AddPlanAct(
+        spectatorId: '',
         planId: 'aerwyna',
         initializedComponents: [
           NameComponent()..init('Aerwyna'),
@@ -48,7 +49,7 @@ void main() {
       final lore = Lore(componentBuilder: componentBuilder);
       expect(lore.plans, isEmpty);
 
-      final act = AddPlanAct(planId: 'aerwyna');
+      final act = AddPlanAct(spectatorId: '', planId: 'aerwyna');
       // add a first
       influencer.processing(lore, act);
       // attempt to add a second
@@ -131,6 +132,7 @@ void main() {
       final clientWidgetRenderComponent = ClientWidgetRenderComponent()
         ..init(clientAllJourneysWidgetRender);
       final act = AddPlanAct(
+        spectatorId: '',
         planId: 'aerwyna',
         initializedComponents: [
           // defined for server and client (native component)

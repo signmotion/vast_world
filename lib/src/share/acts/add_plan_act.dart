@@ -4,6 +4,7 @@ class AddPlanAct extends Act {
   AddPlanAct({
     super.debugName,
     super.uid,
+    required super.spectatorId,
     required super.planId,
     Iterable<AnyComponent> initializedComponents = const [],
   }) : super(
@@ -11,8 +12,10 @@ class AddPlanAct extends Act {
           components: {for (final ic in initializedComponents) ic.id: ic},
         );
 
-  factory AddPlanAct.fromPlan(Plan<dynamic> plan) => AddPlanAct(
+  factory AddPlanAct.fromPlan(String spectatorId, Plan<dynamic> plan) =>
+      AddPlanAct(
         debugName: 'AddPlanAct.${plan.id}',
+        spectatorId: spectatorId,
         planId: plan.id,
         initializedComponents: plan.components,
       );
@@ -46,6 +49,13 @@ class AddPlanAct extends Act {
     final b = planBuilder(u, componentBuilder);
     final plan = b.fromIdAndComponents(planId!, components.values);
     lore.addNew(plan);
+
+    // expose this plan to spectator's plan
+    if ((spectatorId ?? '').isEmpty) {
+      logw('Added plan `${plan.id}` without spectator.');
+    } else {
+      lore.bind(spectatorId!, plan.id);
+    }
 
     return lore;
   }

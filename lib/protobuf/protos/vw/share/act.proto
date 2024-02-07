@@ -12,8 +12,13 @@ message ActBase {
 
   ActTypeEnumBase type = 6;
 
+  /// Who is observing this watched plan?
+  /// The [plan_id] and [spectator_id] will be bind:
+  /// [spectator_id] as [exposed] into [plan_id].
+  optional string spectator_id = 11;
+
   optional string plan_id = 12;
 
   /// <component_id, ComponentBase>
-  map<string, ComponentBase> components = 13;
+  map<string, ComponentBase> components = 20;
 }

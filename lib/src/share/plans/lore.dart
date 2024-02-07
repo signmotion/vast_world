@@ -84,14 +84,14 @@ class Lore {
     plans[plan.id] = plan;
   }
 
-  void bind(String a, String b) {
-    final pa = this[a];
-    ae(pa != null, 'Plan `$a` not found.');
+  void bind(String spectatorId, String watchedId) {
+    final spectator = this[spectatorId];
+    ae(spectator != null, 'Spectator plan `$spectatorId` not found.');
 
-    final pb = this[b];
-    ae(pb != null, 'Plan `$b` not found.');
+    final watched = this[watchedId];
+    ae(watched != null, 'Watched plan `$watchedId` not found.');
 
-    pa!.bind(pb);
+    spectator!.bind(watched);
   }
 
   @override

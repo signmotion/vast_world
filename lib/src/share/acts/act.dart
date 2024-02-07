@@ -7,6 +7,7 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
     this.debugName,
     String? uid,
     required this.type,
+    this.spectatorId,
     this.planId,
     this.components = const {},
   }) {
@@ -16,6 +17,7 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
   final String? debugName;
   final ActTypeEnum type;
 
+  final String? spectatorId;
   final String? planId;
   String? get planHid => planId?.isPlanHid ?? false ? planId : null;
   String? get planUid => planId?.isPlanUid ?? false ? planId : null;
@@ -32,6 +34,7 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
         debugName: debugName,
         uid: uid,
         type: type,
+        spectatorId: spectatorId,
         planId: planId,
         components: {for (final e in components.entries) e.key: e.value.base},
       );
@@ -80,6 +83,7 @@ ActBase jsonAsActBase(JsonMap json) => switch (json) {
         'debugName': String? debugName,
         'uid': String? uid,
         'type': ActTypeEnumBase type,
+        'spectatorId': String? spectatorId,
         'planId': String? planId,
         'components': Map<String?, Object?> components,
       } =>
@@ -87,6 +91,7 @@ ActBase jsonAsActBase(JsonMap json) => switch (json) {
           debugName: debugName,
           uid: uid,
           type: type,
+          spectatorId: spectatorId,
           planId: planId,
           components: {
             for (final c in components.entries)

@@ -17,7 +17,7 @@ void main() async {
     test('AddPlanAct without components', () async {
       final session = genSessionUid;
       const planId = 'aerwyna';
-      final act = AddPlanAct(planId: planId);
+      final act = AddPlanAct(spectatorId: '', planId: planId);
       ma.processingActOnLoreSession(session: session, actBase: act.base);
 
       expect(ma.state.lores.length, 1, reason: ma.state.lores.sjson);

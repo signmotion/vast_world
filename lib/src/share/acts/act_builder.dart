@@ -24,6 +24,7 @@ class NativeActBuilder {
       ActTypeEnum.ADD_PLAN_ACT_TYPE => AddPlanAct(
           debugName: base.debugName,
           uid: base.uid,
+          spectatorId: base.spectatorId,
           planId: base.planId,
           initializedComponents: initializedComponents,
         ),

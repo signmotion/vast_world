@@ -21,6 +21,7 @@ class ActBase extends $pb.GeneratedMessage {
     $core.String? debugName,
     $core.String? uid,
     $1.ActTypeEnumBase? type,
+    $core.String? spectatorId,
     $core.String? planId,
     $core.Map<$core.String, $0.ComponentBase>? components,
   }) {
@@ -33,6 +34,9 @@ class ActBase extends $pb.GeneratedMessage {
     }
     if (type != null) {
       $result.type = type;
+    }
+    if (spectatorId != null) {
+      $result.spectatorId = spectatorId;
     }
     if (planId != null) {
       $result.planId = planId;
@@ -50,8 +54,9 @@ class ActBase extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'debugName')
     ..aOS(2, _omitFieldNames ? '' : 'uid')
     ..e<$1.ActTypeEnumBase>(6, _omitFieldNames ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: $1.ActTypeEnumBase.UNSPECIFIED_ACT_TYPE, valueOf: $1.ActTypeEnumBase.valueOf, enumValues: $1.ActTypeEnumBase.values)
+    ..aOS(11, _omitFieldNames ? '' : 'spectatorId')
     ..aOS(12, _omitFieldNames ? '' : 'planId')
-    ..m<$core.String, $0.ComponentBase>(13, _omitFieldNames ? '' : 'components', entryClassName: 'ActBase.ComponentsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.ComponentBase.create, valueDefaultOrMaker: $0.ComponentBase.getDefault, packageName: const $pb.PackageName('vw.share'))
+    ..m<$core.String, $0.ComponentBase>(20, _omitFieldNames ? '' : 'components', entryClassName: 'ActBase.ComponentsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.ComponentBase.create, valueDefaultOrMaker: $0.ComponentBase.getDefault, packageName: const $pb.PackageName('vw.share'))
     ..hasRequiredFields = false
   ;
 
@@ -103,18 +108,30 @@ class ActBase extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   void clearType() => clearField(6);
 
+  /// / Who is observing this watched plan?
+  /// / The [plan_id] and [spectator_id] will be bind:
+  /// / [spectator_id] as [exposed] into [plan_id].
+  @$pb.TagNumber(11)
+  $core.String get spectatorId => $_getSZ(3);
+  @$pb.TagNumber(11)
+  set spectatorId($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasSpectatorId() => $_has(3);
+  @$pb.TagNumber(11)
+  void clearSpectatorId() => clearField(11);
+
   @$pb.TagNumber(12)
-  $core.String get planId => $_getSZ(3);
+  $core.String get planId => $_getSZ(4);
   @$pb.TagNumber(12)
-  set planId($core.String v) { $_setString(3, v); }
+  set planId($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(12)
-  $core.bool hasPlanId() => $_has(3);
+  $core.bool hasPlanId() => $_has(4);
   @$pb.TagNumber(12)
   void clearPlanId() => clearField(12);
 
   /// / <component_id, ComponentBase>
-  @$pb.TagNumber(13)
-  $core.Map<$core.String, $0.ComponentBase> get components => $_getMap(4);
+  @$pb.TagNumber(20)
+  $core.Map<$core.String, $0.ComponentBase> get components => $_getMap(5);
 }
 
 
