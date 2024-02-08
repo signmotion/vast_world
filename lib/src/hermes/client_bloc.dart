@@ -42,6 +42,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
     try {
       return switch (event) {
+        // initializing events
         InitializingClientEvent e => _onInitEvent(e, emit),
         InitializingMaiaClientEvent e => _onInitializingMaiaEvent(e, emit),
         RegisteringClientEvent e => _onRegisteringClientEvent(e, emit),
@@ -52,8 +53,9 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
         SuccessInitClientEvent e => _onSuccessInitEvent(e, emit),
         FailureInitClientEvent e => _onFailureInitEvent(e, emit),
         WaitingInputClientEvent e => _onWaitingInputEvent(e, emit),
-        SendingToServerActClientEvent e => _onSendingToServerActEvent(e, emit),
+        // act events
         ProcessingActClientEvent e => _onProcessingOnClientActEvent(e, emit),
+        SendingToServerActClientEvent e => _onSendingToServerActEvent(e, emit),
         // unsupported event
         AClientEvent e => onExtendedEvent(e, emit),
       };
@@ -276,45 +278,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     );
   }
 
-  Future<void> _onSendingToServerActEvent(
-    SendingToServerActClientEvent event,
-    Emitter<ClientState> emit,
-  ) async {
-    _checkApprove();
-
-    state.ss.freeze();
-    emit(
-      state.copyWith(
-        ss: state.ss.rebuild((v) {
-          v.state = ClientStateEnum.SENDING_ACT_CLIENT_STATE;
-        }),
-      ),
-    );
-
-    late final bool success;
-    try {
-      final request =
-          ActBaseRequest(session: state.ss.session, act: event.act.base);
-      clientActs.sink.add(request);
-      success = true;
-    } catch (ex) {
-      loge(ex);
-      success = false;
-    }
-
-    emit(
-      state.copyWith(
-        ss: state.ss.rebuild((v) {
-          v.state = success
-              ? ClientStateEnum.SENT_ACT_SUCCESS_CLIENT_STATE
-              : ClientStateEnum.SENT_ACT_ERROR_CLIENT_STATE;
-        }),
-      ),
-    );
-
-    add(const WaitingInputClientEvent());
-  }
-
+  /// Catching after [SendingToServerActEvent].
   Future<void> _onProcessingOnClientActEvent(
     ProcessingActClientEvent event,
     Emitter<ClientState> emit,
@@ -353,6 +317,46 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
           v.state = success
               ? ClientStateEnum.PROCESSED_ACT_SUCCESS_CLIENT_STATE
               : ClientStateEnum.PROCESSED_ACT_ERROR_CLIENT_STATE;
+        }),
+      ),
+    );
+
+    add(const WaitingInputClientEvent());
+  }
+
+  /// Sending before [ProcessingOnServerActEvent].
+  Future<void> _onSendingToServerActEvent(
+    SendingToServerActClientEvent event,
+    Emitter<ClientState> emit,
+  ) async {
+    _checkApprove();
+
+    state.ss.freeze();
+    emit(
+      state.copyWith(
+        ss: state.ss.rebuild((v) {
+          v.state = ClientStateEnum.SENDING_ACT_CLIENT_STATE;
+        }),
+      ),
+    );
+
+    late final bool success;
+    try {
+      final request =
+          ActBaseRequest(session: state.ss.session, act: event.act.base);
+      clientActs.sink.add(request);
+      success = true;
+    } catch (ex) {
+      loge(ex);
+      success = false;
+    }
+
+    emit(
+      state.copyWith(
+        ss: state.ss.rebuild((v) {
+          v.state = success
+              ? ClientStateEnum.SENT_ACT_SUCCESS_CLIENT_STATE
+              : ClientStateEnum.SENT_ACT_ERROR_CLIENT_STATE;
         }),
       ),
     );
