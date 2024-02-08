@@ -29,7 +29,7 @@ void main() async {
       expect(plan.isCorrectUid, isTrue, reason: plan.uid);
       // always have IdComponent
       expect(plan.components.length, 1, reason: plan.components.sjson);
-      expect(plan.getValue<IdComponent>(), (hid: planId, uid: plan.uid));
+      expect(plan.getValue<IdComponent, IdT>(), (hid: planId, uid: plan.uid));
     });
   });
 }

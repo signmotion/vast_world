@@ -6,6 +6,7 @@ import 'client_classes/components/component_builder.dart';
 import 'client_classes/components/widget_render.dart';
 import 'client_classes/plans/plan_builder.dart';
 import 'client_classes/renders/widget/all_journeys.dart';
+import 'client_classes/renders/widget/widget.dart';
 import 'prepare_test_env.dart';
 
 void main() {
@@ -36,8 +37,8 @@ void main() {
 
       final p = lore[act.planId!]!;
       expect(p.components.length, 2, reason: p.components.sjson);
-      expect(p.getValue<IdComponent>(), (hid: p.hid, uid: p.uid));
-      expect(p.getValue<NameComponent>(), 'Aerwyna');
+      expect(p.getValue<IdComponent, IdT>(), (hid: p.hid, uid: p.uid));
+      expect(p.getValue<NameComponent, String>(), 'Aerwyna');
     });
 
     test('Add an exists plan', () {
@@ -86,7 +87,7 @@ void main() {
         influencer.processing(lore, act);
         final p = lore[plan.id]!;
         expect(p.components.length, 2, reason: p.components.sjson);
-        expect(p.getValue<NameComponent>(), 'Aerwyna');
+        expect(p.getValue<NameComponent, String>(), 'Aerwyna');
       }
 
       // update the component
@@ -100,7 +101,7 @@ void main() {
         influencer.processing(lore, act);
         final p = lore[plan.id]!;
         expect(p.components.length, 2, reason: p.components.sjson);
-        expect(p.getValue<NameComponent>(), 'New Aerwyna');
+        expect(p.getValue<NameComponent, String>(), 'New Aerwyna');
       }
     });
   });
@@ -149,8 +150,10 @@ void main() {
         final p = clientLore[act.planId!]!;
         // expected: Id, Name and full-coded WidgetRender components
         expect(p.components.length, 3, reason: p.components.sjson);
-        expect(p.getValue<ClientWidgetRenderComponent>(),
-            clientAllJourneysWidgetRender);
+        expect(
+          p.getRender<ClientWidgetRenderComponent, ClientWidgetT>(),
+          clientAllJourneysWidgetRender,
+        );
       }
 
       // server side
@@ -161,7 +164,7 @@ void main() {
         // expected: Id, Name and declared-only WidgetRender components
         expect(p.components.length, 3, reason: p.components.sjson);
         expect(
-          p.getValue<UnimplementedComponent>(),
+          p.getValue<UnimplementedComponent, UnimplementedT>(),
           (idUnimplemented: clientWidgetRenderComponent.id),
         );
       }

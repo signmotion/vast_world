@@ -23,7 +23,7 @@ void main() {
       expect(plan.components.length, 1, reason: plan.components.sjson);
 
       plan.set(NameComponent.new);
-      expect(plan.getValue<NameComponent>(), NameComponent().defaults);
+      expect(plan.getValue<NameComponent, String>(), NameComponent().defaults);
       expect(plan.components.length, 2, reason: plan.components.sjson);
     });
 
@@ -31,7 +31,7 @@ void main() {
       final u = Universe();
       final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
       plan.set(NameComponent.new, 'Aerwyna');
-      expect(plan.getValue<NameComponent>(), 'Aerwyna');
+      expect(plan.getValue<NameComponent, String>(), 'Aerwyna');
     });
   });
 
@@ -45,7 +45,7 @@ void main() {
       expect(plan.components.length, 1, reason: plan.components.sjson);
 
       plan.setComponent(NameComponent());
-      expect(plan.getValue<NameComponent>(), NameComponent().defaults);
+      expect(plan.getValue<NameComponent, String>(), NameComponent().defaults);
       expect(plan.components.length, 2, reason: plan.components.sjson);
     });
 
@@ -53,7 +53,7 @@ void main() {
       final u = Universe();
       final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
       plan.setComponent(NameComponent()..init('Aerwyna'));
-      expect(plan.getValue<NameComponent>(), 'Aerwyna');
+      expect(plan.getValue<NameComponent, String>(), 'Aerwyna');
     });
   });
 

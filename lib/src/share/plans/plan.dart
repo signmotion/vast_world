@@ -96,7 +96,10 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
       inheritedComponents<C>();
 
   /// Returns a value of the [Component].
-  dynamic getValue<C extends AnyComponent>() => get<C>()?.value;
+  T? getValue<C extends Component<T>, T>() => get<C>()?.value;
+
+  /// Returns a render (a value wrapped to function) of the [RenderComponent].
+  RenderFn<T>? getRender<C extends RenderComponent<T>, T>() => get<C>()?.render;
 
   /// [component] already added.
   bool has<C extends AnyComponent>() => ie.has<C>();
