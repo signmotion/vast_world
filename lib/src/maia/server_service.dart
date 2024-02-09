@@ -1,7 +1,10 @@
 part of '../../../vast_world_maia.dart';
 
 class ServerService extends ServiceBase with ServiceMix {
-  ServerService() : serverLive = constructServerLive();
+  ServerService(this.server) : serverLive = constructServerLive();
+
+  /// Some services may require access to server.
+  final NativeServer server;
 
   final ServerLive serverLive;
 
