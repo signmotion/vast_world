@@ -38,6 +38,14 @@ protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 @mkdir "%out%\%suffix%"
 protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 
+@Set "suffix=vw\runes\share"
+@mkdir "%out%\%suffix%"
+protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
+
+@Set "suffix=vw\runes\fantasy_country_conceiver"
+@mkdir "%out%\%suffix%"
+protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
+
 
 @echo You should add all new generated files to `lib\vast_world_protos.dart` manually. Sorry.
 

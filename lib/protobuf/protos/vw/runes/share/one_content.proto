@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package vw.runes.share;
+
+message OneContentBase {
+    /// Mapped values for the rune.
+    /// To stringify JSON because we have a boilerplate code
+    /// with protobuf map and any-value.
+    /// <key, stringify value>
+    map<string, string> sjson_values = 1;
+}

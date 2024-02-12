@@ -23,6 +23,7 @@ const ClientStateBase$json = {
     {'1': 'session_approved', '3': 4, '4': 1, '5': 8, '9': 1, '10': 'sessionApproved', '17': true},
     {'1': 'name_server', '3': 100, '4': 1, '5': 9, '9': 2, '10': 'nameServer', '17': true},
     {'1': 'current_plan_id', '3': 200, '4': 1, '5': 9, '10': 'currentPlanId'},
+    {'1': 'runes', '3': 210, '4': 1, '5': 11, '6': '.vw.runes.share.AllContentsBase', '10': 'runes'},
   ],
   '8': [
     {'1': '_session'},
@@ -37,6 +38,7 @@ final $typed_data.Uint8List clientStateBaseDescriptor = $convert.base64Decode(
     'VFbnVtQmFzZVIFc3RhdGUSHAoJdWlkRGV2aWNlGAIgASgJUgl1aWREZXZpY2USHQoHc2Vzc2lv'
     'bhgDIAEoCUgAUgdzZXNzaW9uiAEBEi4KEHNlc3Npb25fYXBwcm92ZWQYBCABKAhIAVIPc2Vzc2'
     'lvbkFwcHJvdmVkiAEBEiQKC25hbWVfc2VydmVyGGQgASgJSAJSCm5hbWVTZXJ2ZXKIAQESJwoP'
-    'Y3VycmVudF9wbGFuX2lkGMgBIAEoCVINY3VycmVudFBsYW5JZEIKCghfc2Vzc2lvbkITChFfc2'
-    'Vzc2lvbl9hcHByb3ZlZEIOCgxfbmFtZV9zZXJ2ZXI=');
+    'Y3VycmVudF9wbGFuX2lkGMgBIAEoCVINY3VycmVudFBsYW5JZBI2CgVydW5lcxjSASABKAsyHy'
+    '52dy5ydW5lcy5zaGFyZS5BbGxDb250ZW50c0Jhc2VSBXJ1bmVzQgoKCF9zZXNzaW9uQhMKEV9z'
+    'ZXNzaW9uX2FwcHJvdmVkQg4KDF9uYW1lX3NlcnZlcg==');
 

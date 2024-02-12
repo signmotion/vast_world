@@ -280,15 +280,15 @@ packages:
       path: "../id_gen"
       relative: true
     source: path
-    version: "0.4.1"
+    version: "0.5.0"
   image:
     dependency: "direct main"
     description:
       name: image
-      sha256: "49a0d4b0c12402853d3f227fe7c315601b238d126aa4caa5dbb2dcf99421aa4a"
+      sha256: "4c68bfd5ae83e700b5204c1e74451e7bf3cf750e6843c6e158289cf56bda018e"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.6"
+    version: "4.1.7"
   intl:
     dependency: transitive
     description:
@@ -618,10 +618,10 @@ packages:
     dependency: "direct main"
     description:
       name: thematic_names
-      sha256: "5b55a0010fdfa07f7fed4bd67b81e0de2859ef02ecd9d7d4794b25b70a3380bd"
+      sha256: "948243f9b684992f0ecd777c967164403b5af64cfb173754852581355f2dcbcf"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.1"
+    version: "0.2.0"
   typed_data:
     dependency: transitive
     description:

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package vw.runes.share;
+
+import "vw/runes/share/one_content.proto";
+
+message AllContentsBase {
+    /// Values of all runes.
+    /// <runeId, OneContentBase>
+    map<string, vw.runes.share.OneContentBase> states = 1;
+}

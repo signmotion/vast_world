@@ -13,9 +13,9 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../share/act.pb.dart' as $2;
-import '../share/error_explain_enum.pbenum.dart' as $4;
-import 'server_answer_type_enum.pbenum.dart' as $3;
+import '../share/act.pb.dart' as $3;
+import '../share/error_explain_enum.pbenum.dart' as $5;
+import 'server_answer_type_enum.pbenum.dart' as $4;
 
 class ClaimSessionRequest extends $pb.GeneratedMessage {
   factory ClaimSessionRequest({
@@ -397,8 +397,8 @@ class SetCurrentPlanRequest extends $pb.GeneratedMessage {
 
 class SetCurrentPlanResponse extends $pb.GeneratedMessage {
   factory SetCurrentPlanResponse({
-    $3.ServerAnswerTypeEnumBase? answer,
-    $4.ErrorExplainEnumBase? codeExplain,
+    $4.ServerAnswerTypeEnumBase? answer,
+    $5.ErrorExplainEnumBase? codeExplain,
     $core.String? messageExplain,
   }) {
     final $result = create();
@@ -418,8 +418,8 @@ class SetCurrentPlanResponse extends $pb.GeneratedMessage {
   factory SetCurrentPlanResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SetCurrentPlanResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
-    ..e<$3.ServerAnswerTypeEnumBase>(7, _omitFieldNames ? '' : 'answer', $pb.PbFieldType.OE, defaultOrMaker: $3.ServerAnswerTypeEnumBase.UNSPECIFIED_SERVER_ANSWER_TYPE, valueOf: $3.ServerAnswerTypeEnumBase.valueOf, enumValues: $3.ServerAnswerTypeEnumBase.values)
-    ..e<$4.ErrorExplainEnumBase>(8, _omitFieldNames ? '' : 'codeExplain', $pb.PbFieldType.OE, defaultOrMaker: $4.ErrorExplainEnumBase.UNSPECIFIED_ERROR_EXPLAIN, valueOf: $4.ErrorExplainEnumBase.valueOf, enumValues: $4.ErrorExplainEnumBase.values)
+    ..e<$4.ServerAnswerTypeEnumBase>(7, _omitFieldNames ? '' : 'answer', $pb.PbFieldType.OE, defaultOrMaker: $4.ServerAnswerTypeEnumBase.UNSPECIFIED_SERVER_ANSWER_TYPE, valueOf: $4.ServerAnswerTypeEnumBase.valueOf, enumValues: $4.ServerAnswerTypeEnumBase.values)
+    ..e<$5.ErrorExplainEnumBase>(8, _omitFieldNames ? '' : 'codeExplain', $pb.PbFieldType.OE, defaultOrMaker: $5.ErrorExplainEnumBase.UNSPECIFIED_ERROR_EXPLAIN, valueOf: $5.ErrorExplainEnumBase.valueOf, enumValues: $5.ErrorExplainEnumBase.values)
     ..aOS(9, _omitFieldNames ? '' : 'messageExplain')
     ..hasRequiredFields = false
   ;
@@ -446,18 +446,18 @@ class SetCurrentPlanResponse extends $pb.GeneratedMessage {
   static SetCurrentPlanResponse? _defaultInstance;
 
   @$pb.TagNumber(7)
-  $3.ServerAnswerTypeEnumBase get answer => $_getN(0);
+  $4.ServerAnswerTypeEnumBase get answer => $_getN(0);
   @$pb.TagNumber(7)
-  set answer($3.ServerAnswerTypeEnumBase v) { setField(7, v); }
+  set answer($4.ServerAnswerTypeEnumBase v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasAnswer() => $_has(0);
   @$pb.TagNumber(7)
   void clearAnswer() => clearField(7);
 
   @$pb.TagNumber(8)
-  $4.ErrorExplainEnumBase get codeExplain => $_getN(1);
+  $5.ErrorExplainEnumBase get codeExplain => $_getN(1);
   @$pb.TagNumber(8)
-  set codeExplain($4.ErrorExplainEnumBase v) { setField(8, v); }
+  set codeExplain($5.ErrorExplainEnumBase v) { setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasCodeExplain() => $_has(1);
   @$pb.TagNumber(8)
@@ -476,7 +476,7 @@ class SetCurrentPlanResponse extends $pb.GeneratedMessage {
 class ActBaseRequest extends $pb.GeneratedMessage {
   factory ActBaseRequest({
     $core.String? session,
-    $2.ActBase? act,
+    $3.ActBase? act,
   }) {
     final $result = create();
     if (session != null) {
@@ -493,7 +493,7 @@ class ActBaseRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ActBaseRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
     ..aOS(3, _omitFieldNames ? '' : 'session')
-    ..aOM<$2.ActBase>(6, _omitFieldNames ? '' : 'act', subBuilder: $2.ActBase.create)
+    ..aOM<$3.ActBase>(6, _omitFieldNames ? '' : 'act', subBuilder: $3.ActBase.create)
     ..hasRequiredFields = false
   ;
 
@@ -528,22 +528,22 @@ class ActBaseRequest extends $pb.GeneratedMessage {
   void clearSession() => clearField(3);
 
   @$pb.TagNumber(6)
-  $2.ActBase get act => $_getN(1);
+  $3.ActBase get act => $_getN(1);
   @$pb.TagNumber(6)
-  set act($2.ActBase v) { setField(6, v); }
+  set act($3.ActBase v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasAct() => $_has(1);
   @$pb.TagNumber(6)
   void clearAct() => clearField(6);
   @$pb.TagNumber(6)
-  $2.ActBase ensureAct() => $_ensure(1);
+  $3.ActBase ensureAct() => $_ensure(1);
 }
 
 class ActBaseResponse extends $pb.GeneratedMessage {
   factory ActBaseResponse({
     $core.String? session,
-    $2.ActBase? act,
-    $3.ServerAnswerTypeEnumBase? answer,
+    $3.ActBase? act,
+    $4.ServerAnswerTypeEnumBase? answer,
   }) {
     final $result = create();
     if (session != null) {
@@ -563,8 +563,8 @@ class ActBaseResponse extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ActBaseResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
     ..aOS(3, _omitFieldNames ? '' : 'session')
-    ..aOM<$2.ActBase>(6, _omitFieldNames ? '' : 'act', subBuilder: $2.ActBase.create)
-    ..e<$3.ServerAnswerTypeEnumBase>(7, _omitFieldNames ? '' : 'answer', $pb.PbFieldType.OE, defaultOrMaker: $3.ServerAnswerTypeEnumBase.UNSPECIFIED_SERVER_ANSWER_TYPE, valueOf: $3.ServerAnswerTypeEnumBase.valueOf, enumValues: $3.ServerAnswerTypeEnumBase.values)
+    ..aOM<$3.ActBase>(6, _omitFieldNames ? '' : 'act', subBuilder: $3.ActBase.create)
+    ..e<$4.ServerAnswerTypeEnumBase>(7, _omitFieldNames ? '' : 'answer', $pb.PbFieldType.OE, defaultOrMaker: $4.ServerAnswerTypeEnumBase.UNSPECIFIED_SERVER_ANSWER_TYPE, valueOf: $4.ServerAnswerTypeEnumBase.valueOf, enumValues: $4.ServerAnswerTypeEnumBase.values)
     ..hasRequiredFields = false
   ;
 
@@ -599,20 +599,20 @@ class ActBaseResponse extends $pb.GeneratedMessage {
   void clearSession() => clearField(3);
 
   @$pb.TagNumber(6)
-  $2.ActBase get act => $_getN(1);
+  $3.ActBase get act => $_getN(1);
   @$pb.TagNumber(6)
-  set act($2.ActBase v) { setField(6, v); }
+  set act($3.ActBase v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasAct() => $_has(1);
   @$pb.TagNumber(6)
   void clearAct() => clearField(6);
   @$pb.TagNumber(6)
-  $2.ActBase ensureAct() => $_ensure(1);
+  $3.ActBase ensureAct() => $_ensure(1);
 
   @$pb.TagNumber(7)
-  $3.ServerAnswerTypeEnumBase get answer => $_getN(2);
+  $4.ServerAnswerTypeEnumBase get answer => $_getN(2);
   @$pb.TagNumber(7)
-  set answer($3.ServerAnswerTypeEnumBase v) { setField(7, v); }
+  set answer($4.ServerAnswerTypeEnumBase v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasAnswer() => $_has(2);
   @$pb.TagNumber(7)

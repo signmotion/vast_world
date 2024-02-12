@@ -13,7 +13,7 @@ class Lore {
 
   final TComponentBuilder componentBuilder;
 
-  /// This act converted to [ActBase].
+  /// This lore converted to [LoreBase].
   /// See [jsonAsBase].
   LoreBase get base => LoreBase(
         plans: {for (final p in plans.entries) p.key: p.value.base},

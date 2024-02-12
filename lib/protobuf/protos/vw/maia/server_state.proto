@@ -3,6 +3,7 @@ syntax = "proto3";
 package vw.maia;
 
 import "vw/maia/server_options.proto";
+import "vw/runes/share/all_contents.proto";
 
 /// Use for Server only.
 message ServerStateBase {
@@ -18,6 +19,9 @@ message ServerStateBase {
 
     /// <session, planId>
     map<string, string> current_plan_ids = 200;
+
+    /// <session, AllContentsBase>
+    map<string, vw.runes.share.AllContentsBase> runes = 210;
 
     /// The key is `session`.
     // map<string, vw.LoreBase> lores = 1200; - Keep into class [ServerState] as Lore.

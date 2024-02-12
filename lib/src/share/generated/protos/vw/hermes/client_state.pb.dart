@@ -13,17 +13,19 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'client_state_enum.pbenum.dart' as $0;
+import '../runes/share/all_contents.pb.dart' as $0;
+import 'client_state_enum.pbenum.dart' as $1;
 
 /// / Use for Client's App only.
 class ClientStateBase extends $pb.GeneratedMessage {
   factory ClientStateBase({
-    $0.ClientStateEnumBase? state,
+    $1.ClientStateEnumBase? state,
     $core.String? uidDevice,
     $core.String? session,
     $core.bool? sessionApproved,
     $core.String? nameServer,
     $core.String? currentPlanId,
+    $0.AllContentsBase? runes,
   }) {
     final $result = create();
     if (state != null) {
@@ -44,6 +46,9 @@ class ClientStateBase extends $pb.GeneratedMessage {
     if (currentPlanId != null) {
       $result.currentPlanId = currentPlanId;
     }
+    if (runes != null) {
+      $result.runes = runes;
+    }
     return $result;
   }
   ClientStateBase._() : super();
@@ -51,12 +56,13 @@ class ClientStateBase extends $pb.GeneratedMessage {
   factory ClientStateBase.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ClientStateBase', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.hermes'), createEmptyInstance: create)
-    ..e<$0.ClientStateEnumBase>(1, _omitFieldNames ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: $0.ClientStateEnumBase.UNSPECIFIED_CLIENT_STATE, valueOf: $0.ClientStateEnumBase.valueOf, enumValues: $0.ClientStateEnumBase.values)
+    ..e<$1.ClientStateEnumBase>(1, _omitFieldNames ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: $1.ClientStateEnumBase.UNSPECIFIED_CLIENT_STATE, valueOf: $1.ClientStateEnumBase.valueOf, enumValues: $1.ClientStateEnumBase.values)
     ..aOS(2, _omitFieldNames ? '' : 'uidDevice', protoName: 'uidDevice')
     ..aOS(3, _omitFieldNames ? '' : 'session')
     ..aOB(4, _omitFieldNames ? '' : 'sessionApproved')
     ..aOS(100, _omitFieldNames ? '' : 'nameServer')
     ..aOS(200, _omitFieldNames ? '' : 'currentPlanId')
+    ..aOM<$0.AllContentsBase>(210, _omitFieldNames ? '' : 'runes', subBuilder: $0.AllContentsBase.create)
     ..hasRequiredFields = false
   ;
 
@@ -82,9 +88,9 @@ class ClientStateBase extends $pb.GeneratedMessage {
   static ClientStateBase? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $0.ClientStateEnumBase get state => $_getN(0);
+  $1.ClientStateEnumBase get state => $_getN(0);
   @$pb.TagNumber(1)
-  set state($0.ClientStateEnumBase v) { setField(1, v); }
+  set state($1.ClientStateEnumBase v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasState() => $_has(0);
   @$pb.TagNumber(1)
@@ -134,6 +140,19 @@ class ClientStateBase extends $pb.GeneratedMessage {
   $core.bool hasCurrentPlanId() => $_has(5);
   @$pb.TagNumber(200)
   void clearCurrentPlanId() => clearField(200);
+
+  /// / States for all runes.
+  /// / <runeId, AllContentsBase>
+  @$pb.TagNumber(210)
+  $0.AllContentsBase get runes => $_getN(6);
+  @$pb.TagNumber(210)
+  set runes($0.AllContentsBase v) { setField(210, v); }
+  @$pb.TagNumber(210)
+  $core.bool hasRunes() => $_has(6);
+  @$pb.TagNumber(210)
+  void clearRunes() => clearField(210);
+  @$pb.TagNumber(210)
+  $0.AllContentsBase ensureRunes() => $_ensure(6);
 }
 
 

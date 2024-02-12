@@ -3,6 +3,7 @@ syntax = "proto3";
 package vw.hermes;
 
 import "vw/hermes/client_state_enum.proto";
+import "vw/runes/share/all_contents.proto";
 
 /// Use for Client's App only.
 message ClientStateBase {
@@ -15,6 +16,10 @@ message ClientStateBase {
     optional string name_server = 100;
 
     string current_plan_id = 200;
+
+    /// States for all runes.
+    /// <runeId, AllContentsBase>
+    vw.runes.share.AllContentsBase runes = 210;
 
     // vw.LoreBase lore = 1200; - Keep into class [ClientState] as [Lore].
 }

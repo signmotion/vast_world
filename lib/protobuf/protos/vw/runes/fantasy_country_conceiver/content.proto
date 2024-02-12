@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package vw.runes.fantasy_country_conceiver;
+
+import "syrokomskyi/type/image.proto";
+
+/// The Server keeps rune content (value) by Client sessions.
+message ContentBase {
+    string description_country = 2;
+    syrokomskyi.type.Image image_first_place_country = 3;
+    string name_country = 4;
+}
