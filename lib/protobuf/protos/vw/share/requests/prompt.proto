@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package vw.share.requests;
+
+message PromptRequest {
+  string prompt = 1;
+  string session = 3;
+}
+

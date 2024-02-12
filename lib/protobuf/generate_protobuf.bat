@@ -30,6 +30,14 @@ protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 @mkdir "%out%\%suffix%"
 protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 
+@Set "suffix=vw\share\requests"
+@mkdir "%out%\%suffix%"
+protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
+
+@Set "suffix=vw\share\responses"
+@mkdir "%out%\%suffix%"
+protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
+
 @Set "suffix=vw\hermes"
 @mkdir "%out%\%suffix%"
 protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*

@@ -16,6 +16,7 @@ import 'package:json_dart/json_dart.dart';
 import 'package:meta/meta.dart';
 import 'package:oxygen/oxygen.dart' as oxygen;
 import 'package:path/path.dart' as ph;
+import 'package:protobuf/protobuf.dart';
 import 'package:wfile/wfile.dart';
 import 'package:xml/xml.dart';
 

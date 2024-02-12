@@ -81,7 +81,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     InitializingMaiaClientEvent event,
     Emitter<ClientState> emit,
   ) async {
-    maiaStub = ServiceClient(channel);
+    maiaStub = maia.ServiceClient(channel);
   }
 
   Future<void> _onRegisteringClientEvent(
@@ -206,7 +206,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   }
 
   late final StreamController<ActBaseRequest> clientActs;
-  late final ResponseStream<ActBaseResponse> serverActs;
+  late final grpc.ResponseStream<ActBaseResponse> serverActs;
 
   Future<void> _onOpeningSyncStreamsEvent(
     OpeningSyncStreamsClientEvent event,
@@ -370,24 +370,24 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     }
   }
 
-  ClientChannel? _channel;
-  ClientChannel get channel => _channel ??= ClientChannel(
+  grpc.ClientChannel? _channel;
+  grpc.ClientChannel get channel => _channel ??= grpc.ClientChannel(
         serverHost,
         port: serverPort,
-        options: const ChannelOptions(
-          credentials: ChannelCredentials.insecure(),
+        options: const grpc.ChannelOptions(
+          credentials: grpc.ChannelCredentials.insecure(),
         ),
       );
 
   late final maia.ServiceClient maiaStub;
 
-  void logi(Object msg) => dh.logi(_logToState(LogType.info, msg));
+  void logi(Object msg) => dh.logi(_logToState(dh.LogType.info, msg));
 
-  void logw(Object msg) => dh.logw(_logToState(LogType.warning, msg));
+  void logw(Object msg) => dh.logw(_logToState(dh.LogType.warning, msg));
 
-  void loge(Object msg) => dh.loge(_logToState(LogType.error, msg));
+  void loge(Object msg) => dh.loge(_logToState(dh.LogType.error, msg));
 
-  String _logToState(LogType type, Object msg) {
+  String _logToState(dh.LogType type, Object msg) {
     // TODO ?
 
     return msg.toString();

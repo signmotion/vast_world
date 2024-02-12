@@ -21,9 +21,8 @@ const ServerStateBase$json = {
     {'1': 'claimed_sessions_devices', '3': 2, '4': 3, '5': 11, '6': '.vw.maia.ServerStateBase.ClaimedSessionsDevicesEntry', '10': 'claimedSessionsDevices'},
     {'1': 'approved_sessions', '3': 3, '4': 3, '5': 11, '6': '.vw.maia.ServerStateBase.ApprovedSessionsEntry', '10': 'approvedSessions'},
     {'1': 'current_plan_ids', '3': 200, '4': 3, '5': 11, '6': '.vw.maia.ServerStateBase.CurrentPlanIdsEntry', '10': 'currentPlanIds'},
-    {'1': 'runes', '3': 210, '4': 3, '5': 11, '6': '.vw.maia.ServerStateBase.RunesEntry', '10': 'runes'},
   ],
-  '3': [ServerStateBase_ClaimedSessionsDevicesEntry$json, ServerStateBase_ApprovedSessionsEntry$json, ServerStateBase_CurrentPlanIdsEntry$json, ServerStateBase_RunesEntry$json],
+  '3': [ServerStateBase_ClaimedSessionsDevicesEntry$json, ServerStateBase_ApprovedSessionsEntry$json, ServerStateBase_CurrentPlanIdsEntry$json],
 };
 
 @$core.Deprecated('Use serverStateBaseDescriptor instead')
@@ -56,16 +55,6 @@ const ServerStateBase_CurrentPlanIdsEntry$json = {
   '7': {'7': true},
 };
 
-@$core.Deprecated('Use serverStateBaseDescriptor instead')
-const ServerStateBase_RunesEntry$json = {
-  '1': 'RunesEntry',
-  '2': [
-    {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
-    {'1': 'value', '3': 2, '4': 1, '5': 11, '6': '.vw.runes.share.AllContentsBase', '10': 'value'},
-  ],
-  '7': {'7': true},
-};
-
 /// Descriptor for `ServerStateBase`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List serverStateBaseDescriptor = $convert.base64Decode(
     'Cg9TZXJ2ZXJTdGF0ZUJhc2USNAoHb3B0aW9ucxgBIAEoCzIaLnZ3Lm1haWEuU2VydmVyT3B0aW'
@@ -74,12 +63,9 @@ final $typed_data.Uint8List serverStateBaseDescriptor = $convert.base64Decode(
     'VkU2Vzc2lvbnNEZXZpY2VzElsKEWFwcHJvdmVkX3Nlc3Npb25zGAMgAygLMi4udncubWFpYS5T'
     'ZXJ2ZXJTdGF0ZUJhc2UuQXBwcm92ZWRTZXNzaW9uc0VudHJ5UhBhcHByb3ZlZFNlc3Npb25zEl'
     'cKEGN1cnJlbnRfcGxhbl9pZHMYyAEgAygLMiwudncubWFpYS5TZXJ2ZXJTdGF0ZUJhc2UuQ3Vy'
-    'cmVudFBsYW5JZHNFbnRyeVIOY3VycmVudFBsYW5JZHMSOgoFcnVuZXMY0gEgAygLMiMudncubW'
-    'FpYS5TZXJ2ZXJTdGF0ZUJhc2UuUnVuZXNFbnRyeVIFcnVuZXMaSQobQ2xhaW1lZFNlc3Npb25z'
-    'RGV2aWNlc0VudHJ5EhAKA2tleRgBIAEoCVIDa2V5EhQKBXZhbHVlGAIgASgJUgV2YWx1ZToCOA'
-    'EaQwoVQXBwcm92ZWRTZXNzaW9uc0VudHJ5EhAKA2tleRgBIAEoCVIDa2V5EhQKBXZhbHVlGAIg'
-    'ASgIUgV2YWx1ZToCOAEaQQoTQ3VycmVudFBsYW5JZHNFbnRyeRIQCgNrZXkYASABKAlSA2tleR'
-    'IUCgV2YWx1ZRgCIAEoCVIFdmFsdWU6AjgBGlkKClJ1bmVzRW50cnkSEAoDa2V5GAEgASgJUgNr'
-    'ZXkSNQoFdmFsdWUYAiABKAsyHy52dy5ydW5lcy5zaGFyZS5BbGxDb250ZW50c0Jhc2VSBXZhbH'
-    'VlOgI4AQ==');
+    'cmVudFBsYW5JZHNFbnRyeVIOY3VycmVudFBsYW5JZHMaSQobQ2xhaW1lZFNlc3Npb25zRGV2aW'
+    'Nlc0VudHJ5EhAKA2tleRgBIAEoCVIDa2V5EhQKBXZhbHVlGAIgASgJUgV2YWx1ZToCOAEaQwoV'
+    'QXBwcm92ZWRTZXNzaW9uc0VudHJ5EhAKA2tleRgBIAEoCVIDa2V5EhQKBXZhbHVlGAIgASgIUg'
+    'V2YWx1ZToCOAEaQQoTQ3VycmVudFBsYW5JZHNFbnRyeRIQCgNrZXkYASABKAlSA2tleRIUCgV2'
+    'YWx1ZRgCIAEoCVIFdmFsdWU6AjgB');
 

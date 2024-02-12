@@ -2,46 +2,14 @@ syntax = "proto3";
 
 package vw.runes.fantasy_country_conceiver;
 
-import "syrokomskyi/type/image.proto";
+import "vw/share/requests/prompt.proto";
 
-import "vw/maia/server_answer_type_enum.proto";
-import "vw/share/error_explain_enum.proto";
+import "vw/share/responses/image.proto";
+import "vw/share/responses/json.proto";
+import "vw/share/responses/text.proto";
 
 service Service {
-  rpc conceivingDescriptionCountry (PromptRequest) returns (TextResponse);
-  rpc conceivingImageFirstPlaceCountry (PromptRequest) returns (ImageResponse);
-  rpc conceivingNameCountry (PromptRequest) returns (JsonResponse);
-}
-
-
-// TODO Move to share.
-message PromptRequest {
-  string prompt = 1;
-  string session = 3;
-}
-
-// TODO Move to share.
-message ImageResponse {
-  syrokomskyi.type.Image image = 1;
-  ServerAnswer answer = 100;
-}
-
-// TODO Move to share.
-message JsonResponse {
-  map<string, string> json = 1;
-  ServerAnswer answer = 100;
-}
-
-// TODO Move to share.
-message TextResponse {
-  string text = 1;
-  ServerAnswer answer = 100;
-}
-
-// TODO Move to share.
-message ServerAnswer {
-  string session = 3;
-  maia.ServerAnswerTypeEnumBase type = 10;
-  share.ErrorExplainEnumBase code_explain = 11;
-  string message_explain = 12;
+  rpc conceivingDescriptionCountry (vw.share.requests.PromptRequest) returns (vw.share.responses.TextResponse);
+  rpc conceivingImageFirstPlaceCountry (vw.share.requests.PromptRequest) returns (vw.share.responses.ImageResponse);
+  rpc conceivingNameCountry (vw.share.requests.PromptRequest) returns (vw.share.responses.JsonResponse);
 }

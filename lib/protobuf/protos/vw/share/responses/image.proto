@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package vw.share.responses;
+
+import "syrokomskyi/type/image.proto";
+
+import "vw/share/server_answer.proto";
+
+message ImageResponse {
+  syrokomskyi.type.Image image = 1;
+  ServerAnswer answer = 100;
+}

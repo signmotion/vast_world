@@ -2,9 +2,8 @@ syntax = "proto3";
 
 package vw.maia;
 
-import "vw/maia/server_answer_type_enum.proto";
 import "vw/share/act.proto";
-import "vw/share/error_explain_enum.proto";
+import "vw/share/server_answer.proto";
 
 service Service {
   rpc claimSession (ClaimSessionRequest) returns (ClaimSessionResponse);
@@ -13,9 +12,6 @@ service Service {
   rpc getAboutServer (GetAboutServerRequest) returns (GetAboutServerResponse);
 
   rpc setCurrentPlan (SetCurrentPlanRequest) returns (SetCurrentPlanResponse);
-
-  // TODO? rpc push (PushRequest) returns (PushResponse);
-  // TODO? rpc pop (PopRequest) returns (PopResponse);
 
   /// Sending own (Client) acts in own plans to server and
   /// receiving acts from server.
@@ -54,9 +50,7 @@ message SetCurrentPlanRequest {
 }
 
 message SetCurrentPlanResponse {
-  ServerAnswerTypeEnumBase answer = 7;
-  share.ErrorExplainEnumBase code_explain = 8;
-  string message_explain = 9;
+  share.ServerAnswer answer = 7;
 }
 
 message ActBaseRequest {
@@ -65,7 +59,6 @@ message ActBaseRequest {
 }
 
 message ActBaseResponse {
-  string session = 3;
   share.ActBase act = 6;
-  ServerAnswerTypeEnumBase answer = 7;
+  share.ServerAnswer answer = 7;
 }

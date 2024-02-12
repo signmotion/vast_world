@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package vw.maia;
+package vw.share;
 
 // Enum describing server answer on the call a service.
 enum ServerAnswerTypeEnumBase {

@@ -60,7 +60,7 @@ class ProcessingActClientEvent extends AClientEvent {
   });
 
   final Act act;
-  final maia.ServerAnswerTypeEnum answer;
+  final maia.ServerAnswer answer;
 
   @override
   List<Object?> get props => [...super.props, act, answer];

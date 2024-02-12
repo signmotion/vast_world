@@ -13,7 +13,6 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../runes/share/all_contents.pb.dart' as $2;
 import 'server_options.pb.dart' as $1;
 
 /// / Use for Server only.
@@ -23,7 +22,6 @@ class ServerStateBase extends $pb.GeneratedMessage {
     $core.Map<$core.String, $core.String>? claimedSessionsDevices,
     $core.Map<$core.String, $core.bool>? approvedSessions,
     $core.Map<$core.String, $core.String>? currentPlanIds,
-    $core.Map<$core.String, $2.AllContentsBase>? runes,
   }) {
     final $result = create();
     if (options != null) {
@@ -38,9 +36,6 @@ class ServerStateBase extends $pb.GeneratedMessage {
     if (currentPlanIds != null) {
       $result.currentPlanIds.addAll(currentPlanIds);
     }
-    if (runes != null) {
-      $result.runes.addAll(runes);
-    }
     return $result;
   }
   ServerStateBase._() : super();
@@ -52,7 +47,6 @@ class ServerStateBase extends $pb.GeneratedMessage {
     ..m<$core.String, $core.String>(2, _omitFieldNames ? '' : 'claimedSessionsDevices', entryClassName: 'ServerStateBase.ClaimedSessionsDevicesEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('vw.maia'))
     ..m<$core.String, $core.bool>(3, _omitFieldNames ? '' : 'approvedSessions', entryClassName: 'ServerStateBase.ApprovedSessionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OB, packageName: const $pb.PackageName('vw.maia'))
     ..m<$core.String, $core.String>(200, _omitFieldNames ? '' : 'currentPlanIds', entryClassName: 'ServerStateBase.CurrentPlanIdsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('vw.maia'))
-    ..m<$core.String, $2.AllContentsBase>(210, _omitFieldNames ? '' : 'runes', entryClassName: 'ServerStateBase.RunesEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $2.AllContentsBase.create, valueDefaultOrMaker: $2.AllContentsBase.getDefault, packageName: const $pb.PackageName('vw.maia'))
     ..hasRequiredFields = false
   ;
 
@@ -101,10 +95,6 @@ class ServerStateBase extends $pb.GeneratedMessage {
   /// / <session, planId>
   @$pb.TagNumber(200)
   $core.Map<$core.String, $core.String> get currentPlanIds => $_getMap(3);
-
-  /// / <session, AllContentsBase>
-  @$pb.TagNumber(210)
-  $core.Map<$core.String, $2.AllContentsBase> get runes => $_getMap(4);
 }
 
 

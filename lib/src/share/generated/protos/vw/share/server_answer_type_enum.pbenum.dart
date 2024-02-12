@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: vw/maia/server_answer_type_enum.proto
+//  source: vw/share/server_answer_type_enum.proto
 //
 // @dart = 2.12
 

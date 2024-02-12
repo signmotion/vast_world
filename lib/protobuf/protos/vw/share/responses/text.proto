@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package vw.share.responses;
+
+import "vw/share/server_answer.proto";
+
+message TextResponse {
+  string text = 1;
+  ServerAnswer answer = 100;
+}

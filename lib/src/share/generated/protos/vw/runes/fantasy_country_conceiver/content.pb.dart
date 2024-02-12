@@ -13,13 +13,13 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../../../syrokomskyi/type/image.pb.dart' as $1;
+import '../../../syrokomskyi/type/image.pb.dart' as $4;
 
 /// / The Server keeps rune content (value) by Client sessions.
 class ContentBase extends $pb.GeneratedMessage {
   factory ContentBase({
     $core.String? descriptionCountry,
-    $1.Image? imageFirstPlaceCountry,
+    $4.Image? imageFirstPlaceCountry,
     $core.String? nameCountry,
   }) {
     final $result = create();
@@ -40,7 +40,7 @@ class ContentBase extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ContentBase', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.runes.fantasy_country_conceiver'), createEmptyInstance: create)
     ..aOS(2, _omitFieldNames ? '' : 'descriptionCountry')
-    ..aOM<$1.Image>(3, _omitFieldNames ? '' : 'imageFirstPlaceCountry', subBuilder: $1.Image.create)
+    ..aOM<$4.Image>(3, _omitFieldNames ? '' : 'imageFirstPlaceCountry', subBuilder: $4.Image.create)
     ..aOS(4, _omitFieldNames ? '' : 'nameCountry')
     ..hasRequiredFields = false
   ;
@@ -76,15 +76,15 @@ class ContentBase extends $pb.GeneratedMessage {
   void clearDescriptionCountry() => clearField(2);
 
   @$pb.TagNumber(3)
-  $1.Image get imageFirstPlaceCountry => $_getN(1);
+  $4.Image get imageFirstPlaceCountry => $_getN(1);
   @$pb.TagNumber(3)
-  set imageFirstPlaceCountry($1.Image v) { setField(3, v); }
+  set imageFirstPlaceCountry($4.Image v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasImageFirstPlaceCountry() => $_has(1);
   @$pb.TagNumber(3)
   void clearImageFirstPlaceCountry() => clearField(3);
   @$pb.TagNumber(3)
-  $1.Image ensureImageFirstPlaceCountry() => $_ensure(1);
+  $4.Image ensureImageFirstPlaceCountry() => $_ensure(1);
 
   @$pb.TagNumber(4)
   $core.String get nameCountry => $_getSZ(2);

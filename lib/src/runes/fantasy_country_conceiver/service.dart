@@ -1,16 +1,12 @@
-part of '../fantasy_country_conceiver.dart';
+part of '../../../runes/fantasy_country_conceiver.dart';
 
 class Service extends ServiceBase with ServiceMix {
-  Service() : serverLive = constructLive();
-
-  final Live serverLive;
-
   @override
   String get name => 'Fantasy Country Conceiver';
 
   @override
   Future<TextResponse> conceivingDescriptionCountry(
-    ServiceCall call,
+    grpc.ServiceCall call,
     PromptRequest request,
   ) async {
     // TODO: implement conceivingDescriptionCountry
@@ -19,7 +15,7 @@ class Service extends ServiceBase with ServiceMix {
 
   @override
   Future<ImageResponse> conceivingImageFirstPlaceCountry(
-    ServiceCall call,
+    grpc.ServiceCall call,
     PromptRequest request,
   ) async {
     // TODO: implement conceivingImageFirstPlaceCountry
@@ -28,14 +24,17 @@ class Service extends ServiceBase with ServiceMix {
 
   @override
   Future<JsonResponse> conceivingNameCountry(
-    ServiceCall call,
+    grpc.ServiceCall call,
     PromptRequest request,
   ) async {
     maia.logiRequest(call, request);
 
     final r = _genNames.next;
     final response = JsonResponse(
-      json: {'name': r.name, 'synopsis': r.synopsis ?? ''},
+      json: {
+        'title': r.title,
+        if (r.synopsis != null) 'synopsis': r.synopsis!,
+      },
       answer: ServerAnswer(
         session: request.session,
         type: maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE,

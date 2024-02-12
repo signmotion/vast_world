@@ -13,7 +13,7 @@ class ServerService extends ServiceBase with ServiceMix {
 
   @override
   Future<ClaimSessionResponse> claimSession(
-    ServiceCall call,
+    grpc.ServiceCall call,
     ClaimSessionRequest request,
   ) async {
     logiRequest(call, request);
@@ -31,7 +31,7 @@ class ServerService extends ServiceBase with ServiceMix {
 
   @override
   Future<ApproveSessionResponse> approveSession(
-    ServiceCall call,
+    grpc.ServiceCall call,
     ApproveSessionRequest request,
   ) async {
     logiRequest(call, request);
@@ -47,7 +47,7 @@ class ServerService extends ServiceBase with ServiceMix {
 
   @override
   Future<GetAboutServerResponse> getAboutServer(
-    ServiceCall call,
+    grpc.ServiceCall call,
     GetAboutServerRequest request,
   ) async {
     logiRequest(call, request);
@@ -61,7 +61,7 @@ class ServerService extends ServiceBase with ServiceMix {
 
   @override
   Future<SetCurrentPlanResponse> setCurrentPlan(
-    ServiceCall call,
+    grpc.ServiceCall call,
     SetCurrentPlanRequest request,
   ) async {
     logiRequest(call, request);
@@ -69,15 +69,20 @@ class ServerService extends ServiceBase with ServiceMix {
     late final SetCurrentPlanResponse response;
     try {
       response = SetCurrentPlanResponse(
-        answer: ServerAnswerTypeEnumBase.ACCEPTED_SERVER_ANSWER_TYPE,
+        answer: ServerAnswer(
+          type: ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE,
+        ),
       );
     } catch (ex) {
       loge(ex);
       response = SetCurrentPlanResponse(
-        answer: ServerAnswerTypeEnumBase.REJECTED_SERVER_ANSWER_TYPE,
-        codeExplain:
-            ex is Error ? ex.code : ErrorExplainEnum.UNSPECIFIED_ERROR_EXPLAIN,
-        messageExplain: '$ex',
+        answer: ServerAnswer(
+          type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
+          codeExplain: ex is Error
+              ? ex.code
+              : ErrorExplainEnum.UNSPECIFIED_ERROR_EXPLAIN,
+          messageExplain: '$ex',
+        ),
       );
     }
 
@@ -88,7 +93,7 @@ class ServerService extends ServiceBase with ServiceMix {
 
   @override
   Stream<ActBaseResponse> synchronize(
-    ServiceCall call,
+    grpc.ServiceCall call,
     // ignore: avoid_renaming_method_parameters
     Stream<ActBaseRequest> clientActs,
   ) {
@@ -103,24 +108,34 @@ class ServerService extends ServiceBase with ServiceMix {
         logi('Processing the received act from Client.'
             ' `${ar.act.type.name}`');
 
+        late final Object? exception;
         late final bool success;
         try {
           success = await serverLive.processingActOnLoreSession(
             session: ar.session,
             actBase: ar.act,
           );
+          exception = null;
         } catch (ex) {
           loge(ex);
+          exception = ex;
           success = false;
         }
 
         // TODO(sign): optimize Don't send the act, only type or uid of the act.
         final answer = ActBaseResponse(
-          session: ar.session,
           act: ar.act,
           answer: success
-              ? ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE
-              : ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
+              ? ServerAnswer(
+                  session: ar.session,
+                  type: ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE,
+                )
+              : ServerAnswer(
+                  session: ar.session,
+                  type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
+                  codeExplain: ErrorExplainEnumBase.UNSPECIFIED_ERROR_EXPLAIN,
+                  messageExplain: '$exception',
+                ),
         );
         serverActs.sink.add(answer);
       },

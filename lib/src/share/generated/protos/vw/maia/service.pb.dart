@@ -14,8 +14,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../share/act.pb.dart' as $3;
-import '../share/error_explain_enum.pbenum.dart' as $5;
-import 'server_answer_type_enum.pbenum.dart' as $4;
+import '../share/server_answer.pb.dart' as $2;
 
 class ClaimSessionRequest extends $pb.GeneratedMessage {
   factory ClaimSessionRequest({
@@ -397,19 +396,11 @@ class SetCurrentPlanRequest extends $pb.GeneratedMessage {
 
 class SetCurrentPlanResponse extends $pb.GeneratedMessage {
   factory SetCurrentPlanResponse({
-    $4.ServerAnswerTypeEnumBase? answer,
-    $5.ErrorExplainEnumBase? codeExplain,
-    $core.String? messageExplain,
+    $2.ServerAnswer? answer,
   }) {
     final $result = create();
     if (answer != null) {
       $result.answer = answer;
-    }
-    if (codeExplain != null) {
-      $result.codeExplain = codeExplain;
-    }
-    if (messageExplain != null) {
-      $result.messageExplain = messageExplain;
     }
     return $result;
   }
@@ -418,9 +409,7 @@ class SetCurrentPlanResponse extends $pb.GeneratedMessage {
   factory SetCurrentPlanResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SetCurrentPlanResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
-    ..e<$4.ServerAnswerTypeEnumBase>(7, _omitFieldNames ? '' : 'answer', $pb.PbFieldType.OE, defaultOrMaker: $4.ServerAnswerTypeEnumBase.UNSPECIFIED_SERVER_ANSWER_TYPE, valueOf: $4.ServerAnswerTypeEnumBase.valueOf, enumValues: $4.ServerAnswerTypeEnumBase.values)
-    ..e<$5.ErrorExplainEnumBase>(8, _omitFieldNames ? '' : 'codeExplain', $pb.PbFieldType.OE, defaultOrMaker: $5.ErrorExplainEnumBase.UNSPECIFIED_ERROR_EXPLAIN, valueOf: $5.ErrorExplainEnumBase.valueOf, enumValues: $5.ErrorExplainEnumBase.values)
-    ..aOS(9, _omitFieldNames ? '' : 'messageExplain')
+    ..aOM<$2.ServerAnswer>(7, _omitFieldNames ? '' : 'answer', subBuilder: $2.ServerAnswer.create)
     ..hasRequiredFields = false
   ;
 
@@ -446,31 +435,15 @@ class SetCurrentPlanResponse extends $pb.GeneratedMessage {
   static SetCurrentPlanResponse? _defaultInstance;
 
   @$pb.TagNumber(7)
-  $4.ServerAnswerTypeEnumBase get answer => $_getN(0);
+  $2.ServerAnswer get answer => $_getN(0);
   @$pb.TagNumber(7)
-  set answer($4.ServerAnswerTypeEnumBase v) { setField(7, v); }
+  set answer($2.ServerAnswer v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasAnswer() => $_has(0);
   @$pb.TagNumber(7)
   void clearAnswer() => clearField(7);
-
-  @$pb.TagNumber(8)
-  $5.ErrorExplainEnumBase get codeExplain => $_getN(1);
-  @$pb.TagNumber(8)
-  set codeExplain($5.ErrorExplainEnumBase v) { setField(8, v); }
-  @$pb.TagNumber(8)
-  $core.bool hasCodeExplain() => $_has(1);
-  @$pb.TagNumber(8)
-  void clearCodeExplain() => clearField(8);
-
-  @$pb.TagNumber(9)
-  $core.String get messageExplain => $_getSZ(2);
-  @$pb.TagNumber(9)
-  set messageExplain($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(9)
-  $core.bool hasMessageExplain() => $_has(2);
-  @$pb.TagNumber(9)
-  void clearMessageExplain() => clearField(9);
+  @$pb.TagNumber(7)
+  $2.ServerAnswer ensureAnswer() => $_ensure(0);
 }
 
 class ActBaseRequest extends $pb.GeneratedMessage {
@@ -541,14 +514,10 @@ class ActBaseRequest extends $pb.GeneratedMessage {
 
 class ActBaseResponse extends $pb.GeneratedMessage {
   factory ActBaseResponse({
-    $core.String? session,
     $3.ActBase? act,
-    $4.ServerAnswerTypeEnumBase? answer,
+    $2.ServerAnswer? answer,
   }) {
     final $result = create();
-    if (session != null) {
-      $result.session = session;
-    }
     if (act != null) {
       $result.act = act;
     }
@@ -562,9 +531,8 @@ class ActBaseResponse extends $pb.GeneratedMessage {
   factory ActBaseResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ActBaseResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
-    ..aOS(3, _omitFieldNames ? '' : 'session')
     ..aOM<$3.ActBase>(6, _omitFieldNames ? '' : 'act', subBuilder: $3.ActBase.create)
-    ..e<$4.ServerAnswerTypeEnumBase>(7, _omitFieldNames ? '' : 'answer', $pb.PbFieldType.OE, defaultOrMaker: $4.ServerAnswerTypeEnumBase.UNSPECIFIED_SERVER_ANSWER_TYPE, valueOf: $4.ServerAnswerTypeEnumBase.valueOf, enumValues: $4.ServerAnswerTypeEnumBase.values)
+    ..aOM<$2.ServerAnswer>(7, _omitFieldNames ? '' : 'answer', subBuilder: $2.ServerAnswer.create)
     ..hasRequiredFields = false
   ;
 
@@ -589,34 +557,27 @@ class ActBaseResponse extends $pb.GeneratedMessage {
   static ActBaseResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ActBaseResponse>(create);
   static ActBaseResponse? _defaultInstance;
 
-  @$pb.TagNumber(3)
-  $core.String get session => $_getSZ(0);
-  @$pb.TagNumber(3)
-  set session($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasSession() => $_has(0);
-  @$pb.TagNumber(3)
-  void clearSession() => clearField(3);
-
   @$pb.TagNumber(6)
-  $3.ActBase get act => $_getN(1);
+  $3.ActBase get act => $_getN(0);
   @$pb.TagNumber(6)
   set act($3.ActBase v) { setField(6, v); }
   @$pb.TagNumber(6)
-  $core.bool hasAct() => $_has(1);
+  $core.bool hasAct() => $_has(0);
   @$pb.TagNumber(6)
   void clearAct() => clearField(6);
   @$pb.TagNumber(6)
-  $3.ActBase ensureAct() => $_ensure(1);
+  $3.ActBase ensureAct() => $_ensure(0);
 
   @$pb.TagNumber(7)
-  $4.ServerAnswerTypeEnumBase get answer => $_getN(2);
+  $2.ServerAnswer get answer => $_getN(1);
   @$pb.TagNumber(7)
-  set answer($4.ServerAnswerTypeEnumBase v) { setField(7, v); }
+  set answer($2.ServerAnswer v) { setField(7, v); }
   @$pb.TagNumber(7)
-  $core.bool hasAnswer() => $_has(2);
+  $core.bool hasAnswer() => $_has(1);
   @$pb.TagNumber(7)
   void clearAnswer() => clearField(7);
+  @$pb.TagNumber(7)
+  $2.ServerAnswer ensureAnswer() => $_ensure(1);
 }
 
 

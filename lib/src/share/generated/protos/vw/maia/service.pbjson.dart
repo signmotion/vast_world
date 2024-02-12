@@ -106,18 +106,14 @@ final $typed_data.Uint8List setCurrentPlanRequestDescriptor = $convert.base64Dec
 const SetCurrentPlanResponse$json = {
   '1': 'SetCurrentPlanResponse',
   '2': [
-    {'1': 'answer', '3': 7, '4': 1, '5': 14, '6': '.vw.maia.ServerAnswerTypeEnumBase', '10': 'answer'},
-    {'1': 'code_explain', '3': 8, '4': 1, '5': 14, '6': '.vw.share.ErrorExplainEnumBase', '10': 'codeExplain'},
-    {'1': 'message_explain', '3': 9, '4': 1, '5': 9, '10': 'messageExplain'},
+    {'1': 'answer', '3': 7, '4': 1, '5': 11, '6': '.vw.share.ServerAnswer', '10': 'answer'},
   ],
 };
 
 /// Descriptor for `SetCurrentPlanResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List setCurrentPlanResponseDescriptor = $convert.base64Decode(
-    'ChZTZXRDdXJyZW50UGxhblJlc3BvbnNlEjkKBmFuc3dlchgHIAEoDjIhLnZ3Lm1haWEuU2Vydm'
-    'VyQW5zd2VyVHlwZUVudW1CYXNlUgZhbnN3ZXISQQoMY29kZV9leHBsYWluGAggASgOMh4udncu'
-    'c2hhcmUuRXJyb3JFeHBsYWluRW51bUJhc2VSC2NvZGVFeHBsYWluEicKD21lc3NhZ2VfZXhwbG'
-    'FpbhgJIAEoCVIObWVzc2FnZUV4cGxhaW4=');
+    'ChZTZXRDdXJyZW50UGxhblJlc3BvbnNlEi4KBmFuc3dlchgHIAEoCzIWLnZ3LnNoYXJlLlNlcn'
+    'ZlckFuc3dlclIGYW5zd2Vy');
 
 @$core.Deprecated('Use actBaseRequestDescriptor instead')
 const ActBaseRequest$json = {
@@ -137,15 +133,13 @@ final $typed_data.Uint8List actBaseRequestDescriptor = $convert.base64Decode(
 const ActBaseResponse$json = {
   '1': 'ActBaseResponse',
   '2': [
-    {'1': 'session', '3': 3, '4': 1, '5': 9, '10': 'session'},
     {'1': 'act', '3': 6, '4': 1, '5': 11, '6': '.vw.share.ActBase', '10': 'act'},
-    {'1': 'answer', '3': 7, '4': 1, '5': 14, '6': '.vw.maia.ServerAnswerTypeEnumBase', '10': 'answer'},
+    {'1': 'answer', '3': 7, '4': 1, '5': 11, '6': '.vw.share.ServerAnswer', '10': 'answer'},
   ],
 };
 
 /// Descriptor for `ActBaseResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List actBaseResponseDescriptor = $convert.base64Decode(
-    'Cg9BY3RCYXNlUmVzcG9uc2USGAoHc2Vzc2lvbhgDIAEoCVIHc2Vzc2lvbhIjCgNhY3QYBiABKA'
-    'syES52dy5zaGFyZS5BY3RCYXNlUgNhY3QSOQoGYW5zd2VyGAcgASgOMiEudncubWFpYS5TZXJ2'
-    'ZXJBbnN3ZXJUeXBlRW51bUJhc2VSBmFuc3dlcg==');
+    'Cg9BY3RCYXNlUmVzcG9uc2USIwoDYWN0GAYgASgLMhEudncuc2hhcmUuQWN0QmFzZVIDYWN0Ei'
+    '4KBmFuc3dlchgHIAEoCzIWLnZ3LnNoYXJlLlNlcnZlckFuc3dlclIGYW5zd2Vy');
 

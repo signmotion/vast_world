@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package vw.share;
+
+import "vw/share/server_answer_type_enum.proto";
+import "vw/share/error_explain_enum.proto";
+
+message ServerAnswer {
+  string session = 3;
+  share.ServerAnswerTypeEnumBase type = 10;
+  share.ErrorExplainEnumBase code_explain = 11;
+  string message_explain = 12;
+}
