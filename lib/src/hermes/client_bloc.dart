@@ -283,8 +283,9 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     ProcessingActClientEvent event,
     Emitter<ClientState> emit,
   ) async {
-    if (event.answer != maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE) {
-      logw("The event `$event` doesn't accepted on the server side.");
+    if (event.answer.type !=
+        maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE) {
+      logw("The event `$event` wasn't accepted on the server side.");
       // TODO(sign): Respect this answer.
       return;
     }
