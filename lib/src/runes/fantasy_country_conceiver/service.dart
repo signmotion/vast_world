@@ -23,17 +23,19 @@ class Service extends ServiceBase with ServiceMix {
   }
 
   @override
-  Future<JsonResponse> conceivingNameCountry(
+  Future<JsonResponse> conceivingNameAndIdCountry(
     grpc.ServiceCall call,
     PromptRequest request,
   ) async {
     maia.logiRequest(call, request);
 
-    final r = _genNames.next;
+    final name = _genNames.next;
     final response = JsonResponse(
       json: {
-        'title': r.title,
-        if (r.synopsis != null) 'synopsis': r.synopsis!,
+        'hid': genHid(name.title),
+        'uid': genPlanUid,
+        'title': name.title,
+        if (name.synopsis != null) 'synopsis': name.synopsis!,
       },
       answer: ServerAnswer(
         session: request.session,

@@ -32,8 +32,8 @@ class ServiceClient extends $grpc.Client {
       '/vw.runes.fantasy_country_conceiver.Service/conceivingImageFirstPlaceCountry',
       ($0.PromptRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $2.ImageResponse.fromBuffer(value));
-  static final _$conceivingNameCountry = $grpc.ClientMethod<$0.PromptRequest, $3.JsonResponse>(
-      '/vw.runes.fantasy_country_conceiver.Service/conceivingNameCountry',
+  static final _$conceivingNameAndIdCountry = $grpc.ClientMethod<$0.PromptRequest, $3.JsonResponse>(
+      '/vw.runes.fantasy_country_conceiver.Service/conceivingNameAndIdCountry',
       ($0.PromptRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $3.JsonResponse.fromBuffer(value));
 
@@ -51,8 +51,8 @@ class ServiceClient extends $grpc.Client {
     return $createUnaryCall(_$conceivingImageFirstPlaceCountry, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.JsonResponse> conceivingNameCountry($0.PromptRequest request, {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$conceivingNameCountry, request, options: options);
+  $grpc.ResponseFuture<$3.JsonResponse> conceivingNameAndIdCountry($0.PromptRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$conceivingNameAndIdCountry, request, options: options);
   }
 }
 
@@ -76,8 +76,8 @@ abstract class ServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) => $0.PromptRequest.fromBuffer(value),
         ($2.ImageResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.PromptRequest, $3.JsonResponse>(
-        'conceivingNameCountry',
-        conceivingNameCountry_Pre,
+        'conceivingNameAndIdCountry',
+        conceivingNameAndIdCountry_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.PromptRequest.fromBuffer(value),
@@ -92,11 +92,11 @@ abstract class ServiceBase extends $grpc.Service {
     return conceivingImageFirstPlaceCountry(call, await request);
   }
 
-  $async.Future<$3.JsonResponse> conceivingNameCountry_Pre($grpc.ServiceCall call, $async.Future<$0.PromptRequest> request) async {
-    return conceivingNameCountry(call, await request);
+  $async.Future<$3.JsonResponse> conceivingNameAndIdCountry_Pre($grpc.ServiceCall call, $async.Future<$0.PromptRequest> request) async {
+    return conceivingNameAndIdCountry(call, await request);
   }
 
   $async.Future<$1.TextResponse> conceivingDescriptionCountry($grpc.ServiceCall call, $0.PromptRequest request);
   $async.Future<$2.ImageResponse> conceivingImageFirstPlaceCountry($grpc.ServiceCall call, $0.PromptRequest request);
-  $async.Future<$3.JsonResponse> conceivingNameCountry($grpc.ServiceCall call, $0.PromptRequest request);
+  $async.Future<$3.JsonResponse> conceivingNameAndIdCountry($grpc.ServiceCall call, $0.PromptRequest request);
 }

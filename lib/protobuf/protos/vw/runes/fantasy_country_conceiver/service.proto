@@ -11,5 +11,5 @@ import "vw/share/responses/text.proto";
 service Service {
   rpc conceivingDescriptionCountry (vw.share.requests.PromptRequest) returns (vw.share.responses.TextResponse);
   rpc conceivingImageFirstPlaceCountry (vw.share.requests.PromptRequest) returns (vw.share.responses.ImageResponse);
-  rpc conceivingNameCountry (vw.share.requests.PromptRequest) returns (vw.share.responses.JsonResponse);
+  rpc conceivingNameAndIdCountry (vw.share.requests.PromptRequest) returns (vw.share.responses.JsonResponse);
 }

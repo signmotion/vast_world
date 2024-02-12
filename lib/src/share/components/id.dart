@@ -40,37 +40,3 @@ class IdComponent extends Component<IdT> {
         _ => throw ArgumentError(json.sjson),
       };
 }
-
-extension HidExt on String {
-  static const hidSeparator = '.';
-
-  //bool get isCorrectId => isCorrectHid || isUuid;
-
-  /// Examples:
-  /// ```
-  /// raeria
-  /// ri
-  /// elf_sea
-  /// askatria_land
-  /// ```
-  //bool get isCorrectHid => RegExp(r'^[a-z0-9_]*$').hasMatch(this);
-
-  List<String> get hidToList => split(hidSeparator);
-
-  String get hidToNPath => replaceAll(hidSeparator, npathSeparator);
-
-  String get pathToHid => npath.split(npathSeparator).listToHid;
-}
-
-extension ListHidExt on List<String> {
-  String get listToHid => join(HidExt.hidSeparator);
-}
-
-extension ExposedHidExt on String {
-  /// Examples:
-  /// ```
-  /// raeria.ri
-  /// ri.elf_sea
-  /// ```
-  //bool get isCorrectExposedHid => hidToList.length == 2;
-}
