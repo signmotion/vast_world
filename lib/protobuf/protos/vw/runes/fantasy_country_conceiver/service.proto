@@ -3,13 +3,42 @@ syntax = "proto3";
 package vw.runes.fantasy_country_conceiver;
 
 import "vw/share/requests/prompt.proto";
-
 import "vw/share/responses/image.proto";
-import "vw/share/responses/json.proto";
-import "vw/share/responses/text.proto";
+import "vw/share/server_answer.proto";
 
 service Service {
-  rpc conceivingDescriptionCountry (vw.share.requests.PromptRequest) returns (vw.share.responses.TextResponse);
-  rpc conceivingImageFirstPlaceCountry (vw.share.requests.PromptRequest) returns (vw.share.responses.ImageResponse);
-  rpc conceivingNameAndIdCountry (vw.share.requests.PromptRequest) returns (vw.share.responses.JsonResponse);
+  // journeys
+  /// Start point.
+  rpc conceivingNameAndIdJourney (vw.share.requests.PromptRequest) returns (ConceivingNameAndIdJourneyResponse);
+
+  // TODO rpc conceivingDescriptionJourney (vw.share.requests.PromptRequest) returns (ConceivingDescriptionJourneyResponse);
+
+  // places
+  /// Start point.
+  rpc conceivingNameAndIdPlace (vw.share.requests.PromptRequest) returns (ConceivingNameAndIdPlaceResponse);
+
+  rpc conceivingImagePlace (vw.share.requests.PromptRequest) returns (vw.share.responses.ImageResponse);
+}
+
+
+message ConceivingNameAndIdJourneyResponse {
+  string plan_hid = 1;
+  string plan_uid = 2;
+  string title = 12;
+  string synopsis = 13;
+
+  vw.share.ServerAnswer answer = 100;
+}
+
+
+message ConceivingNameAndIdPlaceResponse {
+  string plan_hid = 1;
+  string plan_uid = 2;
+  string title = 12;
+  string description = 13;
+
+  /// <name, #RRGGBBAA>
+  map<string, string> predominant_colors = 20;
+
+  vw.share.ServerAnswer answer = 100;
 }
