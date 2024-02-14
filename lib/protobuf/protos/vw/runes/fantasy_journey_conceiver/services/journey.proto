@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package vw.runes.fantasy_journey_conceiver;
+
+import "vw/share/requests/prompt.proto";
+import "vw/share/server_answer.proto";
+
+service JourneyService {
+  /// Start point.
+  rpc conceivingNameAndIdJourney (vw.share.requests.PromptRequest) returns (ConceivingNameAndIdJourneyResponse);
+
+  // TODO rpc conceivingDescriptionJourney (vw.share.requests.PromptRequest) returns (ConceivingDescriptionJourneyResponse);
+}
+
+
+message ConceivingNameAndIdJourneyResponse {
+  string plan_hid = 1;
+  string plan_uid = 2;
+
+  string title = 12;
+  string synopsis = 13;
+
+  vw.share.ServerAnswer answer = 100;
+}

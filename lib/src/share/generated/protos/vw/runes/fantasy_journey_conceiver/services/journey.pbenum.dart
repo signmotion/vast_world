@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: vw/runes/fantasy_country_conceiver/service.proto
+//  source: vw/runes/fantasy_journey_conceiver/services/journey.proto
 //
 // @dart = 2.12
 
