@@ -67,7 +67,7 @@ class ClientState extends AState<ClientStateBase> {
           ).fromJson(loreJson as JsonMap),
           loreInfluencer: loreInfluencer,
         ),
-      _ => throw ArgumentError(json.sjson),
+      _ => throw IllegalArgumentError('json', json.sjson, StackTrace.current),
     };
   }
 

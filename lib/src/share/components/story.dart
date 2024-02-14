@@ -29,6 +29,6 @@ class StoryComponent extends Component<StoryT> {
   @override
   StoryT jsonAsValue(JsonMap json) => switch (json) {
         {'text': String? text} => (text: text ?? '',),
-        _ => throw ArgumentError(json.sjson),
+        _ => throw IllegalArgumentError('json', json.sjson, StackTrace.current),
       };
 }

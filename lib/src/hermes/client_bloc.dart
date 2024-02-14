@@ -154,7 +154,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       ),
     );
     if (!response.approved) {
-      throw maia.NotApprovedSessionError(session);
+      throw maia.NotApprovedSessionError(session, StackTrace.current);
     }
 
     emit(
@@ -367,7 +367,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
   void _checkApprove() {
     if (!state.ss.sessionApproved) {
-      throw maia.NotApprovedSessionError(state.ss.session);
+      throw maia.NotApprovedSessionError(state.ss.session, StackTrace.current);
     }
   }
 

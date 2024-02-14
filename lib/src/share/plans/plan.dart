@@ -226,5 +226,5 @@ PlanBase jsonAsPlanBase(JsonMap json) => switch (json) {
               p.key!: PlanBase.create()..mergeFromProto3Json(p.value as JsonMap)
           },
         ),
-      _ => throw ArgumentError(json.sjson),
+      _ => throw IllegalArgumentError('json', json.sjson, StackTrace.current),
     };

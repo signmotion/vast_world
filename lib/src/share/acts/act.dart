@@ -99,7 +99,7 @@ ActBase jsonAsActBase(JsonMap json) => switch (json) {
                 ..mergeFromProto3Json(c.value as JsonMap)
           },
         ),
-      _ => throw ArgumentError(json.sjson),
+      _ => throw IllegalArgumentError('json', json.sjson, StackTrace.current),
     };
 
 typedef ActTypeEnum = ActTypeEnumBase;

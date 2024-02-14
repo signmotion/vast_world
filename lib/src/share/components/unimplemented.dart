@@ -35,6 +35,6 @@ class UnimplementedComponent extends Component<UnimplementedT> {
         {'id_unimplemented': String? idUnimplemented} => (
             idUnimplemented: idUnimplemented ?? '',
           ),
-        _ => throw ArgumentError(json.sjson),
+        _ => throw IllegalArgumentError('json', json.sjson, StackTrace.current),
       };
 }

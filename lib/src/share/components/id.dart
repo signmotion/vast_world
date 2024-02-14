@@ -37,6 +37,6 @@ class IdComponent extends Component<IdT> {
             hid: hid ?? '',
             uid: uid ?? '',
           ),
-        _ => throw ArgumentError(json.sjson),
+        _ => throw IllegalArgumentError('json', json.sjson, StackTrace.current),
       };
 }

@@ -36,7 +36,7 @@ class Lore {
     if (this[plan.id] == null) {
       this[plan.id] = plan;
     } else {
-      throw AlreadyExistsPlanError(plan.id);
+      throw AlreadyExistsPlanError(plan.id, StackTrace.current);
     }
   }
 
@@ -112,5 +112,5 @@ LoreBase jsonAsLoreBase(JsonMap json) => switch (json) {
               p.key!: PlanBase.create()..mergeFromProto3Json(p.value as JsonMap)
           },
         ),
-      _ => throw ArgumentError(json.sjson),
+      _ => throw IllegalArgumentError('json', json.sjson, StackTrace.current),
     };

@@ -100,5 +100,5 @@ ComponentBase jsonAsComponentBase(JsonMap json) => switch (json) {
           uid: uid,
           sjsonValue: valueAsJson.sjson,
         ),
-      _ => throw ArgumentError(json.sjson),
+      _ => throw IllegalArgumentError('json', json.sjson, StackTrace.current),
     };

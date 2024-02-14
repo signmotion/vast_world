@@ -15,6 +15,6 @@ class StringComponent extends Component<String> {
   @override
   String jsonAsValue(JsonMap json) => switch (json) {
         {'value': String? value} => value ?? '',
-        _ => throw ArgumentError(json.sjson),
+        _ => throw IllegalArgumentError('json', json.sjson, StackTrace.current),
       };
 }

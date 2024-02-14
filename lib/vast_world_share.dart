@@ -64,9 +64,10 @@ part 'src/share/errors/error_explain_enum.dart';
 part 'src/share/errors/not_defined_device_error.dart';
 part 'src/share/errors/not_found_error.dart';
 part 'src/share/errors/not_found_session_error.dart';
+part 'src/share/errors/lore.dart';
 part 'src/share/errors/plan_error.dart';
 part 'src/share/errors/session_error.dart';
-part 'src/share/errors/value_error.dart';
+part 'src/share/errors/argument_error.dart';
 part 'src/share/errors/value_session_error.dart';
 
 part 'src/share/extensions/aabb.dart';

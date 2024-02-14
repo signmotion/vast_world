@@ -67,8 +67,7 @@ class ServerLive extends BaseLive<ServerState> {
         final act = NativeActBuilder(state.componentBuilder).fromBase(actBase);
         return state.loreInfluencer.processing(lore, act);
       },
-      ifAbsent: () =>
-          throw ArgumentError('Lore for session `$session` not found.'),
+      ifAbsent: () => throw AbsentSessionLoreError(session, StackTrace.current),
     );
     emit(state.copyWith(lores: state.lores));
 
@@ -82,14 +81,15 @@ class ServerLive extends BaseLive<ServerState> {
     bool approveSession = false,
     bool permitSession = false,
   }) {
-    void checkSession(String session) =>
-        session.isSessionUid ? null : throw IllegalUidSessionError(session);
+    void checkSession(String session) => session.isSessionUid
+        ? null
+        : throw IllegalSessionUidError(session, StackTrace.current);
 
     checkSession(session);
 
     void checkClaimSession(String session) => state.isClaimedSession(session)
         ? null
-        : throw NotClaimedSessionError(session);
+        : throw NotClaimedSessionError(session, StackTrace.current);
 
     if (claimSession) {
       checkClaimSession(session);
@@ -97,7 +97,7 @@ class ServerLive extends BaseLive<ServerState> {
 
     void checkApproveSession(String session) => state.isApprovedSession(session)
         ? null
-        : throw NotApprovedSessionError(session);
+        : throw NotApprovedSessionError(session, StackTrace.current);
 
     if (approveSession) {
       checkApproveSession(session);

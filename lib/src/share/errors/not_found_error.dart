@@ -1,8 +1,12 @@
 part of '../../../vast_world_share.dart';
 
 class NotFoundError<T> extends Error {
-  const NotFoundError(ErrorExplainEnum code, this.name, this.value)
-      : super(code, '');
+  NotFoundError(
+    ErrorExplainEnum code,
+    this.name,
+    this.value,
+    StackTrace stackTrace,
+  ) : super(code, '', stackTrace);
 
   @override
   String get message => 'Not found $name by `$value`.';

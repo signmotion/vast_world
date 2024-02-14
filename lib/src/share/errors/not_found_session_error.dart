@@ -1,11 +1,12 @@
 part of '../../../vast_world_share.dart';
 
 class NotFoundSessionError<T> extends NotFoundError<T> {
-  const NotFoundSessionError(
+  NotFoundSessionError(
     super.code,
     super.name,
     super.value,
     this.session,
+    super.stackTrace,
   );
 
   @override

@@ -34,6 +34,6 @@ class PictureComponent extends Component<Image> {
             height: height,
             bytes: bytes.buffer,
           ),
-        _ => throw ArgumentError(json.sjson),
+        _ => throw IllegalArgumentError('json', json.sjson, StackTrace.current),
       };
 }
