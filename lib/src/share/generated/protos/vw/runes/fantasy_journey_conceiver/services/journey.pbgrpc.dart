@@ -20,12 +20,12 @@ import 'journey.pb.dart' as $1;
 
 export 'journey.pb.dart';
 
-@$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.JourneyService')
+@$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.journey.JourneyService')
 class JourneyServiceClient extends $grpc.Client {
-  static final _$conceivingNameAndIdJourney = $grpc.ClientMethod<$0.PromptRequest, $1.ConceivingNameAndIdJourneyResponse>(
-      '/vw.runes.fantasy_journey_conceiver.JourneyService/conceivingNameAndIdJourney',
+  static final _$conceiveNameAndId = $grpc.ClientMethod<$0.PromptRequest, $1.conceiveNameAndIdJourneyResponse>(
+      '/vw.runes.fantasy_journey_conceiver.journey.JourneyService/conceiveNameAndId',
       ($0.PromptRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $1.ConceivingNameAndIdJourneyResponse.fromBuffer(value));
+      ($core.List<$core.int> value) => $1.conceiveNameAndIdJourneyResponse.fromBuffer(value));
 
   JourneyServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -33,28 +33,28 @@ class JourneyServiceClient extends $grpc.Client {
       : super(channel, options: options,
         interceptors: interceptors);
 
-  $grpc.ResponseFuture<$1.ConceivingNameAndIdJourneyResponse> conceivingNameAndIdJourney($0.PromptRequest request, {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$conceivingNameAndIdJourney, request, options: options);
+  $grpc.ResponseFuture<$1.conceiveNameAndIdJourneyResponse> conceiveNameAndId($0.PromptRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$conceiveNameAndId, request, options: options);
   }
 }
 
-@$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.JourneyService')
+@$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.journey.JourneyService')
 abstract class JourneyServiceBase extends $grpc.Service {
-  $core.String get $name => 'vw.runes.fantasy_journey_conceiver.JourneyService';
+  $core.String get $name => 'vw.runes.fantasy_journey_conceiver.journey.JourneyService';
 
   JourneyServiceBase() {
-    $addMethod($grpc.ServiceMethod<$0.PromptRequest, $1.ConceivingNameAndIdJourneyResponse>(
-        'conceivingNameAndIdJourney',
-        conceivingNameAndIdJourney_Pre,
+    $addMethod($grpc.ServiceMethod<$0.PromptRequest, $1.conceiveNameAndIdJourneyResponse>(
+        'conceiveNameAndId',
+        conceiveNameAndId_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.PromptRequest.fromBuffer(value),
-        ($1.ConceivingNameAndIdJourneyResponse value) => value.writeToBuffer()));
+        ($1.conceiveNameAndIdJourneyResponse value) => value.writeToBuffer()));
   }
 
-  $async.Future<$1.ConceivingNameAndIdJourneyResponse> conceivingNameAndIdJourney_Pre($grpc.ServiceCall call, $async.Future<$0.PromptRequest> request) async {
-    return conceivingNameAndIdJourney(call, await request);
+  $async.Future<$1.conceiveNameAndIdJourneyResponse> conceiveNameAndId_Pre($grpc.ServiceCall call, $async.Future<$0.PromptRequest> request) async {
+    return conceiveNameAndId(call, await request);
   }
 
-  $async.Future<$1.ConceivingNameAndIdJourneyResponse> conceivingNameAndIdJourney($grpc.ServiceCall call, $0.PromptRequest request);
+  $async.Future<$1.conceiveNameAndIdJourneyResponse> conceiveNameAndId($grpc.ServiceCall call, $0.PromptRequest request);
 }

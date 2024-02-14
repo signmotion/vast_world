@@ -5,16 +5,16 @@ class PlaceService extends PlaceServiceBase with ServiceMix {
   String get name => 'Place - Fantasy Country Conceiver';
 
   @override
-  Future<maia.ImageResponse> conceivingImagePlace(
+  Future<maia.ImageResponse> conceiveImage(
       grpc.ServiceCall call, maia.PromptRequest request) {
-    // TODO: implement conceivingImagePlace
+    // TODO: implement conceiveImagePlace
     throw UnimplementedError();
   }
 
   @override
-  Future<ConceivingNameAndIdPlaceResponse> conceivingNameAndIdPlace(
+  Future<conceiveNameAndIdPlaceResponse> conceiveNameAndId(
       grpc.ServiceCall call, maia.PromptRequest request) {
-    // TODO: implement conceivingNameAndIdPlace
+    // TODO: implement conceiveNameAndId
     throw UnimplementedError();
   }
 }

@@ -5,14 +5,14 @@ class JourneyService extends JourneyServiceBase with ServiceMix {
   String get name => 'Journey - Fantasy Country Conceiver';
 
   @override
-  Future<ConceivingNameAndIdJourneyResponse> conceivingNameAndIdJourney(
+  Future<conceiveNameAndIdJourneyResponse> conceiveNameAndId(
     grpc.ServiceCall call,
     PromptRequest request,
   ) async {
     maia.logiRequest(call, request);
 
     final name = _genNames.next;
-    final response = ConceivingNameAndIdJourneyResponse(
+    final response = conceiveNameAndIdJourneyResponse(
       planHid: genHid(name.title),
       planUid: genPlanUid,
       title: name.title,

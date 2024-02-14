@@ -13,22 +13,22 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-@$core.Deprecated('Use conceivingNameAndIdPlaceResponseDescriptor instead')
-const ConceivingNameAndIdPlaceResponse$json = {
-  '1': 'ConceivingNameAndIdPlaceResponse',
+@$core.Deprecated('Use conceiveNameAndIdPlaceResponseDescriptor instead')
+const conceiveNameAndIdPlaceResponse$json = {
+  '1': 'conceiveNameAndIdPlaceResponse',
   '2': [
     {'1': 'plan_hid', '3': 1, '4': 1, '5': 9, '10': 'planHid'},
     {'1': 'plan_uid', '3': 2, '4': 1, '5': 9, '10': 'planUid'},
     {'1': 'title', '3': 12, '4': 1, '5': 9, '10': 'title'},
     {'1': 'description', '3': 13, '4': 1, '5': 9, '10': 'description'},
-    {'1': 'predominant_colors', '3': 20, '4': 3, '5': 11, '6': '.vw.runes.fantasy_journey_conceiver.ConceivingNameAndIdPlaceResponse.PredominantColorsEntry', '10': 'predominantColors'},
+    {'1': 'predominant_colors', '3': 20, '4': 3, '5': 11, '6': '.vw.runes.fantasy_journey_conceiver.place.conceiveNameAndIdPlaceResponse.PredominantColorsEntry', '10': 'predominantColors'},
     {'1': 'answer', '3': 100, '4': 1, '5': 11, '6': '.vw.share.ServerAnswer', '10': 'answer'},
   ],
-  '3': [ConceivingNameAndIdPlaceResponse_PredominantColorsEntry$json],
+  '3': [conceiveNameAndIdPlaceResponse_PredominantColorsEntry$json],
 };
 
-@$core.Deprecated('Use conceivingNameAndIdPlaceResponseDescriptor instead')
-const ConceivingNameAndIdPlaceResponse_PredominantColorsEntry$json = {
+@$core.Deprecated('Use conceiveNameAndIdPlaceResponseDescriptor instead')
+const conceiveNameAndIdPlaceResponse_PredominantColorsEntry$json = {
   '1': 'PredominantColorsEntry',
   '2': [
     {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
@@ -37,14 +37,14 @@ const ConceivingNameAndIdPlaceResponse_PredominantColorsEntry$json = {
   '7': {'7': true},
 };
 
-/// Descriptor for `ConceivingNameAndIdPlaceResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List conceivingNameAndIdPlaceResponseDescriptor = $convert.base64Decode(
-    'CiBDb25jZWl2aW5nTmFtZUFuZElkUGxhY2VSZXNwb25zZRIZCghwbGFuX2hpZBgBIAEoCVIHcG'
-    'xhbkhpZBIZCghwbGFuX3VpZBgCIAEoCVIHcGxhblVpZBIUCgV0aXRsZRgMIAEoCVIFdGl0bGUS'
-    'IAoLZGVzY3JpcHRpb24YDSABKAlSC2Rlc2NyaXB0aW9uEooBChJwcmVkb21pbmFudF9jb2xvcn'
-    'MYFCADKAsyWy52dy5ydW5lcy5mYW50YXN5X2pvdXJuZXlfY29uY2VpdmVyLkNvbmNlaXZpbmdO'
-    'YW1lQW5kSWRQbGFjZVJlc3BvbnNlLlByZWRvbWluYW50Q29sb3JzRW50cnlSEXByZWRvbWluYW'
-    '50Q29sb3JzEi4KBmFuc3dlchhkIAEoCzIWLnZ3LnNoYXJlLlNlcnZlckFuc3dlclIGYW5zd2Vy'
-    'GkQKFlByZWRvbWluYW50Q29sb3JzRW50cnkSEAoDa2V5GAEgASgJUgNrZXkSFAoFdmFsdWUYAi'
-    'ABKAlSBXZhbHVlOgI4AQ==');
+/// Descriptor for `conceiveNameAndIdPlaceResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List conceiveNameAndIdPlaceResponseDescriptor = $convert.base64Decode(
+    'Ch5jb25jZWl2ZU5hbWVBbmRJZFBsYWNlUmVzcG9uc2USGQoIcGxhbl9oaWQYASABKAlSB3BsYW'
+    '5IaWQSGQoIcGxhbl91aWQYAiABKAlSB3BsYW5VaWQSFAoFdGl0bGUYDCABKAlSBXRpdGxlEiAK'
+    'C2Rlc2NyaXB0aW9uGA0gASgJUgtkZXNjcmlwdGlvbhKOAQoScHJlZG9taW5hbnRfY29sb3JzGB'
+    'QgAygLMl8udncucnVuZXMuZmFudGFzeV9qb3VybmV5X2NvbmNlaXZlci5wbGFjZS5jb25jZWl2'
+    'ZU5hbWVBbmRJZFBsYWNlUmVzcG9uc2UuUHJlZG9taW5hbnRDb2xvcnNFbnRyeVIRcHJlZG9taW'
+    '5hbnRDb2xvcnMSLgoGYW5zd2VyGGQgASgLMhYudncuc2hhcmUuU2VydmVyQW5zd2VyUgZhbnN3'
+    'ZXIaRAoWUHJlZG9taW5hbnRDb2xvcnNFbnRyeRIQCgNrZXkYASABKAlSA2tleRIUCgV2YWx1ZR'
+    'gCIAEoCVIFdmFsdWU6AjgB');
 
