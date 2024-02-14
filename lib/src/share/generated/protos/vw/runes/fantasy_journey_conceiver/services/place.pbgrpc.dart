@@ -21,14 +21,14 @@ import 'place.pb.dart' as $2;
 
 export 'place.pb.dart';
 
-@$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.place.PlaceService')
+@$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.PlaceService')
 class PlaceServiceClient extends $grpc.Client {
   static final _$conceiveNameAndId = $grpc.ClientMethod<$0.PromptRequest, $2.conceiveNameAndIdPlaceResponse>(
-      '/vw.runes.fantasy_journey_conceiver.place.PlaceService/conceiveNameAndId',
+      '/vw.runes.fantasy_journey_conceiver.PlaceService/conceiveNameAndId',
       ($0.PromptRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $2.conceiveNameAndIdPlaceResponse.fromBuffer(value));
   static final _$conceiveImage = $grpc.ClientMethod<$0.PromptRequest, $3.ImageResponse>(
-      '/vw.runes.fantasy_journey_conceiver.place.PlaceService/conceiveImage',
+      '/vw.runes.fantasy_journey_conceiver.PlaceService/conceiveImage',
       ($0.PromptRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $3.ImageResponse.fromBuffer(value));
 
@@ -47,9 +47,9 @@ class PlaceServiceClient extends $grpc.Client {
   }
 }
 
-@$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.place.PlaceService')
+@$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.PlaceService')
 abstract class PlaceServiceBase extends $grpc.Service {
-  $core.String get $name => 'vw.runes.fantasy_journey_conceiver.place.PlaceService';
+  $core.String get $name => 'vw.runes.fantasy_journey_conceiver.PlaceService';
 
   PlaceServiceBase() {
     $addMethod($grpc.ServiceMethod<$0.PromptRequest, $2.conceiveNameAndIdPlaceResponse>(

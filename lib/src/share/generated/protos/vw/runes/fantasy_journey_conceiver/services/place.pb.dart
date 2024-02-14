@@ -49,12 +49,12 @@ class conceiveNameAndIdPlaceResponse extends $pb.GeneratedMessage {
   factory conceiveNameAndIdPlaceResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory conceiveNameAndIdPlaceResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'conceiveNameAndIdPlaceResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.runes.fantasy_journey_conceiver.place'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'conceiveNameAndIdPlaceResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.runes.fantasy_journey_conceiver'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'planHid')
     ..aOS(2, _omitFieldNames ? '' : 'planUid')
     ..aOS(12, _omitFieldNames ? '' : 'title')
     ..aOS(13, _omitFieldNames ? '' : 'description')
-    ..m<$core.String, $core.String>(20, _omitFieldNames ? '' : 'predominantColors', entryClassName: 'conceiveNameAndIdPlaceResponse.PredominantColorsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('vw.runes.fantasy_journey_conceiver.place'))
+    ..m<$core.String, $core.String>(20, _omitFieldNames ? '' : 'predominantColors', entryClassName: 'conceiveNameAndIdPlaceResponse.PredominantColorsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('vw.runes.fantasy_journey_conceiver'))
     ..aOM<$4.ServerAnswer>(100, _omitFieldNames ? '' : 'answer', subBuilder: $4.ServerAnswer.create)
     ..hasRequiredFields = false
   ;

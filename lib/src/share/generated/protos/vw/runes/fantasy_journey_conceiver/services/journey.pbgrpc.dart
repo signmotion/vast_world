@@ -20,10 +20,10 @@ import 'journey.pb.dart' as $1;
 
 export 'journey.pb.dart';
 
-@$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.journey.JourneyService')
+@$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.JourneyService')
 class JourneyServiceClient extends $grpc.Client {
   static final _$conceiveNameAndId = $grpc.ClientMethod<$0.PromptRequest, $1.conceiveNameAndIdJourneyResponse>(
-      '/vw.runes.fantasy_journey_conceiver.journey.JourneyService/conceiveNameAndId',
+      '/vw.runes.fantasy_journey_conceiver.JourneyService/conceiveNameAndId',
       ($0.PromptRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.conceiveNameAndIdJourneyResponse.fromBuffer(value));
 
@@ -38,9 +38,9 @@ class JourneyServiceClient extends $grpc.Client {
   }
 }
 
-@$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.journey.JourneyService')
+@$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.JourneyService')
 abstract class JourneyServiceBase extends $grpc.Service {
-  $core.String get $name => 'vw.runes.fantasy_journey_conceiver.journey.JourneyService';
+  $core.String get $name => 'vw.runes.fantasy_journey_conceiver.JourneyService';
 
   JourneyServiceBase() {
     $addMethod($grpc.ServiceMethod<$0.PromptRequest, $1.conceiveNameAndIdJourneyResponse>(

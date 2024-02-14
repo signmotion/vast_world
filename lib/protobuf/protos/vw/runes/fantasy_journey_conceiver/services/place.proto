@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package vw.runes.fantasy_journey_conceiver.place;
+package vw.runes.fantasy_journey_conceiver;
 
 import "vw/share/requests/prompt.proto";
 import "vw/share/responses/image.proto";

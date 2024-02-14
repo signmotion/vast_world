@@ -21,7 +21,7 @@ const conceiveNameAndIdPlaceResponse$json = {
     {'1': 'plan_uid', '3': 2, '4': 1, '5': 9, '10': 'planUid'},
     {'1': 'title', '3': 12, '4': 1, '5': 9, '10': 'title'},
     {'1': 'description', '3': 13, '4': 1, '5': 9, '10': 'description'},
-    {'1': 'predominant_colors', '3': 20, '4': 3, '5': 11, '6': '.vw.runes.fantasy_journey_conceiver.place.conceiveNameAndIdPlaceResponse.PredominantColorsEntry', '10': 'predominantColors'},
+    {'1': 'predominant_colors', '3': 20, '4': 3, '5': 11, '6': '.vw.runes.fantasy_journey_conceiver.conceiveNameAndIdPlaceResponse.PredominantColorsEntry', '10': 'predominantColors'},
     {'1': 'answer', '3': 100, '4': 1, '5': 11, '6': '.vw.share.ServerAnswer', '10': 'answer'},
   ],
   '3': [conceiveNameAndIdPlaceResponse_PredominantColorsEntry$json],
@@ -41,10 +41,10 @@ const conceiveNameAndIdPlaceResponse_PredominantColorsEntry$json = {
 final $typed_data.Uint8List conceiveNameAndIdPlaceResponseDescriptor = $convert.base64Decode(
     'Ch5jb25jZWl2ZU5hbWVBbmRJZFBsYWNlUmVzcG9uc2USGQoIcGxhbl9oaWQYASABKAlSB3BsYW'
     '5IaWQSGQoIcGxhbl91aWQYAiABKAlSB3BsYW5VaWQSFAoFdGl0bGUYDCABKAlSBXRpdGxlEiAK'
-    'C2Rlc2NyaXB0aW9uGA0gASgJUgtkZXNjcmlwdGlvbhKOAQoScHJlZG9taW5hbnRfY29sb3JzGB'
-    'QgAygLMl8udncucnVuZXMuZmFudGFzeV9qb3VybmV5X2NvbmNlaXZlci5wbGFjZS5jb25jZWl2'
-    'ZU5hbWVBbmRJZFBsYWNlUmVzcG9uc2UuUHJlZG9taW5hbnRDb2xvcnNFbnRyeVIRcHJlZG9taW'
-    '5hbnRDb2xvcnMSLgoGYW5zd2VyGGQgASgLMhYudncuc2hhcmUuU2VydmVyQW5zd2VyUgZhbnN3'
-    'ZXIaRAoWUHJlZG9taW5hbnRDb2xvcnNFbnRyeRIQCgNrZXkYASABKAlSA2tleRIUCgV2YWx1ZR'
-    'gCIAEoCVIFdmFsdWU6AjgB');
+    'C2Rlc2NyaXB0aW9uGA0gASgJUgtkZXNjcmlwdGlvbhKIAQoScHJlZG9taW5hbnRfY29sb3JzGB'
+    'QgAygLMlkudncucnVuZXMuZmFudGFzeV9qb3VybmV5X2NvbmNlaXZlci5jb25jZWl2ZU5hbWVB'
+    'bmRJZFBsYWNlUmVzcG9uc2UuUHJlZG9taW5hbnRDb2xvcnNFbnRyeVIRcHJlZG9taW5hbnRDb2'
+    'xvcnMSLgoGYW5zd2VyGGQgASgLMhYudncuc2hhcmUuU2VydmVyQW5zd2VyUgZhbnN3ZXIaRAoW'
+    'UHJlZG9taW5hbnRDb2xvcnNFbnRyeRIQCgNrZXkYASABKAlSA2tleRIUCgV2YWx1ZRgCIAEoCV'
+    'IFdmFsdWU6AjgB');
 
