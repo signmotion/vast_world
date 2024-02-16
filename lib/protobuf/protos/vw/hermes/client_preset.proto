@@ -21,4 +21,7 @@ message ClientPresetBase {
     optional bool show_number_message = 103;
     optional bool show_debug_messages = 104;
     optional bool show_debug_details_message = 105;
+
+    /// Show BLoC state as widget.
+    optional bool visualize_state = 200;
 }

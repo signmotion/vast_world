@@ -27,6 +27,7 @@ const ClientPresetBase$json = {
     {'1': 'show_number_message', '3': 103, '4': 1, '5': 8, '9': 6, '10': 'showNumberMessage', '17': true},
     {'1': 'show_debug_messages', '3': 104, '4': 1, '5': 8, '9': 7, '10': 'showDebugMessages', '17': true},
     {'1': 'show_debug_details_message', '3': 105, '4': 1, '5': 8, '9': 8, '10': 'showDebugDetailsMessage', '17': true},
+    {'1': 'visualize_state', '3': 200, '4': 1, '5': 8, '9': 9, '10': 'visualizeState', '17': true},
   ],
   '8': [
     {'1': '_app_title'},
@@ -38,6 +39,7 @@ const ClientPresetBase$json = {
     {'1': '_show_number_message'},
     {'1': '_show_debug_messages'},
     {'1': '_show_debug_details_message'},
+    {'1': '_visualize_state'},
   ],
 };
 
@@ -52,8 +54,10 @@ final $typed_data.Uint8List clientPresetBaseDescriptor = $convert.base64Decode(
     'BVIMc2hvd0FwcFN0YXRliAEBEjMKE3Nob3dfbnVtYmVyX21lc3NhZ2UYZyABKAhIBlIRc2hvd0'
     '51bWJlck1lc3NhZ2WIAQESMwoTc2hvd19kZWJ1Z19tZXNzYWdlcxhoIAEoCEgHUhFzaG93RGVi'
     'dWdNZXNzYWdlc4gBARJAChpzaG93X2RlYnVnX2RldGFpbHNfbWVzc2FnZRhpIAEoCEgIUhdzaG'
-    '93RGVidWdEZXRhaWxzTWVzc2FnZYgBAUIMCgpfYXBwX3RpdGxlQhgKFl9kYXJrX3RoZW1lX3Bh'
-    'Z2VfdGl0bGVCGQoXX2xpZ2h0X3RoZW1lX3BhZ2VfdGl0bGVCDgoMX3NlcnZlcl9ob3N0Qg4KDF'
-    '9zZXJ2ZXJfcG9ydEIRCg9fc2hvd19hcHBfc3RhdGVCFgoUX3Nob3dfbnVtYmVyX21lc3NhZ2VC'
-    'FgoUX3Nob3dfZGVidWdfbWVzc2FnZXNCHQobX3Nob3dfZGVidWdfZGV0YWlsc19tZXNzYWdl');
+    '93RGVidWdEZXRhaWxzTWVzc2FnZYgBARItCg92aXN1YWxpemVfc3RhdGUYyAEgASgISAlSDnZp'
+    'c3VhbGl6ZVN0YXRliAEBQgwKCl9hcHBfdGl0bGVCGAoWX2RhcmtfdGhlbWVfcGFnZV90aXRsZU'
+    'IZChdfbGlnaHRfdGhlbWVfcGFnZV90aXRsZUIOCgxfc2VydmVyX2hvc3RCDgoMX3NlcnZlcl9w'
+    'b3J0QhEKD19zaG93X2FwcF9zdGF0ZUIWChRfc2hvd19udW1iZXJfbWVzc2FnZUIWChRfc2hvd1'
+    '9kZWJ1Z19tZXNzYWdlc0IdChtfc2hvd19kZWJ1Z19kZXRhaWxzX21lc3NhZ2VCEgoQX3Zpc3Vh'
+    'bGl6ZV9zdGF0ZQ==');
 

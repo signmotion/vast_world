@@ -28,6 +28,7 @@ class ClientPresetBase extends $pb.GeneratedMessage {
     $core.bool? showNumberMessage,
     $core.bool? showDebugMessages,
     $core.bool? showDebugDetailsMessage,
+    $core.bool? visualizeState,
   }) {
     final $result = create();
     if (appTitle != null) {
@@ -60,6 +61,9 @@ class ClientPresetBase extends $pb.GeneratedMessage {
     if (showDebugDetailsMessage != null) {
       $result.showDebugDetailsMessage = showDebugDetailsMessage;
     }
+    if (visualizeState != null) {
+      $result.visualizeState = visualizeState;
+    }
     return $result;
   }
   ClientPresetBase._() : super();
@@ -77,6 +81,7 @@ class ClientPresetBase extends $pb.GeneratedMessage {
     ..aOB(103, _omitFieldNames ? '' : 'showNumberMessage')
     ..aOB(104, _omitFieldNames ? '' : 'showDebugMessages')
     ..aOB(105, _omitFieldNames ? '' : 'showDebugDetailsMessage')
+    ..aOB(200, _omitFieldNames ? '' : 'visualizeState')
     ..hasRequiredFields = false
   ;
 
@@ -194,6 +199,16 @@ class ClientPresetBase extends $pb.GeneratedMessage {
   $core.bool hasShowDebugDetailsMessage() => $_has(9);
   @$pb.TagNumber(105)
   void clearShowDebugDetailsMessage() => clearField(105);
+
+  /// / Show BLoC state as widget.
+  @$pb.TagNumber(200)
+  $core.bool get visualizeState => $_getBF(10);
+  @$pb.TagNumber(200)
+  set visualizeState($core.bool v) { $_setBool(10, v); }
+  @$pb.TagNumber(200)
+  $core.bool hasVisualizeState() => $_has(10);
+  @$pb.TagNumber(200)
+  void clearVisualizeState() => clearField(200);
 }
 
 
