@@ -8,7 +8,10 @@ void main() async {
 
   final ma = constructServerLive();
 
-  Future<String> claimSession() async => ma.claimSession(uidDevice: 'device-a');
+  Future<String> claimSession() async => ma.claimSession(
+        uidDevice: 'device-a',
+        options: ServerOptions(),
+      );
 
   group('session', () {
     test('claim the session', () async {
@@ -28,15 +31,20 @@ void main() async {
         () async {
       final a = await ma.claimSession(
         uidDevice: 'device-a',
+        options: ServerOptions(),
       );
       final b = await ma.claimSession(
         uidDevice: 'device-b',
+        options: ServerOptions(),
       );
       expect(a, isNot(equals(b)));
     });
 
     test('approve the session', () async {
-      final session = await ma.claimSession(uidDevice: 'device-a');
+      final session = await ma.claimSession(
+        uidDevice: 'device-a',
+        options: ServerOptions(),
+      );
       await ma.approveSession(session: session);
       final ss = ma.state.ss;
       expect(ss.claimedSessionsDevices.keys, containsOnce(session));

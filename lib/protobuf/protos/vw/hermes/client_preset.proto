@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package vw.hermes;
 
+import "vw/maia/server_options.proto";
+
 /// Preset (options) for Client's App.
 message ClientPresetBase {
     optional string app_title = 1;
@@ -10,6 +12,10 @@ message ClientPresetBase {
 
     optional string server_host = 5;
     optional int32 server_port = 6;
+
+    /// Each Client can produce own options for server.
+    /// The server services will respect this options.
+    maia.ServerOptionsBase serverOptions = 12;
 
     optional bool show_app_state = 102;
     optional bool show_number_message = 103;

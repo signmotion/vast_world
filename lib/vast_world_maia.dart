@@ -21,4 +21,5 @@ part 'src/maia/server_config.dart';
 part 'src/maia/server_live.dart';
 part 'src/maia/server_state.dart';
 part 'src/maia/server.dart';
+part 'src/maia/server_options.dart';
 part 'src/maia/server_service.dart';

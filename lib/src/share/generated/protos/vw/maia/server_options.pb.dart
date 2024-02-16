@@ -15,12 +15,21 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 /// / Options for the Maia.
 class ServerOptionsBase extends $pb.GeneratedMessage {
-  factory ServerOptionsBase() => create();
+  factory ServerOptionsBase({
+    $core.bool? fakeData,
+  }) {
+    final $result = create();
+    if (fakeData != null) {
+      $result.fakeData = fakeData;
+    }
+    return $result;
+  }
   ServerOptionsBase._() : super();
   factory ServerOptionsBase.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ServerOptionsBase.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ServerOptionsBase', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'fakeData', protoName: 'fakeData')
     ..hasRequiredFields = false
   ;
 
@@ -44,7 +53,19 @@ class ServerOptionsBase extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static ServerOptionsBase getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ServerOptionsBase>(create);
   static ServerOptionsBase? _defaultInstance;
+
+  /// / The services can respect this option and generate fake data.
+  /// / This is useful for test reason.
+  @$pb.TagNumber(1)
+  $core.bool get fakeData => $_getBF(0);
+  @$pb.TagNumber(1)
+  set fakeData($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasFakeData() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearFakeData() => clearField(1);
 }
 
 
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
 const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

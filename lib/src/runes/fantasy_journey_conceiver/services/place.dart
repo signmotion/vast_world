@@ -1,14 +1,19 @@
 part of '../../../../runes/fantasy_journey_conceiver.dart';
 
 class PlaceService extends PlaceServiceBase with ServiceMix {
+  PlaceService(this.server);
+
+  /// This service requires an access to server.
+  final NativeServer server;
+
   @override
-  String get name => 'Place - Fantasy Country Conceiver';
+  String get name => 'Place - Fantasy Journey Conceiver';
 
   @override
   Future<maia.ImageResponse> conceiveImage(
     grpc.ServiceCall call,
     maia.PromptRequest request,
-  ) {
+  ) async {
     // TODO: implement conceiveImagePlace
     throw UnimplementedError();
   }
@@ -17,8 +22,30 @@ class PlaceService extends PlaceServiceBase with ServiceMix {
   Future<ConceiveNameAndIdPlaceResponse> conceiveNameAndId(
     grpc.ServiceCall call,
     maia.PromptRequest request,
-  ) {
-    // TODO: implement conceiveNameAndId
-    throw UnimplementedError();
+  ) async {
+    maia.logiRequest(call, request);
+
+    // respect an each session
+    final gen = gensNameAndIdPlace.update(
+      request.session,
+      (gen) => gen,
+      ifAbsent: () =>
+          NameAndIdPlaceAiGen(fake: server.options(request.session).fakeData),
+    );
+    final d = gen.next!;
+
+    final response = ConceiveNameAndIdPlaceResponse(
+      data: d,
+      answer: ServerAnswer(
+        session: request.session,
+        type: maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE,
+      ),
+    );
+
+    maia.logiResponse(call, response);
+
+    return response;
   }
+
+  final gensNameAndIdPlace = <String, NameAndIdPlaceAiGen>{};
 }

@@ -1,14 +1,6 @@
 part of '../../../../runes/fantasy_journey_conceiver.dart';
 
-typedef NameAndIdPlaceR = ({
-  String planHid,
-  String planUid,
-  String title,
-  String description,
-  Map<String, String> predominantColors,
-});
-
-class NameAndIdPlaceAiGen extends AiGen<NameAndIdPlaceR, AiGenOptions> {
+class NameAndIdPlaceAiGen extends AiGen<NameAndIdPlaceBase, AiGenOptions> {
   const NameAndIdPlaceAiGen({super.fake})
       : super(
           fakeProvider: const NameAndIdPlaceFakeProvider(),
@@ -16,22 +8,21 @@ class NameAndIdPlaceAiGen extends AiGen<NameAndIdPlaceR, AiGenOptions> {
         );
 }
 
-class NameAndIdPlaceFakeProvider extends FakeProvider<NameAndIdPlaceR> {
+class NameAndIdPlaceFakeProvider extends FakeProvider<NameAndIdPlaceBase> {
   const NameAndIdPlaceFakeProvider();
 
   @override
-  NameAndIdPlaceR get next {
+  NameAndIdPlaceBase get next {
     final title = genNames.next.title;
 
     final numColors = Random().nextInt(5 + 1) + 1;
-    final predominantColors = <String, String>{};
+    final predominantColors = <String, int>{};
     for (var i = 0; i < numColors; ++i) {
       final color = colorMap.randomEntry;
-      predominantColors[color.key] =
-          color.value.colorToRgbInt8.intToRgbInt8String;
+      predominantColors[color.key] = color.value.colorToRgbInt8;
     }
 
-    return (
+    return NameAndIdPlaceBase(
       planHid: genHid(title),
       planUid: 'p-$genUuid',
       title: title,
@@ -41,9 +32,10 @@ class NameAndIdPlaceFakeProvider extends FakeProvider<NameAndIdPlaceR> {
   }
 }
 
-class NameAndIdPlaceRealProvider extends RealProvider<NameAndIdPlaceR> {
+class NameAndIdPlaceRealProvider extends RealProvider<NameAndIdPlaceBase> {
   const NameAndIdPlaceRealProvider();
 
   @override
-  NameAndIdPlaceR get next => throw UnimplementedError();
+  NameAndIdPlaceBase get next =>
+      throw UnimplementedError(StackTrace.current.toString());
 }

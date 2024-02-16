@@ -13,28 +13,17 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../../../share/server_answer.pb.dart' as $4;
+import '../../../share/server_answer.pb.dart' as $5;
+import '../name_and_id_journey.pb.dart' as $6;
 
 class ConceiveNameAndIdJourneyResponse extends $pb.GeneratedMessage {
   factory ConceiveNameAndIdJourneyResponse({
-    $core.String? planHid,
-    $core.String? planUid,
-    $core.String? title,
-    $core.String? synopsis,
-    $4.ServerAnswer? answer,
+    $6.NameAndIdJourneyBase? data,
+    $5.ServerAnswer? answer,
   }) {
     final $result = create();
-    if (planHid != null) {
-      $result.planHid = planHid;
-    }
-    if (planUid != null) {
-      $result.planUid = planUid;
-    }
-    if (title != null) {
-      $result.title = title;
-    }
-    if (synopsis != null) {
-      $result.synopsis = synopsis;
+    if (data != null) {
+      $result.data = data;
     }
     if (answer != null) {
       $result.answer = answer;
@@ -46,11 +35,8 @@ class ConceiveNameAndIdJourneyResponse extends $pb.GeneratedMessage {
   factory ConceiveNameAndIdJourneyResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ConceiveNameAndIdJourneyResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.runes.fantasy_journey_conceiver'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'planHid')
-    ..aOS(2, _omitFieldNames ? '' : 'planUid')
-    ..aOS(12, _omitFieldNames ? '' : 'title')
-    ..aOS(13, _omitFieldNames ? '' : 'synopsis')
-    ..aOM<$4.ServerAnswer>(100, _omitFieldNames ? '' : 'answer', subBuilder: $4.ServerAnswer.create)
+    ..aOM<$6.NameAndIdJourneyBase>(1, _omitFieldNames ? '' : 'data', subBuilder: $6.NameAndIdJourneyBase.create)
+    ..aOM<$5.ServerAnswer>(100, _omitFieldNames ? '' : 'answer', subBuilder: $5.ServerAnswer.create)
     ..hasRequiredFields = false
   ;
 
@@ -76,51 +62,26 @@ class ConceiveNameAndIdJourneyResponse extends $pb.GeneratedMessage {
   static ConceiveNameAndIdJourneyResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get planHid => $_getSZ(0);
+  $6.NameAndIdJourneyBase get data => $_getN(0);
   @$pb.TagNumber(1)
-  set planHid($core.String v) { $_setString(0, v); }
+  set data($6.NameAndIdJourneyBase v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasPlanHid() => $_has(0);
+  $core.bool hasData() => $_has(0);
   @$pb.TagNumber(1)
-  void clearPlanHid() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get planUid => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set planUid($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasPlanUid() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearPlanUid() => clearField(2);
-
-  @$pb.TagNumber(12)
-  $core.String get title => $_getSZ(2);
-  @$pb.TagNumber(12)
-  set title($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(12)
-  $core.bool hasTitle() => $_has(2);
-  @$pb.TagNumber(12)
-  void clearTitle() => clearField(12);
-
-  @$pb.TagNumber(13)
-  $core.String get synopsis => $_getSZ(3);
-  @$pb.TagNumber(13)
-  set synopsis($core.String v) { $_setString(3, v); }
-  @$pb.TagNumber(13)
-  $core.bool hasSynopsis() => $_has(3);
-  @$pb.TagNumber(13)
-  void clearSynopsis() => clearField(13);
+  void clearData() => clearField(1);
+  @$pb.TagNumber(1)
+  $6.NameAndIdJourneyBase ensureData() => $_ensure(0);
 
   @$pb.TagNumber(100)
-  $4.ServerAnswer get answer => $_getN(4);
+  $5.ServerAnswer get answer => $_getN(1);
   @$pb.TagNumber(100)
-  set answer($4.ServerAnswer v) { setField(100, v); }
+  set answer($5.ServerAnswer v) { setField(100, v); }
   @$pb.TagNumber(100)
-  $core.bool hasAnswer() => $_has(4);
+  $core.bool hasAnswer() => $_has(1);
   @$pb.TagNumber(100)
   void clearAnswer() => clearField(100);
   @$pb.TagNumber(100)
-  $4.ServerAnswer ensureAnswer() => $_ensure(4);
+  $5.ServerAnswer ensureAnswer() => $_ensure(1);
 }
 
 

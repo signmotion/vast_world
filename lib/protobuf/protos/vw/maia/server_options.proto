@@ -4,4 +4,7 @@ package vw.maia;
 
 /// Options for the Maia.
 message ServerOptionsBase {
+  /// The services can respect this option and generate fake data.
+  /// This is useful for test reason.
+  bool fakeData = 1;
 }

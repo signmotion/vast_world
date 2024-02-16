@@ -13,12 +13,12 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'client_state_enum.pbenum.dart' as $0;
+import 'client_state_enum.pbenum.dart' as $1;
 
 /// / Use for Client's App only.
 class ClientStateBase extends $pb.GeneratedMessage {
   factory ClientStateBase({
-    $0.ClientStateEnumBase? state,
+    $1.ClientStateEnumBase? state,
     $core.String? uidDevice,
     $core.String? session,
     $core.bool? sessionApproved,
@@ -51,7 +51,7 @@ class ClientStateBase extends $pb.GeneratedMessage {
   factory ClientStateBase.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ClientStateBase', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.hermes'), createEmptyInstance: create)
-    ..e<$0.ClientStateEnumBase>(1, _omitFieldNames ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: $0.ClientStateEnumBase.UNSPECIFIED_CLIENT_STATE, valueOf: $0.ClientStateEnumBase.valueOf, enumValues: $0.ClientStateEnumBase.values)
+    ..e<$1.ClientStateEnumBase>(1, _omitFieldNames ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: $1.ClientStateEnumBase.UNSPECIFIED_CLIENT_STATE, valueOf: $1.ClientStateEnumBase.valueOf, enumValues: $1.ClientStateEnumBase.values)
     ..aOS(2, _omitFieldNames ? '' : 'uidDevice', protoName: 'uidDevice')
     ..aOS(3, _omitFieldNames ? '' : 'session')
     ..aOB(4, _omitFieldNames ? '' : 'sessionApproved')
@@ -82,9 +82,9 @@ class ClientStateBase extends $pb.GeneratedMessage {
   static ClientStateBase? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $0.ClientStateEnumBase get state => $_getN(0);
+  $1.ClientStateEnumBase get state => $_getN(0);
   @$pb.TagNumber(1)
-  set state($0.ClientStateEnumBase v) { setField(1, v); }
+  set state($1.ClientStateEnumBase v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasState() => $_has(0);
   @$pb.TagNumber(1)

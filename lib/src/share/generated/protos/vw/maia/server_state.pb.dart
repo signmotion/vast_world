@@ -18,14 +18,14 @@ import 'server_options.pb.dart' as $1;
 /// / Use for Server only.
 class ServerStateBase extends $pb.GeneratedMessage {
   factory ServerStateBase({
-    $1.ServerOptionsBase? options,
+    $core.Map<$core.String, $1.ServerOptionsBase>? options,
     $core.Map<$core.String, $core.String>? claimedSessionsDevices,
     $core.Map<$core.String, $core.bool>? approvedSessions,
     $core.Map<$core.String, $core.String>? currentPlanIds,
   }) {
     final $result = create();
     if (options != null) {
-      $result.options = options;
+      $result.options.addAll(options);
     }
     if (claimedSessionsDevices != null) {
       $result.claimedSessionsDevices.addAll(claimedSessionsDevices);
@@ -43,7 +43,7 @@ class ServerStateBase extends $pb.GeneratedMessage {
   factory ServerStateBase.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ServerStateBase', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
-    ..aOM<$1.ServerOptionsBase>(1, _omitFieldNames ? '' : 'options', subBuilder: $1.ServerOptionsBase.create)
+    ..m<$core.String, $1.ServerOptionsBase>(1, _omitFieldNames ? '' : 'options', entryClassName: 'ServerStateBase.OptionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $1.ServerOptionsBase.create, valueDefaultOrMaker: $1.ServerOptionsBase.getDefault, packageName: const $pb.PackageName('vw.maia'))
     ..m<$core.String, $core.String>(2, _omitFieldNames ? '' : 'claimedSessionsDevices', entryClassName: 'ServerStateBase.ClaimedSessionsDevicesEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('vw.maia'))
     ..m<$core.String, $core.bool>(3, _omitFieldNames ? '' : 'approvedSessions', entryClassName: 'ServerStateBase.ApprovedSessionsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OB, packageName: const $pb.PackageName('vw.maia'))
     ..m<$core.String, $core.String>(200, _omitFieldNames ? '' : 'currentPlanIds', entryClassName: 'ServerStateBase.CurrentPlanIdsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('vw.maia'))
@@ -71,16 +71,10 @@ class ServerStateBase extends $pb.GeneratedMessage {
   static ServerStateBase getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ServerStateBase>(create);
   static ServerStateBase? _defaultInstance;
 
+  /// / Respect the options for each session.
+  /// / <session, ServerOptionsBase>
   @$pb.TagNumber(1)
-  $1.ServerOptionsBase get options => $_getN(0);
-  @$pb.TagNumber(1)
-  set options($1.ServerOptionsBase v) { setField(1, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasOptions() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearOptions() => clearField(1);
-  @$pb.TagNumber(1)
-  $1.ServerOptionsBase ensureOptions() => $_ensure(0);
+  $core.Map<$core.String, $1.ServerOptionsBase> get options => $_getMap(0);
 
   /// / The sessions that the Client requested (claimed) from Server.
   /// / <session, uidDevice>

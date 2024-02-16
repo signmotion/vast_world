@@ -15,14 +15,19 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../share/act.pb.dart' as $3;
 import '../share/server_answer.pb.dart' as $2;
+import 'server_options.pb.dart' as $1;
 
 class ClaimSessionRequest extends $pb.GeneratedMessage {
   factory ClaimSessionRequest({
     $core.String? uidDevice,
+    $1.ServerOptionsBase? options,
   }) {
     final $result = create();
     if (uidDevice != null) {
       $result.uidDevice = uidDevice;
+    }
+    if (options != null) {
+      $result.options = options;
     }
     return $result;
   }
@@ -32,6 +37,7 @@ class ClaimSessionRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ClaimSessionRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
     ..aOS(4, _omitFieldNames ? '' : 'uidDevice')
+    ..aOM<$1.ServerOptionsBase>(5, _omitFieldNames ? '' : 'options', subBuilder: $1.ServerOptionsBase.create)
     ..hasRequiredFields = false
   ;
 
@@ -64,6 +70,17 @@ class ClaimSessionRequest extends $pb.GeneratedMessage {
   $core.bool hasUidDevice() => $_has(0);
   @$pb.TagNumber(4)
   void clearUidDevice() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $1.ServerOptionsBase get options => $_getN(1);
+  @$pb.TagNumber(5)
+  set options($1.ServerOptionsBase v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasOptions() => $_has(1);
+  @$pb.TagNumber(5)
+  void clearOptions() => clearField(5);
+  @$pb.TagNumber(5)
+  $1.ServerOptionsBase ensureOptions() => $_ensure(1);
 }
 
 class ClaimSessionResponse extends $pb.GeneratedMessage {

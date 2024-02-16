@@ -4,8 +4,11 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   DefaultClientBloc({
     required this.serverHost,
     required this.serverPort,
+    required this.serverOptions,
     required ClientState state,
-  })  : assert(state.ss.uidDevice.isNotEmpty),
+  })  : assert(serverOptions.isInitialized(),
+            'The server options should be defined.'),
+        assert(state.ss.uidDevice.isNotEmpty),
         assert(serverHost.isNotEmpty),
         assert(serverPort > 0),
         super(state) {
@@ -19,6 +22,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
   final String serverHost;
   final int serverPort;
+  final maia.ServerOptions serverOptions;
 
   String get uidDevice => state.ss.uidDevice;
 
@@ -115,7 +119,10 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     );
 
     final response = await maiaStub.claimSession(
-      ClaimSessionRequest(uidDevice: uidDevice),
+      ClaimSessionRequest(
+        uidDevice: uidDevice,
+        options: serverOptions,
+      ),
     );
     final session = response.issuedSession;
 

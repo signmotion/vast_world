@@ -13,6 +13,8 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import '../maia/server_options.pb.dart' as $0;
+
 /// / Preset (options) for Client's App.
 class ClientPresetBase extends $pb.GeneratedMessage {
   factory ClientPresetBase({
@@ -21,6 +23,7 @@ class ClientPresetBase extends $pb.GeneratedMessage {
     $core.String? lightThemePageTitle,
     $core.String? serverHost,
     $core.int? serverPort,
+    $0.ServerOptionsBase? serverOptions,
     $core.bool? showAppState,
     $core.bool? showNumberMessage,
     $core.bool? showDebugMessages,
@@ -41,6 +44,9 @@ class ClientPresetBase extends $pb.GeneratedMessage {
     }
     if (serverPort != null) {
       $result.serverPort = serverPort;
+    }
+    if (serverOptions != null) {
+      $result.serverOptions = serverOptions;
     }
     if (showAppState != null) {
       $result.showAppState = showAppState;
@@ -66,6 +72,7 @@ class ClientPresetBase extends $pb.GeneratedMessage {
     ..aOS(3, _omitFieldNames ? '' : 'lightThemePageTitle')
     ..aOS(5, _omitFieldNames ? '' : 'serverHost')
     ..a<$core.int>(6, _omitFieldNames ? '' : 'serverPort', $pb.PbFieldType.O3)
+    ..aOM<$0.ServerOptionsBase>(12, _omitFieldNames ? '' : 'serverOptions', protoName: 'serverOptions', subBuilder: $0.ServerOptionsBase.create)
     ..aOB(102, _omitFieldNames ? '' : 'showAppState')
     ..aOB(103, _omitFieldNames ? '' : 'showNumberMessage')
     ..aOB(104, _omitFieldNames ? '' : 'showDebugMessages')
@@ -139,39 +146,52 @@ class ClientPresetBase extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   void clearServerPort() => clearField(6);
 
+  /// / Each Client can produce own options for server.
+  /// / The server services will respect this options.
+  @$pb.TagNumber(12)
+  $0.ServerOptionsBase get serverOptions => $_getN(5);
+  @$pb.TagNumber(12)
+  set serverOptions($0.ServerOptionsBase v) { setField(12, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasServerOptions() => $_has(5);
+  @$pb.TagNumber(12)
+  void clearServerOptions() => clearField(12);
+  @$pb.TagNumber(12)
+  $0.ServerOptionsBase ensureServerOptions() => $_ensure(5);
+
   @$pb.TagNumber(102)
-  $core.bool get showAppState => $_getBF(5);
+  $core.bool get showAppState => $_getBF(6);
   @$pb.TagNumber(102)
-  set showAppState($core.bool v) { $_setBool(5, v); }
+  set showAppState($core.bool v) { $_setBool(6, v); }
   @$pb.TagNumber(102)
-  $core.bool hasShowAppState() => $_has(5);
+  $core.bool hasShowAppState() => $_has(6);
   @$pb.TagNumber(102)
   void clearShowAppState() => clearField(102);
 
   @$pb.TagNumber(103)
-  $core.bool get showNumberMessage => $_getBF(6);
+  $core.bool get showNumberMessage => $_getBF(7);
   @$pb.TagNumber(103)
-  set showNumberMessage($core.bool v) { $_setBool(6, v); }
+  set showNumberMessage($core.bool v) { $_setBool(7, v); }
   @$pb.TagNumber(103)
-  $core.bool hasShowNumberMessage() => $_has(6);
+  $core.bool hasShowNumberMessage() => $_has(7);
   @$pb.TagNumber(103)
   void clearShowNumberMessage() => clearField(103);
 
   @$pb.TagNumber(104)
-  $core.bool get showDebugMessages => $_getBF(7);
+  $core.bool get showDebugMessages => $_getBF(8);
   @$pb.TagNumber(104)
-  set showDebugMessages($core.bool v) { $_setBool(7, v); }
+  set showDebugMessages($core.bool v) { $_setBool(8, v); }
   @$pb.TagNumber(104)
-  $core.bool hasShowDebugMessages() => $_has(7);
+  $core.bool hasShowDebugMessages() => $_has(8);
   @$pb.TagNumber(104)
   void clearShowDebugMessages() => clearField(104);
 
   @$pb.TagNumber(105)
-  $core.bool get showDebugDetailsMessage => $_getBF(8);
+  $core.bool get showDebugDetailsMessage => $_getBF(9);
   @$pb.TagNumber(105)
-  set showDebugDetailsMessage($core.bool v) { $_setBool(8, v); }
+  set showDebugDetailsMessage($core.bool v) { $_setBool(9, v); }
   @$pb.TagNumber(105)
-  $core.bool hasShowDebugDetailsMessage() => $_has(8);
+  $core.bool hasShowDebugDetailsMessage() => $_has(9);
   @$pb.TagNumber(105)
   void clearShowDebugDetailsMessage() => clearField(105);
 }

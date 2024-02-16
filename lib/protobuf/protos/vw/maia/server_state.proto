@@ -6,7 +6,9 @@ import "vw/maia/server_options.proto";
 
 /// Use for Server only.
 message ServerStateBase {
-    ServerOptionsBase options = 1;
+    /// Respect the options for each session.
+    /// <session, ServerOptionsBase>
+    map<string, ServerOptionsBase> options = 1;
 
     /// The sessions that the Client requested (claimed) from Server.
     /// <session, uidDevice>

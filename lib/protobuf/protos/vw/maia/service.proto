@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package vw.maia;
 
+import "vw/maia/server_options.proto";
+
 import "vw/share/act.proto";
 import "vw/share/server_answer.proto";
 
@@ -21,6 +23,7 @@ service Service {
 
 message ClaimSessionRequest {
   string uid_device = 4;
+  ServerOptionsBase options = 5;
 }
 
 message ClaimSessionResponse {

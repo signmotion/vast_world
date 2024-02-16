@@ -3,6 +3,8 @@ syntax = "proto3";
 package vw.runes.fantasy_journey_conceiver;
 
 import "vw/runes/fantasy_journey_conceiver/services/place.proto";
+import "vw/runes/fantasy_journey_conceiver/name_and_id_journey.proto";
+
 import "vw/share/requests/prompt.proto";
 import "vw/share/server_answer.proto";
 
@@ -15,11 +17,6 @@ service JourneyService {
 
 
 message ConceiveNameAndIdJourneyResponse {
-  string plan_hid = 1;
-  string plan_uid = 2;
-
-  string title = 12;
-  string synopsis = 13;
-
-  vw.share.ServerAnswer answer = 100;
+  NameAndIdJourneyBase data = 1;
+  share.ServerAnswer answer = 100;
 }

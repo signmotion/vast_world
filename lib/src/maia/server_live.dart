@@ -3,14 +3,20 @@ part of '../../../vast_world_maia.dart';
 class ServerLive extends BaseLive<ServerState> {
   ServerLive(super.state);
 
-  Future<String> claimAndApproveSession({required String uidDevice}) async {
-    final session = await claimSession(uidDevice: uidDevice);
+  Future<String> claimAndApproveSession({
+    required String uidDevice,
+    required ServerOptions options,
+  }) async {
+    final session = await claimSession(uidDevice: uidDevice, options: options);
     await approveSession(session: session);
 
     return session;
   }
 
-  Future<String> claimSession({required String uidDevice}) async {
+  Future<String> claimSession({
+    required String uidDevice,
+    required ServerOptions options,
+  }) async {
     final session = genSessionUid;
     check(session);
 
@@ -23,7 +29,7 @@ class ServerLive extends BaseLive<ServerState> {
             ' Rewrote it for client device `$uidDevice`.');
       }
       v.claimedSessionsDevices[session] = uidDevice;
-      v.options = ServerOptionsBase();
+      v.options[session] = options;
     });
     emit(state.copyWith(ss: ns));
 

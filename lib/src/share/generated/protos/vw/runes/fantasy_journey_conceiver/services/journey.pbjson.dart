@@ -17,18 +17,14 @@ import 'dart:typed_data' as $typed_data;
 const ConceiveNameAndIdJourneyResponse$json = {
   '1': 'ConceiveNameAndIdJourneyResponse',
   '2': [
-    {'1': 'plan_hid', '3': 1, '4': 1, '5': 9, '10': 'planHid'},
-    {'1': 'plan_uid', '3': 2, '4': 1, '5': 9, '10': 'planUid'},
-    {'1': 'title', '3': 12, '4': 1, '5': 9, '10': 'title'},
-    {'1': 'synopsis', '3': 13, '4': 1, '5': 9, '10': 'synopsis'},
+    {'1': 'data', '3': 1, '4': 1, '5': 11, '6': '.vw.runes.fantasy_journey_conceiver.NameAndIdJourneyBase', '10': 'data'},
     {'1': 'answer', '3': 100, '4': 1, '5': 11, '6': '.vw.share.ServerAnswer', '10': 'answer'},
   ],
 };
 
 /// Descriptor for `ConceiveNameAndIdJourneyResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List conceiveNameAndIdJourneyResponseDescriptor = $convert.base64Decode(
-    'CiBDb25jZWl2ZU5hbWVBbmRJZEpvdXJuZXlSZXNwb25zZRIZCghwbGFuX2hpZBgBIAEoCVIHcG'
-    'xhbkhpZBIZCghwbGFuX3VpZBgCIAEoCVIHcGxhblVpZBIUCgV0aXRsZRgMIAEoCVIFdGl0bGUS'
-    'GgoIc3lub3BzaXMYDSABKAlSCHN5bm9wc2lzEi4KBmFuc3dlchhkIAEoCzIWLnZ3LnNoYXJlLl'
-    'NlcnZlckFuc3dlclIGYW5zd2Vy');
+    'CiBDb25jZWl2ZU5hbWVBbmRJZEpvdXJuZXlSZXNwb25zZRJMCgRkYXRhGAEgASgLMjgudncucn'
+    'VuZXMuZmFudGFzeV9qb3VybmV5X2NvbmNlaXZlci5OYW1lQW5kSWRKb3VybmV5QmFzZVIEZGF0'
+    'YRIuCgZhbnN3ZXIYZCABKAsyFi52dy5zaGFyZS5TZXJ2ZXJBbnN3ZXJSBmFuc3dlcg==');
 

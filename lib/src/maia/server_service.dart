@@ -3,7 +3,7 @@ part of '../../../vast_world_maia.dart';
 class ServerService extends ServiceBase with ServiceMix {
   ServerService(this.server) : serverLive = constructServerLive();
 
-  /// Some services may require access to server.
+  /// This service requires an access to server.
   final NativeServer server;
 
   final ServerLive serverLive;
@@ -18,11 +18,11 @@ class ServerService extends ServiceBase with ServiceMix {
   ) async {
     logiRequest(call, request);
 
-    final response = ClaimSessionResponse(
-      issuedSession: await serverLive.claimSession(
-        uidDevice: request.uidDevice,
-      ),
+    final session = await serverLive.claimSession(
+      uidDevice: request.uidDevice,
+      options: request.options,
     );
+    final response = ClaimSessionResponse(issuedSession: session);
 
     logiResponse(call, response);
 

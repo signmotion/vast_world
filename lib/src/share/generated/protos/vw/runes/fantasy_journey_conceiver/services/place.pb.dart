@@ -13,32 +13,17 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../../../share/server_answer.pb.dart' as $4;
+import '../../../share/server_answer.pb.dart' as $5;
+import '../name_and_id_place.pb.dart' as $4;
 
 class ConceiveNameAndIdPlaceResponse extends $pb.GeneratedMessage {
   factory ConceiveNameAndIdPlaceResponse({
-    $core.String? planHid,
-    $core.String? planUid,
-    $core.String? title,
-    $core.String? description,
-    $core.Map<$core.String, $core.String>? predominantColors,
-    $4.ServerAnswer? answer,
+    $4.NameAndIdPlaceBase? data,
+    $5.ServerAnswer? answer,
   }) {
     final $result = create();
-    if (planHid != null) {
-      $result.planHid = planHid;
-    }
-    if (planUid != null) {
-      $result.planUid = planUid;
-    }
-    if (title != null) {
-      $result.title = title;
-    }
-    if (description != null) {
-      $result.description = description;
-    }
-    if (predominantColors != null) {
-      $result.predominantColors.addAll(predominantColors);
+    if (data != null) {
+      $result.data = data;
     }
     if (answer != null) {
       $result.answer = answer;
@@ -50,12 +35,8 @@ class ConceiveNameAndIdPlaceResponse extends $pb.GeneratedMessage {
   factory ConceiveNameAndIdPlaceResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ConceiveNameAndIdPlaceResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.runes.fantasy_journey_conceiver'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'planHid')
-    ..aOS(2, _omitFieldNames ? '' : 'planUid')
-    ..aOS(12, _omitFieldNames ? '' : 'title')
-    ..aOS(13, _omitFieldNames ? '' : 'description')
-    ..m<$core.String, $core.String>(20, _omitFieldNames ? '' : 'predominantColors', entryClassName: 'ConceiveNameAndIdPlaceResponse.PredominantColorsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('vw.runes.fantasy_journey_conceiver'))
-    ..aOM<$4.ServerAnswer>(100, _omitFieldNames ? '' : 'answer', subBuilder: $4.ServerAnswer.create)
+    ..aOM<$4.NameAndIdPlaceBase>(1, _omitFieldNames ? '' : 'data', subBuilder: $4.NameAndIdPlaceBase.create)
+    ..aOM<$5.ServerAnswer>(100, _omitFieldNames ? '' : 'answer', subBuilder: $5.ServerAnswer.create)
     ..hasRequiredFields = false
   ;
 
@@ -81,55 +62,26 @@ class ConceiveNameAndIdPlaceResponse extends $pb.GeneratedMessage {
   static ConceiveNameAndIdPlaceResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get planHid => $_getSZ(0);
+  $4.NameAndIdPlaceBase get data => $_getN(0);
   @$pb.TagNumber(1)
-  set planHid($core.String v) { $_setString(0, v); }
+  set data($4.NameAndIdPlaceBase v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasPlanHid() => $_has(0);
+  $core.bool hasData() => $_has(0);
   @$pb.TagNumber(1)
-  void clearPlanHid() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get planUid => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set planUid($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasPlanUid() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearPlanUid() => clearField(2);
-
-  @$pb.TagNumber(12)
-  $core.String get title => $_getSZ(2);
-  @$pb.TagNumber(12)
-  set title($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(12)
-  $core.bool hasTitle() => $_has(2);
-  @$pb.TagNumber(12)
-  void clearTitle() => clearField(12);
-
-  @$pb.TagNumber(13)
-  $core.String get description => $_getSZ(3);
-  @$pb.TagNumber(13)
-  set description($core.String v) { $_setString(3, v); }
-  @$pb.TagNumber(13)
-  $core.bool hasDescription() => $_has(3);
-  @$pb.TagNumber(13)
-  void clearDescription() => clearField(13);
-
-  /// / <name, #RRGGBBAA>
-  @$pb.TagNumber(20)
-  $core.Map<$core.String, $core.String> get predominantColors => $_getMap(4);
+  void clearData() => clearField(1);
+  @$pb.TagNumber(1)
+  $4.NameAndIdPlaceBase ensureData() => $_ensure(0);
 
   @$pb.TagNumber(100)
-  $4.ServerAnswer get answer => $_getN(5);
+  $5.ServerAnswer get answer => $_getN(1);
   @$pb.TagNumber(100)
-  set answer($4.ServerAnswer v) { setField(100, v); }
+  set answer($5.ServerAnswer v) { setField(100, v); }
   @$pb.TagNumber(100)
-  $core.bool hasAnswer() => $_has(5);
+  $core.bool hasAnswer() => $_has(1);
   @$pb.TagNumber(100)
   void clearAnswer() => clearField(100);
   @$pb.TagNumber(100)
-  $4.ServerAnswer ensureAnswer() => $_ensure(5);
+  $5.ServerAnswer ensureAnswer() => $_ensure(1);
 }
 
 

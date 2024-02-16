@@ -22,6 +22,7 @@ const ClientPresetBase$json = {
     {'1': 'light_theme_page_title', '3': 3, '4': 1, '5': 9, '9': 2, '10': 'lightThemePageTitle', '17': true},
     {'1': 'server_host', '3': 5, '4': 1, '5': 9, '9': 3, '10': 'serverHost', '17': true},
     {'1': 'server_port', '3': 6, '4': 1, '5': 5, '9': 4, '10': 'serverPort', '17': true},
+    {'1': 'serverOptions', '3': 12, '4': 1, '5': 11, '6': '.vw.maia.ServerOptionsBase', '10': 'serverOptions'},
     {'1': 'show_app_state', '3': 102, '4': 1, '5': 8, '9': 5, '10': 'showAppState', '17': true},
     {'1': 'show_number_message', '3': 103, '4': 1, '5': 8, '9': 6, '10': 'showNumberMessage', '17': true},
     {'1': 'show_debug_messages', '3': 104, '4': 1, '5': 8, '9': 7, '10': 'showDebugMessages', '17': true},
@@ -46,12 +47,13 @@ final $typed_data.Uint8List clientPresetBaseDescriptor = $convert.base64Decode(
     'VkYXJrX3RoZW1lX3BhZ2VfdGl0bGUYAiABKAlIAVISZGFya1RoZW1lUGFnZVRpdGxliAEBEjgK'
     'FmxpZ2h0X3RoZW1lX3BhZ2VfdGl0bGUYAyABKAlIAlITbGlnaHRUaGVtZVBhZ2VUaXRsZYgBAR'
     'IkCgtzZXJ2ZXJfaG9zdBgFIAEoCUgDUgpzZXJ2ZXJIb3N0iAEBEiQKC3NlcnZlcl9wb3J0GAYg'
-    'ASgFSARSCnNlcnZlclBvcnSIAQESKQoOc2hvd19hcHBfc3RhdGUYZiABKAhIBVIMc2hvd0FwcF'
-    'N0YXRliAEBEjMKE3Nob3dfbnVtYmVyX21lc3NhZ2UYZyABKAhIBlIRc2hvd051bWJlck1lc3Nh'
-    'Z2WIAQESMwoTc2hvd19kZWJ1Z19tZXNzYWdlcxhoIAEoCEgHUhFzaG93RGVidWdNZXNzYWdlc4'
-    'gBARJAChpzaG93X2RlYnVnX2RldGFpbHNfbWVzc2FnZRhpIAEoCEgIUhdzaG93RGVidWdEZXRh'
-    'aWxzTWVzc2FnZYgBAUIMCgpfYXBwX3RpdGxlQhgKFl9kYXJrX3RoZW1lX3BhZ2VfdGl0bGVCGQ'
-    'oXX2xpZ2h0X3RoZW1lX3BhZ2VfdGl0bGVCDgoMX3NlcnZlcl9ob3N0Qg4KDF9zZXJ2ZXJfcG9y'
-    'dEIRCg9fc2hvd19hcHBfc3RhdGVCFgoUX3Nob3dfbnVtYmVyX21lc3NhZ2VCFgoUX3Nob3dfZG'
-    'VidWdfbWVzc2FnZXNCHQobX3Nob3dfZGVidWdfZGV0YWlsc19tZXNzYWdl');
+    'ASgFSARSCnNlcnZlclBvcnSIAQESQAoNc2VydmVyT3B0aW9ucxgMIAEoCzIaLnZ3Lm1haWEuU2'
+    'VydmVyT3B0aW9uc0Jhc2VSDXNlcnZlck9wdGlvbnMSKQoOc2hvd19hcHBfc3RhdGUYZiABKAhI'
+    'BVIMc2hvd0FwcFN0YXRliAEBEjMKE3Nob3dfbnVtYmVyX21lc3NhZ2UYZyABKAhIBlIRc2hvd0'
+    '51bWJlck1lc3NhZ2WIAQESMwoTc2hvd19kZWJ1Z19tZXNzYWdlcxhoIAEoCEgHUhFzaG93RGVi'
+    'dWdNZXNzYWdlc4gBARJAChpzaG93X2RlYnVnX2RldGFpbHNfbWVzc2FnZRhpIAEoCEgIUhdzaG'
+    '93RGVidWdEZXRhaWxzTWVzc2FnZYgBAUIMCgpfYXBwX3RpdGxlQhgKFl9kYXJrX3RoZW1lX3Bh'
+    'Z2VfdGl0bGVCGQoXX2xpZ2h0X3RoZW1lX3BhZ2VfdGl0bGVCDgoMX3NlcnZlcl9ob3N0Qg4KDF'
+    '9zZXJ2ZXJfcG9ydEIRCg9fc2hvd19hcHBfc3RhdGVCFgoUX3Nob3dfbnVtYmVyX21lc3NhZ2VC'
+    'FgoUX3Nob3dfZGVidWdfbWVzc2FnZXNCHQobX3Nob3dfZGVidWdfZGV0YWlsc19tZXNzYWdl');
 
