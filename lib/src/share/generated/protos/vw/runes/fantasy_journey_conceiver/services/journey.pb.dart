@@ -15,8 +15,8 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../../../share/server_answer.pb.dart' as $4;
 
-class conceiveNameAndIdJourneyResponse extends $pb.GeneratedMessage {
-  factory conceiveNameAndIdJourneyResponse({
+class ConceiveNameAndIdJourneyResponse extends $pb.GeneratedMessage {
+  factory ConceiveNameAndIdJourneyResponse({
     $core.String? planHid,
     $core.String? planUid,
     $core.String? title,
@@ -41,11 +41,11 @@ class conceiveNameAndIdJourneyResponse extends $pb.GeneratedMessage {
     }
     return $result;
   }
-  conceiveNameAndIdJourneyResponse._() : super();
-  factory conceiveNameAndIdJourneyResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory conceiveNameAndIdJourneyResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  ConceiveNameAndIdJourneyResponse._() : super();
+  factory ConceiveNameAndIdJourneyResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ConceiveNameAndIdJourneyResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'conceiveNameAndIdJourneyResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.runes.fantasy_journey_conceiver'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ConceiveNameAndIdJourneyResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.runes.fantasy_journey_conceiver'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'planHid')
     ..aOS(2, _omitFieldNames ? '' : 'planUid')
     ..aOS(12, _omitFieldNames ? '' : 'title')
@@ -58,22 +58,22 @@ class conceiveNameAndIdJourneyResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  conceiveNameAndIdJourneyResponse clone() => conceiveNameAndIdJourneyResponse()..mergeFromMessage(this);
+  ConceiveNameAndIdJourneyResponse clone() => ConceiveNameAndIdJourneyResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  conceiveNameAndIdJourneyResponse copyWith(void Function(conceiveNameAndIdJourneyResponse) updates) => super.copyWith((message) => updates(message as conceiveNameAndIdJourneyResponse)) as conceiveNameAndIdJourneyResponse;
+  ConceiveNameAndIdJourneyResponse copyWith(void Function(ConceiveNameAndIdJourneyResponse) updates) => super.copyWith((message) => updates(message as ConceiveNameAndIdJourneyResponse)) as ConceiveNameAndIdJourneyResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static conceiveNameAndIdJourneyResponse create() => conceiveNameAndIdJourneyResponse._();
-  conceiveNameAndIdJourneyResponse createEmptyInstance() => create();
-  static $pb.PbList<conceiveNameAndIdJourneyResponse> createRepeated() => $pb.PbList<conceiveNameAndIdJourneyResponse>();
+  static ConceiveNameAndIdJourneyResponse create() => ConceiveNameAndIdJourneyResponse._();
+  ConceiveNameAndIdJourneyResponse createEmptyInstance() => create();
+  static $pb.PbList<ConceiveNameAndIdJourneyResponse> createRepeated() => $pb.PbList<ConceiveNameAndIdJourneyResponse>();
   @$core.pragma('dart2js:noInline')
-  static conceiveNameAndIdJourneyResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<conceiveNameAndIdJourneyResponse>(create);
-  static conceiveNameAndIdJourneyResponse? _defaultInstance;
+  static ConceiveNameAndIdJourneyResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ConceiveNameAndIdJourneyResponse>(create);
+  static ConceiveNameAndIdJourneyResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get planHid => $_getSZ(0);

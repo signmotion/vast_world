@@ -8,13 +8,13 @@ import "vw/share/server_answer.proto";
 
 service PlaceService {
   /// Start point.
-  rpc conceiveNameAndId (vw.share.requests.PromptRequest) returns (conceiveNameAndIdPlaceResponse);
+  rpc conceiveNameAndId (vw.share.requests.PromptRequest) returns (ConceiveNameAndIdPlaceResponse);
 
   rpc conceiveImage (vw.share.requests.PromptRequest) returns (vw.share.responses.ImageResponse);
 }
 
 
-message conceiveNameAndIdPlaceResponse {
+message ConceiveNameAndIdPlaceResponse {
   string plan_hid = 1;
   string plan_uid = 2;
 

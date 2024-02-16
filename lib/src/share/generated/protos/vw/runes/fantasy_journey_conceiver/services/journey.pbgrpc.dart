@@ -16,16 +16,21 @@ import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../../../share/requests/prompt.pb.dart' as $0;
-import 'journey.pb.dart' as $1;
+import 'journey.pb.dart' as $3;
+import 'place.pb.dart' as $1;
 
 export 'journey.pb.dart';
 
 @$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.JourneyService')
 class JourneyServiceClient extends $grpc.Client {
-  static final _$conceiveNameAndId = $grpc.ClientMethod<$0.PromptRequest, $1.conceiveNameAndIdJourneyResponse>(
+  static final _$conceiveNameAndId = $grpc.ClientMethod<$0.PromptRequest, $3.ConceiveNameAndIdJourneyResponse>(
       '/vw.runes.fantasy_journey_conceiver.JourneyService/conceiveNameAndId',
       ($0.PromptRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $1.conceiveNameAndIdJourneyResponse.fromBuffer(value));
+      ($core.List<$core.int> value) => $3.ConceiveNameAndIdJourneyResponse.fromBuffer(value));
+  static final _$conceiveFirstPlaceNameAndId = $grpc.ClientMethod<$0.PromptRequest, $1.ConceiveNameAndIdPlaceResponse>(
+      '/vw.runes.fantasy_journey_conceiver.JourneyService/conceiveFirstPlaceNameAndId',
+      ($0.PromptRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.ConceiveNameAndIdPlaceResponse.fromBuffer(value));
 
   JourneyServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -33,8 +38,12 @@ class JourneyServiceClient extends $grpc.Client {
       : super(channel, options: options,
         interceptors: interceptors);
 
-  $grpc.ResponseFuture<$1.conceiveNameAndIdJourneyResponse> conceiveNameAndId($0.PromptRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$3.ConceiveNameAndIdJourneyResponse> conceiveNameAndId($0.PromptRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$conceiveNameAndId, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.ConceiveNameAndIdPlaceResponse> conceiveFirstPlaceNameAndId($0.PromptRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$conceiveFirstPlaceNameAndId, request, options: options);
   }
 }
 
@@ -43,18 +52,30 @@ abstract class JourneyServiceBase extends $grpc.Service {
   $core.String get $name => 'vw.runes.fantasy_journey_conceiver.JourneyService';
 
   JourneyServiceBase() {
-    $addMethod($grpc.ServiceMethod<$0.PromptRequest, $1.conceiveNameAndIdJourneyResponse>(
+    $addMethod($grpc.ServiceMethod<$0.PromptRequest, $3.ConceiveNameAndIdJourneyResponse>(
         'conceiveNameAndId',
         conceiveNameAndId_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.PromptRequest.fromBuffer(value),
-        ($1.conceiveNameAndIdJourneyResponse value) => value.writeToBuffer()));
+        ($3.ConceiveNameAndIdJourneyResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.PromptRequest, $1.ConceiveNameAndIdPlaceResponse>(
+        'conceiveFirstPlaceNameAndId',
+        conceiveFirstPlaceNameAndId_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.PromptRequest.fromBuffer(value),
+        ($1.ConceiveNameAndIdPlaceResponse value) => value.writeToBuffer()));
   }
 
-  $async.Future<$1.conceiveNameAndIdJourneyResponse> conceiveNameAndId_Pre($grpc.ServiceCall call, $async.Future<$0.PromptRequest> request) async {
+  $async.Future<$3.ConceiveNameAndIdJourneyResponse> conceiveNameAndId_Pre($grpc.ServiceCall call, $async.Future<$0.PromptRequest> request) async {
     return conceiveNameAndId(call, await request);
   }
 
-  $async.Future<$1.conceiveNameAndIdJourneyResponse> conceiveNameAndId($grpc.ServiceCall call, $0.PromptRequest request);
+  $async.Future<$1.ConceiveNameAndIdPlaceResponse> conceiveFirstPlaceNameAndId_Pre($grpc.ServiceCall call, $async.Future<$0.PromptRequest> request) async {
+    return conceiveFirstPlaceNameAndId(call, await request);
+  }
+
+  $async.Future<$3.ConceiveNameAndIdJourneyResponse> conceiveNameAndId($grpc.ServiceCall call, $0.PromptRequest request);
+  $async.Future<$1.ConceiveNameAndIdPlaceResponse> conceiveFirstPlaceNameAndId($grpc.ServiceCall call, $0.PromptRequest request);
 }

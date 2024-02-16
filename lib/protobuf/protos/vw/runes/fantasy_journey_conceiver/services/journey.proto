@@ -2,18 +2,19 @@ syntax = "proto3";
 
 package vw.runes.fantasy_journey_conceiver;
 
+import "vw/runes/fantasy_journey_conceiver/services/place.proto";
 import "vw/share/requests/prompt.proto";
 import "vw/share/server_answer.proto";
 
 service JourneyService {
   /// Start point.
-  rpc conceiveNameAndId (vw.share.requests.PromptRequest) returns (conceiveNameAndIdJourneyResponse);
+  rpc conceiveNameAndId (vw.share.requests.PromptRequest) returns (ConceiveNameAndIdJourneyResponse);
 
-  // TODO rpc conceivingDescription (vw.share.requests.PromptRequest) returns (ConceiveDescriptionJourneyResponse);
+  rpc conceiveFirstPlaceNameAndId (vw.share.requests.PromptRequest) returns (ConceiveNameAndIdPlaceResponse);
 }
 
 
-message conceiveNameAndIdJourneyResponse {
+message ConceiveNameAndIdJourneyResponse {
   string plan_hid = 1;
   string plan_uid = 2;
 

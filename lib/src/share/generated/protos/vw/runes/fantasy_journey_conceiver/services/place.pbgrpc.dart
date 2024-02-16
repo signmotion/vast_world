@@ -16,21 +16,21 @@ import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../../../share/requests/prompt.pb.dart' as $0;
-import '../../../share/responses/image.pb.dart' as $3;
-import 'place.pb.dart' as $2;
+import '../../../share/responses/image.pb.dart' as $2;
+import 'place.pb.dart' as $1;
 
 export 'place.pb.dart';
 
 @$pb.GrpcServiceName('vw.runes.fantasy_journey_conceiver.PlaceService')
 class PlaceServiceClient extends $grpc.Client {
-  static final _$conceiveNameAndId = $grpc.ClientMethod<$0.PromptRequest, $2.conceiveNameAndIdPlaceResponse>(
+  static final _$conceiveNameAndId = $grpc.ClientMethod<$0.PromptRequest, $1.ConceiveNameAndIdPlaceResponse>(
       '/vw.runes.fantasy_journey_conceiver.PlaceService/conceiveNameAndId',
       ($0.PromptRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $2.conceiveNameAndIdPlaceResponse.fromBuffer(value));
-  static final _$conceiveImage = $grpc.ClientMethod<$0.PromptRequest, $3.ImageResponse>(
+      ($core.List<$core.int> value) => $1.ConceiveNameAndIdPlaceResponse.fromBuffer(value));
+  static final _$conceiveImage = $grpc.ClientMethod<$0.PromptRequest, $2.ImageResponse>(
       '/vw.runes.fantasy_journey_conceiver.PlaceService/conceiveImage',
       ($0.PromptRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $3.ImageResponse.fromBuffer(value));
+      ($core.List<$core.int> value) => $2.ImageResponse.fromBuffer(value));
 
   PlaceServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -38,11 +38,11 @@ class PlaceServiceClient extends $grpc.Client {
       : super(channel, options: options,
         interceptors: interceptors);
 
-  $grpc.ResponseFuture<$2.conceiveNameAndIdPlaceResponse> conceiveNameAndId($0.PromptRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.ConceiveNameAndIdPlaceResponse> conceiveNameAndId($0.PromptRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$conceiveNameAndId, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.ImageResponse> conceiveImage($0.PromptRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$2.ImageResponse> conceiveImage($0.PromptRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$conceiveImage, request, options: options);
   }
 }
@@ -52,30 +52,30 @@ abstract class PlaceServiceBase extends $grpc.Service {
   $core.String get $name => 'vw.runes.fantasy_journey_conceiver.PlaceService';
 
   PlaceServiceBase() {
-    $addMethod($grpc.ServiceMethod<$0.PromptRequest, $2.conceiveNameAndIdPlaceResponse>(
+    $addMethod($grpc.ServiceMethod<$0.PromptRequest, $1.ConceiveNameAndIdPlaceResponse>(
         'conceiveNameAndId',
         conceiveNameAndId_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.PromptRequest.fromBuffer(value),
-        ($2.conceiveNameAndIdPlaceResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.PromptRequest, $3.ImageResponse>(
+        ($1.ConceiveNameAndIdPlaceResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.PromptRequest, $2.ImageResponse>(
         'conceiveImage',
         conceiveImage_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.PromptRequest.fromBuffer(value),
-        ($3.ImageResponse value) => value.writeToBuffer()));
+        ($2.ImageResponse value) => value.writeToBuffer()));
   }
 
-  $async.Future<$2.conceiveNameAndIdPlaceResponse> conceiveNameAndId_Pre($grpc.ServiceCall call, $async.Future<$0.PromptRequest> request) async {
+  $async.Future<$1.ConceiveNameAndIdPlaceResponse> conceiveNameAndId_Pre($grpc.ServiceCall call, $async.Future<$0.PromptRequest> request) async {
     return conceiveNameAndId(call, await request);
   }
 
-  $async.Future<$3.ImageResponse> conceiveImage_Pre($grpc.ServiceCall call, $async.Future<$0.PromptRequest> request) async {
+  $async.Future<$2.ImageResponse> conceiveImage_Pre($grpc.ServiceCall call, $async.Future<$0.PromptRequest> request) async {
     return conceiveImage(call, await request);
   }
 
-  $async.Future<$2.conceiveNameAndIdPlaceResponse> conceiveNameAndId($grpc.ServiceCall call, $0.PromptRequest request);
-  $async.Future<$3.ImageResponse> conceiveImage($grpc.ServiceCall call, $0.PromptRequest request);
+  $async.Future<$1.ConceiveNameAndIdPlaceResponse> conceiveNameAndId($grpc.ServiceCall call, $0.PromptRequest request);
+  $async.Future<$2.ImageResponse> conceiveImage($grpc.ServiceCall call, $0.PromptRequest request);
 }

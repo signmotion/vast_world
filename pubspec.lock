@@ -17,6 +17,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.7"
+  ai_gen:
+    dependency: "direct main"
+    description:
+      path: "../ai_gen"
+      relative: true
+    source: path
+    version: "0.1.0"
   analyzer:
     dependency: transitive
     description:
@@ -173,6 +180,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.5"
+  faker:
+    dependency: transitive
+    description:
+      name: faker
+      sha256: "746e59f91d8b06a389e74cf76e909a05ed69c12691768e2f93557fdf29200fd0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   file:
     dependency: transitive
     description:
@@ -277,10 +292,11 @@ packages:
   id_gen:
     dependency: "direct main"
     description:
-      path: "../id_gen"
-      relative: true
-    source: path
-    version: "0.5.0"
+      name: id_gen
+      sha256: "3632d88f96a71d96f5c0df32f390c013663a2e726d09bc1668921fb2a832d2cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.0"
   image:
     dependency: "direct main"
     description:
@@ -630,6 +646,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.2"
+  uni_color_name:
+    dependency: "direct main"
+    description:
+      path: "../uni_color_name"
+      relative: true
+    source: path
+    version: "0.1.0"
   unicode:
     dependency: transitive
     description:

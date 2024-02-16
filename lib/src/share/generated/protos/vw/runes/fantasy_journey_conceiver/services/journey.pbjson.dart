@@ -14,8 +14,8 @@ import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
 @$core.Deprecated('Use conceiveNameAndIdJourneyResponseDescriptor instead')
-const conceiveNameAndIdJourneyResponse$json = {
-  '1': 'conceiveNameAndIdJourneyResponse',
+const ConceiveNameAndIdJourneyResponse$json = {
+  '1': 'ConceiveNameAndIdJourneyResponse',
   '2': [
     {'1': 'plan_hid', '3': 1, '4': 1, '5': 9, '10': 'planHid'},
     {'1': 'plan_uid', '3': 2, '4': 1, '5': 9, '10': 'planUid'},
@@ -25,9 +25,9 @@ const conceiveNameAndIdJourneyResponse$json = {
   ],
 };
 
-/// Descriptor for `conceiveNameAndIdJourneyResponse`. Decode as a `google.protobuf.DescriptorProto`.
+/// Descriptor for `ConceiveNameAndIdJourneyResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List conceiveNameAndIdJourneyResponseDescriptor = $convert.base64Decode(
-    'CiBjb25jZWl2ZU5hbWVBbmRJZEpvdXJuZXlSZXNwb25zZRIZCghwbGFuX2hpZBgBIAEoCVIHcG'
+    'CiBDb25jZWl2ZU5hbWVBbmRJZEpvdXJuZXlSZXNwb25zZRIZCghwbGFuX2hpZBgBIAEoCVIHcG'
     'xhbkhpZBIZCghwbGFuX3VpZBgCIAEoCVIHcGxhblVpZBIUCgV0aXRsZRgMIAEoCVIFdGl0bGUS'
     'GgoIc3lub3BzaXMYDSABKAlSCHN5bm9wc2lzEi4KBmFuc3dlchhkIAEoCzIWLnZ3LnNoYXJlLl'
     'NlcnZlckFuc3dlclIGYW5zd2Vy');

@@ -15,8 +15,8 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../../../share/server_answer.pb.dart' as $4;
 
-class conceiveNameAndIdPlaceResponse extends $pb.GeneratedMessage {
-  factory conceiveNameAndIdPlaceResponse({
+class ConceiveNameAndIdPlaceResponse extends $pb.GeneratedMessage {
+  factory ConceiveNameAndIdPlaceResponse({
     $core.String? planHid,
     $core.String? planUid,
     $core.String? title,
@@ -45,16 +45,16 @@ class conceiveNameAndIdPlaceResponse extends $pb.GeneratedMessage {
     }
     return $result;
   }
-  conceiveNameAndIdPlaceResponse._() : super();
-  factory conceiveNameAndIdPlaceResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory conceiveNameAndIdPlaceResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  ConceiveNameAndIdPlaceResponse._() : super();
+  factory ConceiveNameAndIdPlaceResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ConceiveNameAndIdPlaceResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'conceiveNameAndIdPlaceResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.runes.fantasy_journey_conceiver'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ConceiveNameAndIdPlaceResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.runes.fantasy_journey_conceiver'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'planHid')
     ..aOS(2, _omitFieldNames ? '' : 'planUid')
     ..aOS(12, _omitFieldNames ? '' : 'title')
     ..aOS(13, _omitFieldNames ? '' : 'description')
-    ..m<$core.String, $core.String>(20, _omitFieldNames ? '' : 'predominantColors', entryClassName: 'conceiveNameAndIdPlaceResponse.PredominantColorsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('vw.runes.fantasy_journey_conceiver'))
+    ..m<$core.String, $core.String>(20, _omitFieldNames ? '' : 'predominantColors', entryClassName: 'ConceiveNameAndIdPlaceResponse.PredominantColorsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OS, packageName: const $pb.PackageName('vw.runes.fantasy_journey_conceiver'))
     ..aOM<$4.ServerAnswer>(100, _omitFieldNames ? '' : 'answer', subBuilder: $4.ServerAnswer.create)
     ..hasRequiredFields = false
   ;
@@ -63,22 +63,22 @@ class conceiveNameAndIdPlaceResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  conceiveNameAndIdPlaceResponse clone() => conceiveNameAndIdPlaceResponse()..mergeFromMessage(this);
+  ConceiveNameAndIdPlaceResponse clone() => ConceiveNameAndIdPlaceResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  conceiveNameAndIdPlaceResponse copyWith(void Function(conceiveNameAndIdPlaceResponse) updates) => super.copyWith((message) => updates(message as conceiveNameAndIdPlaceResponse)) as conceiveNameAndIdPlaceResponse;
+  ConceiveNameAndIdPlaceResponse copyWith(void Function(ConceiveNameAndIdPlaceResponse) updates) => super.copyWith((message) => updates(message as ConceiveNameAndIdPlaceResponse)) as ConceiveNameAndIdPlaceResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static conceiveNameAndIdPlaceResponse create() => conceiveNameAndIdPlaceResponse._();
-  conceiveNameAndIdPlaceResponse createEmptyInstance() => create();
-  static $pb.PbList<conceiveNameAndIdPlaceResponse> createRepeated() => $pb.PbList<conceiveNameAndIdPlaceResponse>();
+  static ConceiveNameAndIdPlaceResponse create() => ConceiveNameAndIdPlaceResponse._();
+  ConceiveNameAndIdPlaceResponse createEmptyInstance() => create();
+  static $pb.PbList<ConceiveNameAndIdPlaceResponse> createRepeated() => $pb.PbList<ConceiveNameAndIdPlaceResponse>();
   @$core.pragma('dart2js:noInline')
-  static conceiveNameAndIdPlaceResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<conceiveNameAndIdPlaceResponse>(create);
-  static conceiveNameAndIdPlaceResponse? _defaultInstance;
+  static ConceiveNameAndIdPlaceResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ConceiveNameAndIdPlaceResponse>(create);
+  static ConceiveNameAndIdPlaceResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get planHid => $_getSZ(0);

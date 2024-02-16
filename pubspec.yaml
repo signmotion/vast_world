@@ -21,6 +21,8 @@ environment:
 
 dependencies:
   advance_math: ^3.3.7
+  ai_gen:
+    path: ../ai_gen
   astronomical_measurements:
     path: ../astronomical_measurements
   auto_size_text: ^3.0.0
@@ -35,8 +37,7 @@ dependencies:
     path: ../dart_tiledmap
   grpc: ^3.2.4
   hydrated_bloc: ^9.1.4
-  id_gen:
-    path: ../id_gen
+  id_gen: ^0.6.0
   image: ^4.1.7
   json_dart: ^0.1.0
   meta: ">=1.10.0 <2.0.0"
@@ -44,6 +45,8 @@ dependencies:
   path: ">=1.8.0 <2.0.0"
   protobuf: ^3.1.0
   thematic_names: ^0.3.0
+  uni_color_name:
+    path: ../uni_color_name
   wfile:
     path: ../wfile
   xml: ^6.5.0
