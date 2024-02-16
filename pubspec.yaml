@@ -44,7 +44,7 @@ dependencies:
   oxygen: ^0.2.0
   path: ">=1.8.0 <2.0.0"
   protobuf: ^3.1.0
-  thematic_names: ^0.3.0
+  thematic_names: ^0.4.0
   uni_color_name:
     path: ../uni_color_name
   wfile:

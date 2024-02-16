@@ -634,10 +634,10 @@ packages:
     dependency: "direct main"
     description:
       name: thematic_names
-      sha256: fc8e929b9022b7f5c7d0fc67463f094c4ffea1cb79fddd96e1ef46f06be34bf4
+      sha256: da2e37cb478768c5b7c26922a20f0ce5b8d0d28041d47f1ac3dbcd13ab450a50
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0"
+    version: "0.4.0"
   typed_data:
     dependency: transitive
     description:
@@ -652,7 +652,7 @@ packages:
       path: "../uni_color_name"
       relative: true
     source: path
-    version: "0.1.0"
+    version: "0.2.0"
   unicode:
     dependency: transitive
     description:
