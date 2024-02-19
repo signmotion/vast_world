@@ -26,19 +26,16 @@ class AddPlanAct extends Act {
     T o, {
     required TPlanBuilder planBuilder,
     required TComponentBuilder componentBuilder,
-  }) {
-    switch (o) {
-      case final Lore lore:
-        return _runOnLore(
-          u,
-          lore,
-          planBuilder: planBuilder,
-          componentBuilder: componentBuilder,
-        ) as T;
-      default:
-        throw UnimplementedError();
-    }
-  }
+  }) =>
+      switch (o) {
+        Lore lore => _runOnLore(
+            u,
+            lore,
+            planBuilder: planBuilder,
+            componentBuilder: componentBuilder,
+          ) as T,
+        _ => throw UnimplementedError(),
+      };
 
   Lore _runOnLore(
     Universe u,

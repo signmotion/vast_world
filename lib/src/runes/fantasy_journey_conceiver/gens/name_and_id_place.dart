@@ -16,11 +16,10 @@ class NameAndIdPlaceFakeProvider extends FakeProvider<NameAndIdPlaceBase> {
     final title = genNames.next.title;
 
     final numColors = Random().nextInt(5 + 1) + 1;
-    final predominantColors = <String, int>{};
-    for (var i = 0; i < numColors; ++i) {
-      final color = colorMap.randomEntry;
-      predominantColors[color.key] = color.value.colorToRgbInt8;
-    }
+    final pc = colorMap.randomEntries(numColors);
+    final predominantColors = {
+      for (final e in pc) e.key: e.value.colorRgbToIntRgb
+    };
 
     return NameAndIdPlaceBase(
       planHid: genHid(title),
