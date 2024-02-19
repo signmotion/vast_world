@@ -15,7 +15,7 @@ class NameAndIdPlaceFakeProvider extends FakeProvider<NameAndIdPlaceBase> {
   NameAndIdPlaceBase get next {
     final title = genNames.next.title;
 
-    final numColors = Random().nextInt(5 + 1) + 1;
+    final numColors = faker.randomGenerator.integer(5, min: 2);
     final pc = colorMap.randomEntries(numColors);
     final predominantColors = {
       for (final e in pc) e.key: e.value.colorRgbToIntRgb
