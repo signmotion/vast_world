@@ -17,6 +17,7 @@ import 'package:protobuf/protobuf.dart' as $pb;
 class ActTypeEnumBase extends $pb.ProtobufEnum {
   static const ActTypeEnumBase UNSPECIFIED_ACT_TYPE = ActTypeEnumBase._(0, _omitEnumNames ? '' : 'UNSPECIFIED_ACT_TYPE');
   static const ActTypeEnumBase ADD_PLAN_ACT_TYPE = ActTypeEnumBase._(12, _omitEnumNames ? '' : 'ADD_PLAN_ACT_TYPE');
+  static const ActTypeEnumBase GET_PLAN_ACT_TYPE = ActTypeEnumBase._(13, _omitEnumNames ? '' : 'GET_PLAN_ACT_TYPE');
   static const ActTypeEnumBase CHANGE_VALUE_ACT_TYPE = ActTypeEnumBase._(21, _omitEnumNames ? '' : 'CHANGE_VALUE_ACT_TYPE');
   static const ActTypeEnumBase CHANGE_VALUE_TO_DEFAULTS_ACT_TYPE = ActTypeEnumBase._(22, _omitEnumNames ? '' : 'CHANGE_VALUE_TO_DEFAULTS_ACT_TYPE');
   static const ActTypeEnumBase CHANGE_VALUE_TO_EMPTY_ACT_TYPE = ActTypeEnumBase._(23, _omitEnumNames ? '' : 'CHANGE_VALUE_TO_EMPTY_ACT_TYPE');
@@ -25,6 +26,7 @@ class ActTypeEnumBase extends $pb.ProtobufEnum {
   static const $core.List<ActTypeEnumBase> values = <ActTypeEnumBase> [
     UNSPECIFIED_ACT_TYPE,
     ADD_PLAN_ACT_TYPE,
+    GET_PLAN_ACT_TYPE,
     CHANGE_VALUE_ACT_TYPE,
     CHANGE_VALUE_TO_DEFAULTS_ACT_TYPE,
     CHANGE_VALUE_TO_EMPTY_ACT_TYPE,

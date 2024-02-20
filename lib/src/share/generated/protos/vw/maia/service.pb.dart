@@ -13,8 +13,9 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../share/act.pb.dart' as $3;
-import '../share/server_answer.pb.dart' as $2;
+import '../share/act.pb.dart' as $4;
+import '../share/plan.pb.dart' as $2;
+import '../share/server_answer.pb.dart' as $3;
 import 'server_options.pb.dart' as $1;
 
 class ClaimSessionRequest extends $pb.GeneratedMessage {
@@ -347,6 +348,138 @@ class GetAboutServerResponse extends $pb.GeneratedMessage {
   void clearName() => clearField(1);
 }
 
+class GetPlanRequest extends $pb.GeneratedMessage {
+  factory GetPlanRequest({
+    $core.String? session,
+    $core.String? planId,
+  }) {
+    final $result = create();
+    if (session != null) {
+      $result.session = session;
+    }
+    if (planId != null) {
+      $result.planId = planId;
+    }
+    return $result;
+  }
+  GetPlanRequest._() : super();
+  factory GetPlanRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPlanRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPlanRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
+    ..aOS(3, _omitFieldNames ? '' : 'session')
+    ..aOS(4, _omitFieldNames ? '' : 'planId')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetPlanRequest clone() => GetPlanRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPlanRequest copyWith(void Function(GetPlanRequest) updates) => super.copyWith((message) => updates(message as GetPlanRequest)) as GetPlanRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetPlanRequest create() => GetPlanRequest._();
+  GetPlanRequest createEmptyInstance() => create();
+  static $pb.PbList<GetPlanRequest> createRepeated() => $pb.PbList<GetPlanRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetPlanRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPlanRequest>(create);
+  static GetPlanRequest? _defaultInstance;
+
+  @$pb.TagNumber(3)
+  $core.String get session => $_getSZ(0);
+  @$pb.TagNumber(3)
+  set session($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasSession() => $_has(0);
+  @$pb.TagNumber(3)
+  void clearSession() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get planId => $_getSZ(1);
+  @$pb.TagNumber(4)
+  set planId($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasPlanId() => $_has(1);
+  @$pb.TagNumber(4)
+  void clearPlanId() => clearField(4);
+}
+
+class GetPlanResponse extends $pb.GeneratedMessage {
+  factory GetPlanResponse({
+    $2.PlanBase? plan,
+    $3.ServerAnswer? answer,
+  }) {
+    final $result = create();
+    if (plan != null) {
+      $result.plan = plan;
+    }
+    if (answer != null) {
+      $result.answer = answer;
+    }
+    return $result;
+  }
+  GetPlanResponse._() : super();
+  factory GetPlanResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPlanResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPlanResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
+    ..aOM<$2.PlanBase>(4, _omitFieldNames ? '' : 'plan', subBuilder: $2.PlanBase.create)
+    ..aOM<$3.ServerAnswer>(7, _omitFieldNames ? '' : 'answer', subBuilder: $3.ServerAnswer.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetPlanResponse clone() => GetPlanResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPlanResponse copyWith(void Function(GetPlanResponse) updates) => super.copyWith((message) => updates(message as GetPlanResponse)) as GetPlanResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetPlanResponse create() => GetPlanResponse._();
+  GetPlanResponse createEmptyInstance() => create();
+  static $pb.PbList<GetPlanResponse> createRepeated() => $pb.PbList<GetPlanResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetPlanResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPlanResponse>(create);
+  static GetPlanResponse? _defaultInstance;
+
+  @$pb.TagNumber(4)
+  $2.PlanBase get plan => $_getN(0);
+  @$pb.TagNumber(4)
+  set plan($2.PlanBase v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasPlan() => $_has(0);
+  @$pb.TagNumber(4)
+  void clearPlan() => clearField(4);
+  @$pb.TagNumber(4)
+  $2.PlanBase ensurePlan() => $_ensure(0);
+
+  @$pb.TagNumber(7)
+  $3.ServerAnswer get answer => $_getN(1);
+  @$pb.TagNumber(7)
+  set answer($3.ServerAnswer v) { setField(7, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasAnswer() => $_has(1);
+  @$pb.TagNumber(7)
+  void clearAnswer() => clearField(7);
+  @$pb.TagNumber(7)
+  $3.ServerAnswer ensureAnswer() => $_ensure(1);
+}
+
 class SetCurrentPlanRequest extends $pb.GeneratedMessage {
   factory SetCurrentPlanRequest({
     $core.String? session,
@@ -413,7 +546,7 @@ class SetCurrentPlanRequest extends $pb.GeneratedMessage {
 
 class SetCurrentPlanResponse extends $pb.GeneratedMessage {
   factory SetCurrentPlanResponse({
-    $2.ServerAnswer? answer,
+    $3.ServerAnswer? answer,
   }) {
     final $result = create();
     if (answer != null) {
@@ -426,7 +559,7 @@ class SetCurrentPlanResponse extends $pb.GeneratedMessage {
   factory SetCurrentPlanResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SetCurrentPlanResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
-    ..aOM<$2.ServerAnswer>(7, _omitFieldNames ? '' : 'answer', subBuilder: $2.ServerAnswer.create)
+    ..aOM<$3.ServerAnswer>(7, _omitFieldNames ? '' : 'answer', subBuilder: $3.ServerAnswer.create)
     ..hasRequiredFields = false
   ;
 
@@ -452,21 +585,21 @@ class SetCurrentPlanResponse extends $pb.GeneratedMessage {
   static SetCurrentPlanResponse? _defaultInstance;
 
   @$pb.TagNumber(7)
-  $2.ServerAnswer get answer => $_getN(0);
+  $3.ServerAnswer get answer => $_getN(0);
   @$pb.TagNumber(7)
-  set answer($2.ServerAnswer v) { setField(7, v); }
+  set answer($3.ServerAnswer v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasAnswer() => $_has(0);
   @$pb.TagNumber(7)
   void clearAnswer() => clearField(7);
   @$pb.TagNumber(7)
-  $2.ServerAnswer ensureAnswer() => $_ensure(0);
+  $3.ServerAnswer ensureAnswer() => $_ensure(0);
 }
 
 class ActBaseRequest extends $pb.GeneratedMessage {
   factory ActBaseRequest({
     $core.String? session,
-    $3.ActBase? act,
+    $4.ActBase? act,
   }) {
     final $result = create();
     if (session != null) {
@@ -483,7 +616,7 @@ class ActBaseRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ActBaseRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
     ..aOS(3, _omitFieldNames ? '' : 'session')
-    ..aOM<$3.ActBase>(6, _omitFieldNames ? '' : 'act', subBuilder: $3.ActBase.create)
+    ..aOM<$4.ActBase>(6, _omitFieldNames ? '' : 'act', subBuilder: $4.ActBase.create)
     ..hasRequiredFields = false
   ;
 
@@ -518,21 +651,21 @@ class ActBaseRequest extends $pb.GeneratedMessage {
   void clearSession() => clearField(3);
 
   @$pb.TagNumber(6)
-  $3.ActBase get act => $_getN(1);
+  $4.ActBase get act => $_getN(1);
   @$pb.TagNumber(6)
-  set act($3.ActBase v) { setField(6, v); }
+  set act($4.ActBase v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasAct() => $_has(1);
   @$pb.TagNumber(6)
   void clearAct() => clearField(6);
   @$pb.TagNumber(6)
-  $3.ActBase ensureAct() => $_ensure(1);
+  $4.ActBase ensureAct() => $_ensure(1);
 }
 
 class ActBaseResponse extends $pb.GeneratedMessage {
   factory ActBaseResponse({
-    $3.ActBase? act,
-    $2.ServerAnswer? answer,
+    $4.ActBase? act,
+    $3.ServerAnswer? answer,
   }) {
     final $result = create();
     if (act != null) {
@@ -548,8 +681,8 @@ class ActBaseResponse extends $pb.GeneratedMessage {
   factory ActBaseResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ActBaseResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
-    ..aOM<$3.ActBase>(6, _omitFieldNames ? '' : 'act', subBuilder: $3.ActBase.create)
-    ..aOM<$2.ServerAnswer>(7, _omitFieldNames ? '' : 'answer', subBuilder: $2.ServerAnswer.create)
+    ..aOM<$4.ActBase>(6, _omitFieldNames ? '' : 'act', subBuilder: $4.ActBase.create)
+    ..aOM<$3.ServerAnswer>(7, _omitFieldNames ? '' : 'answer', subBuilder: $3.ServerAnswer.create)
     ..hasRequiredFields = false
   ;
 
@@ -575,26 +708,26 @@ class ActBaseResponse extends $pb.GeneratedMessage {
   static ActBaseResponse? _defaultInstance;
 
   @$pb.TagNumber(6)
-  $3.ActBase get act => $_getN(0);
+  $4.ActBase get act => $_getN(0);
   @$pb.TagNumber(6)
-  set act($3.ActBase v) { setField(6, v); }
+  set act($4.ActBase v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasAct() => $_has(0);
   @$pb.TagNumber(6)
   void clearAct() => clearField(6);
   @$pb.TagNumber(6)
-  $3.ActBase ensureAct() => $_ensure(0);
+  $4.ActBase ensureAct() => $_ensure(0);
 
   @$pb.TagNumber(7)
-  $2.ServerAnswer get answer => $_getN(1);
+  $3.ServerAnswer get answer => $_getN(1);
   @$pb.TagNumber(7)
-  set answer($2.ServerAnswer v) { setField(7, v); }
+  set answer($3.ServerAnswer v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasAnswer() => $_has(1);
   @$pb.TagNumber(7)
   void clearAnswer() => clearField(7);
   @$pb.TagNumber(7)
-  $2.ServerAnswer ensureAnswer() => $_ensure(1);
+  $3.ServerAnswer ensureAnswer() => $_ensure(1);
 }
 
 

@@ -50,7 +50,7 @@ void main() {
       // add a first
       lore.addNew(all);
       // attempt to add a second
-      expect(() => lore.addNew(all), throwsA(isA<AlreadyExistsPlanError>()));
+      expect(() => lore.addNew(all), throwsA(isA<ExistsPlanError>()));
     });
   });
 

@@ -13,5 +13,6 @@ abstract class Influencer<T> {
 
   final Universe u;
 
-  T processing(T o, Act act);
+  T processingOnClient(T o, Act act);
+  T processingOnServer(T o, Act act);
 }

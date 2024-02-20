@@ -14,11 +14,21 @@ abstract class PlanError extends Error {
   List<Object?> get props => [...super.props, planId];
 }
 
-class AlreadyExistsPlanError extends PlanError {
-  AlreadyExistsPlanError(String planId, StackTrace stackTrace)
+class ExistsPlanError extends PlanError {
+  ExistsPlanError(String planId, StackTrace stackTrace)
       : super(
           ErrorExplainEnum.EXISTS_PLAN_ERROR_EXPLAIN,
-          'Plan already exists.',
+          'Plan exists.',
+          stackTrace,
+          planId: planId,
+        );
+}
+
+class AbsentPlanError extends PlanError {
+  AbsentPlanError(String planId, StackTrace stackTrace)
+      : super(
+          ErrorExplainEnum.ABSENT_PLAN_ERROR_EXPLAIN,
+          'Plan absents.',
           stackTrace,
           planId: planId,
         );

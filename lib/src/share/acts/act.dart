@@ -45,15 +45,15 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
   @override
   bool get isCorrectUid => uid.isActUid;
 
-  T run<T>(
+  T runOnClient<T>(
     Universe u,
     T o, {
     required TPlanBuilder planBuilder,
     required TComponentBuilder componentBuilder,
   }) {
-    logi('Running the act `$this` on the `$o`...'.bittenOfAllUuids32);
+    logi('Client. Running the act `$this` on the `$o`...'.bittenOfAllUuids32);
 
-    return innerRun<T>(
+    return innerRunOnClient<T>(
       u,
       o,
       planBuilder: planBuilder,
@@ -61,7 +61,30 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
     );
   }
 
-  T innerRun<T>(
+  T innerRunOnClient<T>(
+    Universe u,
+    T o, {
+    required TPlanBuilder planBuilder,
+    required TComponentBuilder componentBuilder,
+  });
+
+  T runOnServer<T>(
+    Universe u,
+    T o, {
+    required TPlanBuilder planBuilder,
+    required TComponentBuilder componentBuilder,
+  }) {
+    logi('Server. Running the act `$this` on the `$o`...'.bittenOfAllUuids32);
+
+    return innerRunOnServer<T>(
+      u,
+      o,
+      planBuilder: planBuilder,
+      componentBuilder: componentBuilder,
+    );
+  }
+
+  T innerRunOnServer<T>(
     Universe u,
     T o, {
     required TPlanBuilder planBuilder,

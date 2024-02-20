@@ -49,6 +49,28 @@ class ServerLive extends BaseLive<ServerState> {
     return true;
   }
 
+  Future<PlanBase> getPlan({
+    required String session,
+    required String planId,
+    bool checkSession = false,
+  }) async {
+    if (checkSession) {
+      check(session, claimSession: true);
+    }
+
+    final lore = state.lores[session];
+    if (lore == null) {
+      throw throw AbsentSessionLoreError(session, StackTrace.current);
+    }
+
+    final plan = lore.plans[planId];
+    if (plan == null) {
+      throw throw AbsentPlanError(session, StackTrace.current);
+    }
+
+    return plan.base;
+  }
+
   Future<bool> processingActOnLoreSession({
     required String session,
     required ActBase actBase,
@@ -71,7 +93,7 @@ class ServerLive extends BaseLive<ServerState> {
       session,
       (lore) {
         final act = NativeActBuilder(state.componentBuilder).fromBase(actBase);
-        return state.loreInfluencer.processing(lore, act);
+        return state.loreInfluencer.processingOnServer(lore, act);
       },
       ifAbsent: () => throw AbsentSessionLoreError(session, StackTrace.current),
     );

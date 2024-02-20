@@ -1,12 +1,12 @@
 part of '../../../vast_world_maia.dart';
 
 class ServerService extends ServiceBase with ServiceMix {
-  ServerService(this.server) : serverLive = constructServerLive();
+  ServerService(this.server) : live = constructServerLive();
 
   /// This service requires an access to server.
   final NativeServer server;
 
-  final ServerLive serverLive;
+  final ServerLive live;
 
   @override
   String get name => 'Maia';
@@ -18,7 +18,7 @@ class ServerService extends ServiceBase with ServiceMix {
   ) async {
     logiRequest(call, request);
 
-    final session = await serverLive.claimSession(
+    final session = await live.claimSession(
       uidDevice: request.uidDevice,
       options: request.options,
     );
@@ -37,7 +37,7 @@ class ServerService extends ServiceBase with ServiceMix {
     logiRequest(call, request);
 
     final response = ApproveSessionResponse(
-      approved: await serverLive.approveSession(session: request.session),
+      approved: await live.approveSession(session: request.session),
     );
 
     logiResponse(call, response);
@@ -53,6 +53,42 @@ class ServerService extends ServiceBase with ServiceMix {
     logiRequest(call, request);
 
     final response = GetAboutServerResponse(name: '$server');
+
+    logiResponse(call, response);
+
+    return response;
+  }
+
+  @override
+  Future<GetPlanResponse> getPlan(
+    grpc.ServiceCall call,
+    GetPlanRequest request,
+  ) async {
+    logiRequest(call, request);
+
+    late final GetPlanResponse response;
+    try {
+      response = GetPlanResponse(
+        plan: await live.getPlan(
+          session: request.session,
+          planId: request.planId,
+        ),
+        answer: ServerAnswer(
+          type: ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE,
+        ),
+      );
+    } catch (ex) {
+      loge(ex);
+      response = GetPlanResponse(
+        answer: ServerAnswer(
+          type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
+          codeExplain: ex is Error
+              ? ex.code
+              : ErrorExplainEnum.UNSPECIFIED_ERROR_EXPLAIN,
+          messageExplain: '$ex',
+        ),
+      );
+    }
 
     logiResponse(call, response);
 
@@ -111,7 +147,7 @@ class ServerService extends ServiceBase with ServiceMix {
         late final Object? exception;
         late final bool success;
         try {
-          success = await serverLive.processingActOnLoreSession(
+          success = await live.processingActOnLoreSession(
             session: ar.session,
             actBase: ar.act,
           );

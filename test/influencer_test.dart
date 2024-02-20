@@ -32,7 +32,7 @@ void main() {
           NameComponent()..init('Aerwyna'),
         ],
       );
-      influencer.processing(lore, act);
+      influencer.processingOnServer(lore, act);
       expect(lore.plans.length, 1, reason: lore.plans.sjson);
 
       final p = lore[act.planId!]!;
@@ -52,11 +52,11 @@ void main() {
 
       final act = AddPlanAct(spectatorId: '', planId: 'aerwyna');
       // add a first
-      influencer.processing(lore, act);
+      influencer.processingOnServer(lore, act);
       // attempt to add a second
       expect(
-        () => influencer.processing(lore, act),
-        throwsA(isA<AlreadyExistsPlanError>()),
+        () => influencer.processingOnServer(lore, act),
+        throwsA(isA<ExistsPlanError>()),
       );
     });
 
@@ -84,7 +84,7 @@ void main() {
             NameComponent()..init('Aerwyna'),
           ],
         );
-        influencer.processing(lore, act);
+        influencer.processingOnServer(lore, act);
         final p = lore[plan.id]!;
         expect(p.components.length, 2, reason: p.components.sjson);
         expect(p.getValue<NameComponent, String>(), 'Aerwyna');
@@ -98,7 +98,7 @@ void main() {
             NameComponent()..init('New Aerwyna'),
           ],
         );
-        influencer.processing(lore, act);
+        influencer.processingOnServer(lore, act);
         final p = lore[plan.id]!;
         expect(p.components.length, 2, reason: p.components.sjson);
         expect(p.getValue<NameComponent, String>(), 'New Aerwyna');
@@ -145,7 +145,7 @@ void main() {
 
       // client side
       {
-        clientInfluencer.processing(clientLore, act);
+        clientInfluencer.processingOnServer(clientLore, act);
         expect(clientLore.plans.length, 1, reason: clientLore.plans.sjson);
         final p = clientLore[act.planId!]!;
         // expected: Id, Name and full-coded WidgetRender components
@@ -158,7 +158,7 @@ void main() {
 
       // server side
       {
-        serverInfluencer.processing(serverLore, act);
+        serverInfluencer.processingOnServer(serverLore, act);
         expect(serverLore.plans.length, 1, reason: serverLore.plans.sjson);
         final p = serverLore[act.planId!]!;
         // expected: Id, Name and declared-only WidgetRender components

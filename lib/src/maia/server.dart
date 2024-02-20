@@ -11,7 +11,7 @@ class NativeServer extends BaseServer {
 
   /// The state of [serverService] has a state of the server.
   /// But each service can contains an own state.
-  ServerState get state => serverService.serverLive.state;
+  ServerState get state => serverService.live.state;
 
   /// The options respects each session.
   ServerOptions options(String session) => state.ss.options[session]!;

@@ -36,7 +36,7 @@ class Lore {
     if (this[plan.id] == null) {
       this[plan.id] = plan;
     } else {
-      throw AlreadyExistsPlanError(plan.id, StackTrace.current);
+      throw ExistsPlanError(plan.id, StackTrace.current);
     }
   }
 

@@ -21,7 +21,21 @@ class AddPlanAct extends Act {
       );
 
   @override
-  T innerRun<T>(
+  T innerRunOnClient<T>(
+    Universe u,
+    T o, {
+    required TPlanBuilder planBuilder,
+    required TComponentBuilder componentBuilder,
+  }) =>
+      innerRunOnServer(
+        u,
+        o,
+        planBuilder: planBuilder,
+        componentBuilder: componentBuilder,
+      );
+
+  @override
+  T innerRunOnServer<T>(
     Universe u,
     T o, {
     required TPlanBuilder planBuilder,

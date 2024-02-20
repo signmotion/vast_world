@@ -5,6 +5,7 @@ package vw.maia;
 import "vw/maia/server_options.proto";
 
 import "vw/share/act.proto";
+import "vw/share/plan.proto";
 import "vw/share/server_answer.proto";
 
 service Service {
@@ -13,6 +14,7 @@ service Service {
   
   rpc getAboutServer (GetAboutServerRequest) returns (GetAboutServerResponse);
 
+  rpc getPlan (GetPlanRequest) returns (GetPlanResponse);
   rpc setCurrentPlan (SetCurrentPlanRequest) returns (SetCurrentPlanResponse);
 
   /// Sending own (Client) acts in own plans to server and
@@ -45,6 +47,16 @@ message GetAboutServerRequest {
 
 message GetAboutServerResponse {
   string name = 1;
+}
+
+message GetPlanRequest {
+  string session = 3;
+  string plan_id = 4;
+}
+
+message GetPlanResponse {
+  share.PlanBase plan = 4;
+  share.ServerAnswer answer = 7;
 }
 
 message SetCurrentPlanRequest {

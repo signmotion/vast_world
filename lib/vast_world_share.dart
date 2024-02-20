@@ -28,6 +28,7 @@ part 'src/share/acts/act_builder.dart';
 part 'src/share/acts/act.dart';
 part 'src/share/acts/add_plan_act.dart';
 part 'src/share/acts/change_value.dart';
+part 'src/share/acts/get_plan_act.dart';
 
 part 'src/share/classes/bounding_box_2d.dart';
 part 'src/share/classes/change_notifier.dart';
@@ -63,7 +64,6 @@ part 'src/share/errors/error.dart';
 part 'src/share/errors/error_explain_enum.dart';
 part 'src/share/errors/not_defined_device_error.dart';
 part 'src/share/errors/not_found_error.dart';
-part 'src/share/errors/not_found_session_error.dart';
 part 'src/share/errors/lore.dart';
 part 'src/share/errors/plan_error.dart';
 part 'src/share/errors/session_error.dart';

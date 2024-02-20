@@ -9,7 +9,10 @@ class LoreInfluencer extends Influencer<Lore> {
   });
 
   @override
-  Lore processing(Lore o, Act act) => act.run(
+  Lore processingOnClient(Lore o, Act act) => processingOnServer(o, act);
+
+  @override
+  Lore processingOnServer(Lore o, Act act) => act.runOnServer(
         u,
         o,
         planBuilder: planBuilder,

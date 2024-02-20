@@ -310,7 +310,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     try {
       emit(
         state.copyWith(
-          lore: state.loreInfluencer.processing(state.lore, event.act),
+          lore: state.loreInfluencer.processingOnClient(state.lore, event.act),
         ),
       );
       success = true;
