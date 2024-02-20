@@ -37,6 +37,7 @@ part 'src/share/classes/notifying_vector2.dart';
 part 'src/share/classes/platform_dispatcher.dart';
 part 'src/share/classes/transform_2d.dart';
 
+part 'src/share/components/colors.dart';
 part 'src/share/components/component_builder.dart';
 part 'src/share/components/component.dart';
 part 'src/share/components/description.dart';
@@ -51,7 +52,9 @@ part 'src/share/components/plan.dart';
 part 'src/share/components/render.dart';
 part 'src/share/components/story.dart';
 part 'src/share/components/string.dart';
+part 'src/share/components/synopsis.dart';
 part 'src/share/components/tiledmap_render.dart';
+part 'src/share/components/title.dart';
 part 'src/share/components/transform_2d.dart';
 part 'src/share/components/unimplemented.dart';
 

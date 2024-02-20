@@ -150,6 +150,7 @@ class NativeComponentBuilder {
   /// Native builders for components.
   /// You should override [extendedBuilders] for detect own components.
   List<TAnyComponentBuilder> get nativeBuilders => [
+        ColorsComponent.new,
         DescriptionComponent.new,
         GreetingComponent.new,
         IdComponent.new,
@@ -159,7 +160,9 @@ class NativeComponentBuilder {
         PictureComponent.new,
         StoryComponent.new,
         StringComponent.new,
+        SynopsisComponent.new,
         TiledmapRenderComponent.new,
+        TitleComponent.new,
         UnimplementedComponent.new,
       ];
 
@@ -192,6 +195,19 @@ class NativeComponentBuilder {
 
     /// a number of components will be checked
     var count = 0;
+
+    ++count;
+    {
+      const b = ColorsComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
+    }
 
     ++count;
     {
@@ -299,6 +315,19 @@ class NativeComponentBuilder {
 
     ++count;
     {
+      const b = SynopsisComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
+    }
+
+    ++count;
+    {
       const b = StringComponent.new;
       if (b().uid == uid) {
         return run(
@@ -313,6 +342,18 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = TiledmapRenderComponent.new;
+      if (b().uid == uid) {
+        return run(
+          b,
+          u: u,
+          entity: entity,
+          value: jsonValue == null ? null : b().jsonAsValue(jsonValue),
+        );
+      }
+    }
+    ++count;
+    {
+      const b = TitleComponent.new;
       if (b().uid == uid) {
         return run(
           b,

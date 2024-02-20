@@ -29,6 +29,7 @@ class ClientPresetBase extends $pb.GeneratedMessage {
     $core.bool? showDebugMessages,
     $core.bool? showDebugDetailsMessage,
     $core.bool? visualizeState,
+    $core.bool? fixedSession,
   }) {
     final $result = create();
     if (appTitle != null) {
@@ -64,6 +65,9 @@ class ClientPresetBase extends $pb.GeneratedMessage {
     if (visualizeState != null) {
       $result.visualizeState = visualizeState;
     }
+    if (fixedSession != null) {
+      $result.fixedSession = fixedSession;
+    }
     return $result;
   }
   ClientPresetBase._() : super();
@@ -82,6 +86,7 @@ class ClientPresetBase extends $pb.GeneratedMessage {
     ..aOB(104, _omitFieldNames ? '' : 'showDebugMessages')
     ..aOB(105, _omitFieldNames ? '' : 'showDebugDetailsMessage')
     ..aOB(200, _omitFieldNames ? '' : 'visualizeState')
+    ..aOB(600, _omitFieldNames ? '' : 'fixedSession')
     ..hasRequiredFields = false
   ;
 
@@ -209,6 +214,17 @@ class ClientPresetBase extends $pb.GeneratedMessage {
   $core.bool hasVisualizeState() => $_has(10);
   @$pb.TagNumber(200)
   void clearVisualizeState() => clearField(200);
+
+  /// / Client will be started with [fixedSessionUid] and
+  /// / will be able to fetch data from the Server.
+  @$pb.TagNumber(600)
+  $core.bool get fixedSession => $_getBF(11);
+  @$pb.TagNumber(600)
+  set fixedSession($core.bool v) { $_setBool(11, v); }
+  @$pb.TagNumber(600)
+  $core.bool hasFixedSession() => $_has(11);
+  @$pb.TagNumber(600)
+  void clearFixedSession() => clearField(600);
 }
 
 

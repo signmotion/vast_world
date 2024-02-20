@@ -5,6 +5,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     required this.serverHost,
     required this.serverPort,
     required this.serverOptions,
+    required this.fixedSession,
     required ClientState state,
   })  : assert(serverOptions.isInitialized(),
             'The server options should be defined.'),
@@ -23,6 +24,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   final String serverHost;
   final int serverPort;
   final maia.ServerOptions serverOptions;
+  final bool fixedSession;
 
   String get uidDevice => state.ss.uidDevice;
 
@@ -31,13 +33,13 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   LoreInfluencer get loreInfluencer => state.loreInfluencer;
 
   /// Override this method for catching own events.
-  Future<void> onExtendedEvent(
+  Future<void> onExtended(
     AClientEvent event,
     Emitter<ClientState> emit,
   ) async =>
       throw UnsupportedError('Event: $event');
 
-  /// See [onExtendedEvent].
+  /// See [onExtended].
   Future<void> _onEvent(
     AClientEvent event,
     Emitter<ClientState> emit,
@@ -47,21 +49,21 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     try {
       return switch (event) {
         // initializing events
-        InitializingClientEvent e => _onInitEvent(e, emit),
-        InitializingMaiaClientEvent e => _onInitializingMaiaEvent(e, emit),
-        RegisteringClientEvent e => _onRegisteringClientEvent(e, emit),
-        ClaimingSessionClientEvent e => _onClaimingSessionEvent(e, emit),
-        ApprovingSessionClientEvent e => _onApprovingSessionEvent(e, emit),
-        GettingAboutServerClientEvent e => _onGettingAboutServerEvent(e, emit),
-        OpeningSyncStreamsClientEvent e => _onOpeningSyncStreamsEvent(e, emit),
-        SuccessInitClientEvent e => _onSuccessInitEvent(e, emit),
-        FailureInitClientEvent e => _onFailureInitEvent(e, emit),
-        WaitingInputClientEvent e => _onWaitingInputEvent(e, emit),
+        InitializingClientEvent e => _onInit(e, emit),
+        InitializingMaiaClientEvent e => _onInitializingMaia(e, emit),
+        RegisteringClientEvent e => _onRegisteringClient(e, emit),
+        ClaimingSessionClientEvent e => _onClaimingSession(e, emit),
+        ApprovingSessionClientEvent e => _onApprovingSession(e, emit),
+        GettingAboutServerClientEvent e => _onGettingAboutServer(e, emit),
+        OpeningSyncStreamsClientEvent e => _onOpeningSyncStreams(e, emit),
+        SuccessInitClientEvent e => _onSuccessInit(e, emit),
+        FailureInitClientEvent e => _onFailureInit(e, emit),
+        WaitingInputClientEvent e => _onWaitingInput(e, emit),
         // act events
-        ProcessingActClientEvent e => _onProcessingOnClientActEvent(e, emit),
-        SendingToServerActClientEvent e => _onSendingToServerActEvent(e, emit),
+        ProcessingActClientEvent e => _onProcessingOnClientAct(e, emit),
+        SendingToServerActClientEvent e => _onSendingToServerAct(e, emit),
         // unsupported event
-        AClientEvent e => onExtendedEvent(e, emit),
+        AClientEvent e => onExtended(e, emit),
       };
     } catch (ex) {
       loge(ex);
@@ -69,7 +71,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     }
   }
 
-  Future<void> _onInitEvent(
+  Future<void> _onInit(
     InitializingClientEvent event,
     Emitter<ClientState> emit,
   ) async {
@@ -81,14 +83,14 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     add(const RegisteringClientEvent());
   }
 
-  Future<void> _onInitializingMaiaEvent(
+  Future<void> _onInitializingMaia(
     InitializingMaiaClientEvent event,
     Emitter<ClientState> emit,
   ) async {
     maiaStub = maia.ServiceClient(channel);
   }
 
-  Future<void> _onRegisteringClientEvent(
+  Future<void> _onRegisteringClient(
     RegisteringClientEvent event,
     Emitter<ClientState> emit,
   ) async {
@@ -102,7 +104,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     add(const OpeningSyncStreamsClientEvent());
   }
 
-  Future<void> _onClaimingSessionEvent(
+  Future<void> _onClaimingSession(
     ClaimingSessionClientEvent event,
     Emitter<ClientState> emit,
   ) async {
@@ -120,6 +122,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
     final response = await maiaStub.claimSession(
       ClaimSessionRequest(
+        fixedSession: fixedSession,
         uidDevice: uidDevice,
         options: serverOptions,
       ),
@@ -138,7 +141,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     logi('Session `$session` claimed for the device `$uidDevice`.');
   }
 
-  Future<void> _onApprovingSessionEvent(
+  Future<void> _onApprovingSession(
     ApprovingSessionClientEvent event,
     Emitter<ClientState> emit,
   ) async {
@@ -176,7 +179,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     logi('Session `$session` approved.');
   }
 
-  Future<void> _onGettingAboutServerEvent(
+  Future<void> _onGettingAboutServer(
     GettingAboutServerClientEvent event,
     Emitter<ClientState> emit,
   ) async {
@@ -215,7 +218,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   late final StreamController<ActBaseRequest> clientActs;
   late final grpc.ResponseStream<ActBaseResponse> serverActs;
 
-  Future<void> _onOpeningSyncStreamsEvent(
+  Future<void> _onOpeningSyncStreams(
     OpeningSyncStreamsClientEvent event,
     Emitter<ClientState> emit,
   ) async {
@@ -251,7 +254,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     add(const SuccessInitClientEvent());
   }
 
-  Future<void> _onSuccessInitEvent(
+  Future<void> _onSuccessInit(
     SuccessInitClientEvent event,
     Emitter<ClientState> emit,
   ) async {
@@ -261,7 +264,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
   void whenSuccessInit() {}
 
-  Future<void> _onFailureInitEvent(
+  Future<void> _onFailureInit(
     FailureInitClientEvent event,
     Emitter<ClientState> emit,
   ) async {
@@ -271,7 +274,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
   void whenFailureInit() {}
 
-  Future<void> _onWaitingInputEvent(
+  Future<void> _onWaitingInput(
     WaitingInputClientEvent event,
     Emitter<ClientState> emit,
   ) async {
@@ -286,7 +289,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   }
 
   /// Catching after [SendingToServerActEvent].
-  Future<void> _onProcessingOnClientActEvent(
+  Future<void> _onProcessingOnClientAct(
     ProcessingActClientEvent event,
     Emitter<ClientState> emit,
   ) async {
@@ -333,7 +336,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   }
 
   /// Sending before [ProcessingOnServerActEvent].
-  Future<void> _onSendingToServerActEvent(
+  Future<void> _onSendingToServerAct(
     SendingToServerActClientEvent event,
     Emitter<ClientState> emit,
   ) async {

@@ -4,20 +4,26 @@ class ServerLive extends BaseLive<ServerState> {
   ServerLive(super.state);
 
   Future<String> claimAndApproveSession({
+    required bool fixedSession,
     required String uidDevice,
     required ServerOptions options,
   }) async {
-    final session = await claimSession(uidDevice: uidDevice, options: options);
+    final session = await claimSession(
+      fixedSession: fixedSession,
+      uidDevice: uidDevice,
+      options: options,
+    );
     await approveSession(session: session);
 
     return session;
   }
 
   Future<String> claimSession({
+    required bool fixedSession,
     required String uidDevice,
     required ServerOptions options,
   }) async {
-    final session = genSessionUid;
+    final session = fixedSession ? fixedSessionUid : genSessionUid;
     check(session);
 
     state.ss.freeze();

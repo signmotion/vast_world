@@ -24,4 +24,8 @@ message ClientPresetBase {
 
     /// Show BLoC state as widget.
     optional bool visualize_state = 200;
+
+    /// Client will be started with [fixedSessionUid] and
+    /// will be able to fetch data from the Server.
+    optional bool fixed_session = 600;
 }

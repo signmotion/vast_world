@@ -24,6 +24,10 @@ service Service {
 
 
 message ClaimSessionRequest {
+  /// Set same session between Server and Client if present.
+  /// See [fixedSessionUid].
+  bool fixed_session = 6;
+
   string uid_device = 4;
   ServerOptionsBase options = 5;
 }

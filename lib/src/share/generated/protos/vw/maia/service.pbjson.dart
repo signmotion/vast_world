@@ -17,6 +17,7 @@ import 'dart:typed_data' as $typed_data;
 const ClaimSessionRequest$json = {
   '1': 'ClaimSessionRequest',
   '2': [
+    {'1': 'fixed_session', '3': 6, '4': 1, '5': 8, '10': 'fixedSession'},
     {'1': 'uid_device', '3': 4, '4': 1, '5': 9, '10': 'uidDevice'},
     {'1': 'options', '3': 5, '4': 1, '5': 11, '6': '.vw.maia.ServerOptionsBase', '10': 'options'},
   ],
@@ -24,8 +25,9 @@ const ClaimSessionRequest$json = {
 
 /// Descriptor for `ClaimSessionRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List claimSessionRequestDescriptor = $convert.base64Decode(
-    'ChNDbGFpbVNlc3Npb25SZXF1ZXN0Eh0KCnVpZF9kZXZpY2UYBCABKAlSCXVpZERldmljZRI0Cg'
-    'dvcHRpb25zGAUgASgLMhoudncubWFpYS5TZXJ2ZXJPcHRpb25zQmFzZVIHb3B0aW9ucw==');
+    'ChNDbGFpbVNlc3Npb25SZXF1ZXN0EiMKDWZpeGVkX3Nlc3Npb24YBiABKAhSDGZpeGVkU2Vzc2'
+    'lvbhIdCgp1aWRfZGV2aWNlGAQgASgJUgl1aWREZXZpY2USNAoHb3B0aW9ucxgFIAEoCzIaLnZ3'
+    'Lm1haWEuU2VydmVyT3B0aW9uc0Jhc2VSB29wdGlvbnM=');
 
 @$core.Deprecated('Use claimSessionResponseDescriptor instead')
 const ClaimSessionResponse$json = {

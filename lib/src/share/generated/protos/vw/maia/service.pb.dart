@@ -22,6 +22,7 @@ class ClaimSessionRequest extends $pb.GeneratedMessage {
   factory ClaimSessionRequest({
     $core.String? uidDevice,
     $1.ServerOptionsBase? options,
+    $core.bool? fixedSession,
   }) {
     final $result = create();
     if (uidDevice != null) {
@@ -29,6 +30,9 @@ class ClaimSessionRequest extends $pb.GeneratedMessage {
     }
     if (options != null) {
       $result.options = options;
+    }
+    if (fixedSession != null) {
+      $result.fixedSession = fixedSession;
     }
     return $result;
   }
@@ -39,6 +43,7 @@ class ClaimSessionRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ClaimSessionRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.maia'), createEmptyInstance: create)
     ..aOS(4, _omitFieldNames ? '' : 'uidDevice')
     ..aOM<$1.ServerOptionsBase>(5, _omitFieldNames ? '' : 'options', subBuilder: $1.ServerOptionsBase.create)
+    ..aOB(6, _omitFieldNames ? '' : 'fixedSession')
     ..hasRequiredFields = false
   ;
 
@@ -82,6 +87,17 @@ class ClaimSessionRequest extends $pb.GeneratedMessage {
   void clearOptions() => clearField(5);
   @$pb.TagNumber(5)
   $1.ServerOptionsBase ensureOptions() => $_ensure(1);
+
+  /// / Set same session between Server and Client if present.
+  /// / See [fixedSessionUid].
+  @$pb.TagNumber(6)
+  $core.bool get fixedSession => $_getBF(2);
+  @$pb.TagNumber(6)
+  set fixedSession($core.bool v) { $_setBool(2, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasFixedSession() => $_has(2);
+  @$pb.TagNumber(6)
+  void clearFixedSession() => clearField(6);
 }
 
 class ClaimSessionResponse extends $pb.GeneratedMessage {

@@ -19,6 +19,7 @@ class ServerService extends ServiceBase with ServiceMix {
     logiRequest(call, request);
 
     final session = await live.claimSession(
+      fixedSession: request.fixedSession,
       uidDevice: request.uidDevice,
       options: request.options,
     );
