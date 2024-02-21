@@ -14,7 +14,8 @@ service Service {
   
   rpc getAboutServer (GetAboutServerRequest) returns (GetAboutServerResponse);
 
-  rpc getPlan (GetPlanRequest) returns (GetPlanResponse);
+  rpc fetchPlanIds (FetchPlanIdsRequest) returns (FetchPlanIdsResponse);
+  rpc fetchPlan (FetchPlanRequest) returns (FetchPlanResponse);
   rpc setCurrentPlan (SetCurrentPlanRequest) returns (SetCurrentPlanResponse);
 
   /// Sending own (Client) acts in own plans to server and
@@ -53,12 +54,22 @@ message GetAboutServerResponse {
   string name = 1;
 }
 
-message GetPlanRequest {
+message FetchPlanIdsRequest {
   string session = 3;
-  string plan_id = 4;
 }
 
-message GetPlanResponse {
+message FetchPlanIdsResponse {
+  repeated string planIds = 1;
+  share.ServerAnswer answer = 7;
+}
+
+message FetchPlanRequest {
+  string session = 3;
+  string plan_id = 4;
+  share.ServerAnswer answer = 7;
+}
+
+message FetchPlanResponse {
   share.PlanBase plan = 4;
   share.ServerAnswer answer = 7;
 }

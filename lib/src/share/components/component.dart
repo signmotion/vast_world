@@ -87,6 +87,9 @@ abstract class Component<T> extends oxygen.Component<T>
   /// See [jsonAsComponentBase].
   @override
   ComponentBase jsonAsBase(JsonMap json) => jsonAsComponentBase(json);
+
+  @override
+  String toString() => '$runtimeType($valueAsJson)';
 }
 
 ComponentBase jsonAsComponentBase(JsonMap json) => switch (json) {

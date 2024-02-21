@@ -9,6 +9,7 @@ void main() async {
   final ma = constructServerLive();
 
   Future<String> claimSession() async => ma.claimSession(
+        fixedSession: false,
         uidDevice: 'device-a',
         options: ServerOptions(),
       );
@@ -30,10 +31,12 @@ void main() async {
     test('claim unique sessions for client with different UIDs device',
         () async {
       final a = await ma.claimSession(
+        fixedSession: false,
         uidDevice: 'device-a',
         options: ServerOptions(),
       );
       final b = await ma.claimSession(
+        fixedSession: false,
         uidDevice: 'device-b',
         options: ServerOptions(),
       );
@@ -42,6 +45,7 @@ void main() async {
 
     test('approve the session', () async {
       final session = await ma.claimSession(
+        fixedSession: false,
         uidDevice: 'device-a',
         options: ServerOptions(),
       );

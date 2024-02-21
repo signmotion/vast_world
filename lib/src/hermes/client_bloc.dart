@@ -56,6 +56,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
         ApprovingSessionClientEvent e => _onApprovingSession(e, emit),
         GettingAboutServerClientEvent e => _onGettingAboutServer(e, emit),
         OpeningSyncStreamsClientEvent e => _onOpeningSyncStreams(e, emit),
+        FetchingPlansClientEvent e => _onFetchingPlansClient(e, emit),
         SuccessInitClientEvent e => _onSuccessInit(e, emit),
         FailureInitClientEvent e => _onFailureInit(e, emit),
         WaitingInputClientEvent e => _onWaitingInput(e, emit),
@@ -102,6 +103,9 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     add(const GettingAboutServerClientEvent());
 
     add(const OpeningSyncStreamsClientEvent());
+
+    // TODO add(const FetchingPlansClientEvent());
+    add(const SuccessInitClientEvent());
   }
 
   Future<void> _onClaimingSession(
@@ -250,6 +254,59 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       onDone: () => logi('_onOpeningSyncStreamsEvent() serverActs onDone'),
     );
     logi('A stream from Server to Client opened.');
+  }
+
+  Future<void> _onFetchingPlansClient(
+    FetchingPlansClientEvent event,
+    Emitter<ClientState> emit,
+  ) async {
+    state.ss.freeze();
+    emit(
+      state.copyWith(
+        ss: state.ss.rebuild((v) {
+          v.state = ClientStateEnum.FETCHING_PLANS_CLIENT_STATE;
+        }),
+      ),
+    );
+
+    // plan IDs
+    late final Set<String> planIds;
+    {
+      final response = await maiaStub.fetchPlanIds(
+        maia.FetchPlanIdsRequest(session: state.ss.session),
+      );
+      // TODO(sign): Respect errors.
+      planIds = {...response.planIds};
+    }
+
+    // plans
+    final lore = state.lore;
+    final b = state.planBuilder(state.u, state.componentBuilder);
+    for (final id in planIds) {
+      logi('Fetching plan `$id` and build with `$b`...');
+      final response = await maiaStub.fetchPlan(
+        maia.FetchPlanRequest(
+          session: state.ss.session,
+          planId: id,
+        ),
+      );
+      // TODO(sign): Respect errors.
+      final plan = b.fromBase(response.plan);
+      lore.addNew(plan);
+      logi('Fetched plan `$id` and added to Lore.');
+    }
+
+    emit(
+      state.copyWith(
+        ss: state.ss.rebuild((v) {
+          v.state = ClientStateEnum.FETCHED_PLANS_CLIENT_STATE;
+        }),
+        lore: lore,
+      ),
+    );
+
+    logi('Got ${state.lore.count} plan${state.lore.count > 1 ? 's' : ''}'
+        ' from Server.');
 
     add(const SuccessInitClientEvent());
   }
@@ -295,7 +352,8 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   ) async {
     if (event.answer.type !=
         maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE) {
-      logw("The event `$event` wasn't accepted on the server side.");
+      logw("The event `$event` wasn't accepted on the server side."
+          ' Reason: ${event.answer}.');
       // TODO(sign): Respect this answer.
       return;
     }

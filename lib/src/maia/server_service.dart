@@ -61,16 +61,49 @@ class ServerService extends ServiceBase with ServiceMix {
   }
 
   @override
-  Future<GetPlanResponse> getPlan(
+  Future<FetchPlanIdsResponse> fetchPlanIds(
     grpc.ServiceCall call,
-    GetPlanRequest request,
+    FetchPlanIdsRequest request,
   ) async {
     logiRequest(call, request);
 
-    late final GetPlanResponse response;
+    late final FetchPlanIdsResponse response;
     try {
-      response = GetPlanResponse(
-        plan: await live.getPlan(
+      response = FetchPlanIdsResponse(
+        planIds: await live.fetchPlanIds(session: request.session),
+        answer: ServerAnswer(
+          type: ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE,
+        ),
+      );
+    } catch (ex) {
+      loge(ex);
+      response = FetchPlanIdsResponse(
+        answer: ServerAnswer(
+          type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
+          codeExplain: ex is Error
+              ? ex.code
+              : ErrorExplainEnum.UNSPECIFIED_ERROR_EXPLAIN,
+          messageExplain: '$ex',
+        ),
+      );
+    }
+
+    logiResponse(call, response);
+
+    return response;
+  }
+
+  @override
+  Future<FetchPlanResponse> fetchPlan(
+    grpc.ServiceCall call,
+    FetchPlanRequest request,
+  ) async {
+    logiRequest(call, request);
+
+    late final FetchPlanResponse response;
+    try {
+      response = FetchPlanResponse(
+        plan: await live.fetchPlan(
           session: request.session,
           planId: request.planId,
         ),
@@ -80,7 +113,7 @@ class ServerService extends ServiceBase with ServiceMix {
       );
     } catch (ex) {
       loge(ex);
-      response = GetPlanResponse(
+      response = FetchPlanResponse(
         answer: ServerAnswer(
           type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
           codeExplain: ex is Error

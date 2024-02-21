@@ -19,8 +19,9 @@ class NativePlanBuilder {
 
   T fromBase<T extends Plan<dynamic>>(PlanBase base) {
     logi('🧙‍♂️🟨 Constructing plan based on'
-            ' `${base.hid} with components'
-            ' `${base.components.values.map((c) => c.hid)}`...'
+            ' `${base.hid}` with components'
+            ' `${base.components.values.map((c) => c.hid)}`'
+            ' with builder `$runtimeType`...'
         .bittenOfAllUuids32);
 
     final plan = constructNothingPlan(
@@ -43,7 +44,7 @@ class NativePlanBuilder {
     }
 
     logi('🧙‍♂️💚 Plan `$plan` constructed with components'
-        ' `${plan.componentsBuilders.map((b) => b().runtimeType)}`');
+        ' `${plan.componentsBuilders.map((b) => b())}`');
 
     return plan as T;
   }
@@ -65,8 +66,11 @@ class NativePlanBuilder {
     }
 
     logi('🧙‍♂️💚 Plan `$plan` constructed with components'
-        ' `${plan.componentsBuilders.map((b) => b().runtimeType)}`');
+        ' `${plan.componentsBuilders.map((b) => b())}`');
 
     return plan as T;
   }
+
+  @override
+  String toString() => '$runtimeType ${componentBuilder()}';
 }

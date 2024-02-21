@@ -55,7 +55,36 @@ class ServerLive extends BaseLive<ServerState> {
     return true;
   }
 
-  Future<PlanBase> getPlan({
+  Lore loreFromState(String session) {
+    final lore = state.lores[session];
+    if (lore == null) {
+      throw throw AbsentSessionLoreError(session, StackTrace.current);
+    }
+
+    return lore;
+  }
+
+  Plan<dynamic> planFromState(String session, String planId) {
+    final plan = loreFromState(session).plans[planId];
+    if (plan == null) {
+      throw throw AbsentPlanError(session, StackTrace.current);
+    }
+
+    return plan;
+  }
+
+  Future<Iterable<String>> fetchPlanIds({
+    required String session,
+    bool checkSession = false,
+  }) async {
+    if (checkSession) {
+      check(session, claimSession: true);
+    }
+
+    return loreFromState(session).plans.keys;
+  }
+
+  Future<PlanBase> fetchPlan({
     required String session,
     required String planId,
     bool checkSession = false,
@@ -64,17 +93,7 @@ class ServerLive extends BaseLive<ServerState> {
       check(session, claimSession: true);
     }
 
-    final lore = state.lores[session];
-    if (lore == null) {
-      throw throw AbsentSessionLoreError(session, StackTrace.current);
-    }
-
-    final plan = lore.plans[planId];
-    if (plan == null) {
-      throw throw AbsentPlanError(session, StackTrace.current);
-    }
-
-    return plan.base;
+    return planFromState(session, planId).base;
   }
 
   Future<bool> processingActOnLoreSession({

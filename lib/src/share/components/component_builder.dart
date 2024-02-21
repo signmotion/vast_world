@@ -28,13 +28,22 @@ class NativeComponentBuilder {
             ' with builder `$runtimeType`...'
         .bittenOfAllUuids32);
 
-    late final AnyComponent component;
-    try {
-      component = _fromBase(base);
-    } on UnimplementedError catch (_) {
-      // some components can be absent on the other side (Client / Server)
-      logw('Component `${base.hid}` unimplemented into $runtimeType.');
-      component = UnimplementedComponent()..init((idUnimplemented: base.hid));
+    AnyComponent construct(ComponentBase cb) {
+      try {
+        return _fromBase(cb);
+      } on UnimplementedError catch (_) {
+        // some components can be absent on the other side (Client / Server)
+        logw('Component `${base.hid}` unimplemented into $runtimeType.');
+        return UnimplementedComponent()..init((idUnimplemented: base.hid));
+      }
+    }
+
+    var component = construct(base);
+
+    // special case: attempt recovery [UnimplementedComponent]
+    if (component is UnimplementedComponent) {
+      component =
+          construct(ComponentBase(uid: component.value.idUnimplemented));
     }
 
     logi('🧙‍♂️💚 Component `$component` constructed.');
@@ -172,7 +181,7 @@ class NativeComponentBuilder {
   /// Swiss knife for [Component], [oxygen.Entity] and [Universe].
   /// You should override [extendedRunForComponent] for detect own components.
   R? runForComponent<R>(
-    String componentUid, {
+    String componentId, {
     required RunComponentBuilderFn<R> run,
     Universe? u,
     oxygen.Entity? entity,
@@ -191,7 +200,7 @@ class NativeComponentBuilder {
     }
     */
 
-    final uid = componentUid;
+    final id = componentId;
 
     /// a number of components will be checked
     var count = 0;
@@ -199,7 +208,7 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = ColorsComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -212,7 +221,7 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = DescriptionComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -225,7 +234,7 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = GreetingComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -238,7 +247,7 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = IdComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -251,7 +260,7 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = ListComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -264,7 +273,7 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = NameComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -277,7 +286,7 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = NothingComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -290,7 +299,7 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = PictureComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -303,7 +312,7 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = StoryComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -316,7 +325,7 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = SynopsisComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -329,7 +338,7 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = StringComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -342,7 +351,7 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = TiledmapRenderComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -354,7 +363,7 @@ class NativeComponentBuilder {
     ++count;
     {
       const b = TitleComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -364,10 +373,22 @@ class NativeComponentBuilder {
       }
     }
 
+    // special case after all components: [UnimplementedComponent]
+    final r = extendedRunForComponent(
+      componentId,
+      u: u,
+      entity: entity,
+      jsonValue: jsonValue,
+      run: run,
+    );
+    if (r != null) {
+      return r;
+    }
+
     ++count;
     {
       const b = UnimplementedComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,
@@ -380,22 +401,20 @@ class NativeComponentBuilder {
     ae(count == nativeBuilders.length,
         'Inconsistent list of native components.');
 
-    return extendedRunForComponent(
-      componentUid,
-      u: u,
-      entity: entity,
-      jsonValue: jsonValue,
-      run: run,
-    );
+    return null;
   }
 
   /// Will call after [runForComponent].
   R? extendedRunForComponent<R>(
-    String componentUid, {
+    String componentId, {
     required RunComponentBuilderFn<R> run,
     Universe? u,
     oxygen.Entity? entity,
     JsonMap? jsonValue,
   }) =>
       null;
+
+  @override
+  String toString() => '$runtimeType'
+      ' ${allBuilders.length} ${allBuilders.map((fb) => fb().runtimeType)}';
 }

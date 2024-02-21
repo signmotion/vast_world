@@ -92,33 +92,61 @@ const GetAboutServerResponse$json = {
 final $typed_data.Uint8List getAboutServerResponseDescriptor = $convert.base64Decode(
     'ChZHZXRBYm91dFNlcnZlclJlc3BvbnNlEhIKBG5hbWUYASABKAlSBG5hbWU=');
 
-@$core.Deprecated('Use getPlanRequestDescriptor instead')
-const GetPlanRequest$json = {
-  '1': 'GetPlanRequest',
+@$core.Deprecated('Use fetchPlanIdsRequestDescriptor instead')
+const FetchPlanIdsRequest$json = {
+  '1': 'FetchPlanIdsRequest',
   '2': [
     {'1': 'session', '3': 3, '4': 1, '5': 9, '10': 'session'},
-    {'1': 'plan_id', '3': 4, '4': 1, '5': 9, '10': 'planId'},
   ],
 };
 
-/// Descriptor for `GetPlanRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getPlanRequestDescriptor = $convert.base64Decode(
-    'Cg5HZXRQbGFuUmVxdWVzdBIYCgdzZXNzaW9uGAMgASgJUgdzZXNzaW9uEhcKB3BsYW5faWQYBC'
-    'ABKAlSBnBsYW5JZA==');
+/// Descriptor for `FetchPlanIdsRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List fetchPlanIdsRequestDescriptor = $convert.base64Decode(
+    'ChNGZXRjaFBsYW5JZHNSZXF1ZXN0EhgKB3Nlc3Npb24YAyABKAlSB3Nlc3Npb24=');
 
-@$core.Deprecated('Use getPlanResponseDescriptor instead')
-const GetPlanResponse$json = {
-  '1': 'GetPlanResponse',
+@$core.Deprecated('Use fetchPlanIdsResponseDescriptor instead')
+const FetchPlanIdsResponse$json = {
+  '1': 'FetchPlanIdsResponse',
+  '2': [
+    {'1': 'planIds', '3': 1, '4': 3, '5': 9, '10': 'planIds'},
+    {'1': 'answer', '3': 7, '4': 1, '5': 11, '6': '.vw.share.ServerAnswer', '10': 'answer'},
+  ],
+};
+
+/// Descriptor for `FetchPlanIdsResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List fetchPlanIdsResponseDescriptor = $convert.base64Decode(
+    'ChRGZXRjaFBsYW5JZHNSZXNwb25zZRIYCgdwbGFuSWRzGAEgAygJUgdwbGFuSWRzEi4KBmFuc3'
+    'dlchgHIAEoCzIWLnZ3LnNoYXJlLlNlcnZlckFuc3dlclIGYW5zd2Vy');
+
+@$core.Deprecated('Use fetchPlanRequestDescriptor instead')
+const FetchPlanRequest$json = {
+  '1': 'FetchPlanRequest',
+  '2': [
+    {'1': 'session', '3': 3, '4': 1, '5': 9, '10': 'session'},
+    {'1': 'plan_id', '3': 4, '4': 1, '5': 9, '10': 'planId'},
+    {'1': 'answer', '3': 7, '4': 1, '5': 11, '6': '.vw.share.ServerAnswer', '10': 'answer'},
+  ],
+};
+
+/// Descriptor for `FetchPlanRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List fetchPlanRequestDescriptor = $convert.base64Decode(
+    'ChBGZXRjaFBsYW5SZXF1ZXN0EhgKB3Nlc3Npb24YAyABKAlSB3Nlc3Npb24SFwoHcGxhbl9pZB'
+    'gEIAEoCVIGcGxhbklkEi4KBmFuc3dlchgHIAEoCzIWLnZ3LnNoYXJlLlNlcnZlckFuc3dlclIG'
+    'YW5zd2Vy');
+
+@$core.Deprecated('Use fetchPlanResponseDescriptor instead')
+const FetchPlanResponse$json = {
+  '1': 'FetchPlanResponse',
   '2': [
     {'1': 'plan', '3': 4, '4': 1, '5': 11, '6': '.vw.share.PlanBase', '10': 'plan'},
     {'1': 'answer', '3': 7, '4': 1, '5': 11, '6': '.vw.share.ServerAnswer', '10': 'answer'},
   ],
 };
 
-/// Descriptor for `GetPlanResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getPlanResponseDescriptor = $convert.base64Decode(
-    'Cg9HZXRQbGFuUmVzcG9uc2USJgoEcGxhbhgEIAEoCzISLnZ3LnNoYXJlLlBsYW5CYXNlUgRwbG'
-    'FuEi4KBmFuc3dlchgHIAEoCzIWLnZ3LnNoYXJlLlNlcnZlckFuc3dlclIGYW5zd2Vy');
+/// Descriptor for `FetchPlanResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List fetchPlanResponseDescriptor = $convert.base64Decode(
+    'ChFGZXRjaFBsYW5SZXNwb25zZRImCgRwbGFuGAQgASgLMhIudncuc2hhcmUuUGxhbkJhc2VSBH'
+    'BsYW4SLgoGYW5zd2VyGAcgASgLMhYudncuc2hhcmUuU2VydmVyQW5zd2VyUgZhbnN3ZXI=');
 
 @$core.Deprecated('Use setCurrentPlanRequestDescriptor instead')
 const SetCurrentPlanRequest$json = {
