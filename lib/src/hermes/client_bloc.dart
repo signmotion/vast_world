@@ -30,6 +30,9 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
   Universe get u => state.u;
 
+  NativePlanBuilder get buildPlan =>
+      state.planBuilder(u, state.componentBuilder);
+
   LoreInfluencer get loreInfluencer => state.loreInfluencer;
 
   /// Override this method for catching own events.
@@ -56,6 +59,8 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
         ApprovingSessionClientEvent e => _onApprovingSession(e, emit),
         GettingAboutServerClientEvent e => _onGettingAboutServer(e, emit),
         OpeningSyncStreamsClientEvent e => _onOpeningSyncStreams(e, emit),
+        FetchingCurrentPlanClientEvent e =>
+          _onFetchingCurrentPlanClient(e, emit),
         FetchingPlansClientEvent e => _onFetchingPlansClient(e, emit),
         SuccessInitClientEvent e => _onSuccessInit(e, emit),
         FailureInitClientEvent e => _onFailureInit(e, emit),
@@ -104,7 +109,8 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
     add(const OpeningSyncStreamsClientEvent());
 
-    // TODO add(const FetchingPlansClientEvent());
+    add(const FetchingCurrentPlanClientEvent());
+
     add(const SuccessInitClientEvent());
   }
 
@@ -256,6 +262,55 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     logi('A stream from Server to Client opened.');
   }
 
+  Future<void> _onFetchingCurrentPlanClient(
+    FetchingCurrentPlanClientEvent event,
+    Emitter<ClientState> emit,
+  ) async {
+    state.ss.freeze();
+    emit(
+      state.copyWith(
+        ss: state.ss.rebuild((v) {
+          v.state = ClientStateEnum.FETCHING_CURRENT_PLAN_CLIENT_STATE;
+        }),
+      ),
+    );
+
+    final lore = state.lore;
+    final id = state.ss.currentPlanId;
+    lore.remove(id);
+
+    logi('Fetching plan `$id` and build with `$buildPlan`...');
+    final response = await maiaStub.fetchPlan(
+      maia.FetchPlanRequest(
+        session: state.ss.session,
+        planId: id,
+      ),
+    );
+    if (response.answer.type !=
+        maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE) {
+      // TODO(sign): Respect errors.
+      logi('Fetched plan `$id` and added to Lore.');
+    }
+
+    final plan = buildPlan.fromBase(response.plan);
+    lore.addNew(plan);
+    logi('Fetched plan `$id` and added to Lore.');
+
+    emit(
+      state.copyWith(
+        ss: state.ss.rebuild((v) {
+          v.state = ClientStateEnum.FETCHED_PLANS_CLIENT_STATE;
+        }),
+        lore: lore,
+      ),
+    );
+
+    logi('Got ${state.lore.count} plan${state.lore.count > 1 ? 's' : ''}'
+        ' from Server.');
+
+    add(const WaitingInputClientEvent());
+  }
+
   Future<void> _onFetchingPlansClient(
     FetchingPlansClientEvent event,
     Emitter<ClientState> emit,
@@ -270,20 +325,19 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     );
 
     // plan IDs
-    late final Set<String> planIds;
+    late final Iterable<String> planIds;
     {
       final response = await maiaStub.fetchPlanIds(
         maia.FetchPlanIdsRequest(session: state.ss.session),
       );
       // TODO(sign): Respect errors.
-      planIds = {...response.planIds};
+      planIds = response.planIds;
     }
 
     // plans
     final lore = state.lore;
-    final b = state.planBuilder(state.u, state.componentBuilder);
     for (final id in planIds) {
-      logi('Fetching plan `$id` and build with `$b`...');
+      logi('Fetching plan `$id` and build with `$buildPlan`...');
       final response = await maiaStub.fetchPlan(
         maia.FetchPlanRequest(
           session: state.ss.session,
@@ -291,7 +345,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
         ),
       );
       // TODO(sign): Respect errors.
-      final plan = b.fromBase(response.plan);
+      final plan = buildPlan.fromBase(response.plan);
       lore.addNew(plan);
       logi('Fetched plan `$id` and added to Lore.');
     }
@@ -308,7 +362,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     logi('Got ${state.lore.count} plan${state.lore.count > 1 ? 's' : ''}'
         ' from Server.');
 
-    add(const SuccessInitClientEvent());
+    add(const WaitingInputClientEvent());
   }
 
   Future<void> _onSuccessInit(

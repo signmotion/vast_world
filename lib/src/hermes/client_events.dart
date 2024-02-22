@@ -32,6 +32,10 @@ class OpeningSyncStreamsClientEvent extends AClientEvent {
   const OpeningSyncStreamsClientEvent();
 }
 
+class FetchingCurrentPlanClientEvent extends AClientEvent {
+  const FetchingCurrentPlanClientEvent();
+}
+
 class FetchingPlansClientEvent extends AClientEvent {
   const FetchingPlansClientEvent();
 }

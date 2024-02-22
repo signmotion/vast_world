@@ -10,9 +10,24 @@ import 'package:json_dart/json_dart.dart';
 import 'package:protobuf/protobuf.dart';
 import 'package:thematic_names/thematic_names.dart';
 
+export 'src/share/generated/protos/vw/maia/server_options.pb.dart';
+export 'src/share/generated/protos/vw/maia/server_options.pbenum.dart';
+export 'src/share/generated/protos/vw/maia/server_options.pbjson.dart';
+
+export 'src/share/generated/protos/vw/maia/server_state.pb.dart';
+export 'src/share/generated/protos/vw/maia/server_state.pbenum.dart';
+export 'src/share/generated/protos/vw/maia/server_state.pbjson.dart';
+
+export 'src/share/generated/protos/vw/maia/service.pb.dart';
+export 'src/share/generated/protos/vw/maia/service.pbenum.dart';
+export 'src/share/generated/protos/vw/maia/service.pbgrpc.dart';
+export 'src/share/generated/protos/vw/maia/service.pbjson.dart';
+
+import 'src/share/generated/protos/vw/maia/server_options.pb.dart';
+import 'src/share/generated/protos/vw/maia/server_state.pb.dart';
+import 'src/share/generated/protos/vw/maia/service.pbgrpc.dart';
 import 'vast_world_share.dart';
 
-export 'vast_world_protos.dart';
 export 'vast_world_share.dart';
 
 part 'src/maia/server_answer_type_enum.dart';

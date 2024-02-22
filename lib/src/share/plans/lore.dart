@@ -40,6 +40,10 @@ class Lore {
     }
   }
 
+  /// Remove [planId] from [plans].
+  /// Ignore when [plan] is absent.
+  void remove(String planId) => plans.remove(planId);
+
   /// Replace a [data] for component [C], plan [id].
   void update<C extends Component<V>, V>(
     String id,
