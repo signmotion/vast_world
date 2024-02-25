@@ -33,7 +33,8 @@ class NativeComponentBuilder {
         return _fromBase(cb);
       } on UnimplementedError catch (_) {
         // some components can be absent on the other side (Client / Server)
-        logw('Component `${base.hid}` unimplemented into $runtimeType.');
+        logi('🚧 Component `${cb.hid.isEmpty ? cb.uid : cb.hid}`'
+            ' unimplemented into `$runtimeType`.');
         return UnimplementedComponent()..init((idUnimplemented: base.hid));
       }
     }
@@ -42,8 +43,20 @@ class NativeComponentBuilder {
 
     // special case: attempt recovery [UnimplementedComponent]
     if (component is UnimplementedComponent) {
+      final componentId = component.value.idUnimplemented;
+      logi('🚧 Reconstructing unimplemented component'
+          ' `$componentId` into `$runtimeType`...');
       component =
           construct(ComponentBase(uid: component.value.idUnimplemented));
+      // throwing an error only for extended builder
+      if (component is UnimplementedComponent &&
+          runtimeType != NativeComponentBuilder) {
+        throw UnimplementedComponentError(
+          StackTrace.current,
+          componentId: componentId,
+          componentBuilder: runtimeType,
+        );
+      }
     }
 
     logi('🧙‍♂️💚 Component `$component` constructed.');
@@ -53,14 +66,19 @@ class NativeComponentBuilder {
 
   C _fromBase<C extends AnyComponent>(ComponentBase base) {
     final component = builder(base.uid)();
-    final json = base.sjsonValue.jsonMap;
-    component.init(component.jsonAsValue(json));
+    if (base.sjsonValue.isEmpty) {
+      logi('The component `$component` has no initialize value.');
+    } else {
+      logi('Initializing from JSON value `${base.sjsonValue}`...');
+      final json = base.sjsonValue.jsonMap;
+      component.init(component.jsonAsValue(json));
+    }
 
     return component as C;
   }
 
   TAnyComponentBuilder builder(String componentUid) => allBuilders.firstWhere(
-        (cb) => cb().uid == componentUid,
+        (cb) => cb().same(componentUid),
         orElse: () => throw UnimplementedError('`$componentUid` not found in'
             ' ${allBuilders.map((b) => b().runtimeType)}'),
       );
@@ -360,6 +378,7 @@ class NativeComponentBuilder {
         );
       }
     }
+
     ++count;
     {
       const b = TitleComponent.new;
@@ -373,16 +392,21 @@ class NativeComponentBuilder {
       }
     }
 
-    // special case after all components: [UnimplementedComponent]
-    final r = extendedRunForComponent(
-      componentId,
-      u: u,
-      entity: entity,
-      jsonValue: jsonValue,
-      run: run,
-    );
-    if (r != null) {
-      return r;
+    // special case after all components: attempt resolve [UnimplementedComponent]
+    if (extendedBuilders.isNotEmpty) {
+      logi('Running extendedRunForComponent(`$id`).'
+          ' Known builders: `${extendedBuilders.map((b) => b().runtimeType)}`...');
+      final r = extendedRunForComponent(
+        componentId,
+        u: u,
+        entity: entity,
+        jsonValue: jsonValue,
+        run: run,
+      );
+      if (r != null) {
+        return r;
+      }
+      logi('Component `$id` not found. Setting as Unimplemetned...');
     }
 
     ++count;

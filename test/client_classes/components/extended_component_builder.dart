@@ -5,8 +5,8 @@ import 'package:vast_world/vast_world_share.dart';
 
 import 'widget_render.dart';
 
-class ClientomponentBuilder extends NativeComponentBuilder {
-  const ClientomponentBuilder();
+class ExtendedComponentBuilder extends NativeComponentBuilder {
+  const ExtendedComponentBuilder();
 
   @override
   List<TAnyComponentBuilder> get extendedBuilders => [
@@ -15,14 +15,14 @@ class ClientomponentBuilder extends NativeComponentBuilder {
 
   @override
   R? extendedRunForComponent<R>(
-    String componentUid, {
+    String componentId, {
     required RunComponentBuilderFn<R> run,
     Universe? u,
     oxygen.Entity? entity,
     JsonMap? jsonValue,
   }) {
     // by analogy with [runForComponent]
-    final uid = componentUid;
+    final id = componentId;
 
     /// a number of components will be checked
     var count = 0;
@@ -30,7 +30,7 @@ class ClientomponentBuilder extends NativeComponentBuilder {
     ++count;
     {
       const b = ClientWidgetRenderComponent.new;
-      if (b().uid == uid) {
+      if (b().same(id)) {
         return run(
           b,
           u: u,

@@ -61,23 +61,63 @@ class ServerService extends ServiceBase with ServiceMix {
   }
 
   @override
-  Future<FetchPlanIdsResponse> fetchPlanIds(
+  Future<HasPlanResponse> hasPlan(
     grpc.ServiceCall call,
-    FetchPlanIdsRequest request,
+    HasPlanRequest request,
   ) async {
     logiRequest(call, request);
 
-    late final FetchPlanIdsResponse response;
+    late final HasPlanResponse response;
     try {
-      response = FetchPlanIdsResponse(
-        planIds: await live.fetchPlanIds(session: request.session),
+      response = HasPlanResponse(
+        has: await live.hasPlan(
+          session: request.session,
+          planId: request.planId,
+        ),
         answer: ServerAnswer(
           type: ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE,
         ),
       );
     } catch (ex) {
       loge(ex);
-      response = FetchPlanIdsResponse(
+      response = HasPlanResponse(
+        answer: ServerAnswer(
+          type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
+          codeExplain: ex is Error
+              ? ex.code
+              : ErrorExplainEnum.UNSPECIFIED_ERROR_EXPLAIN,
+          messageExplain: '$ex',
+        ),
+      );
+    }
+
+    logiResponse(call, response);
+
+    return response;
+  }
+
+  @override
+  Future<ConstructPlanResponse> constructPlan(
+    grpc.ServiceCall call,
+    ConstructPlanRequest request,
+  ) async {
+    logiRequest(call, request);
+
+    // TODO(sign): try-catch wrapper for all service methods with ServerAnswerTypeEnum.
+    late final ConstructPlanResponse response;
+    try {
+      response = ConstructPlanResponse(
+        constructed: await live.constructPlan(
+          session: request.session,
+          plan: request.plan,
+        ),
+        answer: ServerAnswer(
+          type: ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE,
+        ),
+      );
+    } catch (ex) {
+      loge(ex);
+      response = ConstructPlanResponse(
         answer: ServerAnswer(
           type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
           codeExplain: ex is Error
@@ -114,6 +154,39 @@ class ServerService extends ServiceBase with ServiceMix {
     } catch (ex) {
       loge(ex);
       response = FetchPlanResponse(
+        answer: ServerAnswer(
+          type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
+          codeExplain: ex is Error
+              ? ex.code
+              : ErrorExplainEnum.UNSPECIFIED_ERROR_EXPLAIN,
+          messageExplain: '$ex',
+        ),
+      );
+    }
+
+    logiResponse(call, response);
+
+    return response;
+  }
+
+  @override
+  Future<FetchPlanIdsResponse> fetchPlanIds(
+    grpc.ServiceCall call,
+    FetchPlanIdsRequest request,
+  ) async {
+    logiRequest(call, request);
+
+    late final FetchPlanIdsResponse response;
+    try {
+      response = FetchPlanIdsResponse(
+        planIds: await live.fetchPlanIds(session: request.session),
+        answer: ServerAnswer(
+          type: ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE,
+        ),
+      );
+    } catch (ex) {
+      loge(ex);
+      response = FetchPlanIdsResponse(
         answer: ServerAnswer(
           type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
           codeExplain: ex is Error
@@ -167,7 +240,7 @@ class ServerService extends ServiceBase with ServiceMix {
     // ignore: avoid_renaming_method_parameters
     Stream<ActBaseRequest> clientActs,
   ) {
-    logi('Opening streams between Client and Server...');
+    logi('Opening streams Client ↔️ Server...');
 
     /// create a stream for sending acts to Client
     /// the Client will be subsribe to [serverActs] below
@@ -213,7 +286,7 @@ class ServerService extends ServiceBase with ServiceMix {
       onDone: () => logi('synchronize() clientActs onDone'),
     );
 
-    logi('Opened streams between Client and Server.');
+    logi('Opened streams Client ↔️ Server.');
 
     return serverActs.stream;
   }

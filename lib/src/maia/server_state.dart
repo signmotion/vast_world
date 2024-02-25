@@ -25,8 +25,8 @@ class ServerState extends AState<ServerStateBase> {
   ServerState copyWith({
     ServerStateBase? ss,
     Universe? u,
-    TComponentBuilder? componentBuilder,
     TPlanBuilder? planBuilder,
+    TComponentBuilder? componentBuilder,
     Map<String, Lore>? lores,
     LoreInfluencer? loreInfluencer,
   }) =>

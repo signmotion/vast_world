@@ -26,6 +26,7 @@ import 'src/share/generated/protos/vw/share/component.pb.dart';
 import 'src/share/generated/protos/vw/share/error_explain_enum.pb.dart';
 import 'src/share/generated/protos/vw/share/lore.pb.dart';
 import 'src/share/generated/protos/vw/share/plan.pb.dart';
+import 'src/share/generated/protos/vw/share/server_answer.pb.dart';
 
 export 'src/share/generated/protos/vw/share/requests/prompt.pb.dart';
 export 'src/share/generated/protos/vw/share/requests/prompt.pbenum.dart';
@@ -114,14 +115,16 @@ part 'src/share/contents/cell_1d_content.dart';
 part 'src/share/contents/cell_2d_content.dart';
 part 'src/share/contents/empty_content.dart';
 
-part 'src/share/errors/error.dart';
+part 'src/share/errors/argument_error.dart';
 part 'src/share/errors/error_explain_enum.dart';
+part 'src/share/errors/error.dart';
+part 'src/share/errors/lore.dart';
 part 'src/share/errors/not_defined_device_error.dart';
 part 'src/share/errors/not_found_error.dart';
-part 'src/share/errors/lore.dart';
 part 'src/share/errors/plan_error.dart';
+part 'src/share/errors/server_answer_error.dart';
 part 'src/share/errors/session_error.dart';
-part 'src/share/errors/argument_error.dart';
+part 'src/share/errors/unimplemented_component_error.dart';
 part 'src/share/errors/value_session_error.dart';
 
 part 'src/share/extensions/aabb.dart';

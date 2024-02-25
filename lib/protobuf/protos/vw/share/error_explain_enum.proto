@@ -9,6 +9,9 @@ enum ErrorExplainEnumBase {
   // arguments
   ILLEGAL_ARGUMENT_ERROR_EXPLAIN = 10;
 
+  // components
+  UNIMPLEMENTED_COMPONENT_ERROR_EXPLAIN = 20;
+
   // lore
   ABSENT_SESSION_LORE_ERROR_EXPLAIN = 50;
 

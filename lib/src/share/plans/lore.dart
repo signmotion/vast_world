@@ -6,10 +6,13 @@ class Lore {
   Lore({
     required this.componentBuilder,
     Map<String, Plan<dynamic>>? plans,
-  }) : plans = plans ?? {};
+  }) {
+    // to fix error `Unmodifiable Map`
+    this.plans = plans ?? Map.of({});
+  }
 
   /// <[Plan.id], [Plan]>
-  final Map<String, Plan<dynamic>> plans;
+  late final Map<String, Plan<dynamic>> plans;
 
   final TComponentBuilder componentBuilder;
 

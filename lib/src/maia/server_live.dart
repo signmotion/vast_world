@@ -1,7 +1,15 @@
 part of '../../../vast_world_maia.dart';
 
+/// Like [ClientBloc].
 class ServerLive extends BaseLive<ServerState> {
   ServerLive(super.state);
+
+  Universe get u => state.u;
+
+  NativePlanBuilder get buildPlan =>
+      state.planBuilder(u, state.componentBuilder);
+
+  NativeActBuilder get buildAct => NativeActBuilder(state.componentBuilder);
 
   Future<String> claimAndApproveSession({
     required bool fixedSession,
@@ -55,13 +63,19 @@ class ServerLive extends BaseLive<ServerState> {
     return true;
   }
 
+  /// Constructing [Lore] if absent for the [session].
   Lore loreFromState(String session) {
-    final lore = state.lores[session];
-    if (lore == null) {
-      throw throw AbsentSessionLoreError(session, StackTrace.current);
+    if (state.lores[session] == null) {
+      logw('🧙‍♂️ Lore for session `$session` not found. Will constructed.');
+      emit(
+        state.copyWith(lores: {
+          ...state.lores,
+          session: Lore(componentBuilder: state.componentBuilder),
+        }),
+      );
     }
 
-    return lore;
+    return state.lores[session]!;
   }
 
   Plan<dynamic> planFromState(String session, String planId) {
@@ -73,15 +87,42 @@ class ServerLive extends BaseLive<ServerState> {
     return plan;
   }
 
-  Future<Iterable<String>> fetchPlanIds({
+  Future<bool> hasPlan({
     required String session,
+    required String planId,
     bool checkSession = false,
   }) async {
     if (checkSession) {
       check(session, claimSession: true);
     }
 
-    return loreFromState(session).plans.keys;
+    return loreFromState(session).plans[planId] != null;
+  }
+
+  Future<bool> constructPlan({
+    required String session,
+    required PlanBase plan,
+    bool checkSession = false,
+  }) async {
+    if (checkSession) {
+      check(session, claimSession: true);
+    }
+
+    // a guarantee to create a lore for session
+    loreFromState(session);
+
+    state.lores.update(
+      session,
+      (lore) {
+        final p = buildPlan.fromBase(plan);
+        lore.addNew(p);
+        return lore;
+      },
+      ifAbsent: () => throw AbsentSessionLoreError(session, StackTrace.current),
+    );
+    emit(state.copyWith(lores: state.lores));
+
+    return true;
   }
 
   Future<PlanBase> fetchPlan({
@@ -96,6 +137,17 @@ class ServerLive extends BaseLive<ServerState> {
     return planFromState(session, planId).base;
   }
 
+  Future<Iterable<String>> fetchPlanIds({
+    required String session,
+    bool checkSession = false,
+  }) async {
+    if (checkSession) {
+      check(session, claimSession: true);
+    }
+
+    return loreFromState(session).plans.keys;
+  }
+
   Future<bool> processingActOnLoreSession({
     required String session,
     required ActBase actBase,
@@ -105,19 +157,13 @@ class ServerLive extends BaseLive<ServerState> {
       check(session, claimSession: true);
     }
 
-    if (state.lores[session] == null) {
-      logw('Session `$session` not found. New Lore created.');
-      emit(
-        state.copyWith(lores: {
-          session: Lore(componentBuilder: state.componentBuilder),
-        }),
-      );
-    }
+    // a guarantee to create a lore for session
+    loreFromState(session);
 
     state.lores.update(
       session,
       (lore) {
-        final act = NativeActBuilder(state.componentBuilder).fromBase(actBase);
+        final act = buildAct.fromBase(actBase);
         return state.loreInfluencer.processingOnServer(lore, act);
       },
       ifAbsent: () => throw AbsentSessionLoreError(session, StackTrace.current),

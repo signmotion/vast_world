@@ -79,6 +79,12 @@ abstract class Component<T> extends oxygen.Component<T>
 
   bool get isEmpty => _value == empty;
 
+  @override
+  bool operator ==(Object other) => other is Component<T> && base == other.base;
+
+  @override
+  int get hashCode => base.hashCode;
+
   JsonMap get valueAsJson;
 
   T jsonAsValue(JsonMap json);

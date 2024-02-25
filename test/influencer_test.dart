@@ -2,9 +2,9 @@ import 'package:json_dart/json_dart.dart';
 import 'package:test/test.dart';
 import 'package:vast_world/vast_world_share.dart';
 
-import 'client_classes/components/component_builder.dart';
+import 'client_classes/components/extended_component_builder.dart';
 import 'client_classes/components/widget_render.dart';
-import 'client_classes/plans/plan_builder.dart';
+import 'client_classes/plans/extended_plan_builder.dart';
 import 'client_classes/renders/widget/all_journeys.dart';
 import 'client_classes/renders/widget/widget.dart';
 import 'prepare_test_env.dart';
@@ -108,8 +108,8 @@ void main() {
 
   group('Client & Server influencers', () {
     final clientUniverse = Universe();
-    const clientPlanBuilder = ClientPlanBuilder.new;
-    const clientComponentBuilder = ClientomponentBuilder.new;
+    const clientPlanBuilder = ExtendedPlanBuilder.new;
+    const clientComponentBuilder = ExtendedComponentBuilder.new;
 
     final serverUniverse = Universe();
     const serverPlanBuilder = NativePlanBuilder.new;

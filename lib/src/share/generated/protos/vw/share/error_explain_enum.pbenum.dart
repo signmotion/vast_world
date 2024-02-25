@@ -17,6 +17,7 @@ import 'package:protobuf/protobuf.dart' as $pb;
 class ErrorExplainEnumBase extends $pb.ProtobufEnum {
   static const ErrorExplainEnumBase UNSPECIFIED_ERROR_EXPLAIN = ErrorExplainEnumBase._(0, _omitEnumNames ? '' : 'UNSPECIFIED_ERROR_EXPLAIN');
   static const ErrorExplainEnumBase ILLEGAL_ARGUMENT_ERROR_EXPLAIN = ErrorExplainEnumBase._(10, _omitEnumNames ? '' : 'ILLEGAL_ARGUMENT_ERROR_EXPLAIN');
+  static const ErrorExplainEnumBase UNIMPLEMENTED_COMPONENT_ERROR_EXPLAIN = ErrorExplainEnumBase._(20, _omitEnumNames ? '' : 'UNIMPLEMENTED_COMPONENT_ERROR_EXPLAIN');
   static const ErrorExplainEnumBase ABSENT_SESSION_LORE_ERROR_EXPLAIN = ErrorExplainEnumBase._(50, _omitEnumNames ? '' : 'ABSENT_SESSION_LORE_ERROR_EXPLAIN');
   static const ErrorExplainEnumBase ABSENT_PLAN_ERROR_EXPLAIN = ErrorExplainEnumBase._(100, _omitEnumNames ? '' : 'ABSENT_PLAN_ERROR_EXPLAIN');
   static const ErrorExplainEnumBase EXISTS_PLAN_ERROR_EXPLAIN = ErrorExplainEnumBase._(101, _omitEnumNames ? '' : 'EXISTS_PLAN_ERROR_EXPLAIN');
@@ -28,6 +29,7 @@ class ErrorExplainEnumBase extends $pb.ProtobufEnum {
   static const $core.List<ErrorExplainEnumBase> values = <ErrorExplainEnumBase> [
     UNSPECIFIED_ERROR_EXPLAIN,
     ILLEGAL_ARGUMENT_ERROR_EXPLAIN,
+    UNIMPLEMENTED_COMPONENT_ERROR_EXPLAIN,
     ABSENT_SESSION_LORE_ERROR_EXPLAIN,
     ABSENT_PLAN_ERROR_EXPLAIN,
     EXISTS_PLAN_ERROR_EXPLAIN,

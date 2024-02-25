@@ -17,5 +17,6 @@ class ClientWidgetRenderComponent extends RenderComponent<ClientWidgetT> {
   JsonMap get valueAsJson => {};
 
   @override
-  RenderFn<ClientWidgetT> jsonAsValue(JsonMap json) => empty;
+  RenderFn<ClientWidgetT> jsonAsValue(JsonMap json) =>
+      clientNothingWidgetTRender;
 }

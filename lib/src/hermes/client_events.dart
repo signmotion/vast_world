@@ -32,6 +32,24 @@ class OpeningSyncStreamsClientEvent extends AClientEvent {
   const OpeningSyncStreamsClientEvent();
 }
 
+class ConstructingPlanWhenAbsentClientEvent extends AClientEvent {
+  const ConstructingPlanWhenAbsentClientEvent({required this.plan});
+
+  final Plan<dynamic> plan;
+
+  @override
+  List<Object?> get props => [...super.props, plan];
+}
+
+class SettingCurrentPlanIdClientEvent extends AClientEvent {
+  const SettingCurrentPlanIdClientEvent({required this.planId});
+
+  final String planId;
+
+  @override
+  List<Object?> get props => [...super.props, planId];
+}
+
 class FetchingCurrentPlanClientEvent extends AClientEvent {
   const FetchingCurrentPlanClientEvent();
 }

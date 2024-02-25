@@ -33,14 +33,22 @@ class ServiceClient extends $grpc.Client {
       '/vw.maia.Service/getAboutServer',
       ($0.GetAboutServerRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.GetAboutServerResponse.fromBuffer(value));
-  static final _$fetchPlanIds = $grpc.ClientMethod<$0.FetchPlanIdsRequest, $0.FetchPlanIdsResponse>(
-      '/vw.maia.Service/fetchPlanIds',
-      ($0.FetchPlanIdsRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.FetchPlanIdsResponse.fromBuffer(value));
+  static final _$hasPlan = $grpc.ClientMethod<$0.HasPlanRequest, $0.HasPlanResponse>(
+      '/vw.maia.Service/hasPlan',
+      ($0.HasPlanRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.HasPlanResponse.fromBuffer(value));
+  static final _$constructPlan = $grpc.ClientMethod<$0.ConstructPlanRequest, $0.ConstructPlanResponse>(
+      '/vw.maia.Service/constructPlan',
+      ($0.ConstructPlanRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.ConstructPlanResponse.fromBuffer(value));
   static final _$fetchPlan = $grpc.ClientMethod<$0.FetchPlanRequest, $0.FetchPlanResponse>(
       '/vw.maia.Service/fetchPlan',
       ($0.FetchPlanRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.FetchPlanResponse.fromBuffer(value));
+  static final _$fetchPlanIds = $grpc.ClientMethod<$0.FetchPlanIdsRequest, $0.FetchPlanIdsResponse>(
+      '/vw.maia.Service/fetchPlanIds',
+      ($0.FetchPlanIdsRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.FetchPlanIdsResponse.fromBuffer(value));
   static final _$setCurrentPlan = $grpc.ClientMethod<$0.SetCurrentPlanRequest, $0.SetCurrentPlanResponse>(
       '/vw.maia.Service/setCurrentPlan',
       ($0.SetCurrentPlanRequest value) => value.writeToBuffer(),
@@ -68,12 +76,20 @@ class ServiceClient extends $grpc.Client {
     return $createUnaryCall(_$getAboutServer, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.FetchPlanIdsResponse> fetchPlanIds($0.FetchPlanIdsRequest request, {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$fetchPlanIds, request, options: options);
+  $grpc.ResponseFuture<$0.HasPlanResponse> hasPlan($0.HasPlanRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$hasPlan, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.ConstructPlanResponse> constructPlan($0.ConstructPlanRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$constructPlan, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchPlanResponse> fetchPlan($0.FetchPlanRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchPlan, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.FetchPlanIdsResponse> fetchPlanIds($0.FetchPlanIdsRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$fetchPlanIds, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.SetCurrentPlanResponse> setCurrentPlan($0.SetCurrentPlanRequest request, {$grpc.CallOptions? options}) {
@@ -111,13 +127,20 @@ abstract class ServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.GetAboutServerRequest.fromBuffer(value),
         ($0.GetAboutServerResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.FetchPlanIdsRequest, $0.FetchPlanIdsResponse>(
-        'fetchPlanIds',
-        fetchPlanIds_Pre,
+    $addMethod($grpc.ServiceMethod<$0.HasPlanRequest, $0.HasPlanResponse>(
+        'hasPlan',
+        hasPlan_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.FetchPlanIdsRequest.fromBuffer(value),
-        ($0.FetchPlanIdsResponse value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.HasPlanRequest.fromBuffer(value),
+        ($0.HasPlanResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ConstructPlanRequest, $0.ConstructPlanResponse>(
+        'constructPlan',
+        constructPlan_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ConstructPlanRequest.fromBuffer(value),
+        ($0.ConstructPlanResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.FetchPlanRequest, $0.FetchPlanResponse>(
         'fetchPlan',
         fetchPlan_Pre,
@@ -125,6 +148,13 @@ abstract class ServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.FetchPlanRequest.fromBuffer(value),
         ($0.FetchPlanResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FetchPlanIdsRequest, $0.FetchPlanIdsResponse>(
+        'fetchPlanIds',
+        fetchPlanIds_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.FetchPlanIdsRequest.fromBuffer(value),
+        ($0.FetchPlanIdsResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.SetCurrentPlanRequest, $0.SetCurrentPlanResponse>(
         'setCurrentPlan',
         setCurrentPlan_Pre,
@@ -153,12 +183,20 @@ abstract class ServiceBase extends $grpc.Service {
     return getAboutServer(call, await request);
   }
 
-  $async.Future<$0.FetchPlanIdsResponse> fetchPlanIds_Pre($grpc.ServiceCall call, $async.Future<$0.FetchPlanIdsRequest> request) async {
-    return fetchPlanIds(call, await request);
+  $async.Future<$0.HasPlanResponse> hasPlan_Pre($grpc.ServiceCall call, $async.Future<$0.HasPlanRequest> request) async {
+    return hasPlan(call, await request);
+  }
+
+  $async.Future<$0.ConstructPlanResponse> constructPlan_Pre($grpc.ServiceCall call, $async.Future<$0.ConstructPlanRequest> request) async {
+    return constructPlan(call, await request);
   }
 
   $async.Future<$0.FetchPlanResponse> fetchPlan_Pre($grpc.ServiceCall call, $async.Future<$0.FetchPlanRequest> request) async {
     return fetchPlan(call, await request);
+  }
+
+  $async.Future<$0.FetchPlanIdsResponse> fetchPlanIds_Pre($grpc.ServiceCall call, $async.Future<$0.FetchPlanIdsRequest> request) async {
+    return fetchPlanIds(call, await request);
   }
 
   $async.Future<$0.SetCurrentPlanResponse> setCurrentPlan_Pre($grpc.ServiceCall call, $async.Future<$0.SetCurrentPlanRequest> request) async {
@@ -168,8 +206,10 @@ abstract class ServiceBase extends $grpc.Service {
   $async.Future<$0.ClaimSessionResponse> claimSession($grpc.ServiceCall call, $0.ClaimSessionRequest request);
   $async.Future<$0.ApproveSessionResponse> approveSession($grpc.ServiceCall call, $0.ApproveSessionRequest request);
   $async.Future<$0.GetAboutServerResponse> getAboutServer($grpc.ServiceCall call, $0.GetAboutServerRequest request);
-  $async.Future<$0.FetchPlanIdsResponse> fetchPlanIds($grpc.ServiceCall call, $0.FetchPlanIdsRequest request);
+  $async.Future<$0.HasPlanResponse> hasPlan($grpc.ServiceCall call, $0.HasPlanRequest request);
+  $async.Future<$0.ConstructPlanResponse> constructPlan($grpc.ServiceCall call, $0.ConstructPlanRequest request);
   $async.Future<$0.FetchPlanResponse> fetchPlan($grpc.ServiceCall call, $0.FetchPlanRequest request);
+  $async.Future<$0.FetchPlanIdsResponse> fetchPlanIds($grpc.ServiceCall call, $0.FetchPlanIdsRequest request);
   $async.Future<$0.SetCurrentPlanResponse> setCurrentPlan($grpc.ServiceCall call, $0.SetCurrentPlanRequest request);
   $async.Stream<$0.ActBaseResponse> synchronize($grpc.ServiceCall call, $async.Stream<$0.ActBaseRequest> request);
 }

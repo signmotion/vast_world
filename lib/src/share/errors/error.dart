@@ -1,7 +1,7 @@
 part of '../../../vast_world_share.dart';
 
 abstract class Error extends BaseEquatable implements Exception {
-  /// TODO(sign): Can we get a stck trace from StackTrace.current from there?
+  /// TODO(sign): Can we get a stack trace from StackTrace.current from there?
   Error(this.code, this.message, this.stackTrace) {
     loge(props);
   }

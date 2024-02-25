@@ -19,7 +19,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
     final debugId = id;
     innerEntity = this.u.construct(debugId);
 
-    // to fix error `UnmodifiableList`
+    // to fix error `Unmodifiable List`
     this.exposed = List<I>.empty(growable: true);
 
     if (id == null) {

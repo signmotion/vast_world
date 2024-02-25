@@ -24,10 +24,12 @@ class ClientStateEnumBase extends $pb.ProtobufEnum {
   static const ClientStateEnumBase GOT_ABOUT_SERVER_CLIENT_STATE = ClientStateEnumBase._(71, _omitEnumNames ? '' : 'GOT_ABOUT_SERVER_CLIENT_STATE');
   static const ClientStateEnumBase OPENNING_SYNC_STREAMS_CLIENT_STATE = ClientStateEnumBase._(80, _omitEnumNames ? '' : 'OPENNING_SYNC_STREAMS_CLIENT_STATE');
   static const ClientStateEnumBase OPENED_SYNC_STREAMS_CLIENT_STATE = ClientStateEnumBase._(81, _omitEnumNames ? '' : 'OPENED_SYNC_STREAMS_CLIENT_STATE');
-  static const ClientStateEnumBase FETCHING_CURRENT_PLAN_CLIENT_STATE = ClientStateEnumBase._(90, _omitEnumNames ? '' : 'FETCHING_CURRENT_PLAN_CLIENT_STATE');
-  static const ClientStateEnumBase FETCHED_CURRENT_PLAN_CLIENT_STATE = ClientStateEnumBase._(91, _omitEnumNames ? '' : 'FETCHED_CURRENT_PLAN_CLIENT_STATE');
-  static const ClientStateEnumBase FETCHING_PLANS_CLIENT_STATE = ClientStateEnumBase._(94, _omitEnumNames ? '' : 'FETCHING_PLANS_CLIENT_STATE');
-  static const ClientStateEnumBase FETCHED_PLANS_CLIENT_STATE = ClientStateEnumBase._(95, _omitEnumNames ? '' : 'FETCHED_PLANS_CLIENT_STATE');
+  static const ClientStateEnumBase CONSTRUCTING_PLAN_CLIENT_STATE = ClientStateEnumBase._(84, _omitEnumNames ? '' : 'CONSTRUCTING_PLAN_CLIENT_STATE');
+  static const ClientStateEnumBase CONSTRUCTED_PLAN_CLIENT_STATE = ClientStateEnumBase._(85, _omitEnumNames ? '' : 'CONSTRUCTED_PLAN_CLIENT_STATE');
+  static const ClientStateEnumBase FETCHING_PLAN_CLIENT_STATE = ClientStateEnumBase._(90, _omitEnumNames ? '' : 'FETCHING_PLAN_CLIENT_STATE');
+  static const ClientStateEnumBase FETCHED_PLAN_CLIENT_STATE = ClientStateEnumBase._(91, _omitEnumNames ? '' : 'FETCHED_PLAN_CLIENT_STATE');
+  static const ClientStateEnumBase FETCHING_PLAN_IDS_CLIENT_STATE = ClientStateEnumBase._(94, _omitEnumNames ? '' : 'FETCHING_PLAN_IDS_CLIENT_STATE');
+  static const ClientStateEnumBase FETCHED_PLAN_IDS_CLIENT_STATE = ClientStateEnumBase._(95, _omitEnumNames ? '' : 'FETCHED_PLAN_IDS_CLIENT_STATE');
   static const ClientStateEnumBase WAITING_INPUT_CLIENT_STATE = ClientStateEnumBase._(100, _omitEnumNames ? '' : 'WAITING_INPUT_CLIENT_STATE');
   static const ClientStateEnumBase SENDING_ACT_CLIENT_STATE = ClientStateEnumBase._(200, _omitEnumNames ? '' : 'SENDING_ACT_CLIENT_STATE');
   static const ClientStateEnumBase SENT_ACT_SUCCESS_CLIENT_STATE = ClientStateEnumBase._(201, _omitEnumNames ? '' : 'SENT_ACT_SUCCESS_CLIENT_STATE');
@@ -46,10 +48,12 @@ class ClientStateEnumBase extends $pb.ProtobufEnum {
     GOT_ABOUT_SERVER_CLIENT_STATE,
     OPENNING_SYNC_STREAMS_CLIENT_STATE,
     OPENED_SYNC_STREAMS_CLIENT_STATE,
-    FETCHING_CURRENT_PLAN_CLIENT_STATE,
-    FETCHED_CURRENT_PLAN_CLIENT_STATE,
-    FETCHING_PLANS_CLIENT_STATE,
-    FETCHED_PLANS_CLIENT_STATE,
+    CONSTRUCTING_PLAN_CLIENT_STATE,
+    CONSTRUCTED_PLAN_CLIENT_STATE,
+    FETCHING_PLAN_CLIENT_STATE,
+    FETCHED_PLAN_CLIENT_STATE,
+    FETCHING_PLAN_IDS_CLIENT_STATE,
+    FETCHED_PLAN_IDS_CLIENT_STATE,
     WAITING_INPUT_CLIENT_STATE,
     SENDING_ACT_CLIENT_STATE,
     SENT_ACT_SUCCESS_CLIENT_STATE,

@@ -58,14 +58,15 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
         ClaimingSessionClientEvent e => _onClaimingSession(e, emit),
         ApprovingSessionClientEvent e => _onApprovingSession(e, emit),
         GettingAboutServerClientEvent e => _onGettingAboutServer(e, emit),
-        OpeningSyncStreamsClientEvent e => _onOpeningSyncStreams(e, emit),
-        FetchingCurrentPlanClientEvent e =>
-          _onFetchingCurrentPlanClient(e, emit),
-        FetchingPlansClientEvent e => _onFetchingPlansClient(e, emit),
         SuccessInitClientEvent e => _onSuccessInit(e, emit),
         FailureInitClientEvent e => _onFailureInit(e, emit),
         WaitingInputClientEvent e => _onWaitingInput(e, emit),
         // act events
+        OpeningSyncStreamsClientEvent e => _onOpeningSyncStreams(e, emit),
+        ConstructingPlanWhenAbsentClientEvent e =>
+          _onConstructingPlanWhenAbsent(e, emit),
+        SettingCurrentPlanIdClientEvent e => _onSettingCurrentPlanId(e, emit),
+        FetchingCurrentPlanClientEvent e => _onFetchingCurrentPlan(e, emit),
         ProcessingActClientEvent e => _onProcessingOnClientAct(e, emit),
         SendingToServerActClientEvent e => _onSendingToServerAct(e, emit),
         // unsupported event
@@ -108,8 +109,6 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     add(const GettingAboutServerClientEvent());
 
     add(const OpeningSyncStreamsClientEvent());
-
-    add(const FetchingCurrentPlanClientEvent());
 
     add(const SuccessInitClientEvent());
   }
@@ -244,7 +243,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     /// create a stream for sending acts to Server
     /// the Server will be subscribe to [clientActs] below
     clientActs = StreamController<ActBaseRequest>();
-    logi('A stream from Client to Server opened.');
+    logi('A stream Client ➡️ Server opened.');
 
     serverActs = maiaStub.synchronize(clientActs.stream);
     serverActs.listen(
@@ -259,10 +258,10 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
           loge('_onOpeningSyncStreamsEvent() serverActs onError `$s`'),
       onDone: () => logi('_onOpeningSyncStreamsEvent() serverActs onDone'),
     );
-    logi('A stream from Server to Client opened.');
+    logi('A stream Server ➡️ Client opened.');
   }
 
-  Future<void> _onFetchingCurrentPlanClient(
+  Future<void> _onFetchingCurrentPlan(
     FetchingCurrentPlanClientEvent event,
     Emitter<ClientState> emit,
   ) async {
@@ -270,7 +269,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     emit(
       state.copyWith(
         ss: state.ss.rebuild((v) {
-          v.state = ClientStateEnum.FETCHING_CURRENT_PLAN_CLIENT_STATE;
+          v.state = ClientStateEnum.FETCHING_PLAN_CLIENT_STATE;
         }),
       ),
     );
@@ -288,8 +287,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     );
     if (response.answer.type !=
         maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE) {
-      // TODO(sign): Respect errors.
-      logi('Fetched plan `$id` and added to Lore.');
+      throw ServerAnswerError(response.answer, StackTrace.current);
     }
 
     final plan = buildPlan.fromBase(response.plan);
@@ -299,68 +297,95 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     emit(
       state.copyWith(
         ss: state.ss.rebuild((v) {
-          v.state = ClientStateEnum.FETCHED_PLANS_CLIENT_STATE;
+          v.state = ClientStateEnum.FETCHED_PLAN_CLIENT_STATE;
         }),
         lore: lore,
       ),
     );
 
-    logi('Got ${state.lore.count} plan${state.lore.count > 1 ? 's' : ''}'
-        ' from Server.');
+    logi('Fetched current plan `$id` from Server.');
 
     add(const WaitingInputClientEvent());
   }
 
-  Future<void> _onFetchingPlansClient(
-    FetchingPlansClientEvent event,
+  Future<void> _onConstructingPlanWhenAbsent(
+    ConstructingPlanWhenAbsentClientEvent event,
     Emitter<ClientState> emit,
   ) async {
     state.ss.freeze();
     emit(
       state.copyWith(
         ss: state.ss.rebuild((v) {
-          v.state = ClientStateEnum.FETCHING_PLANS_CLIENT_STATE;
+          v.state = ClientStateEnum.CONSTRUCTING_PLAN_CLIENT_STATE;
         }),
       ),
     );
 
-    // plan IDs
-    late final Iterable<String> planIds;
-    {
-      final response = await maiaStub.fetchPlanIds(
-        maia.FetchPlanIdsRequest(session: state.ss.session),
-      );
-      // TODO(sign): Respect errors.
-      planIds = response.planIds;
-    }
+    final id = event.plan.id;
 
-    // plans
-    final lore = state.lore;
-    for (final id in planIds) {
-      logi('Fetching plan `$id` and build with `$buildPlan`...');
-      final response = await maiaStub.fetchPlan(
-        maia.FetchPlanRequest(
+    logi('Checking plan `$id` on server side...');
+    late final bool has;
+    {
+      final response = await maiaStub.hasPlan(
+        maia.HasPlanRequest(
           session: state.ss.session,
           planId: id,
         ),
       );
-      // TODO(sign): Respect errors.
-      final plan = buildPlan.fromBase(response.plan);
-      lore.addNew(plan);
-      logi('Fetched plan `$id` and added to Lore.');
+      if (response.answer.type !=
+          maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE) {
+        throw ServerAnswerError(response.answer, StackTrace.current);
+      }
+      has = response.has;
     }
+    logi('The plan `$id` ${has ? "present" : "absent"} on server side.');
+
+    // plan presents on server side, ignore
+    if (has) {
+      return;
+    }
+
+    // plan absents on server side, constructing
+    logi('Constructing plan `$id` on server side...');
+    {
+      final response = await maiaStub.constructPlan(
+        maia.ConstructPlanRequest(
+          session: state.ss.session,
+          plan: event.plan.base,
+        ),
+      );
+      if (response.answer.type !=
+          maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE) {
+        throw ServerAnswerError(response.answer, StackTrace.current);
+      }
+    }
+    logi('The plan `$id` constructed on server side.');
+
+    // ! we don't get the constructed plan here to client side
 
     emit(
       state.copyWith(
         ss: state.ss.rebuild((v) {
-          v.state = ClientStateEnum.FETCHED_PLANS_CLIENT_STATE;
+          v.state = ClientStateEnum.CONSTRUCTED_PLAN_CLIENT_STATE;
         }),
-        lore: lore,
       ),
     );
 
-    logi('Got ${state.lore.count} plan${state.lore.count > 1 ? 's' : ''}'
-        ' from Server.');
+    add(const WaitingInputClientEvent());
+  }
+
+  Future<void> _onSettingCurrentPlanId(
+    SettingCurrentPlanIdClientEvent event,
+    Emitter<ClientState> emit,
+  ) async {
+    state.ss.freeze();
+    emit(
+      state.copyWith(
+        ss: state.ss.rebuild((v) {
+          v.currentPlanId = event.planId;
+        }),
+      ),
+    );
 
     add(const WaitingInputClientEvent());
   }
@@ -406,10 +431,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   ) async {
     if (event.answer.type !=
         maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE) {
-      logw("The event `$event` wasn't accepted on the server side."
-          ' Reason: ${event.answer}.');
-      // TODO(sign): Respect this answer.
-      return;
+      throw ServerAnswerError(event.answer, StackTrace.current);
     }
 
     state.ss.freeze();

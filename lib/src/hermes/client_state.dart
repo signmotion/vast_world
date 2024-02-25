@@ -24,8 +24,8 @@ class ClientState extends AState<ClientStateBase> {
   ClientState copyWith({
     ClientStateBase? ss,
     Universe? u,
-    TComponentBuilder? componentBuilder,
     TPlanBuilder? planBuilder,
+    TComponentBuilder? componentBuilder,
     Lore? lore,
     LoreInfluencer? loreInfluencer,
   }) =>
@@ -43,6 +43,7 @@ class ClientState extends AState<ClientStateBase> {
         ...super.props,
         componentBuilder().runtimeType,
         planBuilder(u, componentBuilder).runtimeType,
+        componentBuilder().runtimeType,
         lore,
         loreInfluencer,
         u,
