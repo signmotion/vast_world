@@ -32,6 +32,33 @@ class OpeningSyncStreamsClientEvent extends AClientEvent {
   const OpeningSyncStreamsClientEvent();
 }
 
+class ConstructingAndFetchingPlanClientEvent extends AClientEvent {
+  const ConstructingAndFetchingPlanClientEvent({required this.plan});
+
+  final Plan<dynamic> plan;
+
+  @override
+  List<Object?> get props => [...super.props, plan];
+}
+
+class ConstructingPlanClientEvent extends AClientEvent {
+  const ConstructingPlanClientEvent({required this.plan});
+
+  final Plan<dynamic> plan;
+
+  @override
+  List<Object?> get props => [...super.props, plan];
+}
+
+class ConstructingAndFetchingPlanWhenAbsentClientEvent extends AClientEvent {
+  const ConstructingAndFetchingPlanWhenAbsentClientEvent({required this.plan});
+
+  final Plan<dynamic> plan;
+
+  @override
+  List<Object?> get props => [...super.props, plan];
+}
+
 class ConstructingPlanWhenAbsentClientEvent extends AClientEvent {
   const ConstructingPlanWhenAbsentClientEvent({required this.plan});
 
@@ -50,8 +77,14 @@ class SettingCurrentPlanIdClientEvent extends AClientEvent {
   List<Object?> get props => [...super.props, planId];
 }
 
-class FetchingCurrentPlanClientEvent extends AClientEvent {
-  const FetchingCurrentPlanClientEvent();
+/// See [ConstructingPlanClientEvent], [ConstructingAndFetchingPlanClientEvent].
+class FetchingPlanClientEvent extends AClientEvent {
+  const FetchingPlanClientEvent({required this.planId});
+
+  final String planId;
+
+  @override
+  List<Object?> get props => [...super.props, planId];
 }
 
 class FetchingPlansClientEvent extends AClientEvent {

@@ -63,10 +63,15 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
         WaitingInputClientEvent e => _onWaitingInput(e, emit),
         // act events
         OpeningSyncStreamsClientEvent e => _onOpeningSyncStreams(e, emit),
+        ConstructingPlanClientEvent e => _onConstructingPlan(e, emit),
+        ConstructingAndFetchingPlanClientEvent e =>
+          _onConstructingAndFetchingPlan(e, emit),
         ConstructingPlanWhenAbsentClientEvent e =>
           _onConstructingPlanWhenAbsent(e, emit),
+        ConstructingAndFetchingPlanWhenAbsentClientEvent e =>
+          _onConstructingAndFetchingPlanWhenAbsent(e, emit),
         SettingCurrentPlanIdClientEvent e => _onSettingCurrentPlanId(e, emit),
-        FetchingCurrentPlanClientEvent e => _onFetchingCurrentPlan(e, emit),
+        FetchingPlanClientEvent e => _onFetchingPlan(e, emit),
         ProcessingActClientEvent e => _onProcessingOnClientAct(e, emit),
         SendingToServerActClientEvent e => _onSendingToServerAct(e, emit),
         // unsupported event
@@ -261,8 +266,8 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     logi('A stream Server ➡️ Client opened.');
   }
 
-  Future<void> _onFetchingCurrentPlan(
-    FetchingCurrentPlanClientEvent event,
+  Future<void> _onFetchingPlan(
+    FetchingPlanClientEvent event,
     Emitter<ClientState> emit,
   ) async {
     state.ss.freeze();
@@ -275,7 +280,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     );
 
     final lore = state.lore;
-    final id = state.ss.currentPlanId;
+    final id = event.planId;
     lore.remove(id);
 
     logi('Fetching plan `$id` and build with `$buildPlan`...');
@@ -308,8 +313,18 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     add(const WaitingInputClientEvent());
   }
 
-  Future<void> _onConstructingPlanWhenAbsent(
-    ConstructingPlanWhenAbsentClientEvent event,
+  Future<void> _onConstructingAndFetchingPlan(
+    ConstructingAndFetchingPlanClientEvent event,
+    Emitter<ClientState> emit,
+  ) async {
+    add(ConstructingPlanClientEvent(plan: event.plan));
+    add(FetchingPlanClientEvent(planId: event.plan.id));
+
+    add(const WaitingInputClientEvent());
+  }
+
+  Future<void> _onConstructingPlan(
+    ConstructingPlanClientEvent event,
     Emitter<ClientState> emit,
   ) async {
     state.ss.freeze();
@@ -323,29 +338,6 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
     final id = event.plan.id;
 
-    logi('Checking plan `$id` on server side...');
-    late final bool has;
-    {
-      final response = await maiaStub.hasPlan(
-        maia.HasPlanRequest(
-          session: state.ss.session,
-          planId: id,
-        ),
-      );
-      if (response.answer.type !=
-          maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE) {
-        throw ServerAnswerError(response.answer, StackTrace.current);
-      }
-      has = response.has;
-    }
-    logi('The plan `$id` ${has ? "present" : "absent"} on server side.');
-
-    // plan presents on server side, ignore
-    if (has) {
-      return;
-    }
-
-    // plan absents on server side, constructing
     logi('Constructing plan `$id` on server side...');
     {
       final response = await maiaStub.constructPlan(
@@ -372,6 +364,50 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     );
 
     add(const WaitingInputClientEvent());
+  }
+
+  Future<void> _onConstructingPlanWhenAbsent(
+    ConstructingPlanWhenAbsentClientEvent event,
+    Emitter<ClientState> emit,
+  ) async {
+    if (await hasPlan(event.plan.id)) {
+      return;
+    }
+
+    add(ConstructingPlanClientEvent(plan: event.plan));
+  }
+
+  Future<void> _onConstructingAndFetchingPlanWhenAbsent(
+    ConstructingAndFetchingPlanWhenAbsentClientEvent event,
+    Emitter<ClientState> emit,
+  ) async {
+    if (await hasPlan(event.plan.id)) {
+      return;
+    }
+
+    add(ConstructingPlanClientEvent(plan: event.plan));
+    add(FetchingPlanClientEvent(planId: event.plan.id));
+  }
+
+  Future<bool> hasPlan(String planId) async {
+    logi('Checking plan `$planId` on server side...');
+    late final bool has;
+    {
+      final response = await maiaStub.hasPlan(
+        maia.HasPlanRequest(
+          session: state.ss.session,
+          planId: planId,
+        ),
+      );
+      if (response.answer.type !=
+          maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE) {
+        throw ServerAnswerError(response.answer, StackTrace.current);
+      }
+      has = response.has;
+    }
+    logi('The plan `$planId` ${has ? "present" : "absent"} on server side.');
+
+    return has;
   }
 
   Future<void> _onSettingCurrentPlanId(

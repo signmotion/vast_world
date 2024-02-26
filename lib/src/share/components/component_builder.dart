@@ -394,8 +394,8 @@ class NativeComponentBuilder {
 
     // special case after all components: attempt resolve [UnimplementedComponent]
     if (extendedBuilders.isNotEmpty) {
-      logi('Running extendedRunForComponent(`$id`).'
-          ' Known builders: `${extendedBuilders.map((b) => b().runtimeType)}`...');
+      // logi('Running extendedRunForComponent(`$id`).'
+      //     ' Known builders: `${extendedBuilders.map((b) => b().runtimeType)}`...');
       final r = extendedRunForComponent(
         componentId,
         u: u,
@@ -406,7 +406,7 @@ class NativeComponentBuilder {
       if (r != null) {
         return r;
       }
-      logi('Component `$id` not found. Setting as Unimplemetned...');
+      // logi('Component `$id` not found. Setting as Unimplemetned...');
     }
 
     ++count;
