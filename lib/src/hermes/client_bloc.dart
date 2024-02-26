@@ -68,8 +68,8 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
           _onConstructingAndFetchingPlan(e, emit),
         ConstructingPlanWhenAbsentClientEvent e =>
           _onConstructingPlanWhenAbsent(e, emit),
-        ConstructingAndFetchingPlanWhenAbsentClientEvent e =>
-          _onConstructingAndFetchingPlanWhenAbsent(e, emit),
+        ConstructingWhenAbsentAndFetchingPlanClientEvent e =>
+          _onConstructingWhenAbsentAndFetchingPlan(e, emit),
         SettingCurrentPlanIdClientEvent e => _onSettingCurrentPlanId(e, emit),
         FetchingPlanClientEvent e => _onFetchingPlan(e, emit),
         ProcessingActClientEvent e => _onProcessingOnClientAct(e, emit),
@@ -377,15 +377,11 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     add(ConstructingPlanClientEvent(plan: event.plan));
   }
 
-  Future<void> _onConstructingAndFetchingPlanWhenAbsent(
-    ConstructingAndFetchingPlanWhenAbsentClientEvent event,
+  Future<void> _onConstructingWhenAbsentAndFetchingPlan(
+    ConstructingWhenAbsentAndFetchingPlanClientEvent event,
     Emitter<ClientState> emit,
   ) async {
-    if (await hasPlan(event.plan.id)) {
-      return;
-    }
-
-    add(ConstructingPlanClientEvent(plan: event.plan));
+    add(ConstructingPlanWhenAbsentClientEvent(plan: event.plan));
     add(FetchingPlanClientEvent(planId: event.plan.id));
   }
 

@@ -50,8 +50,8 @@ class ConstructingPlanClientEvent extends AClientEvent {
   List<Object?> get props => [...super.props, plan];
 }
 
-class ConstructingAndFetchingPlanWhenAbsentClientEvent extends AClientEvent {
-  const ConstructingAndFetchingPlanWhenAbsentClientEvent({required this.plan});
+class ConstructingWhenAbsentAndFetchingPlanClientEvent extends AClientEvent {
+  const ConstructingWhenAbsentAndFetchingPlanClientEvent({required this.plan});
 
   final Plan<dynamic> plan;
 
