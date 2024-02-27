@@ -2,8 +2,8 @@ part of '../../../vast_world_share.dart';
 
 /// See [unimplementedRender].
 typedef RenderFn<T> = T Function(
-  Plan<dynamic> spectator,
-  Plan<dynamic> watched,
+  Plan<Plan<dynamic>> spectator,
+  Plan<Plan<dynamic>> watched,
 );
 
 abstract class RenderConfigure {

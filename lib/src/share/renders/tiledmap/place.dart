@@ -1,14 +1,14 @@
 part of '../../../../vast_world_share.dart';
 
 TiledmapT placeTiledmapRender(
-  Plan<dynamic> spectator,
-  Plan<dynamic> watched,
+  Plan<Plan<dynamic>> spectator,
+  Plan<Plan<dynamic>> watched,
 ) {
   const configure = TiledmapRenderConfigure();
 
   ({String pathToFile, Image content}) pictureComponentImageRender(
-    Plan<dynamic> spectator,
-    Plan<dynamic> watched,
+    Plan<Plan<dynamic>> spectator,
+    Plan<Plan<dynamic>> watched,
   ) {
     final picture = watched.get<PictureComponent>();
 
@@ -19,8 +19,8 @@ TiledmapT placeTiledmapRender(
   }
 
   XmlDocument xmlRender(
-    Plan<dynamic> spectator,
-    Plan<dynamic> watched,
+    Plan<Plan<dynamic>> spectator,
+    Plan<Plan<dynamic>> watched,
   ) {
     final id = TransitIdGen();
 

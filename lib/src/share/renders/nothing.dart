@@ -1,20 +1,20 @@
 part of '../../../vast_world_share.dart';
 
 Image nothingImageRender(
-  Plan<dynamic> spectator,
-  Plan<dynamic> watched,
+  Plan<Plan<dynamic>> spectator,
+  Plan<Plan<dynamic>> watched,
 ) =>
     defaultImage(const ImageRenderConfigure());
 
 String nothingStringRender(
-  Plan<dynamic> spectator,
-  Plan<dynamic> watched,
+  Plan<Plan<dynamic>> spectator,
+  Plan<Plan<dynamic>> watched,
 ) =>
     '';
 
 TiledmapT nothingTiledmapTRender(
-  Plan<dynamic> spectator,
-  Plan<dynamic> watched,
+  Plan<Plan<dynamic>> spectator,
+  Plan<Plan<dynamic>> watched,
 ) =>
     (
       fileXml: (pathToFile: '', content: XmlDocument()),
@@ -22,7 +22,7 @@ TiledmapT nothingTiledmapTRender(
     );
 
 XmlDocument nothingXmlRender(
-  Plan<dynamic> spectator,
-  Plan<dynamic> watched,
+  Plan<Plan<dynamic>> spectator,
+  Plan<Plan<dynamic>> watched,
 ) =>
     XmlDocument();

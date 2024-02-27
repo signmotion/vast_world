@@ -1,8 +1,8 @@
 part of '../../../vast_world_share.dart';
 
 Image onePictureImageRender(
-  Plan<dynamic> spectator,
-  Plan<dynamic> watched,
+  Plan<Plan<dynamic>> spectator,
+  Plan<Plan<dynamic>> watched,
 ) {
   const configure = ImageRenderConfigure();
 

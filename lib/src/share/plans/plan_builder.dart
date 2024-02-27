@@ -14,10 +14,10 @@ class NativePlanBuilder {
   /// We can use inheritanced builder.
   final TComponentBuilder componentBuilder;
 
-  T fromJson<T extends Plan<dynamic>>(JsonMap json) =>
+  T fromJson<T extends Plan<Plan<dynamic>>>(JsonMap json) =>
       fromBase(jsonAsPlanBase(json));
 
-  T fromBase<T extends Plan<dynamic>>(PlanBase base) {
+  T fromBase<T extends Plan<Plan<dynamic>>>(PlanBase base) {
     logi('🧙‍♂️🟨 Constructing plan based on'
             ' `${base.hid}` with components'
             ' `${base.components.values.map((c) => c.hid)}`'
@@ -49,7 +49,7 @@ class NativePlanBuilder {
     return plan as T;
   }
 
-  T fromIdAndComponents<T extends Plan<dynamic>>(
+  T fromIdAndComponents<T extends Plan<Plan<dynamic>>>(
     String id,
     Iterable<AnyComponent> components,
   ) {

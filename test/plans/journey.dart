@@ -5,7 +5,7 @@ import 'place.dart';
 /// Example:
 ///   A journey by country.
 /// See [constructPlacePlan].
-Plan<dynamic> constructJourneyPlan(
+Plan<Plan<dynamic>> constructJourneyPlan(
   Universe u, {
   String? hid,
   String? uid,

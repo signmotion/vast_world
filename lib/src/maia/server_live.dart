@@ -78,7 +78,7 @@ class ServerLive extends BaseLive<ServerState> {
     return state.lores[session]!;
   }
 
-  Plan<dynamic> planFromState(String session, String planId) {
+  Plan<Plan<dynamic>> planFromState(String session, String planId) {
     final plan = loreFromState(session).plans[planId];
     if (plan == null) {
       throw throw AbsentPlanError(session, StackTrace.current);

@@ -4,7 +4,7 @@ import 'journey.dart';
 
 /// Contains all journeys.
 /// See [constructJourneyPlan].
-Plan<dynamic> constructAllJourneysPlan(
+Plan<Plan<dynamic>> constructAllJourneysPlan(
   Universe u, {
   String? hid,
   String? uid,

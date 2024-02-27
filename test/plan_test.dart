@@ -117,7 +117,7 @@ void main() {
 
       all.addToExposed(aerwyna);
       expect(all.exposed.length, 1);
-      final e = all.exposed.single as Plan<dynamic>;
+      final e = all.exposed.single as Plan<Plan<dynamic>>;
       expect(e.hid, aerwyna.hid);
       expect(e.uid, aerwyna.uid);
     });

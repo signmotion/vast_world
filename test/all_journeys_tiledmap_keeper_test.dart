@@ -28,7 +28,7 @@ void main() {
       final keeper = constructKeeper(outputPath)..clear();
 
       // saving the root and exposed plans
-      final planForKeep = plan.exposed.single.exposed[4] as Plan<dynamic>;
+      final planForKeep = plan.exposed.single.exposed[4] as Plan<Plan<dynamic>>;
       keeper.write(planForKeep, 1);
 
       checkFileStructurePlan(
@@ -64,7 +64,7 @@ void main() {
       final keeper = constructKeeper(outputPath)..clear();
 
       // saving the root and exposed plans
-      final planForKeep = plan.exposed.single.exposed[0] as Plan<dynamic>;
+      final planForKeep = plan.exposed.single.exposed[0] as Plan<Plan<dynamic>>;
       keeper.write(planForKeep);
 
       checkFileStructurePlan(
@@ -100,7 +100,7 @@ void main() {
       final keeper = constructKeeper(outputPath)..clear();
 
       // saving the root and exposed plans
-      final planForKeep = plan.exposed.single as Plan<dynamic>;
+      final planForKeep = plan.exposed.single as Plan<Plan<dynamic>>;
       keeper.write(planForKeep);
 
       checkFileStructurePlan(

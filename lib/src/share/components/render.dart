@@ -11,7 +11,10 @@ abstract class RenderComponent<T> extends Component<RenderFn<T>> {
 
   RenderFn<T> get render => value;
 
-  RenderedData<T> renderData(Plan<dynamic> spectator, Plan<dynamic> watched) =>
+  RenderedData<T> renderData(
+    Plan<Plan<dynamic>> spectator,
+    Plan<Plan<dynamic>> watched,
+  ) =>
       RenderedData<T>(
         spectator.id,
         watched.id,

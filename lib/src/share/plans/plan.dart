@@ -5,7 +5,7 @@ part of '../../../vast_world_share.dart';
 /// [render] Constructing a representation the [I] to this plan.
 /// ! Call [removeInnerEntity()] if working with a set of plans and removing the plan.
 class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
-// TODO class Plan<I extends Plan<dynamic>, L extends LayoutComponent> extends Quant {
+// TODO class Plan<I extends Plan<Plan<dynamic>>, L extends LayoutComponent> extends Quant {
   Plan(
     this.u, {
     String? id,

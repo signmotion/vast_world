@@ -3,14 +3,14 @@ import 'package:vast_world/vast_world_share.dart';
 import 'widget.dart';
 
 ClientWidgetT clientAllJourneysWidgetRender(
-  Plan<dynamic> spectator,
-  Plan<dynamic> watched,
+  Plan<Plan<dynamic>> spectator,
+  Plan<Plan<dynamic>> watched,
 ) {
   //const configure = WidgetRenderConfigure();
 
   String contentRender(
-    Plan<dynamic> spectator,
-    Plan<dynamic> watched,
+    Plan<Plan<dynamic>> spectator,
+    Plan<Plan<dynamic>> watched,
   ) {
     return 'contentRender() $watched';
   }

@@ -38,7 +38,7 @@ class OpeningSyncStreamsClientEvent extends AClientEvent {
 class ConstructingAndFetchingPlanClientEvent extends AClientEvent {
   const ConstructingAndFetchingPlanClientEvent({required this.plan});
 
-  final Plan<dynamic> plan;
+  final Plan<Plan<dynamic>> plan;
 
   @override
   List<Object?> get props => [...super.props, plan];
@@ -47,7 +47,7 @@ class ConstructingAndFetchingPlanClientEvent extends AClientEvent {
 class ConstructingPlanClientEvent extends AClientEvent {
   const ConstructingPlanClientEvent({required this.plan});
 
-  final Plan<dynamic> plan;
+  final Plan<Plan<dynamic>> plan;
 
   @override
   List<Object?> get props => [...super.props, plan];
@@ -60,7 +60,7 @@ class ConstructingWhenAbsentAndFetchingPlanClientEvent extends AClientEvent {
   });
 
   final String fromPlanId;
-  final Plan<dynamic> plan;
+  final Plan<Plan<dynamic>> plan;
 
   @override
   List<Object?> get props => [...super.props, fromPlanId, plan];
@@ -73,7 +73,7 @@ class ConstructingPlanWhenAbsentClientEvent extends AClientEvent {
   });
 
   final String fromPlanId;
-  final Plan<dynamic> plan;
+  final Plan<Plan<dynamic>> plan;
 
   @override
   List<Object?> get props => [...super.props, fromPlanId, plan];

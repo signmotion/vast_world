@@ -5,14 +5,14 @@ part of '../../../vast_world_share.dart';
 class Lore {
   Lore({
     required this.componentBuilder,
-    Map<String, Plan<dynamic>>? plans,
+    Map<String, Plan<Plan<dynamic>>>? plans,
   }) {
     // to fix error `Unmodifiable Map`
     this.plans = plans ?? Map.of({});
   }
 
   /// <[Plan.id], [Plan]>
-  late final Map<String, Plan<dynamic>> plans;
+  late final Map<String, Plan<Plan<dynamic>>> plans;
 
   final TComponentBuilder componentBuilder;
 
@@ -35,7 +35,7 @@ class Lore {
   /// Add [plan] to [plans].
   /// Ignore when [plan] has been submitted.
   /// See [has].
-  void addNew(Plan<dynamic> plan) {
+  void addNew(Plan<Plan<dynamic>> plan) {
     if (this[plan.id] == null) {
       this[plan.id] = plan;
     } else {
@@ -75,15 +75,15 @@ class Lore {
   bool has(String id) => find(id) != null;
 
   /// Return a plan by [id].
-  Plan<dynamic>? find(String id) =>
+  Plan<Plan<dynamic>>? find(String id) =>
       plans[id] ??
       plans.values.firstWhereOrNull((p) => p.uid == id || p.hid == id);
 
   /// Return a plan by [id].
-  Plan<dynamic>? operator [](String id) => find(id);
+  Plan<Plan<dynamic>>? operator [](String id) => find(id);
 
   /// Set a plan by [id].
-  void operator []=(String id, Plan<dynamic> plan) {
+  void operator []=(String id, Plan<Plan<dynamic>> plan) {
     final present = find(id);
     if (present != null) {
       // TODO Clear a previous plan from Universe.
@@ -98,7 +98,7 @@ class Lore {
     final watched = this[watchedId];
     ae(watched != null, 'Watched plan `$watchedId` not found.');
 
-    spectator!.bind(watched);
+    spectator!.bind(watched!);
   }
 
   @override

@@ -5,7 +5,7 @@ import '../plans/all_journeys.dart';
 import '../plans/journey.dart';
 import '../plans/place.dart';
 
-Plan<dynamic> get constructedAerwynaJourneyFromRaw {
+Plan<Plan<dynamic>> get constructedAerwynaJourneyFromRaw {
   final u = Universe();
 
   const sourcePath =

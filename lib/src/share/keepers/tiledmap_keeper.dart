@@ -18,7 +18,7 @@ abstract class TiledmapKeeper<
 /// typedef Keeper = PlanTiledmapKeeper<ImageFilesystemBroker, TextFilesystemBroker>;
 /// ```
 class PlanTiledmapKeeper<
-        P extends Plan<dynamic>,
+        P extends Plan<Plan<dynamic>>,
         ImgB extends Broker<dynamic, dynamic>,
         TxtB extends Broker<dynamic, dynamic>,
         XmlB extends Broker<dynamic, dynamic>>
@@ -41,11 +41,11 @@ class PlanTiledmapKeeper<
   void write(Quant value, [int depth = Keeper.maxWritePlanDepth]) {
     super.write(value, depth);
 
-    _writePlan(value as Plan<dynamic>, depth);
+    _writePlan(value as Plan<Plan<dynamic>>, depth);
   }
 
   void _writePlan(
-    Plan<dynamic> plan, [
+    Plan<Plan<dynamic>> plan, [
     int depth = Keeper.maxWritePlanDepth,
   ]) {
     final renderComponent = plan.get<TiledmapRenderComponent>();
@@ -66,7 +66,7 @@ class PlanTiledmapKeeper<
     // TODO
     // // save the exposed as plans
     // for (final exposed in plan.exposed) {
-    //   _writePlan(exposed as Plan<dynamic>, depth - 1, prefix);
+    //   _writePlan(exposed as Plan<Plan<dynamic>>, depth - 1, prefix);
     // }
   }
 }

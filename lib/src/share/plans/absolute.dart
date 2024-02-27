@@ -6,5 +6,13 @@ part of '../../../vast_world_share.dart';
 /// Use for some renders.
 class AbsolutePlan extends Plan<Plan> {
   AbsolutePlan()
-      : super(Universe(), componentBuilder: NativeComponentBuilder.new);
+      : super(_universe, componentBuilder: NativeComponentBuilder.new);
+
+  @override
+  String get hid => absolutePlanHid;
+
+  @override
+  String get uid => absolutePlanUid;
 }
+
+final _universe = Universe();

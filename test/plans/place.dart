@@ -5,7 +5,7 @@ import 'journey.dart';
 
 /// A place of journey.
 /// See [constructJourneyPlan].
-Plan<dynamic> constructPlacePlan(
+Plan<Plan<dynamic>> constructPlacePlan(
   Universe u, {
   String? hid,
   String? uid,

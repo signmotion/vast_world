@@ -233,12 +233,12 @@ void main() {
       expect(lore.countsInUniverses.single, lore.count);
 
       {
-        final exposed = lore[all.id]!.exposed as List<Plan<dynamic>>;
+        final exposed = lore[all.id]!.exposed as List<Plan<Plan<dynamic>>>;
         expect(exposed, isEmpty);
       }
       {
         lore.bind(all.id, aerwyna.id);
-        final exposed = lore[all.id]!.exposed as List<Plan<dynamic>>;
+        final exposed = lore[all.id]!.exposed as List<Plan<Plan<dynamic>>>;
         expect(exposed, isNotEmpty);
         final e = exposed.single;
         expect(e.hid, aerwyna.hid);

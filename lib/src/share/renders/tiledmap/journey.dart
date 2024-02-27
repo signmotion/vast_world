@@ -1,15 +1,15 @@
 part of '../../../../vast_world_share.dart';
 
 TiledmapT journeyTiledmapRender(
-  Plan<dynamic> spectator,
-  Plan<dynamic> watched,
+  Plan<Plan<dynamic>> spectator,
+  Plan<Plan<dynamic>> watched,
 ) {
   const configure = TiledmapRenderConfigure();
 
   ({String pathToFile, Image content}) imageryImageRender(
-    Plan<dynamic> spectator,
-    Plan<dynamic> watched,
-    Plan<dynamic> exposedWatched,
+    Plan<Plan<dynamic>> spectator,
+    Plan<Plan<dynamic>> watched,
+    Plan<Plan<dynamic>> exposedWatched,
   ) =>
       (
         pathToFile: ph.join(
@@ -23,8 +23,8 @@ TiledmapT journeyTiledmapRender(
       );
 
   XmlDocument xmlRender(
-    Plan<dynamic> spectator,
-    Plan<dynamic> watched,
+    Plan<Plan<dynamic>> spectator,
+    Plan<Plan<dynamic>> watched,
     List<({String pathToFile, Image content})> imageries,
   ) {
     ae(
@@ -39,7 +39,7 @@ TiledmapT journeyTiledmapRender(
     final tilesets = <VTileset>[];
     var lastY = 0.0;
     for (var i = watched.exposed.length - 1; i >= 0; --i) {
-      final exposed = watched.exposed[i] as Plan<dynamic>;
+      final exposed = watched.exposed[i] as Plan<Plan<dynamic>>;
       final imagery = imageries[i];
       final pathToImageryFile = imagery.pathToFile.pathAfterHead;
       final image = imagery.content;
@@ -100,7 +100,7 @@ TiledmapT journeyTiledmapRender(
 
   final imageries = [
     for (final we in watched.exposed)
-      imageryImageRender(spectator, watched, we as Plan<dynamic>)
+      imageryImageRender(spectator, watched, we as Plan<Plan<dynamic>>)
   ];
 
   return (

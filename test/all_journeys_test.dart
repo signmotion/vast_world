@@ -10,7 +10,7 @@ void main() {
 
   group('AllJourneysPlan, check raw format', () {
     final allJourneys = constructedAerwynaJourneyFromRaw;
-    final aerwynaJourney = allJourneys.exposed.single as Plan<dynamic>;
+    final aerwynaJourney = allJourneys.exposed.single as Plan<Plan<dynamic>>;
 
     test('Check `allJourneys` created from raw', () {
       checkPlan(
@@ -42,7 +42,7 @@ void main() {
     test('Check places of `aerwynaJourney` created from raw', () {
       for (final exposed in aerwynaJourney.exposed) {
         checkPlan(
-          exposed as Plan<dynamic>,
+          exposed as Plan<Plan<dynamic>>,
           hid: exposed.hid,
           componentIds: [
             IdComponent().id,
