@@ -381,12 +381,22 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     ConstructingWhenAbsentAndFetchingPlanClientEvent event,
     Emitter<ClientState> emit,
   ) async {
+    if (await hasPlan(event.plan.id)) {
+      add(FetchingPlanClientEvent(planId: event.plan.id));
+      return;
+    }
+
+    final act = AddPlanAct.fromPlan(event.fromPlanId, event.plan);
+    logi('DefaultClientBloc _onConstructingWhenAbsentAndFetchingPlan()'
+        ' Sending act $act...');
+    add(SendingToServerActClientEvent(act: act));
+
+    /* Doesn't work: the plan is absent.
     add(ConstructingPlanWhenAbsentClientEvent(plan: event.plan));
-
     // TODO(sign): stable optimize Without constant delayed.
-    //await pauseInSeconds(3);
-
+    await pauseInSeconds(3);
     add(FetchingPlanClientEvent(planId: event.plan.id));
+    */
   }
 
   Future<bool> hasPlan(String planId) async {

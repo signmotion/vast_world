@@ -54,21 +54,29 @@ class ConstructingPlanClientEvent extends AClientEvent {
 }
 
 class ConstructingWhenAbsentAndFetchingPlanClientEvent extends AClientEvent {
-  const ConstructingWhenAbsentAndFetchingPlanClientEvent({required this.plan});
+  const ConstructingWhenAbsentAndFetchingPlanClientEvent({
+    required this.fromPlanId,
+    required this.plan,
+  });
 
+  final String fromPlanId;
   final Plan<dynamic> plan;
 
   @override
-  List<Object?> get props => [...super.props, plan];
+  List<Object?> get props => [...super.props, fromPlanId, plan];
 }
 
 class ConstructingPlanWhenAbsentClientEvent extends AClientEvent {
-  const ConstructingPlanWhenAbsentClientEvent({required this.plan});
+  const ConstructingPlanWhenAbsentClientEvent({
+    required this.fromPlanId,
+    required this.plan,
+  });
 
+  final String fromPlanId;
   final Plan<dynamic> plan;
 
   @override
-  List<Object?> get props => [...super.props, plan];
+  List<Object?> get props => [...super.props, fromPlanId, plan];
 }
 
 class SettingCurrentPlanIdClientEvent extends AClientEvent {
