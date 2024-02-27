@@ -47,7 +47,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     AClientEvent event,
     Emitter<ClientState> emit,
   ) async {
-    logi('🥏 $event'.replaceFirst('Event', ''));
+    logi('$event');
 
     try {
       return switch (event) {
@@ -70,8 +70,8 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
           _onConstructingPlanWhenAbsent(e, emit),
         ConstructingWhenAbsentAndFetchingPlanClientEvent e =>
           _onConstructingWhenAbsentAndFetchingPlan(e, emit),
-        SettingCurrentPlanIdClientEvent e => _onSettingCurrentPlanId(e, emit),
         FetchingPlanClientEvent e => _onFetchingPlan(e, emit),
+        SettingCurrentPlanIdClientEvent e => _onSettingCurrentPlanId(e, emit),
         ProcessingActClientEvent e => _onProcessingOnClientAct(e, emit),
         SendingToServerActClientEvent e => _onSendingToServerAct(e, emit),
         // unsupported event
@@ -79,7 +79,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       };
     } catch (ex) {
       loge(ex);
-      add(const WaitingInputClientEvent());
+      add(const WaitingInputClientEvent(from: '_onEvent'));
     }
   }
 
@@ -310,7 +310,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
     logi('Fetched current plan `$id` from Server.');
 
-    add(const WaitingInputClientEvent());
+    add(const WaitingInputClientEvent(from: '_onFetchingPlan'));
   }
 
   Future<void> _onConstructingAndFetchingPlan(
@@ -320,7 +320,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     add(ConstructingPlanClientEvent(plan: event.plan));
     add(FetchingPlanClientEvent(planId: event.plan.id));
 
-    add(const WaitingInputClientEvent());
+    add(const WaitingInputClientEvent(from: '_onConstructingAndFetchingPlan'));
   }
 
   Future<void> _onConstructingPlan(
@@ -363,7 +363,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       ),
     );
 
-    add(const WaitingInputClientEvent());
+    add(const WaitingInputClientEvent(from: '_onConstructingPlan'));
   }
 
   Future<void> _onConstructingPlanWhenAbsent(
@@ -382,6 +382,10 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     Emitter<ClientState> emit,
   ) async {
     add(ConstructingPlanWhenAbsentClientEvent(plan: event.plan));
+
+    // TODO(sign): stable optimize Without constant delayed.
+    //await pauseInSeconds(3);
+
     add(FetchingPlanClientEvent(planId: event.plan.id));
   }
 
@@ -419,7 +423,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       ),
     );
 
-    add(const WaitingInputClientEvent());
+    add(const WaitingInputClientEvent(from: '_onSettingCurrentPlanId'));
   }
 
   Future<void> _onSuccessInit(
@@ -427,7 +431,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     Emitter<ClientState> emit,
   ) async {
     whenSuccessInit();
-    add(const WaitingInputClientEvent());
+    add(const WaitingInputClientEvent(from: '_onSuccessInit'));
   }
 
   void whenSuccessInit() {}
@@ -437,7 +441,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     Emitter<ClientState> emit,
   ) async {
     whenFailureInit();
-    add(const WaitingInputClientEvent());
+    add(const WaitingInputClientEvent(from: '_onFailureInit'));
   }
 
   void whenFailureInit() {}
@@ -498,7 +502,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       ),
     );
 
-    add(const WaitingInputClientEvent());
+    add(const WaitingInputClientEvent(from: '_onProcessingOnClientAct'));
   }
 
   /// Sending before [ProcessingOnServerActEvent].
@@ -538,7 +542,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       ),
     );
 
-    add(const WaitingInputClientEvent());
+    add(const WaitingInputClientEvent(from: '_onSendingToServerAct'));
   }
 
   void _checkApprove() {
