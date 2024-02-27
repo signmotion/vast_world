@@ -190,14 +190,20 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   /// Alias [addToExposed].
   void bind(I watched) => addToExposed(watched);
 
-  /// Every added [watched] will be enhanced with a component from [layout].
-  /// This is necessary for compound [exposed] plans.
+  /// TODO Every added [watched] will be enhanced with a component from [layout].
+  ///      This is necessary for compound [exposed] plans.
   /// See [bind].
   void addToExposed(I watched) {
     // TODO void addToImpacts<L extends LocationValue>(I plan, [L? location]) {
     // TODO plan.setLayout(layoutForExposed, location);
 
     exposed.add(watched);
+  }
+
+  void addAllToExposed(Iterable<I> watched) {
+    for (final w in watched) {
+      addToExposed(w);
+    }
   }
 
   /// See [base].

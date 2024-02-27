@@ -1,7 +1,7 @@
 part of '../../../vast_world_share.dart';
 
 /// Can act as the basis for any plan.
-Plan<dynamic> constructNothingPlan(
+Plan<Plan<dynamic>> constructNothingPlan(
   Universe u, {
   String? id,
   String? hid,
