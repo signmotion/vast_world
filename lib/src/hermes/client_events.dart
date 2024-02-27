@@ -2,6 +2,9 @@ part of '../../../vast_world_hermes.dart';
 
 abstract class AClientEvent extends BaseEquatable {
   const AClientEvent();
+
+  @override
+  String toString() => '🥏 $runtimeType $props'.replaceFirst('Event', '');
 }
 
 class InitializingClientEvent extends AClientEvent {
@@ -100,7 +103,12 @@ class FailureInitClientEvent extends AClientEvent {
 }
 
 class WaitingInputClientEvent extends AClientEvent {
-  const WaitingInputClientEvent();
+  const WaitingInputClientEvent({required this.from});
+
+  final String from;
+
+  @override
+  List<Object?> get props => [...super.props, from];
 }
 
 class SendingToServerActClientEvent extends AClientEvent {
