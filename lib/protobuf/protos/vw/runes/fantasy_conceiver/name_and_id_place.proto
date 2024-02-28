@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package vw.runes.fantasy_conceiver;
+
+message NameAndIdPlaceBase {
+  string plan_hid = 1;
+  string plan_uid = 2;
+
+  string title = 12;
+  string description = 13;
+
+  /// <name, RGB as int8>
+  map<string, int32> predominant_colors = 20;
+}

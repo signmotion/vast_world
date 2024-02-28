@@ -50,11 +50,11 @@ protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 @mkdir "%out%\%suffix%"
 protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 
-@Set "suffix=vw\runes\fantasy_journey_conceiver"
+@Set "suffix=vw\runes\fantasy_conceiver"
 @mkdir "%out%\%suffix%"
 protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 
-@Set "suffix=vw\runes\fantasy_journey_conceiver\services"
+@Set "suffix=vw\runes\fantasy_conceiver\services"
 @mkdir "%out%\%suffix%"
 protoc --dart_out=grpc:%out% -I%in% %in%\%suffix%\*
 

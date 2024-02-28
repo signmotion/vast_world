@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package vw.runes.fantasy_conceiver;
+
+message NameAndIdStoryBase {
+  string plan_hid = 1;
+  string plan_uid = 2;
+
+  string title = 12;
+  string text = 13;
+}
