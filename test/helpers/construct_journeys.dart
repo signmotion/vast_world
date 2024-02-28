@@ -30,6 +30,7 @@ Plan<Plan<dynamic>> get constructedAerwynaJourneyFromRaw {
   final placeCount = int.parse(about['place_count']!);
   for (var i = 0; i < placeCount; ++i) {
     final picture = f.readAsImage('place_list/$i.png')!;
+    final titleStory = 'Title $i';
     final textStory = i == 4
         ? f.readAsText('place_list/$i/story/story.md')!
         : 'Some story into the place $i...';
@@ -37,7 +38,7 @@ Plan<Plan<dynamic>> get constructedAerwynaJourneyFromRaw {
       u,
       hid: 'place_$i',
       picture: picture,
-      story: (text: textStory),
+      story: (title: titleStory, text: textStory),
     );
     aerwynaJourney.addToExposed(place);
   }
