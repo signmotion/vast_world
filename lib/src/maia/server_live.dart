@@ -111,9 +111,9 @@ class ServerLive extends BaseLive<ServerState> {
     state.lores.update(
       session,
       (lore) {
-        final b = state.planBuilder(lore);
+        final planBuilder = state.planBuilder(lore);
         // ignore: unused_local_variable
-        final p = b.fromBase(plan);
+        final p = planBuilder.fromBase(plan);
         // lore.addNew(p); - already added when constructed
         return lore;
       },

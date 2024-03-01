@@ -4,48 +4,40 @@ part of '../../vast_world_hermes.dart';
 class ClientState extends AState<ClientStateBase> {
   const ClientState({
     required super.ss,
-    required this.u,
-    required this.planBuilder,
-    required this.componentBuilder,
     required this.lore,
+    required this.planBuilder,
     required this.loreInfluencer,
   });
 
-  final Universe u;
-
   final TPlanBuilder planBuilder;
-  final TComponentBuilder componentBuilder;
+  TComponentBuilder get componentBuilder => lore.componentBuilder;
 
   final Lore lore;
+
+  Universe get u => lore.u;
 
   final LoreInfluencer loreInfluencer;
 
   @override
   ClientState copyWith({
     ClientStateBase? ss,
-    Universe? u,
-    TPlanBuilder? planBuilder,
-    TComponentBuilder? componentBuilder,
     Lore? lore,
+    TPlanBuilder? planBuilder,
     LoreInfluencer? loreInfluencer,
   }) =>
       ClientState(
         ss: ss ?? this.ss,
-        u: u ?? this.u,
-        planBuilder: planBuilder ?? this.planBuilder,
-        componentBuilder: componentBuilder ?? this.componentBuilder,
         lore: lore ?? this.lore,
+        planBuilder: planBuilder ?? this.planBuilder,
         loreInfluencer: loreInfluencer ?? this.loreInfluencer,
       );
 
   @override
   List<Object?> get props => [
         ...super.props,
-        planBuilder(lore).runtimeType,
-        componentBuilder().runtimeType,
         lore,
+        planBuilder(lore).runtimeType,
         loreInfluencer,
-        u,
       ];
 
   /// Return a new state with same [u], [loreInfluencer] and [componentBuilder].
@@ -57,14 +49,12 @@ class ClientState extends AState<ClientStateBase> {
       } =>
         ClientState(
           ss: ClientStateBase.fromJson(ss.sjson),
-          u: u,
-          planBuilder: planBuilder,
-          componentBuilder: componentBuilder,
           lore: LoreBuilder(
             u,
             planBuilder: planBuilder,
             componentBuilder: componentBuilder,
           ).fromJson(loreJson as JsonMap),
+          planBuilder: planBuilder,
           loreInfluencer: loreInfluencer,
         ),
       _ => throw IllegalArgumentError('json', json.sjson, StackTrace.current),
@@ -73,7 +63,6 @@ class ClientState extends AState<ClientStateBase> {
 
   JsonMap toJson() => {
         'ss': ss.toProto3Json() as JsonMap,
-        //'u': 'will be recovery by `lore`',
         'lore': lore.base.toProto3Json() as JsonMap,
       };
 }
