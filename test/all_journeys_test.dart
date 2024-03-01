@@ -9,13 +9,16 @@ void main() {
   prepareTestEnv();
 
   group('AllJourneysPlan, check raw format', () {
-    final allJourneys = constructedAerwynaJourneyFromRaw;
-    final aerwynaJourney = allJourneys.exposed.single as Plan<Plan<dynamic>>;
+    final u = Universe();
+    final lore = Lore(u, componentBuilder: NativeComponentBuilder.new);
+
+    final allJourneys = constructedAerwynaJourneyFromRaw(lore);
+    final aerwynaJourney = lore[allJourneys.exposedIds.single]!;
 
     test('Check `allJourneys` created from raw', () {
       checkPlan(
         allJourneys,
-        hid: 'all_journeys',
+        hid: allJourneys.id,
         componentIds: [
           IdComponent().id,
           TiledmapRenderComponent().id,
@@ -27,7 +30,7 @@ void main() {
     test('Check `aerwynaJourney` created from raw', () {
       checkPlan(
         aerwynaJourney,
-        hid: 'aerwyna',
+        hid: aerwynaJourney.id,
         componentIds: [
           IdComponent().id,
           NameComponent().id,
@@ -40,10 +43,11 @@ void main() {
     });
 
     test('Check places of `aerwynaJourney` created from raw', () {
-      for (final exposed in aerwynaJourney.exposed) {
+      for (final exposedId in aerwynaJourney.exposedIds) {
+        final exposed = lore[exposedId]!;
         checkPlan(
-          exposed as Plan<Plan<dynamic>>,
-          hid: exposed.hid,
+          exposed,
+          hid: exposed.id,
           componentIds: [
             IdComponent().id,
             PictureComponent().id,
@@ -56,7 +60,7 @@ void main() {
     });
 
     test('Check Universe created from raw', () {
-      final su = aerwynaJourney.u.toJson();
+      final su = lore.u.toJson();
       expect(su['entity_count'], 7);
       expect((su['entity_list'] as Iterable<dynamic>).length, 7);
       expect(su['system_count'], 0);

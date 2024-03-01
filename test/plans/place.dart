@@ -6,17 +6,16 @@ import 'journey.dart';
 /// A place of journey.
 /// See [constructJourneyPlan].
 Plan<Plan<dynamic>> constructPlacePlan(
-  Universe u, {
+  Lore lore, {
   String? hid,
   String? uid,
   required Image picture,
   required StoryT story,
 }) =>
-    constructNothingPlan(
-      u,
+    constructNothingPlanIntoLore(
+      lore,
       hid: hid,
       uid: uid,
-      componentBuilder: NativeComponentBuilder.new,
     )
       ..set(PictureComponent.new, picture)
       ..set(StoryComponent.new, story)

@@ -38,14 +38,19 @@ class PlanTiledmapKeeper<
   }
 
   @override
-  void write(Quant value, [int depth = Keeper.maxWritePlanDepth]) {
-    super.write(value, depth);
+  void write(
+    Quant value,
+    Lore lore, [
+    int depth = Keeper.maxWritePlanDepth,
+  ]) {
+    super.write(value, lore, depth);
 
-    _writePlan(value as Plan<Plan<dynamic>>, depth);
+    _writePlan(value as Plan<Plan<dynamic>>, lore, depth);
   }
 
   void _writePlan(
-    Plan<Plan<dynamic>> plan, [
+    Plan<Plan<dynamic>> plan,
+    Lore lore, [
     int depth = Keeper.maxWritePlanDepth,
   ]) {
     final renderComponent = plan.get<TiledmapRenderComponent>();
@@ -55,7 +60,7 @@ class PlanTiledmapKeeper<
         ' for transform the plan to Tiledmap representation.'
         ' Found: ${plan.componentsBuilders.map((b) => b().runtimeType)}');
 
-    final r = renderComponent!.render(AbsolutePlan(), plan);
+    final r = renderComponent!.render(AbsolutePlan(), plan, lore);
 
     xmlBroker.write(r.fileXml.pathToFile, r.fileXml.content);
 

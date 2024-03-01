@@ -5,6 +5,7 @@ import 'widget.dart';
 ClientWidgetT clientAllJourneysWidgetRender(
   Plan<Plan<dynamic>> spectator,
   Plan<Plan<dynamic>> watched,
+  Lore lore,
 ) {
   //const configure = WidgetRenderConfigure();
 

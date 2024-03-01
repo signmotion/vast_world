@@ -7,7 +7,8 @@ class XmlRenderConfigure extends RenderConfigure {
 class XmlRenderedData extends RenderedData<XmlDocument> {
   const XmlRenderedData(
     super.spectatorId,
-    super.watchedId, {
+    super.watchedId,
+    super.lore, {
     required super.data,
   });
 }

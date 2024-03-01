@@ -46,7 +46,11 @@ abstract class Keeper<
 
   /// [T] contains ID.
   @mustCallSuper
-  void write(Quant value, [int depth = maxWritePlanDepth]) {
+  void write(
+    Quant value,
+    Lore lore, [
+    int depth = maxWritePlanDepth,
+  ]) {
     argerr(depth >= 0, depth, 'depth');
 
     if (readOnly) {

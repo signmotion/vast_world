@@ -3,6 +3,7 @@ part of '../../../vast_world_share.dart';
 Image countExposedImageRender(
   Plan<Plan<dynamic>> spectator,
   Plan<Plan<dynamic>> watched,
+  Lore lore,
 ) {
   const configure = ImageRenderConfigure();
 
@@ -21,7 +22,7 @@ Image countExposedImageRender(
         y: image.height ~/ 2 + q * spaced,
       );
 
-  final count = watched.exposed.length;
+  final count = watched.exposedIds.length;
   draw("'${spectator.id}'", -3);
   draw("'${watched.id}'", -1);
   draw('$count', 2);

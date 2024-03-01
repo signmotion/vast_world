@@ -16,7 +16,8 @@ void main() {
   group('Construct a plan from components, set<>()', () {
     test('Add a new empty component', () {
       final u = Universe();
-      final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
+      final lore = Lore(u, componentBuilder: componentBuilder);
+      final plan = constructNothingPlanIntoLore(lore);
       // always have [IdComponent]
       expect(plan.get<IdComponent>(), isNotNull);
       expect(plan.get<NameComponent>(), isNull);
@@ -29,7 +30,8 @@ void main() {
 
     test('Add a new component with value', () {
       final u = Universe();
-      final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
+      final lore = Lore(u, componentBuilder: componentBuilder);
+      final plan = constructNothingPlanIntoLore(lore);
       plan.set(NameComponent.new, 'Aerwyna');
       expect(plan.getValue<NameComponent, String>(), 'Aerwyna');
     });
@@ -38,7 +40,8 @@ void main() {
   group('Construct a plan from components, setComponent()', () {
     test('Add a new empty component', () {
       final u = Universe();
-      final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
+      final lore = Lore(u, componentBuilder: componentBuilder);
+      final plan = constructNothingPlanIntoLore(lore);
       // always have [IdComponent]
       expect(plan.get<IdComponent>(), isNotNull);
       expect(plan.get<NameComponent>(), isNull);
@@ -51,7 +54,8 @@ void main() {
 
     test('Add a new component with value', () {
       final u = Universe();
-      final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
+      final lore = Lore(u, componentBuilder: componentBuilder);
+      final plan = constructNothingPlanIntoLore(lore);
       plan.setComponent(NameComponent()..init('Aerwyna'));
       expect(plan.getValue<NameComponent, String>(), 'Aerwyna');
     });
@@ -60,8 +64,9 @@ void main() {
   group('Get components from plan', () {
     test('some inherited children', () {
       final u = Universe();
+      final lore = Lore(u, componentBuilder: componentBuilder);
       final plan = constructJourneyPlan(
-        u,
+        lore,
         hid: 'aerwyna',
         name: 'Aerwyna',
         greeting: 'greeting',
@@ -79,8 +84,9 @@ void main() {
 
     test('last child', () {
       final u = Universe();
+      final lore = Lore(u, componentBuilder: componentBuilder);
       final plan = constructJourneyPlan(
-        u,
+        lore,
         hid: 'aerwyna',
         name: 'Aerwyna',
         greeting: 'greeting',
@@ -104,20 +110,21 @@ void main() {
   group('Bind plans or Add exposed plan', () {
     test('Bind 2 plans', () {
       final u = Universe();
+      final lore = Lore(u, componentBuilder: componentBuilder);
 
-      final all = constructAllJourneysPlan(u);
+      final allId = constructAllJourneysPlan(lore);
       final aerwyna = constructJourneyPlan(
-        u,
+        lore,
         hid: 'aerwyna',
         name: 'Aerwyna',
         greeting: 'greeting',
         description: 'description',
       );
-      expect(all.exposed, isEmpty);
+      expect(allId.exposedIds, isEmpty);
 
-      all.addToExposed(aerwyna);
-      expect(all.exposed.length, 1);
-      final e = all.exposed.single as Plan<Plan<dynamic>>;
+      allId.addToExposed(aerwyna.id);
+      expect(allId.exposedIds.length, 1);
+      final e = lore[allId.exposedIds.single]!;
       expect(e.hid, aerwyna.hid);
       expect(e.uid, aerwyna.uid);
     });

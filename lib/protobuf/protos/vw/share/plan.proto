@@ -12,6 +12,6 @@ message PlanBase {
     /// <component_id, ComponentBase>
     map<string, ComponentBase> components = 10;
 
-    /// <plan_id, planBase>
-    map<string, PlanBase> exposed = 12;
+    /// <plan_id>
+    repeated string exposed_ids = 12;
 }

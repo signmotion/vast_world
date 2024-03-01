@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:dart_helpers/dart_helpers.dart';
-import 'package:id_gen/id_gen.dart';
 import 'package:json_dart/json_dart.dart';
 import 'package:vast_world/vast_world_share.dart';
 import 'package:test/test.dart';
@@ -50,7 +49,7 @@ void checkFileStructurePlan(
   );
 
   // checking exposed of the root
-  expect(plan.exposed.length, countExposed);
+  expect(plan.exposedIds.length, countExposed);
 
   // checking other paths for their presence
   for (final path in checkPathPresence) {
@@ -131,17 +130,12 @@ void checkPlan(
 
   // exposed
   expect(
-    plan.exposed.length,
+    plan.exposedIds.length,
     exposedIds.length,
-    reason: plan.exposed.sjson,
+    reason: plan.exposedIds.sjson,
   );
   for (final exposedId in exposedIds) {
-    final found = plan.exposed
-            .firstWhereOrNull((p) => (p as HasStringIdMix).id == exposedId)
-        as Quant?;
-    expect(found, isNotNull, reason: exposedId);
-    expect(found!.isCorrectHid, isTrue, reason: found.hid);
-    expect(found.isCorrectUid, isTrue, reason: found.uid);
+    expect(exposedId.isPlanId, true, reason: exposedId);
   }
 
   // base
@@ -149,9 +143,9 @@ void checkPlan(
   expect(base.hid, plan.hid);
   expect(base.uid, plan.uid);
   expect(
-    base.exposed.length,
-    plan.exposed.length,
-    reason: '${base.exposed}'.abbreviate(120),
+    base.exposedIds.length,
+    plan.exposedIds.length,
+    reason: '${base.exposedIds}'.abbreviate(120),
   );
 
   final jsonBase = plan.baseAsJson;

@@ -20,7 +20,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
     innerEntity = this.u.construct(debugId);
 
     // to fix error `Unmodifiable List`
-    this.exposed = List<I>.empty(growable: true);
+    this.exposedIds = List<String>.from({});
 
     if (id == null) {
       this.hid = hid ?? '';
@@ -45,7 +45,7 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
         hid: hid,
         uid: uid,
         components: {for (final c in components) c.id: c.base},
-        exposed: {for (final p in exposed) p.id: p.base},
+        exposedIds: exposedIds,
       );
 
   List<AnyComponent> get components =>
@@ -168,15 +168,17 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   /// Alias [innerEntity].
   oxygen.Entity get ie => innerEntity;
 
-  /// The plans that this plan can view and change.
-  /// This plan can be changing any [exposed] into it plans.
-  /// But not each plan should change [exposed] plans.
+  /// The plan IDs that this plan can view and modify.
+  /// This plan can be changing any [exposedIds] into it plans.
+  /// But not each plan should change [exposedIds] plans.
   /// For example, a projection of some place as hologram, on display or
-  /// just drawing.
+  /// just schematic drawing or text description.
   /// TODO Declare permissions?
-  late final List<I> exposed;
+  /// <planId>
+  /// Keep as [List] for access by index.
+  late final List<String> exposedIds;
 
-  /// Layout for [exposed] plans.
+  /// Layout for [exposedIds] plans.
   /// See [setLayout].
   // TODO late final LayoutComponent? layoutForExposedBuilder;
 
@@ -188,21 +190,21 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
   // }
 
   /// Alias [addToExposed].
-  void bind(I watched) => addToExposed(watched);
+  void bind(String watchedId) => addToExposed(watchedId);
 
   /// TODO Every added [watched] will be enhanced with a component from [layout].
-  ///      This is necessary for compound [exposed] plans.
+  ///      This is necessary for compound [exposedIds] plans.
   /// See [bind].
-  void addToExposed(I watched) {
+  void addToExposed(String watchedId) {
     // TODO void addToImpacts<L extends LocationValue>(I plan, [L? location]) {
     // TODO plan.setLayout(layoutForExposed, location);
 
-    exposed.add(watched);
+    exposedIds.add(watchedId);
   }
 
-  void addAllToExposed(Iterable<I> watched) {
-    for (final w in watched) {
-      addToExposed(w);
+  void addAllToExposed(Iterable<String> watchedIds) {
+    for (final wid in watchedIds) {
+      addToExposed(wid);
     }
   }
 
@@ -217,7 +219,6 @@ PlanBase jsonAsPlanBase(JsonMap json) => switch (json) {
         'hid': String? hid,
         'uid': String? uid,
         'components': Map<String?, Object?> components,
-        'exposed': Map<String?, Object?> exposed,
       } =>
         PlanBase(
           hid: hid,
@@ -227,10 +228,10 @@ PlanBase jsonAsPlanBase(JsonMap json) => switch (json) {
               c.key!: ComponentBase.create()
                 ..mergeFromProto3Json(c.value as JsonMap)
           },
-          exposed: {
-            for (final p in exposed.entries)
-              p.key!: PlanBase.create()..mergeFromProto3Json(p.value as JsonMap)
-          },
+          exposedIds: [
+            for (final o in (json['exposedIds'] as List<Object?>?) ?? [])
+              o as String
+          ],
         ),
       _ => throw IllegalArgumentError('json', json.sjson, StackTrace.current),
     };

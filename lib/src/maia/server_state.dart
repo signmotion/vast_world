@@ -42,8 +42,8 @@ class ServerState extends AState<ServerStateBase> {
   @override
   List<Object?> get props => [
         ...super.props,
+        planBuilder(Lore(u, componentBuilder: componentBuilder)).runtimeType,
         componentBuilder().runtimeType,
-        planBuilder(u, componentBuilder).runtimeType,
         lores,
         loreInfluencer,
         u,

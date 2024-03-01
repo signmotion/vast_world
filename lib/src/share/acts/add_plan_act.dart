@@ -43,7 +43,6 @@ class AddPlanAct extends Act {
   }) =>
       switch (o) {
         Lore lore => _runOnLore(
-            u,
             lore,
             planBuilder: planBuilder,
             componentBuilder: componentBuilder,
@@ -52,14 +51,13 @@ class AddPlanAct extends Act {
       };
 
   Lore _runOnLore(
-    Universe u,
     Lore lore, {
     required TPlanBuilder planBuilder,
     required TComponentBuilder componentBuilder,
   }) {
-    final b = planBuilder(u, componentBuilder);
+    final b = planBuilder(lore);
     final plan = b.fromIdAndComponents(planId!, components.values);
-    lore.addNew(plan);
+    // lore.addNew(plan); - already added when constructed
 
     // expose this plan to spectator's plan
     if ((spectatorId ?? '').isEmpty) {

@@ -3,13 +3,23 @@ part of '../../../vast_world_share.dart';
 /// The collection of all plans.
 /// By analogy with [Component] and [Plan].
 class Lore {
-  Lore({
+  Lore(
+    this.u, {
     required this.componentBuilder,
     Map<String, Plan<Plan<dynamic>>>? plans,
   }) {
     // to fix error `Unmodifiable Map`
     this.plans = plans ?? Map.of({});
+
+    final foundDifferent =
+        this.plans.values.firstWhereOrNull((Plan<dynamic> p) => p.u != u);
+    ae(
+        this.plans.isEmpty || foundDifferent == null,
+        'All plans should contain same Universe.'
+        ' Found different for plan `${foundDifferent?.id}`.');
   }
+
+  final Universe u;
 
   /// <[Plan.id], [Plan]>
   late final Map<String, Plan<Plan<dynamic>>> plans;
@@ -26,16 +36,14 @@ class Lore {
   int get count => plans.length;
 
   /// Count of [Entity] into the [Universe].
-  Iterable<int> get countsInUniverses =>
-      universes.map((u) => u.inner.entities.length);
-
-  /// All unique [Universe]s from [plans].
-  Set<Universe> get universes => {...plans.values.map((p) => p.u)};
+  int get countEntitiesInUniverse => u.inner.entities.length;
 
   /// Add [plan] to [plans].
   /// Ignore when [plan] has been submitted.
   /// See [has].
   void addNew(Plan<Plan<dynamic>> plan) {
+    ae(plan.id.isPlanId, 'Incorrect plan ID. `${plan.id}`');
+
     if (this[plan.id] == null) {
       this[plan.id] = plan;
     } else {
@@ -65,7 +73,7 @@ class Lore {
     AnyComponent component,
   ) {
     final plan = this[id];
-    ae(plan != null, 'Plan `$id` not found in the root.');
+    ae(plan != null, 'Plan `$id` not found.');
 
     plan!.setComponent(component);
   }
@@ -84,6 +92,8 @@ class Lore {
 
   /// Set a plan by [id].
   void operator []=(String id, Plan<Plan<dynamic>> plan) {
+    ae(id.isPlanId, 'Expected plan ID.');
+
     final present = find(id);
     if (present != null) {
       // TODO Clear a previous plan from Universe.
@@ -92,13 +102,15 @@ class Lore {
   }
 
   void bind(String spectatorId, String watchedId) {
+    ae(spectatorId.isPlanId, 'Expected plan ID for spectstor.');
+    ae(watchedId.isPlanId, 'Expected plan ID for watched.');
+
     final spectator = this[spectatorId];
     ae(spectator != null, 'Spectator plan `$spectatorId` not found.');
 
-    final watched = this[watchedId];
-    ae(watched != null, 'Watched plan `$watchedId` not found.');
+    ae(has(watchedId), 'Watched plan `$watchedId` not found.');
 
-    spectator!.bind(watched!);
+    spectator!.bind(watchedId);
   }
 
   @override

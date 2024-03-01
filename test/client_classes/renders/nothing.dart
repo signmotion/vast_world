@@ -5,5 +5,6 @@ import 'widget/widget.dart';
 ClientWidgetT clientNothingWidgetTRender(
   Plan<Plan<dynamic>> spectator,
   Plan<Plan<dynamic>> watched,
+  Lore lore,
 ) =>
     (content: '');

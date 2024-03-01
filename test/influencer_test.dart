@@ -17,12 +17,13 @@ void main() {
     const componentBuilder = NativeComponentBuilder.new;
 
     test('Add a new plan', () {
+      final u = Universe();
       final influencer = LoreInfluencer(
-        u: Universe(),
+        u: u,
         planBuilder: planBuilder,
         componentBuilder: componentBuilder,
       );
-      final lore = Lore(componentBuilder: componentBuilder);
+      final lore = Lore(u, componentBuilder: componentBuilder);
       expect(lore.plans, isEmpty);
 
       final act = AddPlanAct(
@@ -42,12 +43,13 @@ void main() {
     });
 
     test('Add an exists plan', () {
+      final u = Universe();
       final influencer = LoreInfluencer(
-        u: Universe(),
+        u: u,
         planBuilder: planBuilder,
         componentBuilder: componentBuilder,
       );
-      final lore = Lore(componentBuilder: componentBuilder);
+      final lore = Lore(u, componentBuilder: componentBuilder);
       expect(lore.plans, isEmpty);
 
       final act = AddPlanAct(spectatorId: '', planId: 'aerwyna');
@@ -61,20 +63,20 @@ void main() {
     });
 
     test('Change a value', () {
+      final u = Universe();
       final influencer = LoreInfluencer(
-        u: Universe(),
+        u: u,
         planBuilder: planBuilder,
         componentBuilder: componentBuilder,
       );
-      final u = Universe();
-      final lore = Lore(componentBuilder: componentBuilder);
+      final lore = Lore(u, componentBuilder: componentBuilder);
 
-      final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
+      final plan = constructNothingPlanIntoLore(lore);
       // always have [IdComponent]
       expect(plan.components.length, 1, reason: plan.components.sjson);
       expect(plan.get<NameComponent>(), isNull);
 
-      lore.addNew(plan);
+      // lore.addNew(plan); - already added when constructed
 
       // add a new component
       {
@@ -121,14 +123,16 @@ void main() {
         planBuilder: clientPlanBuilder,
         componentBuilder: clientComponentBuilder,
       );
-      final clientLore = Lore(componentBuilder: clientComponentBuilder);
+      final clientLore =
+          Lore(clientUniverse, componentBuilder: clientComponentBuilder);
 
       final serverInfluencer = LoreInfluencer(
         u: serverUniverse,
         planBuilder: serverPlanBuilder,
         componentBuilder: serverComponentBuilder,
       );
-      final serverLore = Lore(componentBuilder: serverComponentBuilder);
+      final serverLore =
+          Lore(serverUniverse, componentBuilder: serverComponentBuilder);
 
       final clientWidgetRenderComponent = ClientWidgetRenderComponent()
         ..init(clientAllJourneysWidgetRender);

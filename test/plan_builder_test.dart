@@ -15,9 +15,13 @@ void main() {
 
     test('Empty plan', () {
       final u = Universe();
-      final plan = constructNothingPlan(u, componentBuilder: componentBuilder);
+      final lore = Lore(u, componentBuilder: componentBuilder);
+      final plan = constructNothingPlanIntoLore(lore);
+
+      final nu = Universe();
+      final newLore = Lore(nu, componentBuilder: componentBuilder);
+      final b = NativePlanBuilder(newLore);
       final base = plan.base;
-      final b = NativePlanBuilder(u, componentBuilder);
       final constructed = b.fromBase(base);
       checkPlan(
         constructed,
@@ -33,10 +37,14 @@ void main() {
 
     test('Plan with extended component', () {
       final u = Universe();
-      final plan = constructNothingPlan(u, componentBuilder: componentBuilder)
+      final lore = Lore(u, componentBuilder: componentBuilder);
+      final plan = constructNothingPlanIntoLore(lore)
         ..setComponent(ClientWidgetRenderComponent());
+
+      final nu = Universe();
+      final newLore = Lore(nu, componentBuilder: componentBuilder);
+      final b = ExtendedPlanBuilder(newLore);
       final base = plan.base;
-      final b = ExtendedPlanBuilder(u, componentBuilder);
       final constructed = b.fromBase(base);
       checkPlan(
         constructed,

@@ -20,7 +20,7 @@ class PlanBase extends $pb.GeneratedMessage {
     $core.String? hid,
     $core.String? uid,
     $core.Map<$core.String, $0.ComponentBase>? components,
-    $core.Map<$core.String, PlanBase>? exposed,
+    $core.Iterable<$core.String>? exposedIds,
   }) {
     final $result = create();
     if (hid != null) {
@@ -32,8 +32,8 @@ class PlanBase extends $pb.GeneratedMessage {
     if (components != null) {
       $result.components.addAll(components);
     }
-    if (exposed != null) {
-      $result.exposed.addAll(exposed);
+    if (exposedIds != null) {
+      $result.exposedIds.addAll(exposedIds);
     }
     return $result;
   }
@@ -45,7 +45,7 @@ class PlanBase extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'hid')
     ..aOS(2, _omitFieldNames ? '' : 'uid')
     ..m<$core.String, $0.ComponentBase>(10, _omitFieldNames ? '' : 'components', entryClassName: 'PlanBase.ComponentsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.ComponentBase.create, valueDefaultOrMaker: $0.ComponentBase.getDefault, packageName: const $pb.PackageName('vw.share'))
-    ..m<$core.String, PlanBase>(12, _omitFieldNames ? '' : 'exposed', entryClassName: 'PlanBase.ExposedEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: PlanBase.create, valueDefaultOrMaker: PlanBase.getDefault, packageName: const $pb.PackageName('vw.share'))
+    ..pPS(12, _omitFieldNames ? '' : 'exposedIds')
     ..hasRequiredFields = false
   ;
 
@@ -93,9 +93,9 @@ class PlanBase extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   $core.Map<$core.String, $0.ComponentBase> get components => $_getMap(2);
 
-  /// / <plan_id, planBase>
+  /// / <plan_id>
   @$pb.TagNumber(12)
-  $core.Map<$core.String, PlanBase> get exposed => $_getMap(3);
+  $core.List<$core.String> get exposedIds => $_getList(3);
 }
 
 

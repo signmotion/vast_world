@@ -30,9 +30,6 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
   Universe get u => state.u;
 
-  NativePlanBuilder get buildPlan =>
-      state.planBuilder(u, state.componentBuilder);
-
   LoreInfluencer get loreInfluencer => state.loreInfluencer;
 
   /// Override this method for catching own events.
@@ -283,7 +280,8 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     final id = event.planId;
     lore.remove(id);
 
-    logi('Fetching plan `$id` and build with `$buildPlan`...');
+    final b = state.planBuilder(lore);
+    logi('Fetching plan `$id` and build with `$b`...');
     final response = await maiaStub.fetchPlan(
       maia.FetchPlanRequest(
         session: state.ss.session,
@@ -295,8 +293,9 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       throw ServerAnswerError(response.answer, StackTrace.current);
     }
 
-    final plan = buildPlan.fromBase(response.plan);
-    lore.addNew(plan);
+    // ignore: unused_local_variable
+    final plan = b.fromBase(response.plan);
+    // lore.addNew(plan); - already added when constructed
     logi('Fetched plan `$id` and added to Lore.');
 
     emit(

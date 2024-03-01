@@ -1,4 +1,4 @@
-// ignore_for_file: inference_failure_on_function_invocation
+// ignore_for_file: inference_failure_on_function_invocation, unused_local_variable
 
 import 'package:json_dart/json_dart.dart';
 import 'package:test/test.dart';
@@ -14,41 +14,39 @@ void main() {
   group('Add plans', () {
     test('Add 2 unique plans', () {
       final u = Universe();
-      final lore = Lore(componentBuilder: NativeComponentBuilder.new);
+      final lore = Lore(u, componentBuilder: NativeComponentBuilder.new);
       expect(lore.count, 0);
 
-      final all = constructAllJourneysPlan(u);
-      lore.addNew(all);
+      final all = constructAllJourneysPlan(lore);
+      // lore.addNew(all); - already added when constructed
       expect(lore.count, 1);
-      expect(lore.countsInUniverses.single, lore.count);
+      expect(lore.countEntitiesInUniverse, lore.count);
 
       final aerwyna = constructJourneyPlan(
-        u,
+        lore,
         hid: 'aerwyna',
         name: 'Aerwyna',
         greeting: 'greeting',
         description: 'description',
       );
-      lore.addNew(aerwyna);
+      // lore.addNew(aerwyna); - already added when constructed
       expect(lore.count, 2);
-      expect(lore.countsInUniverses.single, lore.count);
+      expect(lore.countEntitiesInUniverse, lore.count);
       {
         final p = lore['aerwyna']!;
         expect(aerwyna.hid, p.hid);
         expect(aerwyna.uid, p.uid);
       }
-
-      expect(lore.universes, containsAll({u}));
     });
 
     test('Add 2 same plans', () {
       final u = Universe();
-      final lore = Lore(componentBuilder: NativeComponentBuilder.new);
+      final lore = Lore(u, componentBuilder: NativeComponentBuilder.new);
       expect(lore.count, 0);
 
-      final all = constructAllJourneysPlan(u);
+      final all = constructAllJourneysPlan(lore);
       // add a first
-      lore.addNew(all);
+      // lore.addNew(all); - already added when constructed
       // attempt to add a second
       expect(() => lore.addNew(all), throwsA(isA<ExistsPlanError>()));
     });
@@ -56,19 +54,19 @@ void main() {
 
   group('Get plans', () {
     final u = Universe();
-    final lore = Lore(componentBuilder: NativeComponentBuilder.new);
+    final lore = Lore(u, componentBuilder: NativeComponentBuilder.new);
 
-    final all = constructAllJourneysPlan(u);
-    lore.addNew(all);
+    final all = constructAllJourneysPlan(lore);
+    // lore.addNew(all); - already added when constructed
 
     final aerwyna = constructJourneyPlan(
-      u,
+      lore,
       hid: 'aerwyna',
       name: 'Aerwyna',
       greeting: 'greeting',
       description: 'description',
     );
-    lore.addNew(aerwyna);
+    // lore.addNew(aerwyna); - already added when constructed
 
     test('Get a plan by HID and UID', () {
       final a = lore[aerwyna.hid];
@@ -125,18 +123,18 @@ void main() {
 
     test('Update the components of plan, set<>()', () {
       final u = Universe();
-      final lore = Lore(componentBuilder: NativeComponentBuilder.new);
+      final lore = Lore(u, componentBuilder: NativeComponentBuilder.new);
 
       final aerwyna = constructJourneyPlan(
-        u,
+        lore,
         hid: 'aerwyna',
         name: 'Aerwyna',
         greeting: 'greeting',
         description: 'description',
       );
-      lore.addNew(aerwyna);
+      // lore.addNew(aerwyna); - already added when constructed
       expect(lore.count, 1);
-      expect(lore.countsInUniverses.single, lore.count);
+      expect(lore.countEntitiesInUniverse, lore.count);
 
       const newName = 'New Aerwyna';
       lore.update(aerwyna.id, NameComponent.new, newName);
@@ -148,7 +146,7 @@ void main() {
       lore.update(aerwyna.id, DescriptionComponent.new, newDescription);
 
       expect(lore.count, 1);
-      expect(lore.countsInUniverses.single, lore.count);
+      expect(lore.countEntitiesInUniverse, lore.count);
       {
         final p = lore['aerwyna']!;
         expect(p.hid, aerwyna.hid);
@@ -164,11 +162,10 @@ void main() {
     test('Update the components of nothing plan, updateComponent()', () {
       final u = Universe();
       const componentBuilder = NativeComponentBuilder.new;
-      final lore = Lore(componentBuilder: componentBuilder);
+      final lore = Lore(u, componentBuilder: componentBuilder);
 
-      final nothing =
-          constructNothingPlan(u, componentBuilder: componentBuilder);
-      lore.addNew(nothing);
+      final nothing = constructNothingPlanIntoLore(lore);
+      // lore.addNew(nothing); - already added when constructed
       // always have [IdComponent]
       expect(nothing.components.length, 1, reason: nothing.components.sjson);
 
@@ -193,7 +190,7 @@ void main() {
       expect(nothing.components.length, 4, reason: nothing.components.sjson);
 
       expect(lore.count, 1);
-      expect(lore.countsInUniverses.single, lore.count);
+      expect(lore.countEntitiesInUniverse, lore.count);
       {
         final p = lore[nothing.id]!;
         expect(p.components.length, 4, reason: p.components.sjson);
@@ -217,30 +214,30 @@ void main() {
   group('Bind plans or Add exposed plan', () {
     test('Bind 2 plans', () {
       final u = Universe();
-      final lore = Lore(componentBuilder: NativeComponentBuilder.new);
+      final lore = Lore(u, componentBuilder: NativeComponentBuilder.new);
 
-      final all = constructAllJourneysPlan(u);
-      lore.addNew(all);
+      final all = constructAllJourneysPlan(lore);
+      // lore.addNew(all); - already added when constructed
 
       final aerwyna = constructJourneyPlan(
-        u,
+        lore,
         hid: 'aerwyna',
         name: 'Aerwyna',
         greeting: 'greeting',
         description: 'description',
       );
-      lore.addNew(aerwyna);
-      expect(lore.countsInUniverses.single, lore.count);
+      // lore.addNew(aerwyna); - already added when constructed
+      expect(lore.countEntitiesInUniverse, lore.count);
 
       {
-        final exposed = lore[all.id]!.exposed as List<Plan<Plan<dynamic>>>;
+        final exposed = lore[all.id]!.exposedIds;
         expect(exposed, isEmpty);
       }
       {
         lore.bind(all.id, aerwyna.id);
-        final exposed = lore[all.id]!.exposed as List<Plan<Plan<dynamic>>>;
+        final exposed = lore[all.id]!.exposedIds;
         expect(exposed, isNotEmpty);
-        final e = exposed.single;
+        final e = lore[exposed.single]!;
         expect(e.hid, aerwyna.hid);
         expect(e.uid, aerwyna.uid);
       }

@@ -5,13 +5,12 @@ import 'journey.dart';
 /// Contains all journeys.
 /// See [constructJourneyPlan].
 Plan<Plan<dynamic>> constructAllJourneysPlan(
-  Universe u, {
+  Lore lore, {
   String? hid,
   String? uid,
 }) =>
-    constructNothingPlan(
-      u,
+    constructNothingPlanIntoLore(
+      lore,
       hid: hid,
       uid: uid,
-      componentBuilder: NativeComponentBuilder.new,
     )..set(TiledmapRenderComponent.new, allJourneysTiledmapRender);

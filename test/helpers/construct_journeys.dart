@@ -5,23 +5,22 @@ import '../plans/all_journeys.dart';
 import '../plans/journey.dart';
 import '../plans/place.dart';
 
-Plan<Plan<dynamic>> get constructedAerwynaJourneyFromRaw {
-  final u = Universe();
-
+/// Returns ID of constructed plan into the [lore].
+Plan<Plan<dynamic>> constructedAerwynaJourneyFromRaw(Lore lore) {
   const sourcePath =
       'test/data/journeys/aerwyna_journey_raw/journey_list/0.aerwyna';
   final f = WFile(sourcePath);
 
   // root plan: without parent ID
   final allJourneys = constructAllJourneysPlan(
-    u,
+    lore,
     hid: 'all_journeys',
   );
 
   // journey by Aerwyna
   final about = f.readAsJsonMapString('_.json')!;
   final aerwynaJourney = constructJourneyPlan(
-    u,
+    lore,
     hid: 'aerwyna',
     name: 'Aerwyna',
     greeting: about['greeting']!,
@@ -35,15 +34,15 @@ Plan<Plan<dynamic>> get constructedAerwynaJourneyFromRaw {
         ? f.readAsText('place_list/$i/story/story.md')!
         : 'Some story into the place $i...';
     final place = constructPlacePlan(
-      u,
+      lore,
       hid: 'place_$i',
       picture: picture,
       story: (title: titleStory, text: textStory),
     );
-    aerwynaJourney.addToExposed(place);
+    aerwynaJourney.addToExposed(place.id);
   }
 
-  allJourneys.addToExposed(aerwynaJourney);
+  allJourneys.addToExposed(aerwynaJourney.id);
 
   return allJourneys;
 }

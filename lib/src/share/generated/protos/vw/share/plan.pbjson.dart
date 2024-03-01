@@ -20,9 +20,9 @@ const PlanBase$json = {
     {'1': 'hid', '3': 1, '4': 1, '5': 9, '10': 'hid'},
     {'1': 'uid', '3': 2, '4': 1, '5': 9, '10': 'uid'},
     {'1': 'components', '3': 10, '4': 3, '5': 11, '6': '.vw.share.PlanBase.ComponentsEntry', '10': 'components'},
-    {'1': 'exposed', '3': 12, '4': 3, '5': 11, '6': '.vw.share.PlanBase.ExposedEntry', '10': 'exposed'},
+    {'1': 'exposed_ids', '3': 12, '4': 3, '5': 9, '10': 'exposedIds'},
   ],
-  '3': [PlanBase_ComponentsEntry$json, PlanBase_ExposedEntry$json],
+  '3': [PlanBase_ComponentsEntry$json],
 };
 
 @$core.Deprecated('Use planBaseDescriptor instead')
@@ -35,23 +35,11 @@ const PlanBase_ComponentsEntry$json = {
   '7': {'7': true},
 };
 
-@$core.Deprecated('Use planBaseDescriptor instead')
-const PlanBase_ExposedEntry$json = {
-  '1': 'ExposedEntry',
-  '2': [
-    {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
-    {'1': 'value', '3': 2, '4': 1, '5': 11, '6': '.vw.share.PlanBase', '10': 'value'},
-  ],
-  '7': {'7': true},
-};
-
 /// Descriptor for `PlanBase`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List planBaseDescriptor = $convert.base64Decode(
     'CghQbGFuQmFzZRIQCgNoaWQYASABKAlSA2hpZBIQCgN1aWQYAiABKAlSA3VpZBJCCgpjb21wb2'
     '5lbnRzGAogAygLMiIudncuc2hhcmUuUGxhbkJhc2UuQ29tcG9uZW50c0VudHJ5Ugpjb21wb25l'
-    'bnRzEjkKB2V4cG9zZWQYDCADKAsyHy52dy5zaGFyZS5QbGFuQmFzZS5FeHBvc2VkRW50cnlSB2'
-    'V4cG9zZWQaVgoPQ29tcG9uZW50c0VudHJ5EhAKA2tleRgBIAEoCVIDa2V5Ei0KBXZhbHVlGAIg'
-    'ASgLMhcudncuc2hhcmUuQ29tcG9uZW50QmFzZVIFdmFsdWU6AjgBGk4KDEV4cG9zZWRFbnRyeR'
-    'IQCgNrZXkYASABKAlSA2tleRIoCgV2YWx1ZRgCIAEoCzISLnZ3LnNoYXJlLlBsYW5CYXNlUgV2'
-    'YWx1ZToCOAE=');
+    'bnRzEh8KC2V4cG9zZWRfaWRzGAwgAygJUgpleHBvc2VkSWRzGlYKD0NvbXBvbmVudHNFbnRyeR'
+    'IQCgNrZXkYASABKAlSA2tleRItCgV2YWx1ZRgCIAEoCzIXLnZ3LnNoYXJlLkNvbXBvbmVudEJh'
+    'c2VSBXZhbHVlOgI4AQ==');
 

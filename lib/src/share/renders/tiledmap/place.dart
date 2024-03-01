@@ -3,6 +3,7 @@ part of '../../../../vast_world_share.dart';
 TiledmapT placeTiledmapRender(
   Plan<Plan<dynamic>> spectator,
   Plan<Plan<dynamic>> watched,
+  Lore lore,
 ) {
   const configure = TiledmapRenderConfigure();
 

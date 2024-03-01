@@ -4,6 +4,7 @@ part of '../../../vast_world_share.dart';
 typedef RenderFn<T> = T Function(
   Plan<Plan<dynamic>> spectator,
   Plan<Plan<dynamic>> watched,
+  Lore lore,
 );
 
 abstract class RenderConfigure {
@@ -14,11 +15,13 @@ abstract class RenderConfigure {
 class RenderedData<T> {
   const RenderedData(
     this.spectatorId,
-    this.watchedId, {
+    this.watchedId,
+    this.lore, {
     required this.data,
   });
 
   final String spectatorId;
   final String watchedId;
+  final Lore lore;
   final T? data;
 }

@@ -6,9 +6,6 @@ class ServerLive extends BaseLive<ServerState> {
 
   Universe get u => state.u;
 
-  NativePlanBuilder get buildPlan =>
-      state.planBuilder(u, state.componentBuilder);
-
   NativeActBuilder get buildAct => NativeActBuilder(state.componentBuilder);
 
   Future<String> claimAndApproveSession({
@@ -70,7 +67,7 @@ class ServerLive extends BaseLive<ServerState> {
       emit(
         state.copyWith(lores: {
           ...state.lores,
-          session: Lore(componentBuilder: state.componentBuilder),
+          session: Lore(u, componentBuilder: state.componentBuilder),
         }),
       );
     }
@@ -114,8 +111,10 @@ class ServerLive extends BaseLive<ServerState> {
     state.lores.update(
       session,
       (lore) {
-        final p = buildPlan.fromBase(plan);
-        lore.addNew(p);
+        final b = state.planBuilder(lore);
+        // ignore: unused_local_variable
+        final p = b.fromBase(plan);
+        // lore.addNew(p); - already added when constructed
         return lore;
       },
       ifAbsent: () => throw AbsentSessionLoreError(session, StackTrace.current),

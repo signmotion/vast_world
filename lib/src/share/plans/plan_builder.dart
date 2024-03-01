@@ -1,18 +1,15 @@
 part of '../../../vast_world_share.dart';
 
-typedef TPlanBuilder
-    = T2Builder<NativePlanBuilder, Universe, TComponentBuilder>;
+typedef TPlanBuilder = T1Builder<NativePlanBuilder, Lore>;
 
+/// ! Adds the constructed plan itno [Lore].
 class NativePlanBuilder {
-  const NativePlanBuilder(
-    this.u,
-    this.componentBuilder,
-  );
+  const NativePlanBuilder(this.lore);
 
-  final Universe u;
+  final Lore lore;
 
   /// We can use inheritanced builder.
-  final TComponentBuilder componentBuilder;
+  TComponentBuilder get componentBuilder => lore.componentBuilder;
 
   T fromJson<T extends Plan<Plan<dynamic>>>(JsonMap json) =>
       fromBase(jsonAsPlanBase(json));
@@ -24,11 +21,10 @@ class NativePlanBuilder {
             ' with builder `$runtimeType`...'
         .bittenOfAllUuids32);
 
-    final plan = constructNothingPlan(
-      u,
+    final plan = constructNothingPlanIntoLore(
+      lore,
       hid: base.hid,
       uid: base.uid,
-      componentBuilder: componentBuilder,
     );
 
     // components
@@ -38,10 +34,7 @@ class NativePlanBuilder {
     }
 
     // exposed
-    for (final exposedBase in base.exposed.values) {
-      final exposed = fromBase(exposedBase);
-      plan.bind(exposed);
-    }
+    plan.addAllToExposed(base.exposedIds);
 
     logi('🧙‍♂️💚 Plan `$plan` constructed with components'
         ' `${plan.componentsBuilders.map((b) => b())}`');
@@ -57,8 +50,7 @@ class NativePlanBuilder {
             ' `${components.map((c) => c.runtimeType)}`...'
         .bittenOfAllUuids32);
 
-    final plan =
-        constructNothingPlan(u, id: id, componentBuilder: componentBuilder);
+    final plan = constructNothingPlanIntoLore(lore, id: id);
 
     // components
     for (final component in components) {

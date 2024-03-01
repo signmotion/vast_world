@@ -14,10 +14,12 @@ abstract class RenderComponent<T> extends Component<RenderFn<T>> {
   RenderedData<T> renderData(
     Plan<Plan<dynamic>> spectator,
     Plan<Plan<dynamic>> watched,
+    Lore lore,
   ) =>
       RenderedData<T>(
         spectator.id,
         watched.id,
-        data: render(spectator, watched),
+        lore,
+        data: render(spectator, watched, lore),
       );
 }

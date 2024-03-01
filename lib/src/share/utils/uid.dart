@@ -21,7 +21,7 @@ const sessionUidPrefix = 's';
 String get fixedSessionUid =>
     '$sessionUidPrefix-00000000-0000-0000-0000-000000000000';
 
-/// See [HidExt].
+/// See [HidExt], [IdExt].
 /// See [genUuid].
 extension UidExt on String {
   bool get isActUid => isUuidWithPrefix(actUidPrefix);

@@ -3,6 +3,7 @@ part of '../../../../vast_world_share.dart';
 TiledmapT journeyTiledmapRender(
   Plan<Plan<dynamic>> spectator,
   Plan<Plan<dynamic>> watched,
+  Lore lore,
 ) {
   const configure = TiledmapRenderConfigure();
 
@@ -28,7 +29,7 @@ TiledmapT journeyTiledmapRender(
     List<({String pathToFile, Image content})> imageries,
   ) {
     ae(
-        watched.exposed.length == imageries.length,
+        watched.exposedIds.length == imageries.length,
         'Count of exposed into `watched` and'
         ' count imageries should be equals.');
 
@@ -38,8 +39,8 @@ TiledmapT journeyTiledmapRender(
     final tileObjects = <VObjectTile>[];
     final tilesets = <VTileset>[];
     var lastY = 0.0;
-    for (var i = watched.exposed.length - 1; i >= 0; --i) {
-      final exposed = watched.exposed[i] as Plan<Plan<dynamic>>;
+    for (var i = watched.exposedIds.length - 1; i >= 0; --i) {
+      final exposedId = watched.exposedIds[i];
       final imagery = imageries[i];
       final pathToImageryFile = imagery.pathToFile.pathAfterHead;
       final image = imagery.content;
@@ -52,7 +53,7 @@ TiledmapT journeyTiledmapRender(
         height: image.height,
       );
       tilesets.add(VTileset(
-        name: exposed.hid,
+        name: exposedId,
         tileWidth: image.width,
         tileHeight: image.height,
         image: pictureImage,
@@ -66,7 +67,7 @@ TiledmapT journeyTiledmapRender(
       tileObjects.add(VObjectTile(
         id: id.next,
         gid: id.current - 1,
-        name: exposed.id,
+        name: exposedId,
         x: x.round(),
         y: lastY.round(),
         width: image.width,
@@ -99,8 +100,8 @@ TiledmapT journeyTiledmapRender(
   }
 
   final imageries = [
-    for (final we in watched.exposed)
-      imageryImageRender(spectator, watched, we as Plan<Plan<dynamic>>)
+    for (final we in watched.exposedIds)
+      imageryImageRender(spectator, watched, lore[we]!)
   ];
 
   return (

@@ -10,7 +10,7 @@ const _genHid = HumanIdGen(
   ),
 );
 
-/// See [UidExt].
+/// See [UidExt], [IdExt].
 /// \see [HumanIdGen]
 extension HidExt on String {
   bool get isActHid => isNotEmpty && !isActUid;

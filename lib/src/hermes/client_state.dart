@@ -41,8 +41,7 @@ class ClientState extends AState<ClientStateBase> {
   @override
   List<Object?> get props => [
         ...super.props,
-        componentBuilder().runtimeType,
-        planBuilder(u, componentBuilder).runtimeType,
+        planBuilder(lore).runtimeType,
         componentBuilder().runtimeType,
         lore,
         loreInfluencer,

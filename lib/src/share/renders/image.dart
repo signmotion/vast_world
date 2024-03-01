@@ -23,7 +23,8 @@ class ImageRenderConfigure extends RenderConfigure {
 class ImageRenderedData extends RenderedData<Image> {
   const ImageRenderedData(
     super.spectatorId,
-    super.watchedId, {
+    super.watchedId,
+    super.lore, {
     required super.data,
   });
 }

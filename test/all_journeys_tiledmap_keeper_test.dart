@@ -13,7 +13,10 @@ void main() {
   prepareTestEnv();
 
   group('AllJourneysPlan, keeper for tmx formats', () {
-    final plan = constructedAerwynaJourneyFromRaw;
+    final u = Universe();
+    final lore = Lore(u, componentBuilder: NativeComponentBuilder.new);
+
+    final plan = constructedAerwynaJourneyFromRaw(lore);
 
     test(
         'Write place_4_aerwyna_journey plan to TiledMap format'
@@ -28,11 +31,13 @@ void main() {
       final keeper = constructKeeper(outputPath)..clear();
 
       // saving the root and exposed plans
-      final planForKeep = plan.exposed.single.exposed[4] as Plan<Plan<dynamic>>;
-      keeper.write(planForKeep, 1);
+      final planForKeepId = plan.exposedIds.single;
+      final exposedPlanForKeepId = lore[planForKeepId]!.exposedIds[4];
+      final exposedPlanForKeep = lore[exposedPlanForKeepId]!;
+      keeper.write(exposedPlanForKeep, lore, 1);
 
       checkFileStructurePlan(
-        planForKeep,
+        exposedPlanForKeep,
         outputPath: outputPath,
         existsPicture: true,
         countExposed: 0,
@@ -64,11 +69,13 @@ void main() {
       final keeper = constructKeeper(outputPath)..clear();
 
       // saving the root and exposed plans
-      final planForKeep = plan.exposed.single.exposed[0] as Plan<Plan<dynamic>>;
-      keeper.write(planForKeep);
+      final planForKeepId = plan.exposedIds.single;
+      final exposedPlanForKeepId = lore[planForKeepId]!.exposedIds[0];
+      final exposedPlanForKeep = lore[exposedPlanForKeepId]!;
+      keeper.write(exposedPlanForKeep, lore, 1);
 
       checkFileStructurePlan(
-        planForKeep,
+        exposedPlanForKeep,
         outputPath: outputPath,
         existsPicture: true,
         countExposed: 0,
@@ -100,8 +107,8 @@ void main() {
       final keeper = constructKeeper(outputPath)..clear();
 
       // saving the root and exposed plans
-      final planForKeep = plan.exposed.single as Plan<Plan<dynamic>>;
-      keeper.write(planForKeep);
+      final planForKeep = lore[plan.exposedIds.single]!;
+      keeper.write(planForKeep, lore);
 
       checkFileStructurePlan(
         planForKeep,
@@ -155,7 +162,7 @@ void main() {
 
       // saving the root and exposed plans
       final planForKeep = plan;
-      keeper.write(planForKeep);
+      keeper.write(planForKeep, lore);
 
       checkFileStructurePlan(
         planForKeep,
