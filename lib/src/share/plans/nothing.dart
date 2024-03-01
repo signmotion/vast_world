@@ -15,7 +15,7 @@ Plan<Plan<dynamic>> constructNothingPlanIntoLore(
     uid: uid,
     componentBuilder: lore.componentBuilder,
   );
-  lore.addNew(plan);
+  lore.addNewOrUpdate(plan);
 
   return plan;
 }

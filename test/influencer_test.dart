@@ -55,10 +55,10 @@ void main() {
       final act = AddPlanAct(spectatorId: '', planId: 'aerwyna');
       // add a first
       influencer.processingOnServer(lore, act);
-      // attempt to add a second
+      // attempt to add a second -> the plan will be replaced
       expect(
         () => influencer.processingOnServer(lore, act),
-        throwsA(isA<ExistsPlanError>()),
+        isNot(throwsA(isA<ExistsPlanError>())),
       );
     });
 

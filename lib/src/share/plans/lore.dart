@@ -39,16 +39,17 @@ class Lore {
   int get countEntitiesInUniverse => u.inner.entities.length;
 
   /// Add [plan] to [plans].
-  /// Ignore when [plan] has been submitted.
+  /// Update when [plan] has been submitted.
   /// See [has].
-  void addNew(Plan<Plan<dynamic>> plan) {
+  void addNewOrUpdate(Plan<Plan<dynamic>> plan) {
     ae(plan.id.isPlanId, 'Incorrect plan ID. `${plan.id}`');
 
-    if (this[plan.id] == null) {
-      this[plan.id] = plan;
-    } else {
-      throw ExistsPlanError(plan.id, StackTrace.current);
+    if (this[plan.id] != null) {
+      logi('Plan `${plan.id} will be replaced to `$plan`.');
+      remove(plan.id);
     }
+
+    this[plan.id] = plan;
   }
 
   /// Remove [planId] from [plans].

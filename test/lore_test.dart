@@ -47,8 +47,11 @@ void main() {
       final all = constructAllJourneysPlan(lore);
       // add a first
       // lore.addNew(all); - already added when constructed
-      // attempt to add a second
-      expect(() => lore.addNew(all), throwsA(isA<ExistsPlanError>()));
+      // attempt to add a second -> the plan will be replaced
+      expect(
+        () => lore.addNewOrUpdate(all),
+        isNot(throwsA(isA<ExistsPlanError>())),
+      );
     });
   });
 
