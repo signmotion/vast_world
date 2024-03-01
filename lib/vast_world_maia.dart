@@ -26,6 +26,7 @@ export 'src/share/generated/protos/vw/maia/service.pbjson.dart';
 import 'src/share/generated/protos/vw/maia/server_options.pb.dart';
 import 'src/share/generated/protos/vw/maia/server_state.pb.dart';
 import 'src/share/generated/protos/vw/maia/service.pbgrpc.dart';
+
 import 'vast_world_share.dart';
 
 export 'vast_world_share.dart';

@@ -4,7 +4,7 @@ class JourneyService extends JourneyServiceBase with ServiceMix {
   JourneyService(this.server);
 
   /// This service requires an access to server.
-  final NativeServer server;
+  final maia.NativeServer server;
 
   @override
   String get name => 'Journey - Fantasy Conceiver';
@@ -12,7 +12,7 @@ class JourneyService extends JourneyServiceBase with ServiceMix {
   @override
   Future<ConceiveNameAndIdJourneyResponse> conceiveNameAndId(
     grpc.ServiceCall call,
-    PromptRequest request,
+    maia.PromptRequest request,
   ) async {
     maia.logiRequest(call, request);
 
@@ -26,12 +26,12 @@ class JourneyService extends JourneyServiceBase with ServiceMix {
 
     final response = ConceiveNameAndIdJourneyResponse(
       data: NameAndIdJourneyBase(
-        planHid: genHid(d.title),
-        planUid: genPlanUid,
+        planHid: maia.genHid(d.title),
+        planUid: maia.genPlanUid,
         title: d.title,
         synopsis: d.synopsis!,
       ),
-      answer: ServerAnswer(
+      answer: maia.ServerAnswer(
         session: request.session,
         type: maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE,
       ),

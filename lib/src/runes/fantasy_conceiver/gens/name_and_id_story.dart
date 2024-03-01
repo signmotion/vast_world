@@ -16,7 +16,7 @@ class NameAndIdStoryFakeProvider extends FakeProvider<NameAndIdStoryBase> {
     final title = faker.lorem.sentence();
 
     return NameAndIdStoryBase(
-      planHid: genHid(title),
+      planHid: maia.genHid(title),
       planUid: 'p-$genUuid',
       title: title,
       text: faker.lorem.sentences(21).join(' '),

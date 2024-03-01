@@ -172,6 +172,14 @@ packages:
       relative: true
     source: path
     version: "0.12.0"
+  dio:
+    dependency: transitive
+    description:
+      name: dio
+      sha256: "49af28382aefc53562459104f64d16b9dfd1e8ef68c862d5af436cc8356ce5a8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.4.1"
   equatable:
     dependency: transitive
     description:
@@ -630,14 +638,20 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
+  thematic_images:
+    dependency: transitive
+    description:
+      path: "../thematic_images"
+      relative: true
+    source: path
+    version: "0.1.0"
   thematic_names:
     dependency: "direct main"
     description:
-      name: thematic_names
-      sha256: da2e37cb478768c5b7c26922a20f0ce5b8d0d28041d47f1ac3dbcd13ab450a50
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0"
+      path: "../thematic_names"
+      relative: true
+    source: path
+    version: "0.4.1"
   typed_data:
     dependency: transitive
     description:

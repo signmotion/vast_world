@@ -4,7 +4,7 @@ class StoryService extends StoryServiceBase with ServiceMix {
   StoryService(this.server);
 
   /// This service requires an access to server.
-  final NativeServer server;
+  final maia.NativeServer server;
 
   @override
   String get name => 'Story - Fantasy Conceiver';
@@ -28,7 +28,7 @@ class StoryService extends StoryServiceBase with ServiceMix {
 
     final response = ConceiveNameAndIdStoryResponse(
       data: d,
-      answer: ServerAnswer(
+      answer: maia.ServerAnswer(
         session: request.session,
         type: maia.ServerAnswerTypeEnum.ACCEPTED_SERVER_ANSWER_TYPE,
       ),

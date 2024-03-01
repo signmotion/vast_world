@@ -4,11 +4,12 @@ import 'package:ai_gen/ai_gen.dart' hide genHid;
 import 'package:base_server/base_server.dart';
 import 'package:grpc/grpc.dart' as grpc;
 import 'package:id_gen/id_gen_helpers.dart';
+import 'package:image/image.dart';
 import 'package:thematic_names/thematic_names.dart';
 import 'package:uni_color_name/uni_color_name.dart';
 
 import '../vast_world_maia.dart' as maia hide ServiceBase;
-import '../vast_world_maia.dart';
+import '../vast_world_syrokomskyi.dart' as syrokomskyi;
 import 'fantasy_conceiver.dart';
 
 export 'package:grpc/grpc.dart' hide Client, Server, Service;
@@ -41,6 +42,7 @@ export '../src/share/generated/protos/vw/runes/fantasy_conceiver/name_and_id_sto
 export '../src/share/generated/protos/vw/runes/fantasy_conceiver/name_and_id_story.pbenum.dart';
 export '../src/share/generated/protos/vw/runes/fantasy_conceiver/name_and_id_story.pbjson.dart';
 
+part '../src/runes/fantasy_conceiver/gens/image_place.dart';
 part '../src/runes/fantasy_conceiver/gens/name_and_id_place.dart';
 part '../src/runes/fantasy_conceiver/gens/name_and_id_story.dart';
 

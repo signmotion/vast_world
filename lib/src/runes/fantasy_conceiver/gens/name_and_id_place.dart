@@ -22,7 +22,7 @@ class NameAndIdPlaceFakeProvider extends FakeProvider<NameAndIdPlaceBase> {
     };
 
     return NameAndIdPlaceBase(
-      planHid: genHid(title),
+      planHid: maia.genHid(title),
       planUid: 'p-$genUuid',
       title: title,
       description: faker.lorem.sentences(6).join(' '),
