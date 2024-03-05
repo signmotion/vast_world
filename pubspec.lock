@@ -301,10 +301,10 @@ packages:
     dependency: "direct main"
     description:
       name: id_gen
-      sha256: "3632d88f96a71d96f5c0df32f390c013663a2e726d09bc1668921fb2a832d2cb"
+      sha256: "83d37d4b891dbeadfad1d375ad17dd81f7a860a013b11b7f794679c8334395b3"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.0"
+    version: "0.7.0"
   image:
     dependency: "direct main"
     description:
@@ -666,7 +666,7 @@ packages:
       path: "../uni_color_name"
       relative: true
     source: path
-    version: "0.2.0"
+    version: "0.3.0"
   unicode:
     dependency: transitive
     description:
@@ -734,10 +734,11 @@ packages:
   wfile:
     dependency: "direct main"
     description:
-      path: "../wfile"
-      relative: true
-    source: path
-    version: "0.3.3"
+      name: wfile
+      sha256: "76cd5440b6eaa6dd35a404b9d32b2dc7ed4c929616d28e1f8d664e77efe36c57"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0"
   xml:
     dependency: "direct main"
     description:
