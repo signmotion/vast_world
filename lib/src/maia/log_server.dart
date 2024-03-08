@@ -1,12 +1,12 @@
 part of '../../../vast_world_maia.dart';
 
-void logiRequest(grpc.ServiceCall call, GeneratedMessage request) =>
-    logi('🏹 ${call.prefix}'
-        '\t${request.shortMapWithSignificantFieldsMessage.blured()}');
+void logiRequest(grpc.ServiceCall call, GeneratedMessage request) => logi(
+    '🏹 ${call.prefix}'
+    '\t${request.shortMapWithSignificantFieldsMessage.blured().sjsonInLine}');
 
-void logiResponse(grpc.ServiceCall call, GeneratedMessage response) =>
-    logi('💘 ${call.prefix}'
-        '\t${response.shortMapWithSignificantFieldsMessage.blured()}');
+void logiResponse(grpc.ServiceCall call, GeneratedMessage response) => logi(
+    '💘 ${call.prefix}'
+    '\t${response.shortMapWithSignificantFieldsMessage.blured().sjsonInLine}');
 
 extension PrefixServiceCall on grpc.ServiceCall {
   String get prefix {
