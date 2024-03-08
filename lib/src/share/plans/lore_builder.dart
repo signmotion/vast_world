@@ -18,7 +18,7 @@ class LoreBuilder {
 
   T fromBase<T extends Lore>(LoreBase base) {
     logi('🧙‍♂️🟨 Constructing lore based on'
-            ' `${base.shortMapWithSignificantFieldsMessage}...'
+            ' `${base.shortMapWithSignificantFieldsMessage.sjsonInLine}...'
         .bittenOfAllUuids32);
 
     final b = planBuilder(emptyLore);
@@ -27,7 +27,7 @@ class LoreBuilder {
     };
     final lore = Lore(u, plans: plans, componentBuilder: componentBuilder);
 
-    logi('🧙‍♂️💚 Lore `$lore` constructed.');
+    logi('🧙‍♂️💚 Lore `${lore.sjsonInLine}` constructed.');
 
     return lore as T;
   }

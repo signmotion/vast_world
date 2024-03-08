@@ -12,7 +12,7 @@ class NativeActBuilder {
 
   T fromBase<T extends Act>(ActBase base) {
     logi('🧙‍♂️🟨 Constructing act based on'
-            ' `${base.shortMapWithSignificantFieldsMessage}'
+            ' `${base.shortMapWithSignificantFieldsMessage.sjsonInLine}'
             ' with `${componentBuilder().runtimeType}`...'
         .bittenOfAllUuids32);
 
@@ -38,7 +38,7 @@ class NativeActBuilder {
       _ => throw UnimplementedError(base.sjson),
     };
 
-    logi('🧙‍♂️💚 Act `$act` constructed.');
+    logi('🧙‍♂️💚 Act `${act.sjsonInLine}` constructed.');
 
     return act as T;
   }

@@ -388,7 +388,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
     final act = AddPlanAct.fromPlan(event.fromPlanId, event.plan);
     logi('DefaultClientBloc _onConstructingWhenAbsentAndFetchingPlan()'
-        ' Sending act $act...');
+        ' Sending act ${act.sjsonInLine}...');
     add(SendingToServerActClientEvent(act: act));
 
     /* Doesn't work: the plan is absent.

@@ -35,7 +35,7 @@ class NativePlanBuilder {
     // exposed
     plan.addAllToExposed(base.exposedIds);
 
-    logi('🧙‍♂️💚 Plan `$plan` constructed with components'
+    logi('🧙‍♂️💚 Plan `${plan.sjsonInLine}` constructed with components'
         ' `${plan.componentsBuilders.map((b) => b())}`');
 
     return plan as T;
@@ -56,7 +56,7 @@ class NativePlanBuilder {
       plan.setComponent(component);
     }
 
-    logi('🧙‍♂️💚 Plan `$plan` constructed with components'
+    logi('🧙‍♂️💚 Plan `${plan.sjsonInLine}` constructed with components'
         ' `${plan.componentsBuilders.map((b) => b())}`');
 
     return plan as T;

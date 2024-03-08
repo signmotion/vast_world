@@ -24,7 +24,7 @@ class NativeComponentBuilder {
   /// See note for this class.
   C fromBase<C extends AnyComponent>(ComponentBase base) {
     logi('🧙‍♂️🟨 Constructing component based on'
-            ' `${base.shortMapWithSignificantFieldsMessage}`'
+            ' `${base.shortMapWithSignificantFieldsMessage.sjsonInLine}`'
             ' with builder `$runtimeType`...'
         .bittenOfAllUuids32);
 
@@ -69,7 +69,7 @@ class NativeComponentBuilder {
     if (base.sjsonValue.isEmpty) {
       logi('The component `$component` has no initialize value.');
     } else {
-      logi('Initializing from JSON value `${base.sjsonValue}`...');
+      logi('Initializing from JSON value `${base.sjsonValue.sjsonInLine}`...');
       final json = base.sjsonValue.jsonMap;
       component.init(component.jsonAsValue(json));
     }
