@@ -1,16 +1,16 @@
 part of '../../../../vast_world_share.dart';
 
 TiledmapT allJourneysTiledmapRender(
-  Plan<Plan<dynamic>> spectator,
-  Plan<Plan<dynamic>> watched,
+  Plan spectator,
+  Plan watched,
   Lore lore,
 ) {
   const configure = TiledmapRenderConfigure();
 
   ({String pathToFile, Image content}) imageryImageRender(
-    Plan<Plan<dynamic>> spectator,
-    Plan<Plan<dynamic>> watched,
-    Plan<Plan<dynamic>> exposedWatched,
+    Plan spectator,
+    Plan watched,
+    Plan exposedWatched,
   ) =>
       (
         pathToFile: ph.join(
@@ -24,8 +24,8 @@ TiledmapT allJourneysTiledmapRender(
       );
 
   XmlDocument xmlRender(
-    Plan<Plan<dynamic>> spectator,
-    Plan<Plan<dynamic>> watched,
+    Plan spectator,
+    Plan watched,
     List<({String pathToFile, Image content})> imageries,
   ) {
     ae(

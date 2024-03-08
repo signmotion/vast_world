@@ -12,8 +12,7 @@ class AddPlanAct extends Act {
           components: {for (final ic in initializedComponents) ic.id: ic},
         );
 
-  factory AddPlanAct.fromPlan(String spectatorId, Plan<Plan<dynamic>> plan) =>
-      AddPlanAct(
+  factory AddPlanAct.fromPlan(String spectatorId, Plan plan) => AddPlanAct(
         debugName: 'AddPlanAct.${plan.id}',
         spectatorId: spectatorId,
         planId: plan.id,

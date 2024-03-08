@@ -12,7 +12,7 @@ import 'package:xml/xml.dart';
 //     ImageFilesystemBroker, TextFilesystemBroker>;
 
 void checkFileStructurePlan(
-  Plan<Plan<dynamic>> plan, {
+  Plan plan, {
   required String outputPath,
   required bool existsPicture,
   required int countExposed,
@@ -96,7 +96,7 @@ void checkFileStructurePlan(
 }
 
 void checkPlan(
-  Plan<Plan<dynamic>> plan, {
+  Plan plan, {
   required String hid,
   List<String>? componentIds,
   List<Component<dynamic>>? components,

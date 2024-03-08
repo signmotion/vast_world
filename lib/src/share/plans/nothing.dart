@@ -2,7 +2,7 @@ part of '../../../vast_world_share.dart';
 
 /// Can act as the basis for any plan.
 /// ! Adds the created plan to [lore].
-Plan<Plan<dynamic>> constructNothingPlanIntoLore(
+Plan constructNothingPlanIntoLore(
   Lore lore, {
   String? id,
   String? hid,

@@ -6,7 +6,7 @@ import '../plans/journey.dart';
 import '../plans/place.dart';
 
 /// Returns ID of constructed plan into the [lore].
-Plan<Plan<dynamic>> constructedAerwynaJourneyFromRaw(Lore lore) {
+Plan constructedAerwynaJourneyFromRaw(Lore lore) {
   const sourcePath =
       'test/data/journeys/aerwyna_journey_raw/journey_list/0.aerwyna';
   final f = WFile(sourcePath);

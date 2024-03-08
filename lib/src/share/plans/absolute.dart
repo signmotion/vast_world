@@ -4,7 +4,7 @@ part of '../../../vast_world_share.dart';
 
 /// An 'absolute plan' with default [Universe].
 /// Use for some renders.
-class AbsolutePlan extends Plan<Plan> {
+class AbsolutePlan extends Plan {
   AbsolutePlan()
       : super(_universe, componentBuilder: NativeComponentBuilder.new);
 

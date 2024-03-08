@@ -4,8 +4,8 @@ part of '../../../vast_world_share.dart';
 
 /// [render] Constructing a representation the [I] to this plan.
 /// ! Call [removeInnerEntity()] if working with a set of plans and removing the plan.
-class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
-// TODO class Plan<I extends Plan<Plan<dynamic>>, L extends LayoutComponent> extends Quant {
+class Plan extends Quant {
+// TODO class Plan<L extends LayoutComponent> extends Quant {
   Plan(
     this.u, {
     String? id,
@@ -17,10 +17,10 @@ class Plan<I extends Plan<Plan<dynamic>>> extends Quant {
             '[id] should be defined without [hid] and [uid].') {
     // an one entity on each plan
     final debugId = id;
-    innerEntity = this.u.construct(debugId);
+    innerEntity = u.construct(debugId);
 
     // to fix error `Unmodifiable List`
-    this.exposedIds = List<String>.from({});
+    exposedIds = List<String>.from({});
 
     if (id == null) {
       this.hid = hid ?? '';

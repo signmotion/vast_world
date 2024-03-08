@@ -6,13 +6,13 @@ class Lore {
   Lore(
     this.u, {
     required this.componentBuilder,
-    Map<String, Plan<Plan<dynamic>>>? plans,
+    Map<String, Plan>? plans,
   }) {
     // to fix error `Unmodifiable Map`
     this.plans = plans ?? Map.of({});
 
     final foundDifferent =
-        this.plans.values.firstWhereOrNull((Plan<dynamic> p) => p.u != u);
+        this.plans.values.firstWhereOrNull((Plan p) => p.u != u);
     ae(
         this.plans.isEmpty || foundDifferent == null,
         'All plans should contain same Universe.'
@@ -22,7 +22,7 @@ class Lore {
   final Universe u;
 
   /// <[Plan.id], [Plan]>
-  late final Map<String, Plan<Plan<dynamic>>> plans;
+  late final Map<String, Plan> plans;
 
   final TComponentBuilder componentBuilder;
 
@@ -41,7 +41,7 @@ class Lore {
   /// Add [plan] to [plans].
   /// Update when [plan] has been submitted.
   /// See [has].
-  void addNewOrUpdate(Plan<Plan<dynamic>> plan) {
+  void addNewOrUpdate(Plan plan) {
     ae(plan.id.isPlanId, 'Incorrect plan ID. `${plan.id}`');
 
     if (this[plan.id] != null) {
@@ -84,15 +84,15 @@ class Lore {
   bool has(String id) => find(id) != null;
 
   /// Return a plan by [id].
-  Plan<Plan<dynamic>>? find(String id) =>
+  Plan? find(String id) =>
       plans[id] ??
       plans.values.firstWhereOrNull((p) => p.uid == id || p.hid == id);
 
   /// Return a plan by [id].
-  Plan<Plan<dynamic>>? operator [](String id) => find(id);
+  Plan? operator [](String id) => find(id);
 
   /// Set a plan by [id].
-  void operator []=(String id, Plan<Plan<dynamic>> plan) {
+  void operator []=(String id, Plan plan) {
     ae(id.isPlanId, 'Expected plan ID.');
 
     final present = find(id);
