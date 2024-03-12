@@ -88,6 +88,13 @@ class Lore {
       plans[id] ??
       plans.values.firstWhereOrNull((p) => p.uid == id || p.hid == id);
 
+  /// Returns a list of spectators for plan [id].
+  List<Plan> findSpectators(String id) => [
+        for (final plan in plans.values)
+          for (final eid in plan.exposedIds)
+            if (find(eid)?.same(id) ?? false) plan
+      ];
+
   /// Return a plan by [id].
   Plan? operator [](String id) => find(id);
 
