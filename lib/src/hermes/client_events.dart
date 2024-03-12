@@ -140,3 +140,17 @@ class ProcessingActClientEvent extends AClientEvent {
   @override
   List<Object?> get props => [...super.props, act, answer];
 }
+
+class SettingComponentsClientEvent<C extends Component<T>, T>
+    extends AClientEvent {
+  const SettingComponentsClientEvent({
+    required this.planId,
+    required this.initializedComponents,
+  });
+
+  final String planId;
+  final List<C> initializedComponents;
+
+  @override
+  List<Object?> get props => [...super.props, planId, initializedComponents];
+}

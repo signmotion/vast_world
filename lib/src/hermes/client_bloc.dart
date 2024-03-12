@@ -73,6 +73,8 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
         SettingCurrentPlanIdClientEvent e => _onSettingCurrentPlanId(e, emit),
         ProcessingActClientEvent e => _onProcessingOnClientAct(e, emit),
         SendingToServerActClientEvent e => _onSendingToServerAct(e, emit),
+        SettingComponentsClientEvent<Component<dynamic>, dynamic> e =>
+          _onSettingComponentsClientEvent(e, emit),
         // unsupported event
         AClientEvent e => onExtended(e, emit),
       };
@@ -553,6 +555,19 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     );
 
     add(const WaitingInputClientEvent(from: '_onSendingToServerAct'));
+  }
+
+  Future<void> _onSettingComponentsClientEvent(
+    SettingComponentsClientEvent<Component<dynamic>, dynamic> event,
+    Emitter<ClientState> emit,
+  ) async {
+    _checkApprove();
+
+    final act = ChangeValueAct(
+      planId: event.planId,
+      initializedComponents: event.initializedComponents,
+    );
+    add(SendingToServerActClientEvent(act: act));
   }
 
   void _checkApprove() {
