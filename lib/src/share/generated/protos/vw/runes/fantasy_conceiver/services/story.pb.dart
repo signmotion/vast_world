@@ -14,11 +14,11 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../../../share/server_answer.pb.dart' as $6;
-import '../name_and_id_story.pb.dart' as $8;
+import '../name_and_id_story.pb.dart' as $9;
 
 class ConceiveNameAndIdStoryResponse extends $pb.GeneratedMessage {
   factory ConceiveNameAndIdStoryResponse({
-    $8.NameAndIdStoryBase? data,
+    $9.NameAndIdStoryBase? data,
     $6.ServerAnswer? answer,
   }) {
     final $result = create();
@@ -35,7 +35,7 @@ class ConceiveNameAndIdStoryResponse extends $pb.GeneratedMessage {
   factory ConceiveNameAndIdStoryResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ConceiveNameAndIdStoryResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.runes.fantasy_conceiver'), createEmptyInstance: create)
-    ..aOM<$8.NameAndIdStoryBase>(1, _omitFieldNames ? '' : 'data', subBuilder: $8.NameAndIdStoryBase.create)
+    ..aOM<$9.NameAndIdStoryBase>(1, _omitFieldNames ? '' : 'data', subBuilder: $9.NameAndIdStoryBase.create)
     ..aOM<$6.ServerAnswer>(100, _omitFieldNames ? '' : 'answer', subBuilder: $6.ServerAnswer.create)
     ..hasRequiredFields = false
   ;
@@ -62,15 +62,15 @@ class ConceiveNameAndIdStoryResponse extends $pb.GeneratedMessage {
   static ConceiveNameAndIdStoryResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $8.NameAndIdStoryBase get data => $_getN(0);
+  $9.NameAndIdStoryBase get data => $_getN(0);
   @$pb.TagNumber(1)
-  set data($8.NameAndIdStoryBase v) { setField(1, v); }
+  set data($9.NameAndIdStoryBase v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasData() => $_has(0);
   @$pb.TagNumber(1)
   void clearData() => clearField(1);
   @$pb.TagNumber(1)
-  $8.NameAndIdStoryBase ensureData() => $_ensure(0);
+  $9.NameAndIdStoryBase ensureData() => $_ensure(0);
 
   @$pb.TagNumber(100)
   $6.ServerAnswer get answer => $_getN(1);

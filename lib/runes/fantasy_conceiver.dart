@@ -30,6 +30,10 @@ export '../src/share/generated/protos/vw/runes/fantasy_conceiver/services/story.
 export '../src/share/generated/protos/vw/runes/fantasy_conceiver/services/story.pbgrpc.dart';
 export '../src/share/generated/protos/vw/runes/fantasy_conceiver/services/story.pbjson.dart';
 
+export '../src/share/generated/protos/vw/runes/fantasy_conceiver/country_description_journey.pb.dart';
+export '../src/share/generated/protos/vw/runes/fantasy_conceiver/country_description_journey.pbenum.dart';
+export '../src/share/generated/protos/vw/runes/fantasy_conceiver/country_description_journey.pbjson.dart';
+
 export '../src/share/generated/protos/vw/runes/fantasy_conceiver/name_and_id_journey.pb.dart';
 export '../src/share/generated/protos/vw/runes/fantasy_conceiver/name_and_id_journey.pbenum.dart';
 export '../src/share/generated/protos/vw/runes/fantasy_conceiver/name_and_id_journey.pbjson.dart';
@@ -42,6 +46,7 @@ export '../src/share/generated/protos/vw/runes/fantasy_conceiver/name_and_id_sto
 export '../src/share/generated/protos/vw/runes/fantasy_conceiver/name_and_id_story.pbenum.dart';
 export '../src/share/generated/protos/vw/runes/fantasy_conceiver/name_and_id_story.pbjson.dart';
 
+part '../src/runes/fantasy_conceiver/gens/country_description_journey.dart';
 part '../src/runes/fantasy_conceiver/gens/image_place.dart';
 part '../src/runes/fantasy_conceiver/gens/name_and_id_place.dart';
 part '../src/runes/fantasy_conceiver/gens/name_and_id_story.dart';

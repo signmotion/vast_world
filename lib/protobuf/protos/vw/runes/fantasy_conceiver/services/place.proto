@@ -10,7 +10,6 @@ import "vw/share/server_answer.proto";
 
 service PlaceService {
   rpc conceiveNameAndId (vw.share.requests.PromptRequest) returns (ConceiveNameAndIdPlaceResponse);
-
   rpc conceiveImage (vw.share.requests.PromptRequest) returns (vw.share.responses.ImageResponse);
 }
 

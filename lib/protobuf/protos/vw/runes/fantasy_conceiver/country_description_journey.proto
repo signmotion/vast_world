@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package vw.runes.fantasy_conceiver;
+
+message CountryDescriptionJourneyBase {
+  string description = 13;
+
+  // TODO(sign): Structured notes.
+}

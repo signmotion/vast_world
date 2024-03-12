@@ -2,15 +2,22 @@ syntax = "proto3";
 
 package vw.runes.fantasy_conceiver;
 
+import "vw/runes/fantasy_conceiver/country_description_journey.proto";
 import "vw/runes/fantasy_conceiver/name_and_id_journey.proto";
 
 import "vw/share/requests/prompt.proto";
 import "vw/share/server_answer.proto";
 
 service JourneyService {
+  rpc conceiveCountryDescription (vw.share.requests.PromptRequest) returns (ConceiveCountryDescriptionJourneyResponse);
   rpc conceiveNameAndId (vw.share.requests.PromptRequest) returns (ConceiveNameAndIdJourneyResponse);
 }
 
+
+message ConceiveCountryDescriptionJourneyResponse {
+  CountryDescriptionJourneyBase data = 1;
+  share.ServerAnswer answer = 100;
+}
 
 message ConceiveNameAndIdJourneyResponse {
   NameAndIdJourneyBase data = 1;

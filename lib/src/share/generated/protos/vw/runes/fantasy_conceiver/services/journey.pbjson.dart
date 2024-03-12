@@ -13,6 +13,22 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
+@$core.Deprecated('Use conceiveCountryDescriptionJourneyResponseDescriptor instead')
+const ConceiveCountryDescriptionJourneyResponse$json = {
+  '1': 'ConceiveCountryDescriptionJourneyResponse',
+  '2': [
+    {'1': 'data', '3': 1, '4': 1, '5': 11, '6': '.vw.runes.fantasy_conceiver.CountryDescriptionJourneyBase', '10': 'data'},
+    {'1': 'answer', '3': 100, '4': 1, '5': 11, '6': '.vw.share.ServerAnswer', '10': 'answer'},
+  ],
+};
+
+/// Descriptor for `ConceiveCountryDescriptionJourneyResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List conceiveCountryDescriptionJourneyResponseDescriptor = $convert.base64Decode(
+    'CilDb25jZWl2ZUNvdW50cnlEZXNjcmlwdGlvbkpvdXJuZXlSZXNwb25zZRJNCgRkYXRhGAEgAS'
+    'gLMjkudncucnVuZXMuZmFudGFzeV9jb25jZWl2ZXIuQ291bnRyeURlc2NyaXB0aW9uSm91cm5l'
+    'eUJhc2VSBGRhdGESLgoGYW5zd2VyGGQgASgLMhYudncuc2hhcmUuU2VydmVyQW5zd2VyUgZhbn'
+    'N3ZXI=');
+
 @$core.Deprecated('Use conceiveNameAndIdJourneyResponseDescriptor instead')
 const ConceiveNameAndIdJourneyResponse$json = {
   '1': 'ConceiveNameAndIdJourneyResponse',
