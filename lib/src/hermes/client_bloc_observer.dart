@@ -10,7 +10,7 @@ class ClientBlocObserver extends BlocObserver {
     super.onEvent(bloc, event);
 
     if (showLogInfo) {
-      logi('$event for $bloc');
+      dh.logi('$event for $bloc');
     }
   }
 
@@ -22,7 +22,7 @@ class ClientBlocObserver extends BlocObserver {
     super.onTransition(bloc, transition);
 
     if (showLogInfo) {
-      logi('$transition');
+      dh.logi('$transition');
     }
   }
 
@@ -30,7 +30,7 @@ class ClientBlocObserver extends BlocObserver {
   void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
     super.onError(bloc, error, stackTrace);
 
-    loge('$error');
+    dh.loge('$error');
   }
 
   @override
@@ -38,7 +38,7 @@ class ClientBlocObserver extends BlocObserver {
     super.onClose(bloc);
 
     if (showLogInfo) {
-      logi('$bloc');
+      dh.logi('$bloc');
     }
   }
 }

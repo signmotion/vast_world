@@ -9,7 +9,7 @@ class ImagePlaceAiGen extends AiGen<Future<Image>, AiGenOptions> {
 }
 
 class ImagePlaceFakeProvider extends FakeProvider<Future<Image>> {
-  const ImagePlaceFakeProvider();
+  const ImagePlaceFakeProvider() : super(keywordsImages: const ['nature']);
 
   @override
   Future<Image> get next => genImages.next;

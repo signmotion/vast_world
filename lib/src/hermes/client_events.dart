@@ -1,6 +1,6 @@
 part of '../../../vast_world_hermes.dart';
 
-abstract class AClientEvent extends BaseEquatable {
+abstract class AClientEvent extends dh.BaseEquatable {
   const AClientEvent();
 
   @override

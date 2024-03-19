@@ -1,7 +1,10 @@
 library;
 
-import 'package:ai_gen/ai_gen.dart' hide genHid;
+import 'dart:typed_data';
+
+import 'package:ai_gen/ai_gen.dart';
 import 'package:base_server/base_server.dart';
+import 'package:dart_helpers/dart_helpers.dart';
 import 'package:grpc/grpc.dart' as grpc;
 import 'package:id_gen/id_gen_helpers.dart';
 import 'package:image/image.dart';

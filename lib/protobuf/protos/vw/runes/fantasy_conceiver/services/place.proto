@@ -5,14 +5,21 @@ package vw.runes.fantasy_conceiver;
 import "vw/runes/fantasy_conceiver/name_and_id_place.proto";
 
 import "vw/share/requests/prompt.proto";
-import "vw/share/responses/image.proto";
 import "vw/share/server_answer.proto";
 
+import "syrokomskyi/type/image.proto";
+
 service PlaceService {
+  rpc conceiveImage (vw.share.requests.PromptRequest) returns (ConceiveImagePlaceResponse);
   rpc conceiveNameAndId (vw.share.requests.PromptRequest) returns (ConceiveNameAndIdPlaceResponse);
-  rpc conceiveImage (vw.share.requests.PromptRequest) returns (vw.share.responses.ImageResponse);
 }
 
+
+message ConceiveImagePlaceResponse {
+  /// PNG-encoded image.
+  syrokomskyi.type.Image image = 1;
+  share.ServerAnswer answer = 100;
+}
 
 message ConceiveNameAndIdPlaceResponse {
   NameAndIdPlaceBase data = 1;

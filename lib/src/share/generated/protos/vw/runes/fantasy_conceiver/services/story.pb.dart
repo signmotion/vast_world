@@ -13,13 +13,13 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../../../share/server_answer.pb.dart' as $6;
+import '../../../share/server_answer.pb.dart' as $5;
 import '../name_and_id_story.pb.dart' as $9;
 
 class ConceiveNameAndIdStoryResponse extends $pb.GeneratedMessage {
   factory ConceiveNameAndIdStoryResponse({
     $9.NameAndIdStoryBase? data,
-    $6.ServerAnswer? answer,
+    $5.ServerAnswer? answer,
   }) {
     final $result = create();
     if (data != null) {
@@ -36,7 +36,7 @@ class ConceiveNameAndIdStoryResponse extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ConceiveNameAndIdStoryResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'vw.runes.fantasy_conceiver'), createEmptyInstance: create)
     ..aOM<$9.NameAndIdStoryBase>(1, _omitFieldNames ? '' : 'data', subBuilder: $9.NameAndIdStoryBase.create)
-    ..aOM<$6.ServerAnswer>(100, _omitFieldNames ? '' : 'answer', subBuilder: $6.ServerAnswer.create)
+    ..aOM<$5.ServerAnswer>(100, _omitFieldNames ? '' : 'answer', subBuilder: $5.ServerAnswer.create)
     ..hasRequiredFields = false
   ;
 
@@ -73,15 +73,15 @@ class ConceiveNameAndIdStoryResponse extends $pb.GeneratedMessage {
   $9.NameAndIdStoryBase ensureData() => $_ensure(0);
 
   @$pb.TagNumber(100)
-  $6.ServerAnswer get answer => $_getN(1);
+  $5.ServerAnswer get answer => $_getN(1);
   @$pb.TagNumber(100)
-  set answer($6.ServerAnswer v) { setField(100, v); }
+  set answer($5.ServerAnswer v) { setField(100, v); }
   @$pb.TagNumber(100)
   $core.bool hasAnswer() => $_has(1);
   @$pb.TagNumber(100)
   void clearAnswer() => clearField(100);
   @$pb.TagNumber(100)
-  $6.ServerAnswer ensureAnswer() => $_ensure(1);
+  $5.ServerAnswer ensureAnswer() => $_ensure(1);
 }
 
 

@@ -13,6 +13,21 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
+@$core.Deprecated('Use conceiveImagePlaceResponseDescriptor instead')
+const ConceiveImagePlaceResponse$json = {
+  '1': 'ConceiveImagePlaceResponse',
+  '2': [
+    {'1': 'image', '3': 1, '4': 1, '5': 11, '6': '.syrokomskyi.type.Image', '10': 'image'},
+    {'1': 'answer', '3': 100, '4': 1, '5': 11, '6': '.vw.share.ServerAnswer', '10': 'answer'},
+  ],
+};
+
+/// Descriptor for `ConceiveImagePlaceResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List conceiveImagePlaceResponseDescriptor = $convert.base64Decode(
+    'ChpDb25jZWl2ZUltYWdlUGxhY2VSZXNwb25zZRItCgVpbWFnZRgBIAEoCzIXLnN5cm9rb21za3'
+    'lpLnR5cGUuSW1hZ2VSBWltYWdlEi4KBmFuc3dlchhkIAEoCzIWLnZ3LnNoYXJlLlNlcnZlckFu'
+    'c3dlclIGYW5zd2Vy');
+
 @$core.Deprecated('Use conceiveNameAndIdPlaceResponseDescriptor instead')
 const ConceiveNameAndIdPlaceResponse$json = {
   '1': 'ConceiveNameAndIdPlaceResponse',
