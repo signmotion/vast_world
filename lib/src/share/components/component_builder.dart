@@ -23,7 +23,7 @@ class NativeComponentBuilder {
 
   /// See note for this class.
   C fromBase<C extends AnyComponent>(ComponentBase base) {
-    logi('🧙‍♂️🟨 Constructing component based on'
+    logger.i('🧙‍♂️🟨 Constructing component based on'
             ' `${base.shortMapWithSignificantFieldsMessage.sjsonInLine}`'
             ' with builder `$runtimeType`...'
         .bittenOfAllUuids32);
@@ -33,7 +33,7 @@ class NativeComponentBuilder {
         return _fromBase(cb);
       } on UnimplementedError catch (_) {
         // some components can be absent on the other side (Client / Server)
-        logi('🚧 Component `${cb.hid.isEmpty ? cb.uid : cb.hid}`'
+        logger.i('🚧 Component `${cb.hid.isEmpty ? cb.uid : cb.hid}`'
             ' unimplemented into `$runtimeType`.');
         return UnimplementedComponent()..init((idUnimplemented: base.hid));
       }
@@ -44,7 +44,7 @@ class NativeComponentBuilder {
     // special case: attempt recovery [UnimplementedComponent]
     if (component is UnimplementedComponent) {
       final componentId = component.value.idUnimplemented;
-      logi('🚧 Reconstructing unimplemented component'
+      logger.i('🚧 Reconstructing unimplemented component'
           ' `$componentId` into `$runtimeType`...');
       component =
           construct(ComponentBase(uid: component.value.idUnimplemented));
@@ -59,7 +59,7 @@ class NativeComponentBuilder {
       }
     }
 
-    logi('🧙‍♂️💚 Component `$component` constructed.');
+    logger.i('🧙‍♂️💚 Component `$component` constructed.');
 
     return component as C;
   }
@@ -67,9 +67,10 @@ class NativeComponentBuilder {
   C _fromBase<C extends AnyComponent>(ComponentBase base) {
     final component = builder(base.uid)();
     if (base.sjsonValue.isEmpty) {
-      logi('The component `$component` has no initialize value.');
+      logger.i('The component `$component` has no initialize value.');
     } else {
-      logi('Initializing from JSON value `${base.sjsonValue.sjsonInLine}`...');
+      logger.i(
+          'Initializing from JSON value `${base.sjsonValue.sjsonInLine}`...');
       final json = base.sjsonValue.jsonMap;
       component.init(component.jsonAsValue(json));
     }
@@ -394,7 +395,7 @@ class NativeComponentBuilder {
 
     // special case after all components: attempt resolve [UnimplementedComponent]
     if (extendedBuilders.isNotEmpty) {
-      // logi('Running extendedRunForComponent(`$id`).'
+      // logger.i('Running extendedRunForComponent(`$id`).'
       //     ' Known builders: `${extendedBuilders.map((b) => b().runtimeType)}`...');
       final r = extendedRunForComponent(
         componentId,
@@ -406,7 +407,7 @@ class NativeComponentBuilder {
       if (r != null) {
         return r;
       }
-      // logi('Component `$id` not found. Setting as Unimplemetned...');
+      // logger.i('Component `$id` not found. Setting as Unimplemetned...');
     }
 
     ++count;

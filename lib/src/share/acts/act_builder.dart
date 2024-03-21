@@ -11,7 +11,7 @@ class NativeActBuilder {
   T fromJson<T extends Act>(JsonMap json) => fromBase(jsonAsActBase(json));
 
   T fromBase<T extends Act>(ActBase base) {
-    logi('🧙‍♂️🟨 Constructing act based on'
+    logger.i('🧙‍♂️🟨 Constructing act based on'
             ' `${base.shortMapWithSignificantFieldsMessage.sjsonInLine}'
             ' with `${componentBuilder().runtimeType}`...'
         .bittenOfAllUuids32);
@@ -38,7 +38,7 @@ class NativeActBuilder {
       _ => throw UnimplementedError(base.sjson),
     };
 
-    logi('🧙‍♂️💚 Act `${act.sjsonInLine}` constructed.');
+    logger.i('🧙‍♂️💚 Act `${act.sjsonInLine}` constructed.');
 
     return act as T;
   }

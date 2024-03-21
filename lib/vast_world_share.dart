@@ -13,6 +13,7 @@ import 'package:id_gen/id_gen.dart';
 import 'package:id_gen/id_gen_helpers.dart';
 import 'package:image/image.dart';
 import 'package:json_dart/json_dart.dart';
+import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
 import 'package:oxygen/oxygen.dart' as oxygen;
 import 'package:path/path.dart' as ph;
@@ -192,6 +193,7 @@ part 'src/share/shapes/shape.dart';
 
 part 'src/share/utils/hid.dart';
 part 'src/share/utils/id.dart';
+part 'src/share/utils/log.dart';
 part 'src/share/utils/random_fallback.dart';
 part 'src/share/utils/u2d.dart';
 part 'src/share/utils/uid.dart';

@@ -35,7 +35,7 @@ class ServerLive extends BaseLive<ServerState> {
     final ns = state.ss.rebuild((v) {
       // claim the session
       if (state.isClaimedSession(session)) {
-        logw('There is already a session `$session`'
+        logger.w('There is already a session `$session`'
             ' in claimedSessionsDevices.'
             ' Rewrote it for client device `$uidDevice`.');
       }
@@ -63,7 +63,8 @@ class ServerLive extends BaseLive<ServerState> {
   /// Constructing [Lore] if absent for the [session].
   Lore loreFromState(String session) {
     if (state.lores[session] == null) {
-      logw('🧙‍♂️ Lore for session `$session` not found. Will constructed.');
+      logger
+          .w('🧙‍♂️ Lore for session `$session` not found. Will constructed.');
       emit(
         state.copyWith(lores: {
           ...state.lores,

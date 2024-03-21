@@ -14,7 +14,7 @@ class NativePlanBuilder {
   T fromJson<T extends Plan>(JsonMap json) => fromBase(jsonAsPlanBase(json));
 
   T fromBase<T extends Plan>(PlanBase base) {
-    logi('🧙‍♂️🟨 Constructing plan based on'
+    logger.i('🧙‍♂️🟨 Constructing plan based on'
             ' `${base.hid}` with components'
             ' `${base.components.values.map((c) => c.hid)}`'
             ' with builder `$runtimeType`...'
@@ -35,7 +35,7 @@ class NativePlanBuilder {
     // exposed
     plan.addAllToExposed(base.exposedIds);
 
-    logi('🧙‍♂️💚 Plan `${plan.sjsonInLine}` constructed with components'
+    logger.i('🧙‍♂️💚 Plan `${plan.sjsonInLine}` constructed with components'
         ' `${plan.componentsBuilders.map((b) => b())}`');
 
     return plan as T;
@@ -45,7 +45,7 @@ class NativePlanBuilder {
     String id,
     Iterable<AnyComponent> components,
   ) {
-    logi('🧙‍♂️🟨 Constructing plan with ID `$id` and components'
+    logger.i('🧙‍♂️🟨 Constructing plan with ID `$id` and components'
             ' `${components.map((c) => c.runtimeType)}`...'
         .bittenOfAllUuids32);
 
@@ -56,7 +56,7 @@ class NativePlanBuilder {
       plan.setComponent(component);
     }
 
-    logi('🧙‍♂️💚 Plan `${plan.sjsonInLine}` constructed with components'
+    logger.i('🧙‍♂️💚 Plan `${plan.sjsonInLine}` constructed with components'
         ' `${plan.componentsBuilders.map((b) => b())}`');
 
     return plan as T;

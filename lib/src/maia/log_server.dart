@@ -1,10 +1,10 @@
 part of '../../../vast_world_maia.dart';
 
-void logiRequest(grpc.ServiceCall call, GeneratedMessage request) => logi(
+void logiRequest(grpc.ServiceCall call, GeneratedMessage request) => logger.i(
     '🏹 ${call.prefix}'
     '\t${request.shortMapWithSignificantFieldsMessage.blured().sjsonInLine}');
 
-void logiResponse(grpc.ServiceCall call, GeneratedMessage response) => logi(
+void logiResponse(grpc.ServiceCall call, GeneratedMessage response) => logger.i(
     '💘 ${call.prefix}'
     '\t${response.shortMapWithSignificantFieldsMessage.blured().sjsonInLine}');
 

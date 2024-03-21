@@ -17,7 +17,7 @@ class LoreBuilder {
   T fromJson<T extends Lore>(JsonMap json) => fromBase(jsonAsLoreBase(json));
 
   T fromBase<T extends Lore>(LoreBase base) {
-    logi('🧙‍♂️🟨 Constructing lore based on'
+    logger.i('🧙‍♂️🟨 Constructing lore based on'
             ' `${base.shortMapWithSignificantFieldsMessage.sjsonInLine}...'
         .bittenOfAllUuids32);
 
@@ -27,7 +27,7 @@ class LoreBuilder {
     };
     final lore = Lore(u, plans: plans, componentBuilder: componentBuilder);
 
-    logi('🧙‍♂️💚 Lore `${lore.sjsonInLine}` constructed.');
+    logger.i('🧙‍♂️💚 Lore `${lore.sjsonInLine}` constructed.');
 
     return lore as T;
   }

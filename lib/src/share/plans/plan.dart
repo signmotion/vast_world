@@ -131,7 +131,7 @@ class Plan extends Quant {
       found = components.firstWhereOrNull((c) => c.uid == component.uid);
       // some components can be absent on the other side (Client / Server)
       if (found == null) {
-        logw('Component `${component.id}` unimplemented'
+        logger.w('Component `${component.id}` unimplemented'
             ' into ${b.runtimeType}.');
         ae(
           !has<UnimplementedComponent>(),

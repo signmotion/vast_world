@@ -18,7 +18,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       transformer: sequential(),
     );
 
-    logi('$runtimeType created with state `$state`.');
+    logger.i('$runtimeType created with state `$state`.');
   }
 
   final String serverHost;
@@ -46,7 +46,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     AClientEvent event,
     Emitter<ClientState> emit,
   ) async {
-    logi('$event');
+    logger.i('$event');
 
     try {
       return switch (event) {
@@ -79,7 +79,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
         AClientEvent e => onExtended(e, emit),
       };
     } catch (ex) {
-      loge(ex);
+      logger.e(ex);
       add(const WaitingInputClientEvent(from: '_onEvent'));
     }
   }
@@ -88,7 +88,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     InitializingClientEvent event,
     Emitter<ClientState> emit,
   ) async {
-    logi('🐣 Opening a connection to server'
+    logger.i('🐣 Opening a connection to server'
         ' $serverHost:$serverPort.'
         ' Waiting answer...');
 
@@ -107,7 +107,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     RegisteringClientEvent event,
     Emitter<ClientState> emit,
   ) async {
-    logi('Registering a client for device `$uidDevice`...');
+    logger.i('Registering a client for device `$uidDevice`...');
 
     add(const ClaimingSessionClientEvent());
     add(const ApprovingSessionClientEvent());
@@ -123,7 +123,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     ClaimingSessionClientEvent event,
     Emitter<ClientState> emit,
   ) async {
-    logi('Claiming a session for the device `$uidDevice`...');
+    logger.i('Claiming a session for the device `$uidDevice`...');
 
     state.ss.freeze();
     emit(
@@ -153,7 +153,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       ),
     );
 
-    logi('Session `$session` claimed for the device `$uidDevice`.');
+    logger.i('Session `$session` claimed for the device `$uidDevice`.');
   }
 
   Future<void> _onApprovingSession(
@@ -161,7 +161,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     Emitter<ClientState> emit,
   ) async {
     final session = state.ss.session;
-    logi('Approving the session `$session`...');
+    logger.i('Approving the session `$session`...');
 
     state.ss.freeze();
     emit(
@@ -191,7 +191,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       ),
     );
 
-    logi('Session `$session` approved.');
+    logger.i('Session `$session` approved.');
   }
 
   Future<void> _onGettingAboutServer(
@@ -200,7 +200,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   ) async {
     _checkApprove();
 
-    logi('Getting info about server...');
+    logger.i('Getting info about server...');
 
     state.ss.freeze();
     emit(
@@ -227,7 +227,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       ),
     );
 
-    logi('About server: `$name`.');
+    logger.i('About server: `$name`.');
   }
 
   late final StreamController<ActBaseRequest> clientActs;
@@ -249,22 +249,22 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     /// create a stream for sending acts to Server
     /// the Server will be subscribe to [clientActs] below
     clientActs = StreamController<ActBaseRequest>();
-    logi('A stream Client ➡️ Server opened.');
+    logger.i('A stream Client ➡️ Server opened.');
 
     serverActs = maiaStub.synchronize(clientActs.stream);
     serverActs.listen(
       (ActBaseResponse ar) {
         final act = NativeActBuilder(state.componentBuilder).fromBase(ar.act);
-        logi('Processing the received act from Server.'
+        logger.i('Processing the received act from Server.'
             ' `${ar.act.type.name}` -> `$act`');
 
         add(ProcessingActClientEvent(act: act, answer: ar.answer));
       },
       onError: (dynamic s) =>
-          loge('_onOpeningSyncStreamsEvent() serverActs onError `$s`'),
-      onDone: () => logi('_onOpeningSyncStreamsEvent() serverActs onDone'),
+          logger.e('_onOpeningSyncStreamsEvent() serverActs onError `$s`'),
+      onDone: () => logger.i('_onOpeningSyncStreamsEvent() serverActs onDone'),
     );
-    logi('A stream Server ➡️ Client opened.');
+    logger.i('A stream Server ➡️ Client opened.');
   }
 
   Future<void> _onFetchingPlan(
@@ -284,7 +284,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     final id = event.planId;
     lore.remove(id);
 
-    logi('Fetching plan `$id` and build with `$planBuilder`...');
+    logger.i('Fetching plan `$id` and build with `$planBuilder`...');
     final response = await maiaStub.fetchPlan(
       maia.FetchPlanRequest(
         session: state.ss.session,
@@ -299,7 +299,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     // ignore: unused_local_variable
     final plan = planBuilder.fromBase(response.plan);
     // lore.addNew(plan); - already added when constructed
-    logi('Fetched plan `$id` and added to Lore.');
+    logger.i('Fetched plan `$id` and added to Lore.');
 
     emit(
       state.copyWith(
@@ -310,7 +310,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       ),
     );
 
-    logi('Fetched current plan `$id` from Server.');
+    logger.i('Fetched current plan `$id` from Server.');
 
     add(const WaitingInputClientEvent(from: '_onFetchingPlan'));
   }
@@ -340,7 +340,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
 
     final id = event.plan.id;
 
-    logi('Constructing plan `$id` on server side...');
+    logger.i('Constructing plan `$id` on server side...');
     {
       final response = await maiaStub.constructPlan(
         maia.ConstructPlanRequest(
@@ -353,7 +353,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
         throw ServerAnswerError(response.answer, StackTrace.current);
       }
     }
-    logi('The plan `$id` constructed on server side.');
+    logger.i('The plan `$id` constructed on server side.');
 
     // ! we don't get the constructed plan here to client side
 
@@ -389,7 +389,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
     }
 
     final act = AddPlanAct.fromPlan(event.fromPlanId, event.plan);
-    logi('DefaultClientBloc _onConstructingWhenAbsentAndFetchingPlan()'
+    logger.i('DefaultClientBloc _onConstructingWhenAbsentAndFetchingPlan()'
         ' Sending act ${act.sjsonInLine}...');
     add(SendingToServerActClientEvent(act: act));
 
@@ -402,7 +402,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
   }
 
   Future<bool> hasPlan(String planId) async {
-    logi('Checking plan `$planId` on server side...');
+    logger.i('Checking plan `$planId` on server side...');
     late final bool has;
     {
       final response = await maiaStub.hasPlan(
@@ -417,7 +417,8 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       }
       has = response.has;
     }
-    logi('The plan `$planId` ${has ? "present" : "absent"} on server side.');
+    logger
+        .i('The plan `$planId` ${has ? "present" : "absent"} on server side.');
 
     return has;
   }
@@ -500,7 +501,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       );
       success = true;
     } catch (ex) {
-      loge(ex);
+      logger.e(ex);
       success = false;
     }
 
@@ -540,7 +541,7 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       clientActs.sink.add(request);
       success = true;
     } catch (ex) {
-      loge(ex);
+      logger.e(ex);
       success = false;
     }
 
@@ -586,18 +587,6 @@ class DefaultClientBloc extends HydratedBloc<AClientEvent, ClientState> {
       );
 
   late final maia.ServiceClient maiaStub;
-
-  void logi(Object msg) => dh.logi(_logToState(dh.LogType.info, msg));
-
-  void logw(Object msg) => dh.logw(_logToState(dh.LogType.warning, msg));
-
-  void loge(Object msg) => dh.loge(_logToState(dh.LogType.error, msg));
-
-  String _logToState(dh.LogType type, Object msg) {
-    // TODO ?
-
-    return msg.toString();
-  }
 
   @override
   ClientState fromJson(JsonMap json) => state.fromJson(json);

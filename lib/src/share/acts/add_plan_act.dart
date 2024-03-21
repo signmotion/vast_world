@@ -60,7 +60,7 @@ class AddPlanAct extends Act {
 
     // expose this plan to spectator's plan
     if ((spectatorId ?? '').isEmpty) {
-      logw('Added plan `${plan.id}` without spectator.');
+      logger.w('Added plan `${plan.id}` without spectator.');
     } else {
       lore.bind(spectatorId!, plan.id);
     }

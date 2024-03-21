@@ -79,7 +79,7 @@ class ServerService extends ServiceBase with ServiceMix {
         ),
       );
     } catch (ex) {
-      loge(ex);
+      logger.e(ex);
       response = HasPlanResponse(
         answer: ServerAnswer(
           type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
@@ -116,7 +116,7 @@ class ServerService extends ServiceBase with ServiceMix {
         ),
       );
     } catch (ex) {
-      loge(ex);
+      logger.e(ex);
       response = ConstructPlanResponse(
         answer: ServerAnswer(
           type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
@@ -152,7 +152,7 @@ class ServerService extends ServiceBase with ServiceMix {
         ),
       );
     } catch (ex) {
-      loge(ex);
+      logger.e(ex);
       response = FetchPlanResponse(
         answer: ServerAnswer(
           type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
@@ -185,7 +185,7 @@ class ServerService extends ServiceBase with ServiceMix {
         ),
       );
     } catch (ex) {
-      loge(ex);
+      logger.e(ex);
       response = FetchPlanIdsResponse(
         answer: ServerAnswer(
           type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
@@ -217,7 +217,7 @@ class ServerService extends ServiceBase with ServiceMix {
         ),
       );
     } catch (ex) {
-      loge(ex);
+      logger.e(ex);
       response = SetCurrentPlanResponse(
         answer: ServerAnswer(
           type: ServerAnswerTypeEnum.REJECTED_SERVER_ANSWER_TYPE,
@@ -240,7 +240,7 @@ class ServerService extends ServiceBase with ServiceMix {
     // ignore: avoid_renaming_method_parameters
     Stream<ActBaseRequest> clientActs,
   ) {
-    logi('Opening streams Client ↔️ Server...');
+    logger.i('Opening streams Client ↔️ Server...');
 
     /// create a stream for sending acts to Client
     /// the Client will be subsribe to [serverActs] below
@@ -248,7 +248,7 @@ class ServerService extends ServiceBase with ServiceMix {
 
     clientActs.listen(
       (ActBaseRequest ar) async {
-        logi('Processing the received act from Client.'
+        logger.i('Processing the received act from Client.'
             ' `${ar.act.type.name}`');
 
         late final Object? exception;
@@ -260,7 +260,7 @@ class ServerService extends ServiceBase with ServiceMix {
           );
           exception = null;
         } catch (ex) {
-          loge(ex);
+          logger.e(ex);
           exception = ex;
           success = false;
         }
@@ -282,11 +282,11 @@ class ServerService extends ServiceBase with ServiceMix {
         );
         serverActs.sink.add(answer);
       },
-      onError: (dynamic s) => loge('synchronize() clientActs onError `$s`'),
-      onDone: () => logi('synchronize() clientActs onDone'),
+      onError: (dynamic s) => logger.e('synchronize() clientActs onError `$s`'),
+      onDone: () => logger.i('synchronize() clientActs onDone'),
     );
 
-    logi('Opened streams Client ↔️ Server.');
+    logger.i('Opened streams Client ↔️ Server.');
 
     return serverActs.stream;
   }

@@ -45,7 +45,7 @@ class Lore {
     ae(plan.id.isPlanId, 'Incorrect plan ID. `${plan.id}`');
 
     if (this[plan.id] != null) {
-      logi('Plan `${plan.id} will be replaced to `${plan.sjsonInLine}`.');
+      logger.i('Plan `${plan.id} will be replaced to `${plan.sjsonInLine}`.');
       remove(plan.id);
     }
 

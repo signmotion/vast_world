@@ -51,7 +51,7 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
     required TPlanBuilder planBuilder,
     required TComponentBuilder componentBuilder,
   }) {
-    logi('Client. Running the act `$sjsonInLine` on the `$o`...'
+    logger.i('Client. Running the act `$sjsonInLine` on the `$o`...'
         .bittenOfAllUuids32);
 
     return innerRunOnClient<T>(
@@ -75,7 +75,7 @@ abstract class Act with HasProtoBaseMix, HasStringIdMix {
     required TPlanBuilder planBuilder,
     required TComponentBuilder componentBuilder,
   }) {
-    logi('Server. Running the act `$sjsonInLine` on the `$o`...'
+    logger.i('Server. Running the act `$sjsonInLine` on the `$o`...'
         .bittenOfAllUuids32);
 
     return innerRunOnServer<T>(
