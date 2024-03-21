@@ -54,7 +54,7 @@ packages:
       path: "../astronomical_measurements"
       relative: true
     source: path
-    version: "0.2.2"
+    version: "0.2.3"
   async:
     dependency: transitive
     description:
@@ -309,10 +309,10 @@ packages:
     dependency: "direct main"
     description:
       name: id_gen
-      sha256: "83d37d4b891dbeadfad1d375ad17dd81f7a860a013b11b7f794679c8334395b3"
+      sha256: f231f1597068f4cff1c08032a59d47be7cf302d89bf7d6241e858f08008e4222
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.0"
+    version: "0.7.1"
   image:
     dependency: "direct main"
     description:
@@ -357,10 +357,10 @@ packages:
     dependency: "direct main"
     description:
       name: json_dart
-      sha256: debc7f3cfaaf81383ac1370fd435b317eca9977927b310ea8922e0e448bb3e13
+      sha256: "9ab4066092d5be0031dbc610f7b9237afd919eca4f1241c18e2dfbc0d4f47c84"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.0"
+    version: "0.1.1"
   lints:
     dependency: "direct dev"
     description:
@@ -493,10 +493,10 @@ packages:
     dependency: transitive
     description:
       name: pure_dart_ui
-      sha256: "19e4a73241dd397249838048e21aa87dda6d79591dfaa08efaa1e970daa056be"
+      sha256: "801b01daf9fb0b372c77df9f380e7f20d4d8011f8de629b3be9d39d9ee00adfa"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.4"
+    version: "0.1.5"
   shelf:
     dependency: transitive
     description:
@@ -703,10 +703,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: e7d5ecd604e499358c5fe35ee828c0298a320d54455e791e9dcf73486bc8d9f0
+      sha256: a75f83f14ad81d5fe4b3319710b90dec37da0e22612326b696c9e1b8f34bbf48
       url: "https://pub.dev"
     source: hosted
-    version: "14.1.0"
+    version: "14.2.0"
   watcher:
     dependency: transitive
     description:
@@ -743,10 +743,10 @@ packages:
     dependency: "direct main"
     description:
       name: wfile
-      sha256: "76cd5440b6eaa6dd35a404b9d32b2dc7ed4c929616d28e1f8d664e77efe36c57"
+      sha256: "2be73888b0c625426947c90fa8b54f7dc7e6e031673c6baea1de8a17b890e93f"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0"
+    version: "0.4.1"
   xml:
     dependency: "direct main"
     description:
