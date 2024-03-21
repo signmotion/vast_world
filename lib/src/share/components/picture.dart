@@ -1,38 +1,34 @@
 part of '../../../vast_world_share.dart';
 
-class PictureComponent extends Component<Image> {
+class PictureComponent extends Component<Image?> {
   @override
   String get uid => '$componentUidPrefix-$suid';
 
   static const suid = 'e08d85f0-71e3-4964-abcd-a92a17ba22fc';
 
   @override
-  Image get empty => Image.empty();
+  Image? get empty => null;
 
-  Image get image => value;
+  Image? get image => value;
 
-  int get width => image.width;
+  int get width => image?.width ?? 0;
 
-  int get height => image.height;
+  int get height => image?.height ?? 0;
 
   @override
   JsonMap get valueAsJson => {
         'width': width,
         'height': height,
-        'bytes': VSConfig.shrinkImageDataInComponent == -1
-            ? image.data!.getBytes()
-            : image.data!
-                .getBytes()
-                .sublist(0, VSConfig.shrinkImageDataInComponent),
+        'bytes': image?.data?.getBytes().toList() ?? const <int>[],
       };
 
   @override
   Image jsonAsValue(JsonMap json) => switch (json) {
-        {'width': int width, 'height': int height, 'bytes': Uint8List bytes} =>
+        {'width': int width, 'height': int height, 'bytes': List<int> bytes} =>
           Image.fromBytes(
             width: width,
             height: height,
-            bytes: bytes.buffer,
+            bytes: Uint8List.fromList(bytes).buffer,
           ),
         _ => throw IllegalArgumentError('json', json.sjson, StackTrace.current),
       };
